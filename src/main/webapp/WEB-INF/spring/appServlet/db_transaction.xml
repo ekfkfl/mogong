@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+<!-- 외부 properties파일 위치 설정 -->
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="locations">
+		<value>/WEB-INF/spring/appServlet/dbInfo.properties</value>
+	</property>
+</bean>
+
+<!-- DB 설정(JDBC) -->
+<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource">
+	<property name="driverClassName" value="${driverName}"/>
+	<property name="url" value="${url}"/>
+	<property name="username" value="${userName}"/>
+	<property name="password" value="${userPass}"/>
+	<property name="maxActive" value="10"/>
+</bean>
+
+<!-- Mybatis 설정하기 -->
+<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory"> <!-- SqlSessionFactory 생성 -->
+	<property name="dataSource" ref="dataSource"/>
+	<property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/><!-- ~~~Mapper로 끝나는 파일은 모두 등록 -->
+	<property name="typeAliasesPackage" value="kosta.web.mogong.dto"/><!-- dto 폴더 안에 있는 클래스들 별칭 자동 만듬 : 클래스 이름의 첫글자만 소문자로 작성. -->
+</bean>
+
+<!-- SqlSession객체 생성 ==> SqlSession에 자동 주입!! -->
+<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+	<constructor-arg ref="sqlSessionFactory" index="0"/>
+</bean>
+
+<!-- spring Transaction을 위한 설정. -->
+<bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+	<property name="dataSource" ref="dataSource"/>
+</bean>
+
+<!-- transaction에 설정되어있는 공통코드(advice) 옵션 설정. -->
+<!-- <tx:advice transaction-manager="transactionManager" id="txAdvice">
+	<tx:attributes>
+		<tx:method name="*" isolation="DEFAULT" propagation="REQUIRED"/>
+	</tx:attributes>
+</tx:advice> -->
+
+<!-- 실제 타겟대상(transaction을 적용할 대상)과 transaction advice를 연결 -->
+<!-- <aop:config>
+	<aop:advisor advice-ref="txAdvice" pointcut="execution(public * kosta.web.service.*Impl.*(..))"/>
+</aop:config> -->
+
+
+<!-- transaction을 annotation으로 설정(tx:advice와 aop:config가 생략됨 -->
+<tx:annotation-driven transaction-manager="transactionManager"/>
+
+
+</beans>
