@@ -43,19 +43,6 @@
 	<property name="dataSource" ref="dataSource"/>
 </bean>
 
-<!-- transaction에 설정되어있는 공통코드(advice) 옵션 설정. -->
-<!-- <tx:advice transaction-manager="transactionManager" id="txAdvice">
-	<tx:attributes>
-		<tx:method name="*" isolation="DEFAULT" propagation="REQUIRED"/>
-	</tx:attributes>
-</tx:advice> -->
-
-<!-- 실제 타겟대상(transaction을 적용할 대상)과 transaction advice를 연결 -->
-<!-- <aop:config>
-	<aop:advisor advice-ref="txAdvice" pointcut="execution(public * kosta.web.service.*Impl.*(..))"/>
-</aop:config> -->
-
-
 <!-- transaction을 annotation으로 설정(tx:advice와 aop:config가 생략됨 -->
 <tx:annotation-driven transaction-manager="transactionManager"/>
 
