@@ -1168,7 +1168,7 @@ textarea:focus {
 }
 
 #client .col-md-2 {
-	height: 100px;
+	height: 150px;
 }
 
 #client span {
@@ -1178,7 +1178,7 @@ textarea:focus {
 }
 
 #client img {
-	max-height: 100px;
+	max-height: 200px;
 	vertical-align: middle;
 }
 
