@@ -45,7 +45,21 @@
 			  <!-- Navbar Right Menu -->
 			  <div class="navbar-custom-menu">
 				<ul class="nav navbar-nav">
-				
+				  <li class="dropdown messages-menu">
+					<!-- Menu toggle button -->
+					<a href="/mypage" class="dropdown-toggle" data-toggle="dropdown">
+					  <i class="fa fa-envelope-o"></i>
+					  <span class="label label-success">4</span>
+					</a>
+					<ul class="dropdown-menu">
+					  <li class="header">You have 4 messages</li>
+					  <li>
+						<!-- /.menu -->
+					  </li>
+					  <li class="footer"><a href="${pageContext.request.contextPath}/main/mypage">My page</a></li>
+					</ul>
+				  </li>
+				  </li>
 				  <!-- 헤더에서 메시지 드랍다운-->
 				 <%--  <li class="dropdown messages-menu">
 					<!-- Menu toggle button -->
@@ -79,26 +93,8 @@
 					  </li>
 					  <li class="footer"><a href="#">See All Messages</a></li>
 					</ul>
-<<<<<<< HEAD:src/main/webapp/WEB-INF/views/index.jsp
 				  </li>
-				  <li class="dropdown messages-menu">
-					<!-- Menu toggle button -->
-					<a href="/mypage" class="dropdown-toggle" data-toggle="dropdown">
-					  <i class="fa fa-envelope-o"></i>
-					  <span class="label label-success">4</span>
-					</a>
-					<ul class="dropdown-menu">
-					  <li class="header">You have 4 messages</li>
-					  <li>
-						
-						<!-- /.menu -->
-					  </li>
-					  <li class="footer"><a href="${pageContext.request.contextPath}/mypage">My page</a></li>
-					</ul>
-				  </li>
-=======
-				  </li> --%>
->>>>>>> e31023709dba3916e3490fdf1efc0a2a4d93eddd:src/main/webapp/WEB-INF/views/main/index.jsp
+				 --%>
 				  <!-- /.messages-menu -->
 
 				  <!-- Notifications Menu -->
