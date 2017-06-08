@@ -45,7 +45,21 @@
 			  <!-- Navbar Right Menu -->
 			  <div class="navbar-custom-menu">
 				<ul class="nav navbar-nav">
-				
+				  <li class="dropdown messages-menu">
+					<!-- Menu toggle button -->
+					<a href="/mypage" class="dropdown-toggle" data-toggle="dropdown">
+					  <i class="fa fa-envelope-o"></i>
+					  <span class="label label-success">4</span>
+					</a>
+					<ul class="dropdown-menu">
+					  <li class="header">You have 4 messages</li>
+					  <li>
+						<!-- /.menu -->
+					  </li>
+					  <li class="footer"><a href="${pageContext.request.contextPath}/main/mypage">My page</a></li>
+					</ul>
+				  </li>
+				  </li>
 				  <!-- 헤더에서 메시지 드랍다운-->
 				 <%--  <li class="dropdown messages-menu">
 					<!-- Menu toggle button -->
@@ -79,7 +93,8 @@
 					  </li>
 					  <li class="footer"><a href="#">See All Messages</a></li>
 					</ul>
-				  </li> --%>
+				  </li>
+				 --%>
 				  <!-- /.messages-menu -->
 
 				  <!-- Notifications Menu -->
@@ -153,17 +168,14 @@
 					  <!-- The user image in the menu -->
 					  <form action="" method="post">
 					  <li class="user-header">
-							<table>
-							<tr>
-								<td>ID</td>
-								<td><input type="text" name="name"></td>
-							</tr>
-							<tr>
-								<td>PW</td>
-								<td><input type="text" name="password"></td>
-							</tr>
-							</table>
-					  </li>
+						<div class="form-group">
+			                <label for="id">ID:</label>
+			                <input type="text" class="form-control" id="id">
+			              </div>
+			              <div class="form-group">
+			                <label for="password">Password:</label>
+			                <input type="password" class="form-control" id="password">
+			              </div>
 					  <!-- Menu Footer-->
 					  <li class="user-footer">
 						<div class="pull-left">
