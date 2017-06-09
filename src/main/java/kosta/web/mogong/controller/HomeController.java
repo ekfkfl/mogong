@@ -38,7 +38,17 @@ public class HomeController {
 	
 	@RequestMapping("/main/mypage")
 	public String myPage(){
-		return "main/mypage";
+		return "/mypage/mypageMain";
+	}
+	
+	@RequestMapping("/main/header")
+	public String mainHeader(){
+		return "main/header";
+	}
+	
+	@RequestMapping("/login")
+	public String login(){
+		return "main/login";
 	}
 	
 }

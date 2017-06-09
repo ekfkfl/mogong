@@ -88,7 +88,6 @@ desired effect
 
   <!-- Main Header -->
   <header class="main-header">
-	
 	<section class="main-header">
     <!-- Logo -->
     <a href="${pageContext.request.contextPath}/" class="logo" id="logo">
@@ -256,8 +255,7 @@ desired effect
   </header>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
-
-    <!-- sidebar: style can be found in sidebar.less -->
+	  <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
 
       <!-- Sidebar user panel (optional) -->
@@ -276,18 +274,30 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>개인정보수정</span></a></li>
         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+          <a href="#"><i class="fa fa-link"></i> <span>스터디 관리</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
+            <li><a href="${pageContext.request.contextPath}/mypage/studyRequest" target="mainContent">신청중</a></li>
+            <li><a href="#">진행중</a></li>
+            <li><a href="#">모집중</a></li>
           </ul>
+           <li class="treeview">
+          <a href="#"><i class="fa fa-link"></i> <span>쪽지함</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+          	<li><a href="#">쪽지쓰기</a></li>
+            <li><a href="#">받은쪽지함</a></li>
+            <li><a href="#">보낸쪽지함</a></li>
+          </ul>
+          <li><a href="#"><i class="fa fa-link"></i> <span>관리자모드</span></a></li>
         </li>
       </ul>
       <!-- /.sidebar-menu -->
@@ -297,33 +307,16 @@ desired effect
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Page Header
-        <small>Optional description</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
-    </section>
+    
+        <iframe name="mainContent" width="100%" height="700" frameborder="0" ></iframe>
 
-    <!-- Main content -->
-    <section class="content container-fluid">
-
-      <!--------------------------
-        | Your Page Content Here |
-        -------------------------->
-
-    </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <!-- To the right -->
+   	 <!-- To the right -->
     <div class="pull-right hidden-xs">
       Anything you want
     </div>
