@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminCodeMapper">
+<sql id="commCodeColumns">
+comm_code, code_name, code_desc, parent_code, reg_date, update_date, code_used, code_order 
+</sql>
+
+<resultMap type="commCodeDTO" id="commCodeDTOMap">
+	<id column="comm_code" property="commCode"/>
+	<result column="code_name" property="codeName"/>
+	<result column="code_desc" property="codeDesc"/>
+	<result column="parent_code" property="parentCode"/>
+	<result column="reg_date" property="regDate"/>
+	<result column="update_date" property="updateDate"/>
+	<result column="code_used" property="codeUsed"/>
+	<result column="code_order" property="codeOrder"/>
+</resultMap>
+
+<select id="selectCodeAll" resultMap="commCodeDTOMap">
+select <include refid="commCodeColumns"></include> from comm_code
+</select>
+
+<select id="selectCodeByName" parameterType="string">
+select <include refid="commCodeColumns"></include> from comm_code
+where code_name like %|| #{_parameter} ||%
+</select>
+
+<select id="selectCodeByParentCode" parameterType="string" resultMap="commCodeDTOMap">
+select <include refid="commCodeColumns"></include> from comm_code
+where parent_code=#{_parameter}
+</select>
+
+<insert id="insertCode" parameterType="commCodeDTO">
+INSERT INTO comm_code 
+VALUES (lpad(code_seq.nextval, 4, '0'), #{codeName}, #{codeDesc}, #{parentCode}, sysdate, null, 'Y', #{codeOrder}) 
+</insert>
+ 
+<update id="updateCode" parameterType="commCodeDTO">
+update comm_code
+<set>
+	<if test="codeName!=null">code_name=#{codeName}, </if>
+	<if test="codeDesc!=null">code_desc=#{codeDesc}, </if>
+	<if test="parentCode!=null">parent_code=#{parentCode}, </if>
+	<if test="codeUsed!=null">codeUsed=#{codeUsed}, </if>
+	<if test="codeOrder!=null">codeOrder=#{codeOrder}, </if>
+	update_date=sysdate
+</set>
+where
+comm_code=#{commCode};
+</update> 
+
+<delete id="deleteCode" parameterType="string">
+delete from comm_code
+where comm_code=#{_parameter}
+</delete>
+
+
+</mapper>
