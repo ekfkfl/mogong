@@ -29,9 +29,7 @@
 		<section class="main-header">
 
 			<!-- Logo -->
-			<a href="index2.html" class="logo">
-			  <!-- mini logo for sidebar mini 50x50 pixels -->
-			  <span class="logo-mini"><b>M</b>LT</span>
+			<a href="${pageContext.request.contextPath}/" class="logo">
 			  <!-- logo for regular state and mobile devices -->
 			  <span class="logo-lg"><b style="font-size:35px">모</b>여서 <b style="font-size:30px">공</b>부하자</span>
 			</a>
@@ -403,14 +401,14 @@
 
 					<div class=" col-xs-12 col-md-3">
 						<div class="about-bg-wrapper">
-								<span class="count"><h1><span class="border">32</span>15</h1></span>
+								<span class="count"><h1>10</h1></span>
 							<p>happy client</p>
 						</div>
 					</div>
 
 					<div class="col-xs-12 col-md-3">
 						<div class="about-bg-wrapper">
-							<span class="count"><h1>2217</h1></span>
+							<span class="count"><h1>50</h1></span>
 							<p>projects</p>
 						</div>
 					</div>
@@ -510,7 +508,6 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="footer-heading">
-							<h3><span>about</span> us</h3>
 							<p>To explore strange new worlds to seek out new life and new civilizations to boldly go where no man has gone before. It's time to play the music.</p>
 							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 						</div>
@@ -589,7 +586,6 @@
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.flexslider.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.inview.js"></script>
-    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
     <script src="${pageContext.request.contextPath}/resources/js/script.js"></script>
     
 </body>
