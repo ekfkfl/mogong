@@ -223,7 +223,7 @@
 							<li><a href="#home">home</a></li>
 							<li><a href="#about">스터디 모집</a></li>
 							<li><a href="#service">스터디 검색</a></li>
-							<li><a href="${pageContext.request.contextPath}/study/main">공지사항</a></li>
+							<li><a href="${pageContext.request.contextPath}/member/study/main">공지사항</a></li>
 							<li class="hidden-sm hidden-xs">
 	                            <a href="#" id="ss"><i class="fa fa-search" aria-hidden="true"></i></a>
 	                        </li>

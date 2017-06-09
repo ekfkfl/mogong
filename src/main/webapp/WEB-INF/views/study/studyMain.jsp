@@ -278,7 +278,7 @@ desired effect
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="#"><i class="fa fa-link"></i> <span>스터디 메인</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
+        <li><a href="${pageContext.request.contextPath}/member/study/task"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>채팅</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>게시판</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
