@@ -20,17 +20,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/AdminLTE.css">
-  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-        page. However, you can choose any other skin. Make sure you
-        apply the skin class to the body tag so the changes take effect. -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/skins/skin-blue.css">
 
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/skins/skin-blue.css">
 	
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -57,11 +48,42 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$("#toggle").css('background-color','white');
 				}
 			)
-			
-		})
-	
-	</script>
+			$("#progress1").hover(
+				function () {
+					$(this).css('background-color','#e1e1e1')
+				},
+				function () {
+					$(this).css('background-color','white')
+				}
+			)
+			$("#progress2").hover(
+				function () {
+					$(this).css('background-color','#e1e1e1')
+				},
+				function () {
+					$(this).css('background-color','white')
+				}
+			)
 
+			$("#progress3").hover(
+				function () {
+					$(this).css('background-color','#e1e1e1')
+				},
+				function () {
+					$(this).css('background-color','white')
+				}
+			)
+
+			$("#progress4").hover(
+				function () {
+					$(this).css('background-color','#e1e1e1')
+				},
+				function () {
+					$(this).css('background-color','white')
+				}
+			)
+		})
+	</script>
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -249,7 +271,10 @@ desired effect
               </li>
             </ul>
           </li>
-
+			<!-- Control Sidebar Toggle Button -->
+          <li>
+            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+          </li>
         </ul>
       </div>
     </nav>
@@ -308,6 +333,223 @@ desired effect
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
+         <!-- TO DO List -->
+          <div class="box box-primary">
+            <div class="box-header">
+
+              <h3 class="box-title">마감일 지남</h3>
+			<!-- 
+              <div class="box-tools pull-right">
+                <ul class="pagination pagination-sm inline">
+                  <li><a href="#">&laquo;</a></li>
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+              </div>
+            </div>
+             -->
+            <!-- /.box-header -->
+            <div class="box-body">
+              <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
+              <ul class="todo-list">
+                <li>
+                  <!-- drag handle -->
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                  <!-- todo text -->
+                  <span class="text">Design a nice theme</span>
+                  <!-- Emphasis label -->
+                  <small class="label label-success"><i class="fa fa-clock-o"></i> 3 days</small>
+                  
+                </li>
+                <li>
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                  <span class="text">Make the theme responsive</span>
+                  <small class="label label-success"><i class="fa fa-clock-o"></i> 3 days</small>
+                  
+                </li>
+                <li>
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                  <span class="text">Let theme shine like a star</span>
+				  <small class="label label-success"><i class="fa fa-clock-o"></i> 3 days</small>                  
+                </li>
+               
+               
+               
+              </ul>
+            </div>
+            <!-- /.box-body -->
+           
+          </div>
+          </div>
+          <!-- /.box -->
+          
+           <!-- TO DO List -->
+          <div class="box box-primary">
+            <div class="box-header">
+
+              <h3 class="box-title">계획됨</h3>
+			<!-- 
+              <div class="box-tools pull-right">
+                <ul class="pagination pagination-sm inline">
+                  <li><a href="#">&laquo;</a></li>
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+              </div>
+            </div>
+             -->
+            <!-- /.box-header -->
+            <div class="box-body">
+              <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
+              <ul class="todo-list">
+                <li>
+                  <!-- drag handle -->
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                  <!-- todo text -->
+                  <span class="text">Design a nice theme</span>
+                  <!-- Emphasis label -->
+                  <small class="label label-warning"><i class="fa fa-clock-o"></i> 3 days</small>
+                  
+                </li>
+                <li>
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                  <span class="text">Make the theme responsive</span>
+                  <small class="label label-warning"><i class="fa fa-clock-o"></i> 3 days</small>
+                  
+                </li>
+                <li>
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                  <span class="text">Let theme shine like a star</span>
+				  <small class="label label-warning"><i class="fa fa-clock-o"></i> 3 days</small>                  
+                </li>
+               
+               
+               
+              </ul>
+            </div>
+            <!-- /.box-body -->
+           
+          </div>
+          </div>
+          <!-- /.box -->
+           <!-- TO DO List -->
+          <div class="box box-primary">
+            <div class="box-header">
+
+              <h3 class="box-title">마감일 없음</h3>
+			<!-- 
+              <div class="box-tools pull-right">
+                <ul class="pagination pagination-sm inline">
+                  <li><a href="#">&laquo;</a></li>
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+              </div>
+            </div>
+             -->
+            <!-- /.box-header -->
+            <div class="box-body">
+              <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
+              <ul class="todo-list">
+                <li>
+                  <!-- drag handle -->
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                  <!-- todo text -->
+                  <span class="text">Design a nice theme</span>
+                  <!-- Emphasis label -->
+                  <small class="label label-default"><i class="fa fa-clock-o"></i> 3 days</small>
+                  
+                </li>
+                <li>
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                  <span class="text">Make the theme responsive</span>
+                  <small class="label label-default"><i class="fa fa-clock-o"></i> 3 days</small>
+                  
+                </li>
+                <li>
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                  <span class="text">Let theme shine like a star</span>
+				  <small class="label label-default"><i class="fa fa-clock-o"></i> 3 days</small>                  
+                </li>
+               
+               
+               
+              </ul>
+            </div>
+            <!-- /.box-body -->
+           
+          </div>
+          </div>
+          <!-- /.box -->
+           <!-- TO DO List -->
+          <div class="box box-primary">
+            <div class="box-header">
+
+              <h3 class="box-title">완료됨</h3>
+			<!-- 
+              <div class="box-tools pull-right">
+                <ul class="pagination pagination-sm inline">
+                  <li><a href="#">&laquo;</a></li>
+                  <li><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+              </div>
+            </div>
+             -->
+            <!-- /.box-header -->
+            <div class="box-body">
+              <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
+              <ul class="todo-list">
+                <li>
+                  <!-- drag handle -->
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                  <!-- todo text -->
+                  <span class="text">Design a nice theme</span>
+                  <!-- Emphasis label -->
+                  <small class="label label-info"><i class="fa fa-clock-o"></i> 3 days</small>
+                  
+                </li>
+                <li>
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                  <span class="text">Make the theme responsive</span>
+                  <small class="label label-info"><i class="fa fa-clock-o"></i> 3 days</small>
+                  
+                </li>
+                <li>
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                  <span class="text">Let theme shine like a star</span>
+				  <small class="label label-info"><i class="fa fa-clock-o"></i> 3 days</small>                  
+                </li>
+               
+               
+               
+              </ul>
+            </div>
+            <!-- /.box-body -->
+           
+          </div>
+          </div>
+          <!-- /.box -->
 
     </section>
     <!-- /.content -->
@@ -323,7 +565,78 @@ desired effect
     <!-- Default to the left -->
     <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
   </footer>
+  
+  
+ <!-- **** 오른쪽 사이드 바 **** -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- Home tab content -->
+      <div class="tab-pane active" id="control-sidebar-home-tab">
+        <h3 class="control-sidebar-heading">진행 상황</h3>
+        
+        <!-- 차트 -->
+		<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>       
+        
+        <ul class="control-sidebar-menu">
+          <li>
+            <a href="javascript:void(0)" id="progress1">
+              <h4 class="control-sidebar-subheading">
+                완료(10)
+                <span class="label label-danger pull-right">25%</span>
+              </h4>
 
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-danger" style="width: 25%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" id="progress2">
+              <h4 class="control-sidebar-subheading">
+                마감일 지남(3)
+                <span class="label label-success pull-right">25%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-success" style="width: 25%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" id="progress3">
+              <h4 class="control-sidebar-subheading">
+                계획됨(5)
+                <span class="label label-warning pull-right">25%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-warning" style="width: 25%"></div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" id="progress4">
+              <h4 class="control-sidebar-subheading">
+                마감일 없음(9)
+                <span class="label label-primary pull-right">25%</span>
+              </h4>
+
+              <div class="progress progress-xxs">
+                <div class="progress-bar progress-bar-primary" style="width: 25%"></div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+     </div>
+    </div>
+  </aside>
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
 
@@ -335,6 +648,70 @@ desired effect
  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<script type="text/javascript">
+	$(function () {
+		// Build the chart
+	    Highcharts.chart('container', {
+	        chart: {
+	            plotBackgroundColor: null,
+	            plotBorderWidth: null,
+	            plotShadow: false,
+	            type: 'pie'
+	        },
+	        credits:{
+	        	enabled: false
+	        },
+	        exporting:{
+	        	enabled: false
+	        },
+	        title: {
+	            text: ''
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	        },
+	        plotOptions: {
+	            pie: {
+	                allowPointSelect: true,
+	                cursor: 'pointer',
+	                dataLabels: {
+	                    enabled: false
+	                },
+	                showInLegend: true
+	            }
+	        },
+	        series: [{
+	            name: '진행률',
+	            colorByPoint: true,
+	            data: [{
+	                name: '완료',
+	                color:'#51a8ff',
+	                y: 25
+	            }, {
+	                name: '마감일 지남',
+	                color:'#fd6a6a',
+	                y: 25,
+	                sliced: true,
+	                selected: true
+	            }, {
+	                name: '계획됨',
+	                color:'#f9c62d',
+	                y: 25
+	            }, {
+	                name: '마감일 없음',
+	                color:'#c0c0c0',
+	                y: 25
+	            }]
+	        }]
+	    });
+	})
+
+</script>
 
 
 </body>
