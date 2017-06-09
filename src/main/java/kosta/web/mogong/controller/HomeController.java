@@ -38,7 +38,7 @@ public class HomeController {
 	
 	@RequestMapping("/main/mypage")
 	public String myPage(){
-		return "main/mypage";
+		return "/mypage/mypageMain";
 	}
 	
 }
