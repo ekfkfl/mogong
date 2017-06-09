@@ -1,20 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ <!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>모여서 공부하자</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/AdminLTE.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect. -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/skins/skin-blue.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+	
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.0.min.js"></script>
+	
+	<script type="text/javascript">
+		$(function () {
+			$("#logo").hover(
+				function () {
+					$(this).css('background-color','white');
+					$("#logoText").css('color','#349fda');
+				},		
+				function () {
+					$("#logoText").css('color','#367fa9');
+				}
+			)
+			
+			$("#toggle").hover(
+				function () {
+					$("#toggle").css('background-color','#e1e1e1');
+				},
+				function () {
+					$("#toggle").css('background-color','white');
+				}
+			)
+		})
+	
+	</script>
+
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/study/header.jsp" flush="false"/>
-<jsp:include page="/WEB-INF/views/study/sidebar.jsp" flush="false"/>
 <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        스터디 페이지 메인
+        Task 관리
         <small>Optional description</small>
       </h1>
       <ol class="breadcrumb">
@@ -29,11 +82,17 @@
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
-		<h1>안녕칭구들</h1>
     </section>
     <!-- /.content -->
-  </div>
   <!-- /.content-wrapper -->
-<jsp:include page="/WEB-INF/views/study/footer.jsp" flush="false"/>
+  
+  <!-- REQUIRED JS SCRIPTS -->
+
+<!-- jQuery 3.1.1 -->
+ <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+ <!-- Bootstrap 3.3.7 -->
+ <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
 </body>
 </html>

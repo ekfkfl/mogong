@@ -7,6 +7,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html>
 <head>
+  <meta content="blendTrans(Duration=0.0)" http-equiv="Page-Enter" />
+  <meta content="blendTrans(Duration=0.0)" http-equiv="Page-Exit" />
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>모여서 공부하자</title>
@@ -57,6 +59,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$("#toggle").css('background-color','white');
 				}
 			)
+			
+			$("#task").click(function() {
+				$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task');
+			})
 			
 		})
 	
@@ -278,7 +284,7 @@ desired effect
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="#"><i class="fa fa-link"></i> <span>스터디 메인</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
-        <li><a href="${pageContext.request.contextPath}/member/study/task"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
+        <li><a href="#" id="task"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>채팅</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>게시판</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
@@ -290,25 +296,13 @@ desired effect
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        스터디 페이지 메인
-        <small>Optional description</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
-    </section>
-
     <!-- Main content -->
     <section class="content container-fluid">
 
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
-
+		<iframe id="iframe" width="100%" height="700px" frameborder="0"></iframe>
     </section>
     <!-- /.content -->
   </div>
