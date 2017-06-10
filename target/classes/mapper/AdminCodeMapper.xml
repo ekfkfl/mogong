@@ -5,7 +5,7 @@
 comm_code, code_name, code_desc, parent_code, reg_date, update_date, code_used, code_order 
 </sql>
 
-<resultMap type="commCodeDTO" id="commCodeDTOMap">
+<resultMap type="CommCodeDTO" id="commCodeDTOMap">
 	<id column="comm_code" property="commCode"/>
 	<result column="code_name" property="codeName"/>
 	<result column="code_desc" property="codeDesc"/>
@@ -20,7 +20,7 @@ comm_code, code_name, code_desc, parent_code, reg_date, update_date, code_used, 
 select <include refid="commCodeColumns"></include> from comm_code
 </select>
 
-<select id="selectCodeByName" parameterType="string">
+<select id="selectCodeByName" parameterType="string" resultMap="commCodeDTOMap">
 select <include refid="commCodeColumns"></include> from comm_code
 where code_name like %|| #{_parameter} ||%
 </select>
