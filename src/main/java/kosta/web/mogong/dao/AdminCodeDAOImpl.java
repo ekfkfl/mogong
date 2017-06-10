@@ -50,8 +50,7 @@ public class AdminCodeDAOImpl implements AdminCodeDAO {
 
 	@Override
 	public int deleteCode(String commCode) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete("adminCodeMapper.deleteCode", commCode);
 	}
 
 }
