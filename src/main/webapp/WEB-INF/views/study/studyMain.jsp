@@ -302,7 +302,7 @@ desired effect
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
-		<iframe id="iframe" width="100%" height="700px" frameborder="0"></iframe>
+		<iframe id="iframe" width="100%" height="700px" frameborder="0" scrolling="no"></iframe>
     </section>
     <!-- /.content -->
   </div>
