@@ -57,18 +57,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$("#toggle").css('background-color','white');
 				}
 			)
-			
-			/* $("#todoInsert").click(function() {
-				$(this).parent().after("<div class='box-header'>안녕칭구들</div>");
-			})
-			
-			$("#doingInsert").click(function() {
-				$(this).after("안녕칭구들");
-			})
-			
-			$("#doneInsert").click(function() {
-				$(this).after("안녕칭구들");
-			}) */
 		})
 	
 	</script>
@@ -80,6 +68,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   	</style>
 </head>
 <body>
+<input type="hidden" name="studyCode" id="studyCode" value="6"/>
 <!-- Content Wrapper. Contains page content -->
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -101,10 +90,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="box-header">
               <i class="ion ion-clipboard"></i>
               <h3 class="box-title">To Do</h3>
-              <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modal-default">
-                <i class="fa fa-plus"></i> Task 등록
-              </button>
+              <button id="todoInsert" type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Task 등록</button>
             </div>
+          <!-- 등록 -->
+          <div id="todoInsertBox" class="box box-info" style="display:none">
+              <div class="box-body">
+                <div class="form-group">
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="todoTitle" placeholder="새로운 Task 등록하기">
+                  </div>
+                </div>
+              </div>
+              <div class="box-footer">
+                <button id="todoInsertBoxCancle" class="btn btn-default">취소</button>
+                <button id="todoInsertBoxSubmit" class="btn btn-info pull-right">등록</button>
+              </div>
+          </div>
+
             <!-- /.box-header -->
             <div class="box-body">
               <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
@@ -127,8 +129,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="box-header">
               <i class="ion ion-clipboard"></i>
               <h3 class="box-title">Doing</h3>
-              <button id="todoInsert" type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Task 등록</button>
+              <button id="doingInsert" type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Task 등록</button>
             </div>
+            <!-- 등록 -->
+          <div id="doingInsertBox" class="box box-info" style="display:none">
+              <div class="box-body">
+                <div class="form-group">
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="doingTitle" placeholder="새로운 Task 등록하기">
+                  </div>
+                </div>
+              </div>
+              <div class="box-footer">
+                <button id="doingInsertBoxCancle" class="btn btn-default">취소</button>
+                <button id="doingInsertBoxSubmit" class="btn btn-info pull-right">등록</button>
+              </div>
+          </div>
             <!-- /.box-header -->
             <div class="box-body">
               <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
@@ -148,8 +164,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="box-header">
               <i class="ion ion-clipboard"></i>
               <h3 class="box-title">Done</h3>
-              <button id="todoInsert" type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Task 등록</button>          
+              <button id="doneInsert" type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Task 등록</button>          
             </div>
+            <!-- 등록 -->
+          <div id="doneInsertBox" class="box box-info" style="display:none">
+              <div class="box-body">
+                <div class="form-group">
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="doneTitle" placeholder="새로운 Task 등록하기">
+                  </div>
+                </div>
+              </div>
+              <div class="box-footer">
+                <button id="doneInsertBoxCancle" class="btn btn-default">취소</button>
+                <button id="doneInsertBoxSubmit" class="btn btn-info pull-right">등록</button>
+              </div>
+          </div>
             <!-- /.box-header -->
             <div class="box-body">
               <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
@@ -375,18 +405,5 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="${pageContext.request.contextPath}/resources/js/taskmain.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="${pageContext.request.contextPath}/resources/js/demo.js"></script>
-<script>
-	/* $(function() {
-		$.ajax({
-			url: "member/study/task/insertTask",
-			type: "post",
-			dataType: "json",
-			data: $("form").serialize(),
-			success: function(data) {
-				
-			}
-		})
-	}) */
-</script>
 </body>
 </html>
