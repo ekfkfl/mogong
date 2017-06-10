@@ -58,7 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				}
 			)
 			
-			$("#todoInsert").click(function() {
+			/* $("#todoInsert").click(function() {
 				$(this).parent().after("<div class='box-header'>안녕칭구들</div>");
 			})
 			
@@ -68,7 +68,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			
 			$("#doneInsert").click(function() {
 				$(this).after("안녕칭구들");
-			})
+			}) */
 		})
 	
 	</script>
@@ -101,9 +101,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="box-header">
               <i class="ion ion-clipboard"></i>
               <h3 class="box-title">To Do</h3>
-              <button id="todoInsert" type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Task 등록</button>
+              <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#modal-default">
+                <i class="fa fa-plus"></i> Task 등록
+              </button>
             </div>
-            <div class="box-header"></div>
             <!-- /.box-header -->
             <div class="box-body">
               <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
