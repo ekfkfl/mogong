@@ -41,12 +41,8 @@ public class HomeController {
 		return "/mypage/mypageMain";
 	}
 	
-	@RequestMapping("/main/header")
-	public String mainHeader(){
-		return "main/header";
-	}
 	
-	@RequestMapping("/login")
+	@RequestMapping("/loginForm")
 	public String login(){
 		return "main/login";
 	}
