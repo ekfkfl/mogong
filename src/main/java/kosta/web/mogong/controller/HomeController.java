@@ -47,4 +47,9 @@ public class HomeController {
 		return "main/login";
 	}
 	
+	@RequestMapping("/enrollForm")
+	public String enroll(){
+		return "enroll/enroll";
+	}
+	
 }

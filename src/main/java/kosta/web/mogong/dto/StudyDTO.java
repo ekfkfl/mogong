@@ -16,12 +16,23 @@ public class StudyDTO {
 	private String area; //지역
 	private String description; //스터디 설명
 	private int read; //조회수
+	private String studyStatus; //스터디 상태
 	
+	
+	@Override
+	public String toString() {
+		return "StudyDTO [studyCode=" + studyCode + ", id=" + id + ", category=" + category + ", cityCode=" + cityCode
+				+ ", name=" + name + ", writeDate=" + writeDate + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", day=" + day + ", startTime=" + startTime + ", endTime=" + endTime + ", people=" + people
+				+ ", area=" + area + ", description=" + description + ", read=" + read + ", studyStatus=" + studyStatus
+				+ "]";
+	}
+
 	public StudyDTO() {}
 	
 	public StudyDTO(int studyCode, String id, String category, String cityCode, String name, String writeDate,
 			String startDate, String endDate, String day, String startTime, String endTime, int people, String area,
-			String description, int read) {
+			String description, int read, String studyStatus) {
 		super();
 		this.studyCode = studyCode;
 		this.id = id;
@@ -38,6 +49,7 @@ public class StudyDTO {
 		this.area = area;
 		this.description = description;
 		this.read = read;
+		this.studyStatus=studyStatus;
 	}
 	public int getStudyCode() {
 		return studyCode;
@@ -129,5 +141,14 @@ public class StudyDTO {
 	public void setRead(int read) {
 		this.read = read;
 	}
+	
+	public String getStudyStatus() {
+		return studyStatus;
+	}
+
+	public void setStudyStatus(String studyStatus) {
+		this.studyStatus = studyStatus;
+	}
+
 	
 }
