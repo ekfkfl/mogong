@@ -33,11 +33,11 @@ public class AdminCodeServiceImpl implements AdminCodeService {
 	@Override
 	public int insertCode(CommCodeDTO commCodeDTO) {
 		int result=0;
-		if(commCodeDTO.getCodeName()==null || commCodeDTO.getCodeDesc()==null){
+		if(commCodeDTO.getCodeName()==null || commCodeDTO.getCodeDesc()==null || commCodeDTO.getCodeName().equals("") || commCodeDTO.getCodeDesc().equals("")){
 			return result;
 		}
 		
-		if(commCodeDTO.getCodeUsed().equals("true")){
+		if(commCodeDTO.getCodeUsed().equals("checked")){
 			commCodeDTO.setCodeUsed("Y");
 		}else{
 			commCodeDTO.setCodeUsed("N");
@@ -68,8 +68,7 @@ public class AdminCodeServiceImpl implements AdminCodeService {
 
 	@Override
 	public int deleteCode(String commCode) {
-		// TODO Auto-generated method stub
-		return 0;
+		return adminCodeDAO.deleteCode(commCode);
 	}
 
 }

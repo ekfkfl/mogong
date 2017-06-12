@@ -1,10 +1,10 @@
-package kosta.web.mogong.service;
+package kosta.web.mogong.dao;
 
 import java.util.List;
 
 import kosta.web.mogong.dto.StudyDTO;
 
-public interface MyPageService {
+public interface MyPageDAO {
 	/**
 	 * 신청중인 목록 가져오기
 	 * */

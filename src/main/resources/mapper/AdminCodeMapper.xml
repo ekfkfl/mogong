@@ -54,5 +54,4 @@ delete from comm_code
 where comm_code=#{_parameter}
 </delete>
 
-
 </mapper>

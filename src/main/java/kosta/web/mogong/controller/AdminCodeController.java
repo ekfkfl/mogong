@@ -28,15 +28,22 @@ public class AdminCodeController {
 	}
 	
 	@RequestMapping("/commCodeList")
-	public String commCodeList(){
-		
-		return "admin/commCode";
+	@ResponseBody
+	public List<CommCodeDTO> commCodeList(){
+		return adminCodeService.selectCodeAll();
 	}
 	
 	@RequestMapping("/insertCommCode")
 	@ResponseBody
-	public int insertCommCode(CommCodeDTO commCodeDTO) throws Exception{
+	public int insertCommCode(CommCodeDTO commCodeDTO){
 		int result=adminCodeService.insertCode(commCodeDTO);
+		return result;
+	}
+	
+	@RequestMapping("/deleteCommCode")
+	@ResponseBody
+	public int deleteCommCode(String commCode){
+		int result=adminCodeService.deleteCode(commCode);
 		return result;
 	}
 }
