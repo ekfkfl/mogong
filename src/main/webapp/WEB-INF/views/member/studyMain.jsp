@@ -338,6 +338,7 @@ desired effect
             <div class="box-header">
 
               <h3 class="box-title">마감일 지남</h3>
+              <hr>
 			<!-- 
               <div class="box-tools pull-right">
                 <ul class="pagination pagination-sm inline">
@@ -393,6 +394,7 @@ desired effect
             <div class="box-header">
 
               <h3 class="box-title">계획됨</h3>
+              <hr>
 			<!-- 
               <div class="box-tools pull-right">
                 <ul class="pagination pagination-sm inline">
@@ -447,6 +449,7 @@ desired effect
             <div class="box-header">
 
               <h3 class="box-title">마감일 없음</h3>
+              <hr>
 			<!-- 
               <div class="box-tools pull-right">
                 <ul class="pagination pagination-sm inline">
@@ -501,6 +504,7 @@ desired effect
             <div class="box-header">
 
               <h3 class="box-title">완료됨</h3>
+              <hr>
 			<!-- 
               <div class="box-tools pull-right">
                 <ul class="pagination pagination-sm inline">
