@@ -16,14 +16,12 @@ public class TaskDAOImpl implements TaskDAO {
 
 	@Override
 	public List<TaskDTO> selectAllTask(String studyCode) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("taskMapper.selectAllTask", studyCode);
 	}
 
 	@Override
 	public TaskDTO selectOneTask(String taskCode) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("taskMapper.selectOneTask", taskCode);
 	}
 
 	@Override
@@ -33,19 +31,16 @@ public class TaskDAOImpl implements TaskDAO {
 
 	@Override
 	public int moveTask(String taskCode) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("taskMapper.moveTask", taskCode);
 	}
 
 	@Override
 	public int updateTask(TaskDTO taskDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("taskMapper.moveTask", taskDTO);
 	}
 
 	@Override
 	public int deleteTask(String taskCode) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete("taskMapper.deleteTask", taskCode);
 	}
 }
