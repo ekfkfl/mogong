@@ -4,7 +4,7 @@
 
 <insert id="insertTask" parameterType="TaskDTO">
 	insert into task
-	values(task_seq.nextval,#{studyCode},#{title},#{content},#{progressStatus},sysdate,sysdate,sysdate)
+	values(task_seq.nextval,#{studyCode,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{progressStatus},sysdate,sysdate,sysdate)
 </insert>
 
 </mapper>

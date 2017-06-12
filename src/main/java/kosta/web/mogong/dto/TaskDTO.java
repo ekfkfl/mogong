@@ -6,14 +6,20 @@ public class TaskDTO {
 	private int studyCode; //스터디 코드
 	private String title; //테스크 제목
 	private String content; //태스크 내용
-	private int progressStatus; //진행상태
+	private String progressStatus; //진행상태
 	private String startDate; //시작일
 	private String endDate; //종료일
 	private String successDate; //완료일
 	
 	public TaskDTO() {}
 	
-	public TaskDTO(int taskCode, int studyCode, String title, String content, int progressStatus, String startDate,
+	public TaskDTO(int studyCode, String title, String progressStatus) {
+		this.studyCode=studyCode;
+		this.title=title;
+		this.progressStatus=progressStatus;
+	}
+	
+	public TaskDTO(int taskCode, int studyCode, String title, String content, String progressStatus, String startDate,
 			String endDate, String successDate) {
 		super();
 		this.taskCode = taskCode;
@@ -49,10 +55,10 @@ public class TaskDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getProgressStatus() {
+	public String getProgressStatus() {
 		return progressStatus;
 	}
-	public void setProgressStatus(int progressStatus) {
+	public void setProgressStatus(String progressStatus) {
 		this.progressStatus = progressStatus;
 	}
 	public String getStartDate() {
