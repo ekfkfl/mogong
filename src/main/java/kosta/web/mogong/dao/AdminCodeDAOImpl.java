@@ -32,7 +32,6 @@ public class AdminCodeDAOImpl implements AdminCodeDAO {
 
 	@Override
 	public int insertCode(CommCodeDTO commCodeDTO) {
-		System.err.println("commCodeDTO : " + commCodeDTO);
 		return sqlSession.insert("adminCodeMapper.insertCode", commCodeDTO);
 	}
 
@@ -43,9 +42,9 @@ public class AdminCodeDAOImpl implements AdminCodeDAO {
 	}
 
 	@Override
-	public int updateCode(CommCodeDTO commCode) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateCode(CommCodeDTO commCodeDTO) {
+		System.out.println("dao" + commCodeDTO);
+		return sqlSession.update("adminCodeMapper.updateCode", commCodeDTO);
 	}
 
 	@Override

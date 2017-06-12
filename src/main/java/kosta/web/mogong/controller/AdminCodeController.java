@@ -35,15 +35,24 @@ public class AdminCodeController {
 	
 	@RequestMapping("/insertCommCode")
 	@ResponseBody
-	public int insertCommCode(CommCodeDTO commCodeDTO){
+	public int insertCommCode(CommCodeDTO commCodeDTO) throws Exception{
 		int result=adminCodeService.insertCode(commCodeDTO);
 		return result;
 	}
 	
 	@RequestMapping("/deleteCommCode")
 	@ResponseBody
-	public int deleteCommCode(String commCode){
+	public int deleteCommCode(String commCode) throws Exception{
+		System.out.println(commCode);
 		int result=adminCodeService.deleteCode(commCode);
+		return result;
+	}
+	
+	@RequestMapping("/updateCommCode")
+	@ResponseBody
+	public int updateCommCode(CommCodeDTO commCodeDTO) throws Exception{
+		System.out.println(commCodeDTO);
+		int result=adminCodeService.updateCode(commCodeDTO);
 		return result;
 	}
 }

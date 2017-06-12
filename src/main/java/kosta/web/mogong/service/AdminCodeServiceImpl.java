@@ -37,10 +37,11 @@ public class AdminCodeServiceImpl implements AdminCodeService {
 			return result;
 		}
 		
-		if(commCodeDTO.getCodeUsed().equals("checked")){
-			commCodeDTO.setCodeUsed("Y");
-		}else{
+		System.out.println(commCodeDTO);
+		if(commCodeDTO.getCodeUsed()==null){
 			commCodeDTO.setCodeUsed("N");
+		}else{
+			commCodeDTO.setCodeUsed("Y");
 		}
 		
 
@@ -61,9 +62,25 @@ public class AdminCodeServiceImpl implements AdminCodeService {
 	}
 
 	@Override
-	public int updateCode(CommCodeDTO commCode) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateCode(CommCodeDTO commCodeDTO) {
+		int result=0;
+		if(commCodeDTO.getCommCode()==null || commCodeDTO.getCommCode().equals("")){
+			return result;
+		}
+		
+		if(commCodeDTO.getParentCode()==null || commCodeDTO.getParentCode().equals("-")){
+			commCodeDTO.setParentCode("");
+		}
+		
+		if(commCodeDTO.getCodeUsed()==null){
+			commCodeDTO.setCodeUsed("N");
+		}else{
+			commCodeDTO.setCodeUsed("Y");
+		}
+		
+		
+
+		return adminCodeDAO.updateCode(commCodeDTO);
 	}
 
 	@Override
