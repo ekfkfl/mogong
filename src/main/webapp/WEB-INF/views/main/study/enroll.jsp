@@ -1,100 +1,100 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/main/header.jsp" />
 
 	<form name="insert"
-		action="${pageContext.request.contextPath}/enroll/insert"
+		action="${pageContext.request.contextPath}/enroll"
 		method="post">
 
 		<table align="center" border="1">
 
 			<tr >
-				<td colspan="2"> <b> ╫╨ем╣П ╣Н╥о</b></td>
+				<td colspan="2"> <b> Л┼╓М└╟К■■ К⌠╠К║²</b></td>
 			</tr>
 
 			<tr>
-				<td>╫╨ем╣П дз╣Е</td>
+				<td>Л┼╓М└╟К■■ Л╫■К⌠°</td>
 				<td><input type="text" name="studyCode"></td>
 			</tr>
 
 			<tr>
-				<td>х╦©Ь ╬фюл╣П</td>
+				<td>М ▄Л⌡░ Л∙└Л²╢К■■</td>
 				<td><input type="text" name="id"></td>
 			</tr>
 
 			<tr>
-				<td>д╚ев╟М╦╝ дз╣Е</td>
+				<td>Л╧╢М┘▄ЙЁ═К╕╛ Л╫■К⌠°</td>
 				<td><input type="text" name="category"></td>
 			</tr>
 
 			<tr>
-				<td>╣╣╫ц дз╣Е</td>
+				<td>К▐└Л▀° Л╫■К⌠°</td>
 				<td><input type="text" name="cityCode"></td>
 			</tr>
 
 			<tr>
-				<td>╫╨ем╣П юл╦╖</td>
+				<td>Л┼╓М└╟К■■ Л²╢К╕└</td>
 				<td><input type="text" name="name"></td>
 			</tr>
 
 			<tr>
-				<td>╣Н╥оюо</td>
+				<td>К⌠╠К║²Л²╪</td>
 				<td><input type="text" name="writeDate"></td>
 			</tr>
 
 			<tr>
-				<td>╫цюшюо</td>
+				<td>Л▀°Л·▒Л²╪</td>
 				<td><input type="text" name="startDate"></td>
 			</tr>
 
 			<tr>
-				<td>а╬╥Аюо</td>
+				<td>Л╒┘Кё▄Л²╪</td>
 				<td><input type="text" name="endDate"></td>
 			</tr>
 
 			<tr>
-				<td>©Дюо</td>
+				<td>Л ■Л²╪</td>
 				<td><input type="text" name="day"></td>
 			</tr>
 
 			<tr>
-				<td>╫цюш╫ц╟ё</td>
+				<td>Л▀°Л·▒Л▀°Й╟└</td>
 				<td><input type="text" name="startTime"></td>
 			</tr>
 
 			<tr>
-				<td>а╬╥А╫ц╟ё</td>
+				<td>Л╒┘Кё▄Л▀°Й╟└</td>
 				<td><input type="text" name="endTime"></td>
 			</tr>
 
 			<tr>
-				<td>юн©Ь</td>
+				<td>Л²╦Л⌡░</td>
 				<td><input type="text" name="people"></td>
 			</tr>
 
 			<tr>
-				<td>аЖ©╙</td>
+				<td>Л╖─Л≈╜</td>
 				<td><input type="text" name="area"></td>
 			</tr>
 
 			<tr>
-				<td>╫╨ем╣П ╪Ё╦М</td>
+				<td>Л┼╓М└╟К■■ Л└╓К╙┘</td>
 				<td><input type="text" name="description"></td>
 			</tr>
 
 			<tr>
-				<td>а╤х╦╪Ж</td>
+				<td>Л║╟М ▄Л┬≤</td>
 				<td><input type="text" name="read"></td>
 			</tr>
 
 			<tr>
-				<td>╫╨ем╣П ╩Себ</td>
+				<td>Л┼╓М└╟К■■ Л┐│М┐°</td>
 				<td><input type="text" name="studyStatus"></td>
 			</tr>
 
 			<tr>
-				<td><input type=submit value=╫╨ем╣П╣Н╥ого╠Б> <input type=reset
-					value=╢ы╫ц╬╡╠Б></td>
+				<td><input type=submit value=Л┼╓М└╟К■■К⌠╠К║²М∙≤Й╦╟> <input type=reset
+					value=К▀╓Л▀°Л⌠╟Й╦╟></td>
 			</tr>
 
 

@@ -187,7 +187,7 @@
 											<!--  <a href="#" class="btn btn-default btn-flat">Profile</a> -->
 										</div>
 										<div class="pull-right">
-											<a href="#" class="btn btn-default btn-flat">Sign</a>
+											<a href="${pageContext.request.contextPath}/login/signupForm" class="btn btn-default btn-flat">SignUp</a>
 										</div>
 									</li>
 								</form>
@@ -195,8 +195,8 @@
 						</li>
 
 						<!-- 헤더에서 Sign up 버튼 -->
-						<li class="dropdown user user-menu"><a href="#"
-							class="dropdown-toggle" data-toggle="dropdown"> <span
+						<li class="dropdown user user-menu"><a href="${pageContext.request.contextPath}/login/signupForm">
+							<!-- class="dropdown-toggle" data-toggle="dropdown" --> <span
 								class="hidden-xs">Sign up</span>
 						</a></li>
 
@@ -227,7 +227,7 @@
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="${pageContext.request.contextPath}/">home</a></li>
 							<li><a href="${pageContext.request.contextPath}/enrollForm">스터디 모집</a></li>
-							<li><a href="#service">스터디 검색</a></li>
+							<li><a href="${pageContext.request.contextPath}/search/study">스터디 검색</a></li>
 							<li><a href="${pageContext.request.contextPath}/study/main">공지사항</a></li>
 							<li class="hidden-sm hidden-xs"><a href="#" id="ss"><i
 									class="fa fa-search" aria-hidden="true"></i></a></li>

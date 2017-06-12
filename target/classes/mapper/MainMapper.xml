@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mainMapper">
+
+
+	<resultMap type="StudyDTO" id="studyMap">
+		<id column="study_code" property="studyCode" />
+		<result column="id" property="id" />
+		<result column="CATEGORY_CODE" property="category" />
+		<result column="CITY_CODE" property="cityCode" />
+		<result column="NAME" property="name" />
+		<result column="WRITE_DATE" property="writeDate" />
+		<result column="START_DATE" property="startDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+		<result column="PEOPLE" property="people" />
+		<result column="AREA" property="area" />
+		<result column="DESCRIPTION" property="description" />
+		<result column="READ" property="read" />
+		<result column="STUDY_STATUS" property="studyStatus" />
+	</resultMap>
+
+	<!-- 스터디 등록 -->
+	<insert id="enrollStudy" parameterType="StudyDTO">
+		insert into study
+		values(study_seq.nextval,#{id},#{category},
+		#{cityCode},#{name},sysdate, sysdate,
+		sysdate, #{day},#{startTime},#{endTime},
+		#{people},#{area},#{description},#{read},
+		#{studyStatus})
+	</insert>
+
+	<!-- 스터디 상세보기 -->
+	<select id="studyDetailView" parameterType="StudyDTO">
+		select studyCode, category, cityCode, name, writeDate, startDate,
+		endDate, startTime, endTime, people, area, description, read, studyStatus
+		from study where studyCode=#{value}
+	</select>
+	
+	<!-- 스터디 조회수 업데이트  -->
+	<update id="readNumUpdate" parameterType="string">
+		update study set read=read+1 where studyCode =#{value}	
+	</update>
+
+
+
+
+</mapper>
