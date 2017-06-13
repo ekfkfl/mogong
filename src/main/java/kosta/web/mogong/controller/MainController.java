@@ -1,5 +1,6 @@
 package kosta.web.mogong.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.web.mogong.dto.StudyDTO;
+import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.service.MainService;
+import kosta.web.mogong.service.TaskService;
 
 /**
  * Handles requests for the application home page.
@@ -25,6 +28,8 @@ public class MainController {
 	@Autowired
 	private MainService service;
 	
+	@Autowired
+	private TaskService taskService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -92,7 +97,7 @@ public class MainController {
 	}
 
 	@RequestMapping("/study/main")
-	public String studyMain() {
+	public String studyMain(HttpServletRequest request) {
 		return "member/studyMain";
 	}
 }

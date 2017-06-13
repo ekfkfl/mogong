@@ -12,6 +12,10 @@ public class TaskDTO {
 	private String startDate; //시작일
 	private String endDate; //종료일
 	private String successDate; //완료일
+	private String createDate; //등록일
+	private String updateDate; //수정일
+	private String state; //완료,진행,마감일없음 상태
+	private String remain; //남은 시간 표시
 	
 	private List<TaskMemberDTO> taskMemberList;
 	
@@ -34,6 +38,19 @@ public class TaskDTO {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.successDate = successDate;
+	}
+	public TaskDTO(int taskCode, int studyCode, String title, String content, String progressStatus, String startDate,
+			String endDate, String successDate, String createDate) {
+		super();
+		this.taskCode = taskCode;
+		this.studyCode = studyCode;
+		this.title = title;
+		this.content = content;
+		this.progressStatus = progressStatus;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.successDate = successDate;
+		this.createDate = createDate;
 	}
 	public int getTaskCode() {
 		return taskCode;
@@ -91,4 +108,40 @@ public class TaskDTO {
 	public void setTaskMemberList(List<TaskMemberDTO> taskMemberList) {
 		this.taskMemberList = taskMemberList;
 	}
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getRemain() {
+		return remain;
+	}
+
+	public void setRemain(String remain) {
+		this.remain = remain;
+	}
+	
+	
+	
+	
 }

@@ -273,7 +273,7 @@ desired effect
           </li>
 			<!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <a href="#" data-toggle="control-sidebar"><i class="fa  fa-bar-chart"></i></a>
           </li>
         </ul>
       </div>
@@ -301,9 +301,9 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Study Menu</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>스터디 메인</span></a></li>
+        <li class="active" id="sideMain"><a id="main" href="#"><i class="fa fa-link"></i> <span>스터디 메인</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
-        <li><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
+        <li id="sideTask"><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>채팅</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>게시판</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
@@ -322,7 +322,7 @@ desired effect
         | Your Page Content Here |
         -------------------------->
          
-         <iframe src="" id="iframe" width="100%" height="700px" frameborder="0" scrolling="no"></iframe>
+         <iframe src="${pageContext.request.contextPath}/member/study/task/main" id="iframe" width="100%" height="1500px" frameborder="0" scrolling="no"></iframe>
          
     </section>
     <!-- /.content -->
@@ -485,6 +485,13 @@ desired effect
 		
 	    $("#task").click(function() {
 			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task');
+			$("#sideTask").attr('class','active');
+			$("#sideMain").attr('class','');
+		})
+		$("#main").click(function() {
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
+			$("#sideTask").attr('class','');
+			$("#sideMain").attr('class','active');
 		})
 	})
 

@@ -8,13 +8,13 @@
 		<h3 class="box-title">공통코드</h3>
 	</div>
 	
-<%-- 	${CodeUtil.getCodeName("0005")}
+ 	${CodeUtil.getCodeName("0052")}
 	<br>
 	${CodeUtil.getCodeName("0001")}
 	<br>
  	<c:forEach items='${CodeUtil.getChildCodeName("0001")}' var="item">
 		 ${item} 
-	</c:forEach> --%>
+	</c:forEach> 
 	<button type="button" class="btn btn-block btn-primary"
 		data-toggle="modal" data-target="#addCodeModal"
 		style="width: 100px; margin: 5px" id="regCommCode">코드등록</button>
