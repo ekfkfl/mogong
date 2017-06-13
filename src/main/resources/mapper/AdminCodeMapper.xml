@@ -11,7 +11,7 @@ comm_code, code_name, code_desc, parent_code, reg_date, update_date, code_used, 
 	<result column="code_desc" property="codeDesc"/>
 	<result column="parent_code" property="parentCode"/>
 	<result column="reg_date" property="regDate"/>
-	<result column="update_date" property="updateDate"/>
+	<result column="update_date" property="updateDate" javaType="java.lang.String"/>
 	<result column="code_used" property="codeUsed"/>
 	<result column="code_order" property="codeOrder"/>
 </resultMap>
@@ -32,21 +32,21 @@ where parent_code=#{_parameter}
 
 <insert id="insertCode" parameterType="commCodeDTO">
 INSERT INTO comm_code 
-VALUES (lpad(code_seq.nextval, 4, '0'), #{codeName}, #{codeDesc}, #{parentCode}, sysdate, null, 'Y', #{codeOrder}) 
+VALUES (lpad(code_seq.nextval, 4, '0'), #{codeName}, #{codeDesc}, #{parentCode}, sysdate, null, #{codeUsed}, #{codeOrder}) 
 </insert>
  
 <update id="updateCode" parameterType="commCodeDTO">
 update comm_code
 <set>
 	<if test="codeName!=null">code_name=#{codeName}, </if>
-	<if test="codeDesc!=null">code_desc=#{codeDesc}, </if>
+ 	<if test="codeDesc!=null">code_desc=#{codeDesc}, </if>
 	<if test="parentCode!=null">parent_code=#{parentCode}, </if>
-	<if test="codeUsed!=null">codeUsed=#{codeUsed}, </if>
-	<if test="codeOrder!=null">codeOrder=#{codeOrder}, </if>
+	<if test="codeUsed!=null">code_Used=#{codeUsed}, </if>
+<!--  	<if test="codeOrder!=null">code_Order=#{codeOrder}, </if>   -->
 	update_date=sysdate
 </set>
 where
-comm_code=#{commCode};
+comm_code=#{commCode}
 </update> 
 
 <delete id="deleteCode" parameterType="string">

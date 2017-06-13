@@ -358,6 +358,4 @@
 	</div>
 </div>
 
-</body>
-</html>
 <jsp:include page="/WEB-INF/views/main/footer.jsp" />

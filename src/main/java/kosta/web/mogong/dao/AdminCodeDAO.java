@@ -35,7 +35,7 @@ public interface AdminCodeDAO {
 	/**
 	 * 공통코드 정보 수정
 	 */
-	int updateCode(CommCodeDTO commCode);
+	int updateCode(CommCodeDTO commCodeDTO);
 	
 	/**
 	 * 공통코드 삭제

@@ -18,18 +18,32 @@ public class StudyDTO {
 	private String area; //지역
 	private String description; //스터디 설명
 	private int read; //조회수
+<<<<<<< HEAD
 	private String studyStatus;//스터디 상태(모집중, 진행중...)
 	
 	private MemberDTO memberDTO; //멤버 DTO
 	
 	private CommCodeDTO commDTO; //공통 코드 DTO
 	
+=======
+	private String studyStatus; //스터디 상태
+	
+	
+	@Override
+	public String toString() {
+		return "StudyDTO [studyCode=" + studyCode + ", id=" + id + ", category=" + category + ", cityCode=" + cityCode
+				+ ", name=" + name + ", writeDate=" + writeDate + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", day=" + day + ", startTime=" + startTime + ", endTime=" + endTime + ", people=" + people
+				+ ", area=" + area + ", description=" + description + ", read=" + read + ", studyStatus=" + studyStatus
+				+ "]";
+	}
+>>>>>>> 05c098b45d37965e92b259eb84ba7c89bf37c8a4
 
 	public StudyDTO() {}
 	
 	public StudyDTO(int studyCode, String id, String category, String cityCode, String name, String writeDate,
 			String startDate, String endDate, String day, String startTime, String endTime, int people, String area,
-			String description, int read) {
+			String description, int read, String studyStatus) {
 		super();
 		this.studyCode = studyCode;
 		this.id = id;
@@ -46,6 +60,7 @@ public class StudyDTO {
 		this.area = area;
 		this.description = description;
 		this.read = read;
+		this.studyStatus=studyStatus;
 	}
 	public int getStudyCode() {
 		return studyCode;
@@ -137,6 +152,10 @@ public class StudyDTO {
 	public void setRead(int read) {
 		this.read = read;
 	}
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 05c098b45d37965e92b259eb84ba7c89bf37c8a4
 	public String getStudyStatus() {
 		return studyStatus;
 	}
@@ -145,6 +164,7 @@ public class StudyDTO {
 		this.studyStatus = studyStatus;
 	}
 
+<<<<<<< HEAD
 	public MemberDTO getMemberDTO() {
 		return memberDTO;
 	}
@@ -161,4 +181,7 @@ public class StudyDTO {
 		this.commDTO = commDTO;
 	}
 
+=======
+	
+>>>>>>> 05c098b45d37965e92b259eb84ba7c89bf37c8a4
 }
