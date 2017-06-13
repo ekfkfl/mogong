@@ -26,38 +26,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/skins/skin-blue.css">
 <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<script type="text/javascript">
+	function backList() {
+		document.requestForm.action ="mailMypage";
+		document.requestForm.submit();
+	}
+
+</script>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-<form action="${pageContext.request.contextPath}/member/mypage/composeMail" method="post">
+<form action="${pageContext.request.contextPath}/member/mypage/composeMailForm" method="post">
+<input type="hidden" name="sendId" value="${recvDTO.sendId}">
  <section class="content">
       <div class="row">
 		 	<div class="col-md-12">
 		          <div class="box box-primary">
 		            <div class="box-header with-border">
-		              <h3 class="box-title">쪽지쓰기</h3>
+		              <h3 class="box-title">받은 쪽지 읽기</h3>
 		            </div>
 		            <!-- /.box-header -->
 		            <div class="box-body">
 		              <div class="form-group">
-		                <input class="form-control" placeholder="To:" name="recvId" value="${sendId}">
+		               <b>보낸이</b><input class="form-control" value="${recvDTO.sendId}" readonly="readonly">
 		              </div>
 		              <div class="form-group">
-		                <input class="form-control" placeholder="from:" name="id" value="${sessionScope.id}">
+		                <b>보낸 날짜</b><input class="form-control" value="${recvDTO.writeDate}" readonly="readonly">
 		              </div>
 		              <div class="form-group">
-		                <input class="form-control" placeholder="Subject:" name="title">
+		                <b>제 목</b><input class="form-control" value="${recvDTO.title}" readonly="readonly">
 		              </div>
 		              <div class="form-group">
-		                    <textarea id="compose-textarea" class="form-control" style="height: 300px" name="content">
-		                     
+		                    <textarea id="compose-textarea" class="form-control" style="height: 300px" name="content" readonly="readonly">
+		                     	${recvDTO.content}
 		                    </textarea>
 		              </div>
 		            </div>
 		            <!-- /.box-body -->
 		            <div class="box-footer">
 		              <div class="pull-right">
-		                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send</button>
+		                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> 답장</button>
+		                <a href="${pageContext.request.contextPath}/member/mypage/recvMail"><input type="button" class="btn btn-primary" value="목록으로"></a>
 		              </div>
 		            </div>
 		            <!-- /.box-footer -->

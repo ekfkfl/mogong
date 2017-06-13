@@ -39,13 +39,39 @@ public class MyPageDAOImpl implements MyPageDAO {
 	}
 
 	@Override
-	public List<RecvMessageDTO> mailMypage(String id) {
-		return sqlSession.selectList("mypageMapper.mailMypage", id);
+	public List<RecvMessageDTO> recvMail(String id) {
+		return sqlSession.selectList("mypageMapper.recvMail", id);
+	}
+	
+	@Override
+	public List<SendMessageDTO> sendMail(String id) {
+		return sqlSession.selectList("mypageMapper.sendMail", id);
 	}
 
 	@Override
 	public int recvMessageInsert(SendMessageDTO sendMessage) {
 		return sqlSession.insert("mypageMapper.recvMessageInsert", sendMessage);
 	}
+
+	@Override
+	public RecvMessageDTO readMail(int recvMessageCode) {
+		return sqlSession.selectOne("mypageMapper.readMail", recvMessageCode);
+	}
+	
+	@Override
+	public SendMessageDTO sendReadMail(int sendMessageCode) {
+		return sqlSession.selectOne("mypageMapper.sendReadMail", sendMessageCode);
+	}
+
+	@Override
+	public int readMessageUpdate(int recvMessageCode) {
+		return sqlSession.update("mypageMapper.readMessageUpdate", recvMessageCode);
+	}
+
+	@Override
+	public int deleteMessage(int messageCode) {
+		return sqlSession.delete("mypageMapper.deleteMessage", messageCode);
+	}
+
 
 }

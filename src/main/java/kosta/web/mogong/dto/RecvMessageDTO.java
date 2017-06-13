@@ -7,12 +7,12 @@ public class RecvMessageDTO {
 	private String content; //내용
 	private String sendId; //보낸 회원 ID
 	private String writeDate; //작성일
-	private int confirm; //받은 쪽지 확인 유무
+	private String confirm; //받은 쪽지 확인 유무
 	
 	public RecvMessageDTO() {}
 	
 	public RecvMessageDTO(int recvMessageCode, String id, String title, String content, String sendId, String writeDate,
-			int confirm) {
+			String confirm) {
 		super();
 		this.recvMessageCode = recvMessageCode;
 		this.id = id;
@@ -58,10 +58,10 @@ public class RecvMessageDTO {
 	public void setWriteDate(String writeDate) {
 		this.writeDate = writeDate;
 	}
-	public int getConfirm() {
+	public String getConfirm() {
 		return confirm;
 	}
-	public void setConfirm(int confirm) {
+	public void setConfirm(String confirm) {
 		this.confirm = confirm;
 	}
 	
