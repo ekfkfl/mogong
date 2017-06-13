@@ -28,6 +28,11 @@ public interface MyPageDAO {
 	int sendMessageInsert(SendMessageDTO sendMessage);
 	
 	/**
+	 * 메세지 보내기(받은메세지 등록)
+	 * */
+	int recvMessageInsert(SendMessageDTO sendMessage);
+	
+	/**
 	 * 받은 메세지 목록 가져오기
 	 * */
 	List<RecvMessageDTO> mailMypage(String id);

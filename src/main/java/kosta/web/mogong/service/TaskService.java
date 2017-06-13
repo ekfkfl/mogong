@@ -3,6 +3,7 @@ package kosta.web.mogong.service;
 import java.util.List;
 
 import kosta.web.mogong.dto.TaskDTO;
+import kosta.web.mogong.dto.TaskMemberDTO;
 
 public interface TaskService {
 	List<TaskDTO> selectAllTask(String studyCode);
@@ -18,4 +19,6 @@ public interface TaskService {
 	void updateTask(TaskDTO taskDTO);
 
 	void deleteTask(String taskCode);
+	
+	List<TaskMemberDTO> selectTaksMember(String taskCode);
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.web.mogong.dto.TaskDTO;
+import kosta.web.mogong.dto.TaskMemberDTO;
 import kosta.web.mogong.service.TaskService;
 
 @Controller
@@ -105,4 +106,15 @@ public class TaskController {
 	}
 	
 	
+}
+	@RequestMapping("/selectTaksMember")
+	@ResponseBody
+	public List<TaskMemberDTO> selectTaksMember(String taskCode) {
+		return taskService.selectTaksMember(taskCode);
+	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		return "task/test";
+	}
 }

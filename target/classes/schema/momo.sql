@@ -201,7 +201,7 @@ CREATE TABLE SEND_MESSAGE(
 
 select SEND_MESSAGE_CODE, id, title, content, recv_id, write_date
 from SEND_MESSAGE 
-where RECV_ID='crw12' 
+where id='crw12' 
 order by SEND_MESSAGE_CODE desc
 
 insert into send_message values()
@@ -221,6 +221,13 @@ CREATE TABLE RECV_MESSAGE(
   WRITE_DATE DATE NOT NULL,
   CONFIRM VARCHAR2(10) REFERENCES COMM_CODE(COMM_CODE) -- 받은 쪽지 확인 유무
 )
+
+insert into recv_message values()
+
+select RECV_MESSAGE_CODE, id, title, content, SEND_ID, write_date, CONFIRM
+from RECV_MESSAGE 
+where ID='gwang12'
+order by RECV_MESSAGE_CODE desc
  
 CREATE SEQUENCE RECV_MESSAGE_SEQ
 START WITH 1

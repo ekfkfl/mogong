@@ -122,4 +122,9 @@ public class TaskServiceImpl implements TaskService {
 	public void deleteTask(String taskCode) {
 		taskDAO.deleteTask(taskCode);
 	}
+
+	@Override
+	public List<TaskMemberDTO> selectTaksMember(String taskCode) {
+		return taskDAO.selectTaksMember(taskCode);
+	}
 }

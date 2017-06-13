@@ -49,44 +49,46 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- /.box-header -->
             <div class="box-body no-padding">
               <div class="mailbox-controls">
-                <!-- Check all button -->
-                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
-                </button>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                </div>
-                <!-- /.btn-group -->
-                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                <div class="pull-right">
-                  1-50/200
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                  </div>
-                  <!-- /.btn-group -->
-                </div>
-                <!-- /.pull-right -->
+              <table class="table table-hover table-striped">
+              <tr>
+              	<td>선택</td>
+              	<td>번호</td>
+              	<td>제목</td>
+              	<td>내용</td>
+              	<td>보낸이</td>
+              	<td>보낸날짜</td>
+              	<td>확인여부</td>
+              </tr>
               </div>
-              <c:forEach items="${list}" var="recvDTO">
-              <div class="table-responsive mailbox-messages">
-                <table class="table table-hover table-striped">
-                  <tbody>
-                  <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
-                    </td>
-                    <td class="mailbox-attachment"></td>
-                    <td class="mailbox-date">5 mins ago</td>
-                  </tr>
-                  </tbody>
-                </table>
-                <!-- /.table -->
-              </div>
-              </c:forEach>
+	              <c:choose>
+				    <c:when test="${empty requestScope.list}">
+					<tr>
+				        <td colspan="6">
+				            <p align="center"><b><span style="font-size:20pt;">받은 쪽지가 없습니다</span></b></p>
+				        </td>
+				    </tr>
+				    </c:when>
+				   	 <c:otherwise>
+			              <c:forEach items="${list}" var="recvDTO" varStatus="status">
+			              <div class="table-responsive mailbox-messages">
+			                  <tbody>
+			                  <tr>
+			                    <td><input type="checkbox"></td>
+			                    <td class="mailbox-star">${status.count}</td>
+			                    <td class="mailbox-subject"><b>${recvDTO.title}</b></td>
+			                    <td class="mailbox-subject"><b>${recvDTO.content}</b></td>
+			                    <td class="mailbox-name">${recvDTO.sendId}</td>
+			                    <td class="mailbox-attachment">${recvDTO.writeDate}</td>
+			                    <td class="mailbox-date">${recvDTO.confirm}</td>
+			                  </tr>
+			                  </tbody>
+			                
+			                <!-- /.table -->
+			              </div>
+			              </c:forEach>
+		              </c:otherwise>
+	              </c:choose>
+              </table>
               <!-- /.mail-box-messages -->
             </div>
             <!-- /.box-body -->
