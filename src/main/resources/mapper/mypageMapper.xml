@@ -91,6 +91,10 @@ where STUDY_STATUS='0043' and id=#{_parameter}
 	insert into send_message values(SEND_MESSAGE_SEQ.nextval,#{id}, #{title}, #{content}, #{recvId}, sysdate)
 </insert>
 
+<insert id="recvMessageInsert" parameterType="sendMessageDTO">
+	insert into recv_message values(RECV_MESSAGE_SEQ.nextval,#{recvId}, #{title}, #{content}, #{id}, sysdate,'0051')
+</insert>
+
 <select id="mailMypage" parameterType="string" resultMap="recvMessageDTO">
 select RECV_MESSAGE_CODE, ID, title, content, SEND_ID, write_date, CONFIRM
 from RECV_MESSAGE 

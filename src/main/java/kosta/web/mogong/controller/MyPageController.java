@@ -92,6 +92,10 @@ public class MyPageController {
 		
 		int result = myPageServiceImpl.sendMessageInsert(sendMessage);
 		System.out.println("결과 : "+result);
+		if(result==1){
+			int result2 = myPageServiceImpl.recvMessageInsert(sendMessage);
+			System.out.println("받은메세지 : "+ result2);
+		}
 		
 		return "/mypage/composeMail";
 	}

@@ -43,4 +43,9 @@ public class MyPageDAOImpl implements MyPageDAO {
 		return sqlSession.selectList("mypageMapper.mailMypage", id);
 	}
 
+	@Override
+	public int recvMessageInsert(SendMessageDTO sendMessage) {
+		return sqlSession.insert("mypageMapper.recvMessageInsert", sendMessage);
+	}
+
 }
