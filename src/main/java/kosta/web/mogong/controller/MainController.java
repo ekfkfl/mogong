@@ -96,7 +96,9 @@ public class MainController {
 	}
 
 	@RequestMapping("/study/main")
-	public String studyMain() {
+	public String studyMain(HttpServletRequest request) {
+		
+		
 		return "member/studyMain";
 	}
 	

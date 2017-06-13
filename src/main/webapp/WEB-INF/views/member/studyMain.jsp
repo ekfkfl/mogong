@@ -273,7 +273,7 @@ desired effect
           </li>
 			<!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <a href="#" data-toggle="control-sidebar"><i class="fa  fa-bar-chart"></i></a>
           </li>
         </ul>
       </div>
@@ -527,22 +527,18 @@ desired effect
                         <i class="fa fa-ellipsis-v"></i>
                   <!-- todo text -->
                   <span class="text">Design a nice theme</span>
-                  <!-- Emphasis label -->
-                  <small class="label label-info"><i class="fa fa-clock-o"></i> 3 days</small>
                   
                 </li>
                 <li>
                         <i class="fa fa-ellipsis-v"></i>
                         <i class="fa fa-ellipsis-v"></i>
                   <span class="text">Make the theme responsive</span>
-                  <small class="label label-info"><i class="fa fa-clock-o"></i> 3 days</small>
                   
                 </li>
                 <li>
                         <i class="fa fa-ellipsis-v"></i>
                         <i class="fa fa-ellipsis-v"></i>
                   <span class="text">Let theme shine like a star</span>
-				  <small class="label label-info"><i class="fa fa-clock-o"></i> 3 days</small>                  
                 </li>
                
                
