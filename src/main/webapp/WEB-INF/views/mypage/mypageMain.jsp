@@ -282,9 +282,9 @@ desired effect
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="${pageContext.request.contextPath}/mypage/studyRequest" target="mainContent">신청중</a></li>
-            <li><a href="#">진행중</a></li>
-            <li><a href="#">모집중</a></li>
+            <li><a href="${pageContext.request.contextPath}/member/mypage/studyRequest" target="mainContent">신청중</a></li>
+            <li><a href="${pageContext.request.contextPath}/member/mypage/ongoingStudy" target="mainContent">진행중</a></li>
+            <li><a href="${pageContext.request.contextPath}/member/mypage/recruitStudy" target="mainContent">모집중</a></li>
           </ul>
            <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>쪽지함</span>
@@ -293,8 +293,8 @@ desired effect
               </span>
           </a>
           <ul class="treeview-menu">
-          	<li><a href="#">쪽지쓰기</a></li>
-            <li><a href="#">받은쪽지함</a></li>
+          	<li><a href="${pageContext.request.contextPath}/member/mypage/composeMailForm" target="mainContent">쪽지쓰기</a></li>
+            <li><a href="${pageContext.request.contextPath}/member/mypage/mailMypage" target="mainContent">받은쪽지함</a></li>
             <li><a href="#">보낸쪽지함</a></li>
           </ul>
           <li><a href="#"><i class="fa fa-link"></i> <span>관리자모드</span></a></li>

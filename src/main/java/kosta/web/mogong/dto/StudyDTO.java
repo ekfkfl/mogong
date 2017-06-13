@@ -1,5 +1,7 @@
 package kosta.web.mogong.dto;
 
+import java.util.List;
+
 public class StudyDTO {
 	private int studyCode; //스터디 코드
 	private String id; //회원 아이디
@@ -16,6 +18,14 @@ public class StudyDTO {
 	private String area; //지역
 	private String description; //스터디 설명
 	private int read; //조회수
+<<<<<<< HEAD
+	private String studyStatus;//스터디 상태(모집중, 진행중...)
+	
+	private MemberDTO memberDTO; //멤버 DTO
+	
+	private CommCodeDTO commDTO; //공통 코드 DTO
+	
+=======
 	private String studyStatus; //스터디 상태
 	
 	
@@ -27,6 +37,7 @@ public class StudyDTO {
 				+ ", area=" + area + ", description=" + description + ", read=" + read + ", studyStatus=" + studyStatus
 				+ "]";
 	}
+>>>>>>> 05c098b45d37965e92b259eb84ba7c89bf37c8a4
 
 	public StudyDTO() {}
 	
@@ -141,7 +152,10 @@ public class StudyDTO {
 	public void setRead(int read) {
 		this.read = read;
 	}
+<<<<<<< HEAD
+=======
 	
+>>>>>>> 05c098b45d37965e92b259eb84ba7c89bf37c8a4
 	public String getStudyStatus() {
 		return studyStatus;
 	}
@@ -150,5 +164,24 @@ public class StudyDTO {
 		this.studyStatus = studyStatus;
 	}
 
+<<<<<<< HEAD
+	public MemberDTO getMemberDTO() {
+		return memberDTO;
+	}
+
+	public void setMemberDTO(MemberDTO memberDTO) {
+		this.memberDTO = memberDTO;
+	}
+
+	public CommCodeDTO getCommDTO() {
+		return commDTO;
+	}
+
+	public void setCommDTO(CommCodeDTO commDTO) {
+		this.commDTO = commDTO;
+	}
+
+=======
 	
+>>>>>>> 05c098b45d37965e92b259eb84ba7c89bf37c8a4
 }

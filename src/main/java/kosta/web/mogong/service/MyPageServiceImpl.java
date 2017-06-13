@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kosta.web.mogong.dao.MyPageDAO;
+import kosta.web.mogong.dto.RecvMessageDTO;
+import kosta.web.mogong.dto.SendMessageDTO;
 import kosta.web.mogong.dto.StudyDTO;
 
 @Service
@@ -16,8 +18,27 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	@Override
 	public List<StudyDTO> studyRequestList(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return myPageDAOImpl.studyRequestList(id);
+	}
+
+	@Override
+	public List<StudyDTO> ongoingStudyList(String id) {
+		return myPageDAOImpl.ongoingStudyList(id);
+	}
+
+	@Override
+	public List<StudyDTO> recruitStudyList(String id) {
+		return myPageDAOImpl.recruitStudyList(id);
+	}
+
+	@Override
+	public int sendMessageInsert(SendMessageDTO sendMessage) {
+		return myPageDAOImpl.sendMessageInsert(sendMessage);
+	}
+
+	@Override
+	public List<RecvMessageDTO> mailMypage(String id) {
+		return myPageDAOImpl.mailMypage(id);
 	}
 
 }
