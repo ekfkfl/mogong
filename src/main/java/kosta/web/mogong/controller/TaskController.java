@@ -68,4 +68,9 @@ public class TaskController {
 	public void updateTask(TaskDTO taskDTO) {
 		taskService.updateTask(taskDTO);
 	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		return "task/test";
+	}
 }

@@ -181,6 +181,4 @@ $(function() {
       checkboxClass: 'icheckbox_flat-green',
       radioClass: 'iradio_flat-green'
     });
-    
-    $(".select2").select2();
 });

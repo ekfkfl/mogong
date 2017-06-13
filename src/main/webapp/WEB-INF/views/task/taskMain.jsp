@@ -74,8 +74,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 <body>
 <input type="hidden" name="studyCode" id="studyCode" value="6"/>
-<!-- Content Wrapper. Contains page content -->
-    <!-- Content Header (Page header) -->
+<a href="task/test">아ㅏㅏㅏㅏㅏㅏㅏ</a>
     <section class="content-header">
       <h1>
         Task 관리
@@ -230,7 +229,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <h4 class="modal-title"></h4>
               </div>
               <div class="modal-body">
-              	<form>
+              	<div class="form-group">
+              	<label>설명</label>
+              	<input type="text" id="content" name="content" class="form-control">
+              	
+                <label>배정된 멤버</label>
+                	<select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                		<option></option>
+                	</select>
+              	</div>
+              	
+              	<label>시작일</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="datepicker">
+                </div>
+                
+                <label>마감일</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="datepicker">
+                </div>
+                
+              	<!-- <form>
                 <p>설명</p>
                 <textarea id="content" name="content" rows="3" cols="60" form="updateForm"></textarea>
                 <hr>
@@ -242,8 +267,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
              	<hr>
              	<p>배정된 멤버</p>
              	<input type="text" id="member" name="member">
-             	</form>
-              </div>
+             	</form> -->
+              	</div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
                 <button type="button" class="btn btn-primary">저장</button>
@@ -271,7 +296,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="${pageContext.request.contextPath}/resources/js/fastclick.min.js"></script>
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<!-- taskmain.js -->
 <script src="${pageContext.request.contextPath}/resources/js/taskmain.js"></script>
 </body>
 </html>
