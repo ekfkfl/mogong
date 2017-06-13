@@ -9,7 +9,20 @@
 	<result column="start_date" property="startDate"/>
 	<result column="end_date" property="endDate"/>
 	<result column="success_date" property="successDate"/>
+	<result column="create_date" property="createDate"/>
+	<result column="update_date" property="updateDate"/>
 </resultMap>	
+
+<sql id="mainSelectSql">
+	title,progress_status,start_date,to_char(end_date,'YYYY-MM-DD HH24:MI:SS') as end_date,success_date,to_char(create_date,'YYYY-MM-DD HH24:MI:SS') as create_date
+</sql>
+
+
+<!-- 성훈 main select -->
+<select id="selectMainTask" parameterType="int" resultMap="taskMap">
+	select <include refid="mainSelectSql"/> from task where study_code=#{value} and progress_status != '0003' order by end_date desc
+
+</select>
 
 <select id="selectAllTask" parameterType="int" resultMap="taskMap">
 	select * from task where study_code=#{value}

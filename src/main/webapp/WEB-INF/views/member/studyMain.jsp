@@ -301,9 +301,9 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Study Menu</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>스터디 메인</span></a></li>
+        <li class="active" id="sideMain"><a id="main" href="#"><i class="fa fa-link"></i> <span>스터디 메인</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
-        <li><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
+        <li id="sideTask"><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>채팅</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>게시판</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
@@ -321,230 +321,9 @@ desired effect
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
-<<<<<<< HEAD
-         <!-- TO DO List -->
-          <div class="box box-primary">
-            <div class="box-header">
-
-              <h3 class="box-title">마감일 지남</h3>
-              <hr>
-			<!-- 
-              <div class="box-tools pull-right">
-                <ul class="pagination pagination-sm inline">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
-            </div>
-             -->
-            <!-- /.box-header -->
-            <div class="box-body">
-              <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-              <ul class="todo-list">
-                <li>
-                  <!-- drag handle -->
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                  <!-- todo text -->
-                  <span class="text">Design a nice theme</span>
-                  <!-- Emphasis label -->
-                  <small class="label label-success"><i class="fa fa-clock-o"></i> 3 days</small>
-                  
-                </li>
-                <li>
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                  <span class="text">Make the theme responsive</span>
-                  <small class="label label-success"><i class="fa fa-clock-o"></i> 3 days</small>
-                  
-                </li>
-                <li>
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                  <span class="text">Let theme shine like a star</span>
-				  <small class="label label-success"><i class="fa fa-clock-o"></i> 3 days</small>                  
-                </li>
-               
-               
-               
-              </ul>
-            </div>
-            <!-- /.box-body -->
-           
-          </div>
-          </div>
-          <!-- /.box -->
-          
-           <!-- TO DO List -->
-          <div class="box box-primary">
-            <div class="box-header">
-
-              <h3 class="box-title">계획됨</h3>
-              <hr>
-			<!-- 
-              <div class="box-tools pull-right">
-                <ul class="pagination pagination-sm inline">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
-            </div>
-             -->
-            <!-- /.box-header -->
-            <div class="box-body">
-              <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-              <ul class="todo-list">
-                <li>
-                  <!-- drag handle -->
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                  <!-- todo text -->
-                  <span class="text">Design a nice theme</span>
-                  <!-- Emphasis label -->
-                  <small class="label label-warning"><i class="fa fa-clock-o"></i> 3 days</small>
-                  
-                </li>
-                <li>
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                  <span class="text">Make the theme responsive</span>
-                  <small class="label label-warning"><i class="fa fa-clock-o"></i> 3 days</small>
-                  
-                </li>
-                <li>
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                  <span class="text">Let theme shine like a star</span>
-				  <small class="label label-warning"><i class="fa fa-clock-o"></i> 3 days</small>                  
-                </li>
-               
-               
-               
-              </ul>
-            </div>
-            <!-- /.box-body -->
-           
-          </div>
-          </div>
-          <!-- /.box -->
-           <!-- TO DO List -->
-          <div class="box box-primary">
-            <div class="box-header">
-
-              <h3 class="box-title">마감일 없음</h3>
-              <hr>
-			<!-- 
-              <div class="box-tools pull-right">
-                <ul class="pagination pagination-sm inline">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
-            </div>
-             -->
-            <!-- /.box-header -->
-            <div class="box-body">
-              <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-              <ul class="todo-list">
-                <li>
-                  <!-- drag handle -->
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                  <!-- todo text -->
-                  <span class="text">Design a nice theme</span>
-                  <!-- Emphasis label -->
-                  <small class="label label-default"><i class="fa fa-clock-o"></i> 3 days</small>
-                  
-                </li>
-                <li>
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                  <span class="text">Make the theme responsive</span>
-                  <small class="label label-default"><i class="fa fa-clock-o"></i> 3 days</small>
-                  
-                </li>
-                <li>
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                  <span class="text">Let theme shine like a star</span>
-				  <small class="label label-default"><i class="fa fa-clock-o"></i> 3 days</small>                  
-                </li>
-               
-               
-               
-              </ul>
-            </div>
-            <!-- /.box-body -->
-           
-          </div>
-          </div>
-          <!-- /.box -->
-           <!-- TO DO List -->
-          <div class="box box-primary">
-            <div class="box-header">
-
-              <h3 class="box-title">완료됨</h3>
-              <hr>
-			<!-- 
-              <div class="box-tools pull-right">
-                <ul class="pagination pagination-sm inline">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
-            </div>
-             -->
-            <!-- /.box-header -->
-            <div class="box-body">
-              <!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-              <ul class="todo-list">
-                <li>
-                  <!-- drag handle -->
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                  <!-- todo text -->
-                  <span class="text">Design a nice theme</span>
-                  
-                </li>
-                <li>
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                  <span class="text">Make the theme responsive</span>
-                  
-                </li>
-                <li>
-                        <i class="fa fa-ellipsis-v"></i>
-                        <i class="fa fa-ellipsis-v"></i>
-                  <span class="text">Let theme shine like a star</span>
-                </li>
-               
-               
-               
-              </ul>
-            </div>
-            <!-- /.box-body -->
-           
-          </div>
-          </div>
-          <!-- /.box -->
-
-=======
          
-         <iframe src="" id="iframe" width="100%" height="700px" frameborder="0" scrolling="no"></iframe>
+         <iframe src="${pageContext.request.contextPath}/member/study/task/main" id="iframe" width="100%" height="1500px" frameborder="0" scrolling="no"></iframe>
          
->>>>>>> 5cbe507bcd7aa12c9a0430edc0c20007bb419d5d
     </section>
     <!-- /.content -->
   </div>
@@ -706,6 +485,13 @@ desired effect
 		
 	    $("#task").click(function() {
 			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task');
+			$("#sideTask").attr('class','active');
+			$("#sideMain").attr('class','');
+		})
+		$("#main").click(function() {
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
+			$("#sideTask").attr('class','');
+			$("#sideMain").attr('class','active');
 		})
 	})
 

@@ -6,6 +6,8 @@ import kosta.web.mogong.dto.TaskDTO;
 
 public interface TaskService {
 	List<TaskDTO> selectAllTask(String studyCode);
+	
+	List<TaskDTO> selectMainTask(String studyCode);
 
 	TaskDTO selectOneTask(String taskCode);
 

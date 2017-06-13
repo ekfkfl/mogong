@@ -1,11 +1,5 @@
 package kosta.web.mogong.controller;
 
-<<<<<<< HEAD
-public class TaskController {
-	
-	
-	
-=======
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.service.TaskService;
@@ -74,5 +69,40 @@ public class TaskController {
 	public void updateTask(TaskDTO taskDTO) {
 		taskService.updateTask(taskDTO);
 	}
->>>>>>> 5cbe507bcd7aa12c9a0430edc0c20007bb419d5d
+	
+	/**
+	 *	성훈 스터디 메인 페이지 
+	 */
+	@RequestMapping("/main")
+	public ModelAndView taskMain(){
+		List<TaskDTO> list = taskService.selectMainTask("6");
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/studyMainContent");
+		List<String> stateList = new ArrayList<>();
+		
+		mv.addObject("today", "0");
+		mv.addObject("week", "0");
+		mv.addObject("month", "0");
+		mv.addObject("noEnd", "0");
+		mv.addObject("end", "0");
+		
+		for(TaskDTO dto : list){
+			stateList.add(dto.getState());
+		}
+		if(stateList.contains("1"))
+			mv.addObject("today", "1");
+		if(stateList.contains("2"))
+			mv.addObject("week", "1");
+		if(stateList.contains("3"))
+			mv.addObject("month", "1");
+		if(stateList.contains("4"))
+			mv.addObject("noEnd", "1");
+		if(stateList.contains("5"))
+			mv.addObject("end", "1");
+		
+		mv.addObject("list",list);
+		return mv;
+	}
+	
+	
 }
