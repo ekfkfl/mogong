@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -163,6 +164,10 @@
 					</ul>
 				  </li> -->
 						<!-- User Account Menu -->
+						
+							<sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal.name" /> 님 환영합니다. <!-- Authentication의 getPrincipal().getName() -> Principal은 Provider에서 Authentication 에 넣어준 VO(생성자 첫 매개변수) -->
+	</sec:authorize>
 						<li class="dropdown user user-menu">
 							<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle"
 							data-toggle="dropdown"> <span class="hidden-xs">Login</span>
@@ -170,15 +175,16 @@
 
 							<ul class="dropdown-menu">
 								<!-- The user image in the menu -->
-								<form action="" method="post">
+								<form action="${pageContext.request.contextPath}/login" method="post">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
 									<li class="user-header">
 										<div class="form-group">
 											<label for="id">ID:</label> <input type="text"
-												class="form-control" id="id">
+												class="form-control" id="id" name="id">
 										</div>
 										<div class="form-group">
 											<label for="password">Password:</label> <input
-												type="password" class="form-control" id="password">
+												type="password" class="form-control" id="password" name="password">
 										</div> <!-- Menu Footer-->
 									<li class="user-footer">
 										<div class="pull-left">
