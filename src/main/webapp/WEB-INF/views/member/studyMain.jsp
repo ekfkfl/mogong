@@ -303,7 +303,7 @@ desired effect
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="#"><i class="fa fa-link"></i> <span>스터디 메인</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
+        <li><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>채팅</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>게시판</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
@@ -315,24 +315,13 @@ desired effect
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        스터디 페이지 메인
-        <small>Optional description</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
-      </ol>
-    </section>
-
     <!-- Main content -->
     <section class="content container-fluid">
 
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
+<<<<<<< HEAD
          <!-- TO DO List -->
           <div class="box box-primary">
             <div class="box-header">
@@ -551,6 +540,11 @@ desired effect
           </div>
           <!-- /.box -->
 
+=======
+         
+         <iframe src="" id="iframe" width="100%" height="700px" frameborder="0" scrolling="no"></iframe>
+         
+>>>>>>> 5cbe507bcd7aa12c9a0430edc0c20007bb419d5d
     </section>
     <!-- /.content -->
   </div>
@@ -709,6 +703,10 @@ desired effect
 	            }]
 	        }]
 	    });
+		
+	    $("#task").click(function() {
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task');
+		})
 	})
 
 </script>

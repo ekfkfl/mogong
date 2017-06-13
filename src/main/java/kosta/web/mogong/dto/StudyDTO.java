@@ -16,8 +16,12 @@ public class StudyDTO {
 	private String area; //지역
 	private String description; //스터디 설명
 	private int read; //조회수
-	private String studyStatus; //스터디 상태
+
+	private String studyStatus;//스터디 상태(모집중, 진행중...)
 	
+	private MemberDTO memberDTO; //멤버 DTO
+	
+	private CommCodeDTO commDTO; //공통 코드 DTO
 	
 	@Override
 	public String toString() {
@@ -29,10 +33,10 @@ public class StudyDTO {
 	}
 
 	public StudyDTO() {}
-	
+
 	public StudyDTO(int studyCode, String id, String category, String cityCode, String name, String writeDate,
 			String startDate, String endDate, String day, String startTime, String endTime, int people, String area,
-			String description, int read, String studyStatus) {
+			String description, int read, String studyStatus, MemberDTO memberDTO, CommCodeDTO commDTO) {
 		super();
 		this.studyCode = studyCode;
 		this.id = id;
@@ -49,99 +53,131 @@ public class StudyDTO {
 		this.area = area;
 		this.description = description;
 		this.read = read;
-		this.studyStatus=studyStatus;
+		this.studyStatus = studyStatus;
+		this.memberDTO = memberDTO;
+		this.commDTO = commDTO;
 	}
+
 	public int getStudyCode() {
 		return studyCode;
 	}
+
 	public void setStudyCode(int studyCode) {
 		this.studyCode = studyCode;
 	}
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getCategory() {
 		return category;
 	}
+
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
 	public String getCityCode() {
 		return cityCode;
 	}
+
 	public void setCityCode(String cityCode) {
 		this.cityCode = cityCode;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getWriteDate() {
 		return writeDate;
 	}
+
 	public void setWriteDate(String writeDate) {
 		this.writeDate = writeDate;
 	}
+
 	public String getStartDate() {
 		return startDate;
 	}
+
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
+
 	public String getEndDate() {
 		return endDate;
 	}
+
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+
 	public String getDay() {
 		return day;
 	}
+
 	public void setDay(String day) {
 		this.day = day;
 	}
+
 	public String getStartTime() {
 		return startTime;
 	}
+
 	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
+
 	public String getEndTime() {
 		return endTime;
 	}
+
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
+
 	public int getPeople() {
 		return people;
 	}
+
 	public void setPeople(int people) {
 		this.people = people;
 	}
+
 	public String getArea() {
 		return area;
 	}
+
 	public void setArea(String area) {
 		this.area = area;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public int getRead() {
 		return read;
 	}
+
 	public void setRead(int read) {
 		this.read = read;
 	}
-	
+
 	public String getStudyStatus() {
 		return studyStatus;
 	}
@@ -150,5 +186,19 @@ public class StudyDTO {
 		this.studyStatus = studyStatus;
 	}
 
-	
+	public MemberDTO getMemberDTO() {
+		return memberDTO;
+	}
+
+	public void setMemberDTO(MemberDTO memberDTO) {
+		this.memberDTO = memberDTO;
+	}
+
+	public CommCodeDTO getCommDTO() {
+		return commDTO;
+	}
+
+	public void setCommDTO(CommCodeDTO commDTO) {
+		this.commDTO = commDTO;
+	}
 }

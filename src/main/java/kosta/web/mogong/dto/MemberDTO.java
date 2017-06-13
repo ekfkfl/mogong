@@ -4,17 +4,17 @@ public class MemberDTO {
 	
 	private int memberCode; 
 	private int studyCode;
-	private String id; 
+	private String memberId; 
 	private int joinStatus; //가입상태
 	private int grade; //등급
 	
 	public MemberDTO() {}
 	
-	public MemberDTO(int memberCode, int studyCode, String id, int joinStatus, int grade) {
+	public MemberDTO(int memberCode, int studyCode, String memberId, int joinStatus, int grade) {
 		super();
 		this.memberCode = memberCode;
 		this.studyCode = studyCode;
-		this.id = id;
+		this.memberId = memberId;
 		this.joinStatus = joinStatus;
 		this.grade = grade;
 	}
@@ -30,11 +30,11 @@ public class MemberDTO {
 	public void setStudyCode(int studyCode) {
 		this.studyCode = studyCode;
 	}
-	public String getId() {
-		return id;
+	public String getMemberId() {
+		return memberId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 	public int getJoinStatus() {
 		return joinStatus;
