@@ -41,4 +41,9 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDAOImpl.mailMypage(id);
 	}
 
+	@Override
+	public int recvMessageInsert(SendMessageDTO sendMessage) {
+		return myPageDAOImpl.recvMessageInsert(sendMessage);
+	}
+
 }
