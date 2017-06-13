@@ -31,7 +31,7 @@
 <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        스터디 신청중
+        스터디 진행중
         <small>Optional description</small>
       </h1>
       <ol class="breadcrumb">
@@ -47,7 +47,7 @@
 		    <c:when test="${empty requestScope.list}">
 			<tr>
 		        <td colspan="5">
-		            <p align="center"><b><span style="font-size:20pt;">신청중인 스터디가 없습니다.</span></b></p>
+		            <p align="center"><b><span style="font-size:20pt;">진행중인 스터디가 없습니다.</span></b></p>
 		        </td>
 		    </tr>
 		    </c:when>
@@ -70,12 +70,15 @@
 			            </div>
 			            <!-- /.box-header -->
 			            <div class="box-body"><b>
-			              날짜 : ${studyDTO.day}<p>
-			              장소 : ${studyDTO.area}<p>
-			              인원 : ${studyDTO.people}<p>
-			              신청인 : ${studyDTO.memberDTO.memberId}<p>
-			              신청상태 : ${studyDTO.commDTO.codeName}<p></b>
-			              <input type="button" value="상세보기" id="detailBtn">
+			              시작일   : ${studyDTO.startDate}<p>
+			              종료일   : ${studyDTO.endDate}<p>
+			              그룹장   : ${studyDTO.id}<p>
+			              지역     : ${studyDTO.area}<p>
+			              진행날   : ${studyDTO.day}<p>
+			              인원     : ${studyDTO.people}<p>
+			              시작시간 : ${studyDTO.startTime}<p>
+			              종료시간 : ${studyDTO.endTime}<p></b>
+			              <input type="button" value="스터디진행하기" id="detailBtn">
 			            </div>
 			            <!-- /.box-body -->
 			          </div>

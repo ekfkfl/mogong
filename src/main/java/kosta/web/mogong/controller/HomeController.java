@@ -41,7 +41,7 @@ public class HomeController {
 	@RequestMapping("/main/mypage")
 	public String myPage(HttpSession session){
 		
-		 String id = "crw12";
+		 String id = "gwang12";
 		 session.setAttribute("id", id);
 		
 		return "/mypage/mypageMain";

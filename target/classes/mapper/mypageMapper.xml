@@ -2,10 +2,100 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mypageMapper">
 
+<sql id="studyColum">
+study.STUDY_CODE, study.ID, CATEGORY_CODE, CITY_CODE, NAME, WRITE_DATE,
+START_DATE, END_DATE, DAY, START_TIME, END_TIME, PEOPLE, AREA, DESCRIPTION, STUDY_STATUS,
+member.id as memberId, JOIN_STATUS
+</sql>
+
+<resultMap type="studyDTO" id="studyDTOJoinMap">
+	<id column="STUDY_CODE" property="studyCode"/>
+	<result column="ID" property="id"/><result column="CATEGORY_CODE" property="category"/>
+	<result column="CITY_CODE" property="cityCode"/><result column="NAME" property="name"/>
+	<result column="WRITE_DATE" property="writeDate"/><result column="START_DATE" property="startDate"/>
+	<result column="END_DATE" property="endDate"/><result column="DAY" property="day"/>
+	<result column="START_TIME" property="startTime"/><result column="END_TIME" property="endTime"/>
+	<result column="PEOPLE" property="people"/><result column="AREA" property="area"/>
+	<result column="DESCRIPTION" property="description"/><result column="STUDY_STATUS" property="studyStatus"/>
+	<association property="memberDTO" javaType="memberDTO">
+		<id column="MEMBER_CODE" property="memberCode"/>
+		<result column="STUDY_CODE" property="studyCode"/>
+		<result column="memberId" property="memberId"/>
+		<result column="JOIN_STATUS" property="joinStatus"/>
+		<result column="GRADE" property="grade"/>
+	</association>
+	<association property="commDTO" javaType="commCodeDTO">
+		<id column="COMM_CODE" property="commCode"/>
+		<result column="CODE_NAME" property="codeName"/>
+	</association>
+</resultMap>
+
+<resultMap type="studyDTO" id="studyDTOMap">
+	<id column="STUDY_CODE" property="studyCode"/>
+	<result column="ID" property="id"/><result column="CATEGORY_CODE" property="category"/>
+	<result column="CITY_CODE" property="cityCode"/><result column="NAME" property="name"/>
+	<result column="WRITE_DATE" property="writeDate"/><result column="START_DATE" property="startDate"/>
+	<result column="END_DATE" property="endDate"/><result column="DAY" property="day"/>
+	<result column="START_TIME" property="startTime"/><result column="END_TIME" property="endTime"/>
+	<result column="PEOPLE" property="people"/><result column="AREA" property="area"/>
+	<result column="DESCRIPTION" property="description"/><result column="STUDY_STATUS" property="studyStatus"/>
+</resultMap>
 
 
-<select id="studyRequestList" parameterType="string" >
+<resultMap type="sendMessageDTO" id="sendMessageDTO">
+	<id column="SEND_MESSAGE_CODE" property="sendMessageCode"/>
+	<result column="ID"  property="id"/>
+	<result column="TITLE"  property="title"/>
+	<result column="CONTENT"  property="content"/>
+	<result column="RECV_ID"  property="recvId"/>
+	<result column="WRITE_DATE"  property="writeDate"/>
+</resultMap>
 
+<resultMap type="recvMessageDTO" id="recvMessageDTO">
+	<id column="RECV_MESSAGE_CODE" property="recvMessageCode"/>
+	<result column="ID" property="id"/>
+	<result column="TITLE" property="title"/>
+	<result column="CONTENT" property="content"/>
+	<result column="SEND_ID" property="sendId"/>
+	<result column="WRITE_DATE" property="writeDate"/>
+	<result column="CONFIRM" property="confirm"/>
+</resultMap>
+
+
+<select id="studyRequestList" parameterType="string" resultMap="studyDTOJoinMap">
+select
+<include refid="studyColum"/>, CODE_NAME
+from STUDY, member, comm_code 
+where study.STUDY_CODE = member.STUDY_CODE 
+and member.JOIN_STATUS= comm_code.COMM_CODE
+and comm_code.COMM_CODE = '0002'
+and member.id=#{_parameter}
+</select>
+
+<select id="ongoingStudyList" parameterType="string" resultMap="studyDTOJoinMap">
+select
+<include refid="studyColum"/>
+from study, member 
+where study.STUDY_CODE = member.STUDY_CODE
+and study.STUDY_STATUS='0044' and member.id=#{_parameter}
+</select>
+
+<select id="recruitStudyList" parameterType="string" resultMap="studyDTOMap">
+select STUDY_CODE, ID, CATEGORY_CODE, CITY_CODE, NAME, WRITE_DATE,
+START_DATE, END_DATE, DAY, START_TIME, END_TIME, PEOPLE, AREA, DESCRIPTION, STUDY_STATUS
+from study 
+where STUDY_STATUS='0043' and id=#{_parameter}
+</select>
+
+<insert id="sendMessageInsert" parameterType="sendMessageDTO">
+	insert into send_message values(SEND_MESSAGE_SEQ.nextval,#{id}, #{title}, #{content}, #{recvId}, sysdate)
+</insert>
+
+<select id="mailMypage" parameterType="string" resultMap="recvMessageDTO">
+select RECV_MESSAGE_CODE, ID, title, content, SEND_ID, write_date, CONFIRM
+from RECV_MESSAGE 
+where ID=#{_parameter}
+order by RECV_MESSAGE_CODE desc
 </select>
 
 </mapper>
