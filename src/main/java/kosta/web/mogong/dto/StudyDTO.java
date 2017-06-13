@@ -22,7 +22,6 @@ public class StudyDTO {
 	private MemberDTO memberDTO; //멤버 DTO
 	
 	private CommCodeDTO commDTO; //공통 코드 DTO
-<<<<<<< HEAD
 	
 	@Override
 	public String toString() {
@@ -32,8 +31,6 @@ public class StudyDTO {
 				+ ", area=" + area + ", description=" + description + ", read=" + read + ", studyStatus=" + studyStatus
 				+ "]";
 	}
-=======
->>>>>>> Gwanng
 
 	public StudyDTO() {}
 
@@ -204,8 +201,4 @@ public class StudyDTO {
 	public void setCommDTO(CommCodeDTO commDTO) {
 		this.commDTO = commDTO;
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> Gwanng
 }

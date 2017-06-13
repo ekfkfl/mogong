@@ -9,7 +9,7 @@ comm_code, code_name, code_desc, parent_code, reg_date, update_date, code_used, 
 	<id column="comm_code" property="commCode"/>
 	<result column="code_name" property="codeName"/>
 	<result column="code_desc" property="codeDesc"/>
-	<result column="parent_code" property="parentCode"/>
+	<result column="parent_code" property="parentCode" javaType="java.lang.String"/>
 	<result column="reg_date" property="regDate"/>
 	<result column="update_date" property="updateDate" javaType="java.lang.String"/>
 	<result column="code_used" property="codeUsed"/>
