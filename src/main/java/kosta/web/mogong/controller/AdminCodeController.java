@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kosta.web.mogong.dto.CommCodeDTO;
 import kosta.web.mogong.service.AdminCodeService;
+import kosta.web.mogong.util.CodeUtil;
 
 @Controller
 @RequestMapping("/admin")
@@ -20,7 +21,6 @@ public class AdminCodeController {
 	
 	@RequestMapping("")
 	public String adminMain(HttpServletRequest request){
-		
 		List<CommCodeDTO> commCodeDTOList=adminCodeService.selectCodeAll();
 		
 		request.setAttribute("commCodeDTOList", commCodeDTOList);

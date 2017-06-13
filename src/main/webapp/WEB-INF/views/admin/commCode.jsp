@@ -1,11 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="kosta.web.mogong.util.CodeUtil" %>
 <div class="box">
 	<br>
 	<div class="box-header">
 		<h3 class="box-title">공통코드</h3>
 	</div>
+	
+<%-- 	${CodeUtil.getCodeName("0005")}
+	<br>
+	${CodeUtil.getCodeName("0001")}
+	<br>
+ 	<c:forEach items='${CodeUtil.getChildCodeName("0001")}' var="item">
+		 ${item} 
+	</c:forEach> --%>
 	<button type="button" class="btn btn-block btn-primary"
 		data-toggle="modal" data-target="#addCodeModal"
 		style="width: 100px; margin: 5px" id="regCommCode">코드등록</button>
@@ -235,8 +244,8 @@ $("#commCodeTable").on("click", "#editCodeBtn", function(){
 	var row=$(this).parent().parent().children();
 
 	var rowSize=$(row).size();
-	$(row).slice(i, i+1);
- 	for(var i=0; i<rowSize; i++){
+	
+ 	for(var i=1; i<=rowSize; i++){
 		switch(i){
 		case 1:
 			$("#updateCommCode").val($(row).slice(i, i+1).text());
@@ -249,15 +258,14 @@ $("#commCodeTable").on("click", "#editCodeBtn", function(){
 			break;
 		case 4:
  			var parentCode=$(row).slice(i, i+1).text();
- 			printCodeAll(parentCode);
- 			
-
-			
+ 			printCodeAll(parentCode);		
 			break;
 		case 5:
-	/* 		if($(row).slice(i, i+1).text()=='Y'){
+ 	 		if($(row).slice(i, i+1).text()=="Y"){
 				$("#updateCodeUsed").attr("checked", true);
-			} */
+			}else{
+				$("#updateCodeUsed").attr("checked", false);
+			}
 			break;	
 		}
 	}
