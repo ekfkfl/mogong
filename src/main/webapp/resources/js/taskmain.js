@@ -1,4 +1,46 @@
 $(function() {
+	$(".select2").select2();
+	
+	moment.locale('ko');
+	
+	$('#dateChooser').daterangepicker({
+	    "timePicker": true,
+	    "locale": {
+	        "format": "LL LT",
+	        "separator": " - ",
+	        "applyLabel": "확인",
+	        "cancelLabel": "취소",
+	        "daysOfWeek": [
+	            "일",
+	            "월",
+	            "화",
+	            "수",
+	            "목",
+	            "금",
+	            "토"
+	        ],
+	        "monthNames": [
+	            "1월",
+	            "2월",
+	            "3월",
+	            "4월",
+	            "5월",
+	            "6월",
+	            "7월",
+	            "8월",
+	            "9월",
+	            "10월",
+	            "11월",
+	            "12월"
+	        ],
+	        "firstDay": 1
+	    },
+	    "startDate": '20131224130309',
+	    "endDate": '20131224130309'
+	}, function(start, end, label) {
+		//alert(start.format('YYYY-MM-DD') + end.format('YYYY-MM-DD')  + label);
+	});
+
 	$('#todo,#doing,#done').sortable({
 		placeholder : 'sort-highlight',
 		connectWith : '.todo-list',
@@ -90,18 +132,35 @@ $(function() {
 			success: function(data) {
 				$(".modal-title").text(data.title);
 				$("#content").val(data.content);
-				$("#startDate").val(data.startDate);
-				$("#endDate").val(data.endDate);
 				
-				var str="";
 				
-				$.each(data.taskMemberList,function(index, item) {
-					str+=item.memberCode+" ";
-				})
-				$("#member").val(str);
+				
+				if(data.startDate != "") {
+					$('#dateChooser').data('daterangepicker').setStartDate(moment(data.startDate, moment.ISO_8601));
+					$('#dateChooser').data('daterangepicker').setEndDate(moment(data.endDate, moment.ISO_8601));
+				}
+				
+//				selectMember(data.taskMemberList);
+				
+				if(data.taskMemberList == "") {
+					$("#member option").remove();
+				} else {
+					var str="";
+					
+					$.each(data.taskMemberList,function(index, item) {
+						str+="<option value="+item.memberCode+">"+item.name+"";
+					})
+					$("#member option:gt(0)").remove();
+					
+					
+					$("#member").append(str);
+				}
 			}
 		})
 	}
+	$("#taskUpdate").click(function() {
+		alert($("#member").select2("val"));
+	})
 	
 	function selectAllTask(studyCode) {
 		$.ajax({
@@ -155,30 +214,17 @@ $(function() {
 		console.log('시작 '+start_pro+' '+start_pos+' 끝 '+end_pos);
 	}
 	
+	/*function selectMember(data) {
+		var select= $(".select2");
+		
+		select.select2();
+		
+		var option = $("<option ")
+	}*/
+	
 	/*function printTaskNum() {
 		$("#todoNum").text("진행 중인 Task "+$(".todoNum").length+"개");
 		$("#doingNum").text("진행 중인 Task "+$(".doingNum").length+"개");
 		$("#doneNum").text("진행 중인 Task "+$(".doneNum").length+"개");
 	}*/	
-	
-	//Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    });
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
-    });
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass: 'iradio_minimal-red'
-    });
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
-    });
 });

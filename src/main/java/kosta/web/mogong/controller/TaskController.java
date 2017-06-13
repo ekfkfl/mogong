@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kosta.web.mogong.dto.TaskDTO;
+import kosta.web.mogong.dto.TaskMemberDTO;
 import kosta.web.mogong.service.TaskService;
 
 @Controller
@@ -67,6 +68,12 @@ public class TaskController {
 	@ResponseBody
 	public void updateTask(TaskDTO taskDTO) {
 		taskService.updateTask(taskDTO);
+	}
+	
+	@RequestMapping("/selectTaksMember")
+	@ResponseBody
+	public List<TaskMemberDTO> selectTaksMember(String taskCode) {
+		return taskService.selectTaksMember(taskCode);
 	}
 	
 	@RequestMapping("/test")

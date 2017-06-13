@@ -19,8 +19,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- bootstrap datepicker -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/datepicker3.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/daterangepicker.css">
   <!-- Select2 -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/select2.min.css">  
   <!-- Theme style -->
@@ -29,13 +29,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/skins/skin-blue.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 	
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -232,46 +225,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
               	<div class="form-group">
               	<label>설명</label>
               	<input type="text" id="content" name="content" class="form-control">
-              	
+              	<hr>
+                <!-- Date and time range -->
+                <label>시작일 / 마감일</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id=dateChooser>
+                </div>
+                <!-- /.input group -->
+                <hr>
                 <label>배정된 멤버</label>
-                	<select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                	<select id="member" class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
                 		<option></option>
                 	</select>
               	</div>
-              	
-              	<label>시작일</label>
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="datepicker">
-                </div>
-                
-                <label>마감일</label>
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="datepicker">
-                </div>
-                
-              	<!-- <form>
-                <p>설명</p>
-                <textarea id="content" name="content" rows="3" cols="60" form="updateForm"></textarea>
-                <hr>
-             	<p>시작일</p>
-             	<input type="text" id="startDate" name="startDate">
-             	<hr>
-             	<p>마감일</p>
-             	<input type="text" id="endDate" name="endDate">
-             	<hr>
-             	<p>배정된 멤버</p>
-             	<input type="text" id="member" name="member">
-             	</form> -->
               	</div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary">저장</button>
+                <button id="taskUpdate" type="button" class="btn btn-primary">저장</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -290,10 +263,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <!-- Select2 -->
 <script src="${pageContext.request.contextPath}/resources/js/select2.full.min.js"></script>
-<!-- bootstrap datepicker -->
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap-datepicker.js"></script>
-<!-- FastClick -->
-<script src="${pageContext.request.contextPath}/resources/js/fastclick.min.js"></script>
+<!-- date-range-picker -->
+<script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
 <!-- taskmain.js -->

@@ -17,7 +17,7 @@
 
 <insert id="insertTask" parameterType="TaskDTO">
 	insert into task
-	values(task_seq.nextval,#{studyCode,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{progressStatus},sysdate,sysdate,sysdate)
+	values(task_seq.nextval,#{studyCode,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{progressStatus},sysdate,sysdate,sysdate,sysdate,sysdate)
 	<selectKey keyProperty="taskCode" resultType="Integer" order="AFTER">select task_seq.currval from dual</selectKey>
 </insert>
 
@@ -30,7 +30,11 @@
 </delete>
 
 <select id="selectTaskMember" parameterType="int" resultType="TaskMemberDTO">
-	select member_code as memberCode from task_member where task_code=#{value}
+	select u.name as name, m.member_code as memberCode
+	from user_tb u 
+	join member m 
+	on u.id=m.id 
+	where m.member_code in(select member_code as memberCode from task_member where task_code=#{value})
 </select>
 
 </mapper>
