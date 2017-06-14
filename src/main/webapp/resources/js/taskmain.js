@@ -196,6 +196,7 @@ $(function() {
 			url: "task/updateTask",
 			data: taskDTO,
 			success: function() {
+				selectOneTask(taskCode);
 				alert('저장 완료');
 			}
 		})
@@ -250,19 +251,4 @@ $(function() {
 	function updateSame(start_pro,start_pos,end_pos) {
 		console.log('시작 '+start_pro+' '+start_pos+' 끝 '+end_pos);
 	}
-	
-	/*function selectMember(data) {
-		var select= $(".select2");
-		
-		select.select2();
-		
-		var option = $("<option ")
-	}*/
-	
-	
-	/*function printTaskNum() {
-		$("#todoNum").text("진행 중인 Task "+$(".todoNum").length+"개");
-		$("#doingNum").text("진행 중인 Task "+$(".doingNum").length+"개");
-		$("#doneNum").text("진행 중인 Task "+$(".doneNum").length+"개");
-	}*/	
 });

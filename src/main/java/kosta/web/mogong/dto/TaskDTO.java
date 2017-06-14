@@ -27,6 +27,11 @@ public class TaskDTO {
 		this.progressStatus=progressStatus;
 	}
 	
+	public TaskDTO(int taskCode, List<TaskMemberDTO> taskMemberList) {
+		this.taskCode=taskCode;
+		this.taskMemberList=taskMemberList;
+	}
+	
 	public TaskDTO(String title, String content, String startDate, String endDate, List<TaskMemberDTO> taskMemberList) {
 		this.title=title;
 		this.content=content;

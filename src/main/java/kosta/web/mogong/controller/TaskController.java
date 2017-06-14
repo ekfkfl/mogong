@@ -169,13 +169,6 @@ public class TaskController {
 		return map;
 	}
 	
-
-	@RequestMapping("/selectTaksMember")
-	@ResponseBody
-	public List<TaskMemberDTO> selectTaksMember(String taskCode) {
-		return taskService.selectTaksMember(taskCode);
-	}
-	
 	@RequestMapping("/test")
 	public String test() {
 		return "task/test";

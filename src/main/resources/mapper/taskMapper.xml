@@ -60,7 +60,7 @@
 	<foreach collection="list" item="item">
 		into task_member values(#{item.taskCode}, #{item.memberCode})
 	</foreach>
-	select * from dual;
+	select * from dual
 </insert>
 
 <delete id="deleteTaskMember" parameterType="TaskDTO">
@@ -69,5 +69,10 @@
             #{item.memberCode}
     </foreach>
 </delete>
+
+<update id="updateTask" parameterType="TaskDTO">
+	update task set title=#{title},content=#{content},startDate=#{startDate},endDate=#{endDate},updateDate=sysdate
+	where task_code=#{taskCode}
+</update>
 
 </mapper>
