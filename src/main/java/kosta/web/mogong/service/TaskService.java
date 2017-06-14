@@ -20,7 +20,5 @@ public interface TaskService {
 
 	void deleteTask(String taskCode);
 	
-	List<TaskMemberDTO> selectTaksMember(String taskCode);
-	
 	List<Integer> chartResult();
 }
