@@ -309,7 +309,7 @@ desired effect
         <li class="header">Study Menu</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active" id="sideMain"><a id="main" href="#"><i class="fa fa-link"></i> <span>스터디 메인</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
+        <li id="sideSchedule"><a id="schedule" href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
         <li id="sideTask"><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>채팅</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>게시판</span></a></li>
@@ -443,8 +443,8 @@ desired effect
 					   
 					    color: "#f39c12",
 					    drilldown: {
-					        name: '계획됨',
-					        categories: ['계획됨'],
+					        name: '계획됨(To Do)',
+					        categories: ['계획됨(To Do)'],
 					        data: [result.todo/(result.done+result.todo+result.doing)*100],
 					        color: "#f39c12"
 					    }
@@ -452,8 +452,8 @@ desired effect
 					 
 					    color: "#ff00ff",
 					    drilldown: {
-					        name: '진행중',
-					        categories: ['진행중'],
+					        name: '진행중(Doing)',
+					        categories: ['진행중(Doing)'],
 					        data: [result.doing/(result.done+result.todo+result.doing)*100],
 					        color: colors[1]
 					    }
@@ -461,8 +461,8 @@ desired effect
 					    
 					    color: colors[1],
 					    drilldown: {
-					        name: '완료',
-					        categories: ['완료'],
+					        name: '완료(Done)',
+					        categories: ['완료(Done)'],
 					        data: [result.done/(result.done+result.todo+result.doing)*100],
 					        color: colors[2]
 					    }
@@ -620,12 +620,20 @@ desired effect
          $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task');
          $("#sideTask").attr('class','active');
          $("#sideMain").attr('class','');
+         $("#sideSchedule").attr('class','');
       })
       $("#main").click(function() {
          $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
          $("#sideTask").attr('class','');
          $("#sideMain").attr('class','active');
+         $("#sideSchedule").attr('class','');
       })
+      $("#schedule").click(function () {
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/schedule');
+		$("#sideSchedule").attr('class','active');
+		$("#sideTask").attr('class','');
+		$("#sideMain").attr('class','');
+	  })
    })
 
 </script>

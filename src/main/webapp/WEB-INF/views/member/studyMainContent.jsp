@@ -35,31 +35,21 @@
     <section class="content-header">
       <h1>
         스터디 메인
-        <small>task 전체를 보여줍니다.</small>
+        <small>Task 전체를 보여줍니다.</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Study</a></li>
         <li class="active">Main</li>
       </ol>
     </section>
+    
 	<section class="content container-fluid">
  <!-- TO DO List -->
 <c:if test="${today == '1'}">
            <div class="box box-primary">
             <div class="box-header">
-
               <h3 class="box-title">오늘까지</h3>
               <hr>
-			
-              <div class="box-tools pull-right">
-                <ul class="pagination pagination-sm inline">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
             </div>
             
             <div class="box-body">
@@ -89,16 +79,6 @@
 
               <h3 class="box-title">이번 주까지</h3>
               <hr>
-			
-              <div class="box-tools pull-right">
-                <ul class="pagination pagination-sm inline">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
             </div>
             
             <div class="box-body">
@@ -127,16 +107,6 @@
 
               <h3 class="box-title">이번 달까지</h3>
               <hr>
-			
-              <div class="box-tools pull-right">
-                <ul class="pagination pagination-sm inline">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
             </div>
             
             <div class="box-body">
@@ -165,16 +135,6 @@
 
               <h3 class="box-title">마감일 없음</h3>
               <hr>
-			
-              <div class="box-tools pull-right">
-                <ul class="pagination pagination-sm inline">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
             </div>
             
             <div class="box-body">
@@ -202,16 +162,6 @@
 
               <h3 class="box-title">마감일 지남</h3>
               <hr>
-			
-              <div class="box-tools pull-right">
-                <ul class="pagination pagination-sm inline">
-                  <li><a href="#">&laquo;</a></li>
-                  <li><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-              </div>
             </div>
             
             <div class="box-body">
