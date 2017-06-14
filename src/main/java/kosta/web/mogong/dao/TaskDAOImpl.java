@@ -26,6 +26,13 @@ public class TaskDAOImpl implements TaskDAO {
 	public List<TaskDTO> selectMainTask(String studyCode) {
 		return sqlSession.selectList("taskMapper.selectMainTask", studyCode);
 	}
+	
+	/**
+	 * 성훈 chartResult
+	 */
+	public List<Integer> chartResult(){
+		return sqlSession.selectList("taskMapper.chartResult");
+	}
 
 	@Override
 	public TaskDTO selectOneTask(String taskCode) {

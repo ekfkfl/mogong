@@ -73,7 +73,7 @@
 	                  	<c:if test="${dto.progressStatus == '0001' }">To Do</c:if>
 	                  	<c:if test="${dto.progressStatus == '0002' }">Doing</c:if>
 	                   &nbsp; > &nbsp; ${dto.title}</span>
-	                   <small class="label label-warning pull-right"><i class="fa fa-clock-o"></i>${dto.remain }</small>
+	                   <small class="label label-warning pull-right">${dto.remain }</small>
 	                </li>
 	 				</c:if>
 	 			</c:forEach>
@@ -112,7 +112,7 @@
 	                  	<c:if test="${dto.progressStatus == '0001' }">To Do</c:if>
 	                  	<c:if test="${dto.progressStatus == '0002' }">Doing</c:if>
 	                   &nbsp; > &nbsp; ${dto.title}</span>
-	                  <small class="label label-success pull-right"><i class="fa fa-clock-o"></i>${dto.remain }</small>
+	                  <small class="label label-success pull-right">${dto.remain }</small>
 	                </li>
 	 				</c:if>
 	 			</c:forEach>
@@ -150,7 +150,7 @@
 	                  	<c:if test="${dto.progressStatus == '0001' }">To Do</c:if>
 	                  	<c:if test="${dto.progressStatus == '0002' }">Doing</c:if>
 	                   &nbsp; > &nbsp; ${dto.title}</span>
-	                  <small class="label label-info pull-right"><i class="fa fa-clock-o"></i>${dto.remain}</small>
+	                  <small class="label label-info pull-right">${dto.remain}</small>
 	                </li>
 	 				</c:if>
 	 			</c:forEach>
@@ -188,7 +188,7 @@
 	                  	<c:if test="${dto.progressStatus == '0001' }">To Do</c:if>
 	                  	<c:if test="${dto.progressStatus == '0002' }">Doing</c:if>
 	                   &nbsp; > &nbsp; ${dto.title}</span>
-	                   <small class="label label-default pull-right"><i class="fa fa-clock-o"></i>마감일 없음</small>
+	                   <small class="label label-default pull-right">마감일 없음</small>
 	                </li>
 	 				</c:if>
 	 			</c:forEach>
@@ -225,7 +225,7 @@
 	                  	<c:if test="${dto.progressStatus == '0001' }">To Do</c:if>
 	                  	<c:if test="${dto.progressStatus == '0002' }">Doing</c:if>
 	                   &nbsp; > &nbsp; ${dto.title}</span>
-	                   <small class="label label-danger pull-right"><i class="fa fa-clock-o"></i>${dto.remain}</small>
+	                   <small class="label label-danger pull-right">${dto.remain}</small>
 	                </li>
 	 				</c:if>
 	 			</c:forEach>
