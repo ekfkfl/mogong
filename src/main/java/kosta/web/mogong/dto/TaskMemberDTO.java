@@ -12,6 +12,11 @@ public class TaskMemberDTO {
 		this.memberCode = memberCode;
 		this.name = name;
 	}
+	
+	public TaskMemberDTO(int taskCode, int memberCode) {
+		this.taskCode=taskCode;
+		this.memberCode=memberCode;
+	}
 
 	public TaskMemberDTO(int taskCode, int memberCode, String name) {
 		super();

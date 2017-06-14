@@ -2,6 +2,7 @@ package kosta.web.mogong.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ import kosta.web.mogong.dto.TaskMemberDTO;
 public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private TaskDAO taskDAO;
-
+	
 	@Override
 	public List<TaskDTO> selectAllTask(String studyCode) {
 		return taskDAO.selectAllTask(studyCode);
@@ -91,10 +92,17 @@ public class TaskServiceImpl implements TaskService {
 		}
 		return list;
 	}
+	/**
+	 * 성훈
+	 */
+	public List<Integer> chartResult(){
+		List<Integer> list = taskDAO.chartResult();
+		return list;
+	}
 
 	@Override
 	public TaskDTO selectOneTask(String taskCode) {
-		List<TaskMemberDTO> list=taskDAO.selectTaksMember(taskCode);
+		List<TaskMemberDTO> list=taskDAO.selectTaskMember(taskCode);
 		TaskDTO taskDTO = taskDAO.selectOneTask(taskCode);
 		taskDTO.setTaskMemberList(list);
 		
@@ -115,16 +123,31 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public void updateTask(TaskDTO taskDTO) {
+		List<TaskMemberDTO> dbList=taskDAO.selectTaskMember(String.valueOf(taskDTO.getTaskCode()));
+		List<TaskMemberDTO> inputList=taskDTO.getTaskMemberList();
+		
+		List<TaskMemberDTO> deleteList=dbList;
+		List<TaskMemberDTO> insertList=inputList;
+		
+		for(int i=0; i<dbList.size(); i++) {
+			for(int j=0; j<inputList.size(); j++) {
+				if(dbList.get(i).getMemberCode() == inputList.get(j).getMemberCode()) {
+					deleteList.remove(i);
+					inputList.remove(j);
+					break;
+				}
+			}
+		}
+		
+		taskDAO.insertTaskMember(insertList);
+		
+		taskDAO.deleteTaskMember(new TaskDTO(taskDTO.getTaskCode(), deleteList));
+		
 		taskDAO.updateTask(taskDTO);
 	}
 
 	@Override
 	public void deleteTask(String taskCode) {
 		taskDAO.deleteTask(taskCode);
-	}
-
-	@Override
-	public List<TaskMemberDTO> selectTaksMember(String taskCode) {
-		return taskDAO.selectTaksMember(taskCode);
 	}
 }

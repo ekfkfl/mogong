@@ -22,68 +22,75 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/AdminLTE.css">
 
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/skins/skin-blue.css">
-	
+   
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-	
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.0.min.js"></script>
-	
-	<script type="text/javascript">
-		$(function () {
-			$("#logo").hover(
-				function () {
-					$(this).css('background-color','white');
-					$("#logoText").css('color','#349fda');
-				},		
-				function () {
-					$("#logoText").css('color','#367fa9');
-				}
-			)
-			
-			$("#toggle").hover(
-				function () {
-					$("#toggle").css('background-color','#e1e1e1');
-				},
-				function () {
-					$("#toggle").css('background-color','white');
-				}
-			)
-			$("#progress1").hover(
-				function () {
-					$(this).css('background-color','#e1e1e1')
-				},
-				function () {
-					$(this).css('background-color','white')
-				}
-			)
-			$("#progress2").hover(
-				function () {
-					$(this).css('background-color','#e1e1e1')
-				},
-				function () {
-					$(this).css('background-color','white')
-				}
-			)
+   
+   <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.0.min.js"></script>
+   
+   <script type="text/javascript">
+      $(function () {
+         $("#logo").hover(
+            function () {
+               $(this).css('background-color','white');
+               $("#logoText").css('color','#349fda');
+            },      
+            function () {
+               $("#logoText").css('color','#367fa9');
+            }
+         )
+         
+         $("#toggle").hover(
+            function () {
+               $("#toggle").css('background-color','#e1e1e1');
+            },
+            function () {
+               $("#toggle").css('background-color','white');
+            }
+         )
+         $("#progress1").hover(
+            function () {
+               $(this).css('background-color','#e1e1e1')
+            },
+            function () {
+               $(this).css('background-color','white')
+            }
+         )
+          $("#progress2").hover(
+            function () {
+               $(this).css('background-color','#e1e1e1')
+            },
+            function () {
+               $(this).css('background-color','white')
+            }
+         )
 
-			$("#progress3").hover(
-				function () {
-					$(this).css('background-color','#e1e1e1')
-				},
-				function () {
-					$(this).css('background-color','white')
-				}
-			)
+         $("#progress3").hover(
+            function () {
+               $(this).css('background-color','#e1e1e1')
+            },
+            function () {
+               $(this).css('background-color','white')
+            }
+         )
 
-			$("#progress4").hover(
-				function () {
-					$(this).css('background-color','#e1e1e1')
-				},
-				function () {
-					$(this).css('background-color','white')
-				}
-			)
-		})
-	</script>
+         $("#progress4").hover(
+            function () {
+               $(this).css('background-color','#e1e1e1')
+            },
+            function () {
+               $(this).css('background-color','white')
+            }
+         )
+         
+         $("#rightSide").focusout(function () {
+            $("#rightTab").hide();
+         })
+         $("#rightSide").focusin(function () {
+            $("#rightTab").show();
+         })
+      })
+   </script>
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -110,8 +117,8 @@ desired effect
 
   <!-- Main Header -->
   <header class="main-header">
-	
-	<section class="main-header">
+   
+   <section class="main-header">
     <!-- Logo -->
     <a href="${pageContext.request.contextPath}/" class="logo" id="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -271,15 +278,15 @@ desired effect
               </li>
             </ul>
           </li>
-			<!-- Control Sidebar Toggle Button -->
+         <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa  fa-bar-chart"></i></a>
+            <a href="#" id="rightSide" data-toggle="control-sidebar" ><i class="fa  fa-bar-chart"></i></a>
           </li>
         </ul>
       </div>
     </nav>
   </header>
-  <!-- Left side column. contains the logo and sidebar -->
+  <!-- ***********왼쪽 사이드바********** -->
   <aside class="main-sidebar">
 
     <!-- sidebar: style can be found in sidebar.less -->
@@ -302,7 +309,7 @@ desired effect
         <li class="header">Study Menu</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active" id="sideMain"><a id="main" href="#"><i class="fa fa-link"></i> <span>스터디 메인</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
+        <li id="sideSchedule"><a id="schedule" href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
         <li id="sideTask"><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
         <li id="sideChatting"><a href="#" id="chatting"><i class="fa fa-link"></i> <span>채팅</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>게시판</span></a></li>
@@ -344,64 +351,58 @@ desired effect
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Create the tabs -->
     <!-- Tab panes -->
-    <div class="tab-content">
+    <div class="tab-content" id="rightTab">
       <!-- Home tab content -->
       <div class="tab-pane active" id="control-sidebar-home-tab">
         <h3 class="control-sidebar-heading">진행 상황</h3>
         
         <!-- 차트 -->
-		<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>       
+      <div id="container" style="min-width: 210px; height: 300px; max-width: 400px; margin: 0 auto"></div>       
         
         <ul class="control-sidebar-menu">
           <li>
             <a href="javascript:void(0)" id="progress1">
               <h4 class="control-sidebar-subheading">
-                완료(10)
-                <span class="label label-danger pull-right">25%</span>
+                완료(<span id="doneSp"></span>)
+                <span id="doneSpan" class="label label-info pull-right"></span>
               </h4>
 
               <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-danger" style="width: 25%"></div>
+                <div id="doneProgress" class="progress-bar progress-bar-danger" style="width: 25%"></div>
               </div>
             </a>
           </li>
-          <li>
-            <a href="javascript:void(0)" id="progress2">
-              <h4 class="control-sidebar-subheading">
-                마감일 지남(3)
-                <span class="label label-success pull-right">25%</span>
-              </h4>
-
-              <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-success" style="width: 25%"></div>
-              </div>
-            </a>
-          </li>
+          
           <li>
             <a href="javascript:void(0)" id="progress3">
               <h4 class="control-sidebar-subheading">
-                계획됨(5)
-                <span class="label label-warning pull-right">25%</span>
+                계획됨(<span id="todoSp"></span>)
+                <span id="todoSpan" class="label label-warning pull-right"></span>
               </h4>
 
               <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-warning" style="width: 25%"></div>
+                <div id="todoProgress" class="progress-bar progress-bar-warning" style="width: 25%"></div>
               </div>
             </a>
           </li>
           <li>
             <a href="javascript:void(0)" id="progress4">
               <h4 class="control-sidebar-subheading">
-                마감일 없음(9)
-                <span class="label label-primary pull-right">25%</span>
+                진행중(<span id="doingSp"></span>)
+                <span id="doingSpan" class="label label-primary pull-right"></span>
               </h4>
 
               <div class="progress progress-xxs">
-                <div class="progress-bar progress-bar-primary" style="width: 25%"></div>
+                <div id="doingProgress" class="progress-bar progress-bar-primary" style="width: 25%"></div>
               </div>
             </a>
           </li>
         </ul>
+        <br>
+        <h3 class="control-sidebar-heading">해야할 일</h3>
+        
+        	<!-- 차트 2 -->
+        	<div id="container2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
       </div>
      </div>
     </div>
@@ -427,6 +428,7 @@ desired effect
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <script type="text/javascript">
+<<<<<<< HEAD
 	$(function () {
 		// Build the chart
 	    Highcharts.chart('container', {
@@ -502,6 +504,215 @@ desired effect
 			$("#sideChatting").attr('class','active');
 		})
 	})
+=======
+
+   $(function () {
+      
+   		$("#rightSide").click(function () {
+			$.ajax({
+				url: "${pageContext.request.contextPath}/member/study/task/chartResult",
+				type:"post",
+				dataType:"json",
+				success: function (result) {
+					var colors = Highcharts.getOptions().colors,
+					categories = ['To Do', 'Doing', 'Done'],
+					data = [{
+					   
+					    color: "#f39c12",
+					    drilldown: {
+					        name: '계획됨(To Do)',
+					        categories: ['계획됨(To Do)'],
+					        data: [result.todo/(result.done+result.todo+result.doing)*100],
+					        color: "#f39c12"
+					    }
+					}, {
+					 
+					    color: "#ff00ff",
+					    drilldown: {
+					        name: '진행중(Doing)',
+					        categories: ['진행중(Doing)'],
+					        data: [result.doing/(result.done+result.todo+result.doing)*100],
+					        color: colors[1]
+					    }
+					}, {
+					    
+					    color: colors[1],
+					    drilldown: {
+					        name: '완료(Done)',
+					        categories: ['완료(Done)'],
+					        data: [result.done/(result.done+result.todo+result.doing)*100],
+					        color: colors[2]
+					    }
+					}],
+					browserData = [],
+					versionsData = [],
+					i,
+					j,
+					dataLen = data.length,
+					drillDataLen,
+					brightness; //var 선언 끝
+
+
+					//Build the data arrays
+					for (i = 0; i < dataLen; i += 1) {
+					// add version data
+					drillDataLen = data[i].drilldown.data.length;
+					for (j = 0; j < drillDataLen; j += 1) {
+					    brightness = 0.2 - (j / drillDataLen) / 5;
+					    versionsData.push({
+					        name: data[i].drilldown.categories[j],
+					        y: data[i].drilldown.data[j],
+					        color: Highcharts.Color(data[i].color).brighten(brightness).get()
+					    });
+					}
+					}
+					// Create the chart
+					Highcharts.chart('container', {
+					    chart: {
+					        type: 'pie'
+					    },
+						credits:{
+						    enabled: false
+						},
+						exporting:{
+							enabled: false
+						},
+					    title: {
+					        text: ''
+					    },
+					    plotOptions: {
+					        pie: {
+					            shadow: false,
+					            center: ['50%', '50%']
+					        }
+					    },
+					    tooltip: {
+					        valueSuffix: '%'
+					    },
+					    series: [{
+					        name: '진행률',
+					        data: versionsData,
+					        size: '60%',
+					        innerSize: '70%',
+					       
+					    }]
+					}); //하이차트 끝
+				       var done = result.done/(result.done+result.todo+result.doing)*100;
+				       var doing = result.doing/(result.done+result.todo+result.doing)*100;
+				       var todo = result.todo/(result.done+result.todo+result.doing)*100;
+				       $("#doneSpan").text(done.toFixed(1)+"%");
+				       $("#doneSp").text(result.done);
+				       $("#doneProgress").css('width',done+'%');
+				       $("#doingSpan").text(doing.toFixed(1)+"%");
+				       $("#doingSp").text(result.doing);
+				       $("#doingProgress").css('width',doing+'%');
+				       $("#todoSpan").text(todo.toFixed(1)+"%");
+				       $("#todoSp").text(result.todo);
+				       $("#todoProgress").css('width',todo+'%');
+				     
+				    //막대차트 시작
+				       Highcharts.chart('container2', {
+
+				    	    chart: {
+				    	        type: 'column'
+				    	    },
+
+				    	    title: {
+				    	        text: ''
+				    	    },
+				    	    exporting:{
+								enabled: false
+							},
+				    	    legend: {
+				    	        align: 'right',
+				    	        verticalAlign: 'middle',
+				    	        layout: 'vertical'
+				    	    },
+
+				    	    xAxis: {
+				    	        categories: ['오늘까지', '이번 주까지', '이번 달까지','마감일 없음','마감일 지남'],
+				    	        labels: {
+				    	            x: -10
+				    	        }
+				    	    },
+
+				    	    yAxis: {
+				    	        allowDecimals: false,
+				    	        title: {
+				    	            text: 'Amount'
+				    	        }
+				    	    },
+
+				    	    series: [{
+				    	        name: '계획됨(To Do)',
+				    	        data: [result.todaytodo,result.weektodo,result.monthtodo,result.noendtodo,result.endtodo]
+				    	    }, {
+				    	        name: '진행중(Doing)',
+				    	        data: [result.todaydoing, result.weekdoing, result.monthdoing,result.noenddoing,result.enddoing]
+				    	    }],
+
+				    	    responsive: {
+				    	        rules: [{
+				    	            condition: {
+				    	                maxWidth: 500
+				    	            },
+				    	            chartOptions: {
+				    	                legend: {
+				    	                    align: 'center',
+				    	                    verticalAlign: 'bottom',
+				    	                    layout: 'horizontal'
+				    	                },
+				    	                yAxis: {
+				    	                    labels: {
+				    	                        align: 'left',
+				    	                        x: 0,
+				    	                        y: -5
+				    	                    },
+				    	                    title: {
+				    	                        text: null
+				    	                    }
+				    	                },
+				    	                subtitle: {
+				    	                    text: null
+				    	                },
+				    	                credits: {
+				    	                    enabled: false
+				    	                }
+				    	            }
+				    	        }]
+				    	    }
+				    	});
+				   
+				       
+				},//success 끝
+				error: function (err) {
+					alert("chart Ajax Error");
+				}
+			}); //ajax 끝
+		});
+	   
+     
+      
+       $("#task").click(function() {
+         $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task');
+         $("#sideTask").attr('class','active');
+         $("#sideMain").attr('class','');
+         $("#sideSchedule").attr('class','');
+      })
+      $("#main").click(function() {
+         $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
+         $("#sideTask").attr('class','');
+         $("#sideMain").attr('class','active');
+         $("#sideSchedule").attr('class','');
+      })
+      $("#schedule").click(function () {
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/schedule');
+		$("#sideSchedule").attr('class','active');
+		$("#sideTask").attr('class','');
+		$("#sideMain").attr('class','');
+	  })
+   })
+>>>>>>> af9f6f27c35ebc363c951ff320bda1b4f998d3c7
 
 </script>
 

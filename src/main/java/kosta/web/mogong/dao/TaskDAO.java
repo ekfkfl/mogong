@@ -20,5 +20,11 @@ public interface TaskDAO {
 	
 	int deleteTask(String taskCode);
 	
-	List<TaskMemberDTO> selectTaksMember(String taskCode);
+	List<TaskMemberDTO> selectTaskMember(String taskCode);
+	
+	int insertTaskMember(List<TaskMemberDTO> taskMemberList);
+	
+	int deleteTaskMember(TaskDTO taskDTO);
+	
+	List<Integer> chartResult();
 }
