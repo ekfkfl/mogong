@@ -8,13 +8,13 @@
 		<h3 class="box-title">공통코드</h3>
 	</div>
 	
- 	${CodeUtil.getCodeName("0052")}
+<%--  	${CodeUtil.getCodeName("0052")}
 	<br>
 	${CodeUtil.getCodeName("0001")}
 	<br>
  	<c:forEach items='${CodeUtil.getChildCodeName("0001")}' var="item">
 		 ${item} 
-	</c:forEach> 
+	</c:forEach> --%> 
 	<button type="button" class="btn btn-block btn-primary"
 		data-toggle="modal" data-target="#addCodeModal"
 		style="width: 100px; margin: 5px" id="regCommCode">코드등록</button>
@@ -82,7 +82,7 @@ $(function() {
 			url : actionName,
 			type : "post",
 			dataType : "text",
-			data : ajaxTransData,
+			data : ajaxTransData+"&${_csrf.parameterName}=${_csrf.token}",
 			success : function(result) {
 				if(result>0){
 					$("#cancelBtn").trigger("click");
@@ -111,7 +111,7 @@ $(function() {
 			url : actionName,
 			type : "post",
 			dataType : "text",
-			data : ajaxTransData,
+			data : ajaxTransData+"&${_csrf.parameterName}=${_csrf.token}",
 			success : function(result) {
 				if(result>0){
 					$("#updateCancelBtn").trigger("click");
@@ -139,7 +139,7 @@ function printCodeAll(parentCode){
 		url : "${pageContext.request.contextPath}/admin/commCodeList",
 		type : "post",
 		dataType : "json",
-		data : "",
+		data : "${_csrf.parameterName}=${_csrf.token}",
 		success : function(result) {
 			var row = "<option value=''>부모코드 없음(코드 그룹 생성)</option>";
 			$.each(result, function(index, item) {
@@ -170,7 +170,7 @@ function printCommCodeList() {
 		url : "${pageContext.request.contextPath}/admin/commCodeList",
 		type : "post",
 		dataType : "json",
-		data : "",
+		data : "${_csrf.parameterName}=${_csrf.token}",
 		success : function(result) {
 			var row = "";
 			$.each(result, function(index, item) {
@@ -222,7 +222,7 @@ $("#commCodeTable").on("click", "#deleteCodeBtn", function(){
 		url : "${pageContext.request.contextPath}/admin/deleteCommCode",
 		type : "post",
 		dataType : "json",
-		data : "commCode="+commCode,
+		data : "commCode="+commCode+"&${_csrf.parameterName}=${_csrf.token}",
 		success : function(result) {
 			if(result>=0){
 				printCommCodeList();

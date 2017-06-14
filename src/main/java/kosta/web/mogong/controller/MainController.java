@@ -46,8 +46,8 @@ public class MainController {
 	}
 	
 	@RequestMapping("/loginForm")
-	public String login(){
-		return "main/loginForm";
+	public String loginForm(){
+		return "main/login/loginForm";
 	}
 	
 	@RequestMapping("/search/study")
@@ -69,7 +69,15 @@ public class MainController {
 		return "main/index";//로그인 처리를 하고 메인으로 간다.
 	}
 	
-	@RequestMapping("study/info")
+	//로그인 처리
+	@RequestMapping("/login")
+	public String login(){
+		System.err.println("로그인 처리...");
+		return "main/index";
+	}
+	
+	
+	@RequestMapping("/study/info")
 	public ModelAndView studyInfo(HttpServletRequest request, String studyCode){
 		ModelAndView mv = new ModelAndView();
 		StudyDTO studyDTO = service.selectByStudyCode(studyCode, true);
@@ -80,7 +88,7 @@ public class MainController {
 	}
 
 	//스터디 모집 폼 화면
-	@RequestMapping("enrollForm")
+	@RequestMapping("/enrollForm")
 	public String enrollForm(HttpServletRequest request, StudyDTO studyDTO) {
 		System.out.println(studyDTO);
 		return "main/study/enroll";
@@ -88,7 +96,7 @@ public class MainController {
 	
 	//스터디 모집
 	//스터디 등록을 했을 때 뜨는 화면-->메인
-	@RequestMapping("enroll")
+	@RequestMapping("/enroll")
 	public String insertEnroll(HttpServletRequest request, StudyDTO studyDTO) {
 		System.out.println(studyDTO);
 		service.insertStudy(studyDTO);

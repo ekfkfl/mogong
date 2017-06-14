@@ -13,11 +13,11 @@ public class UserDTO {
 	private String phone; //전화번호
 	private String email; //이메일
 	private String intro; //자기소개
+	private String userType;//사용자 타입(일반유저, 시스템 관리자-admin)
 	
 	private MultipartFile file; //프로필 사진
 	
 	public UserDTO() {}
-	
 	
 
 	public UserDTO(String id, String password, String name, String path, int gender, String birth, String addr,
@@ -50,6 +50,25 @@ public class UserDTO {
 		this.email = email;
 		this.intro = intro;
 	}
+
+	
+	public UserDTO(String id, String password, String name, String path, int gender, String birth, String addr,
+			String phone, String email, String intro, String userType, MultipartFile file) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.path = path;
+		this.gender = gender;
+		this.birth = birth;
+		this.addr = addr;
+		this.phone = phone;
+		this.email = email;
+		this.intro = intro;
+		this.userType = userType;
+		this.file = file;
+	}
+
 
 
 	public String getId() {
@@ -119,6 +138,24 @@ public class UserDTO {
 
 	public void setFile(MultipartFile file) {
 		this.file = file;
+	}
+
+
+	public String getUserType() {
+		return userType;
+	}
+
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+
+	@Override
+	public String toString() {
+		return "UserDTO [id=" + id + ", password=" + password + ", name=" + name + ", path=" + path + ", gender="
+				+ gender + ", birth=" + birth + ", addr=" + addr + ", phone=" + phone + ", email=" + email + ", intro="
+				+ intro + ", userType=" + userType + ", file=" + file + "]";
 	}
 	
 	

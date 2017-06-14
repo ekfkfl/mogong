@@ -28,12 +28,15 @@ public class AdminCodeController {
 		List<CommCodeDTO> commCodeDTOList=adminCodeService.selectCodeAll();
 		
 		request.setAttribute("commCodeDTOList", commCodeDTOList);
+		System.out.println(commCodeDTOList);
 		return "admin/adminMain";
 	}
 	
 	@RequestMapping("/commCodeList")
 	@ResponseBody
 	public List<CommCodeDTO> commCodeList(){
+		
+		System.out.println(adminCodeService.selectCodeAll());
 		return adminCodeService.selectCodeAll();
 	}
 	
