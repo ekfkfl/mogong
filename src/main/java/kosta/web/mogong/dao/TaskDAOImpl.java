@@ -46,7 +46,7 @@ public class TaskDAOImpl implements TaskDAO {
 
 	@Override
 	public int updateTask(TaskDTO taskDTO) {
-		return sqlSession.update("taskMapper.moveTask", taskDTO);
+		return sqlSession.update("taskMapper.updateTask", taskDTO);
 	}
 
 	@Override
@@ -57,5 +57,15 @@ public class TaskDAOImpl implements TaskDAO {
 	@Override
 	public List<TaskMemberDTO> selectTaksMember(String taskCode) {
 		return sqlSession.selectList("taskMapper.selectTaskMember", taskCode);
+	}
+
+	@Override
+	public int insertTaskMember(TaskMemberDTO taskMemberDTO) {
+		return sqlSession.insert("taskMapper.insertTaskMember", taskMemberDTO);
+	}
+
+	@Override
+	public int deleteTaskMember(TaskMemberDTO taskMemberDTO) {
+		return sqlSession.delete("taskMapper.deleteTaskMember", taskMemberDTO);
 	}
 }

@@ -50,4 +50,19 @@
 	where m.member_code in(select member_code as memberCode from task_member where task_code=#{value})
 </select>
 
+<insert id="insertTaskMember" parameterType="list">
+	insert all
+	<foreach collection="list" item="item">
+		into task_member values(#{item.taskCode}, #{item.memberCode})
+	</foreach>
+	select * from dual;
+</insert>
+
+<delete id="deleteTaskMember" parameterType="TaskDTO">
+	delete from task_member where taskCode=#{taskCode} and memberCode in
+	<foreach collection="taskMemberList" item="item"  open="(" close=")" separator=",">
+            #{item.memberCode}
+    </foreach>
+</delete>
+
 </mapper>
