@@ -22,7 +22,11 @@ public interface TaskDAO {
 	
 	List<TaskMemberDTO> selectTaksMember(String taskCode);
 	
+<<<<<<< HEAD
 	int insertTaskMember(TaskMemberDTO taskMemberDTO);
 	
 	int deleteTaskMember(TaskMemberDTO taskMemberDTO);
+=======
+	List<Integer> chartResult();
+>>>>>>> 5e2ac603833c4214255ff0a2a9f85ddd265a975a
 }

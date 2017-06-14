@@ -71,6 +71,21 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDAOImpl.deleteMessage(messageCode);
 	}
 
+	@Override
+	public int deleteSendMessage(int messageCode) {
+		return myPageDAOImpl.deleteSendMessage(messageCode);
+	}
+
+	@Override
+	public List<SendMessageDTO> searchSendMail(String id, String word) {
+		return myPageDAOImpl.searchSendMail(id, word);
+	}
+
+	@Override
+	public List<RecvMessageDTO> searchRecvMail(String id, String word) {
+		return myPageDAOImpl.searchRecvMail(id, word);
+	}
+
 	
 
 

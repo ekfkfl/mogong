@@ -1,7 +1,9 @@
 package kosta.web.mogong.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -106,6 +108,66 @@ public class TaskController {
 		return mv;
 	}
 	
+	@RequestMapping("/chartResult")
+	@ResponseBody
+	public Map<String, Object> chartResult(){
+		Map<String, Object> map = new HashMap<>();
+		List<Integer> list = taskService.chartResult();
+		List<TaskDTO> taskList = taskService.selectMainTask("6");
+		int todoArr[] = {0,0,0,0,0};
+		int doingArr[] = {0,0,0,0,0};
+		
+		for(TaskDTO dto : taskList){
+			if(dto.getState().equals("1")){ //오늘까지
+				if(dto.getProgressStatus().equals("0001")){ //To Do
+					todoArr[0]++;
+				} else if(dto.getProgressStatus().equals("0002")){ //Doing
+					doingArr[0]++;
+				}
+			} else if(dto.getState().equals("2")){
+				if(dto.getProgressStatus().equals("0001")){ //To Do
+					todoArr[1]++;
+				} else if(dto.getProgressStatus().equals("0002")){ //Doing
+					doingArr[1]++;
+				}
+			} else if(dto.getState().equals("3")){
+				if(dto.getProgressStatus().equals("0001")){ //To Do
+					todoArr[2]++;
+				} else if(dto.getProgressStatus().equals("0002")){ //Doing
+					doingArr[2]++;
+				}
+			}else if(dto.getState().equals("4")){
+				if(dto.getProgressStatus().equals("0001")){ //To Do
+					todoArr[3]++;
+				} else if(dto.getProgressStatus().equals("0002")){ //Doing
+					doingArr[3]++;
+				}
+			}else if(dto.getState().equals("5")){
+				if(dto.getProgressStatus().equals("0001")){ //To Do
+					todoArr[4]++;
+				} else if(dto.getProgressStatus().equals("0002")){ //Doing
+					doingArr[4]++;
+				}
+			}
+			
+		}
+		
+		map.put("todo", list.get(0));
+		map.put("doing", list.get(1));
+		map.put("done", list.get(2));
+		map.put("todaytodo", todoArr[0]);
+		map.put("weektodo", todoArr[1]);
+		map.put("monthtodo", todoArr[2]);
+		map.put("noendtodo", todoArr[3]);
+		map.put("endtodo", todoArr[4]);
+		map.put("todaydoing", doingArr[0]);
+		map.put("weekdoing", doingArr[1]);
+		map.put("monthdoing", doingArr[2]);
+		map.put("noenddoing", doingArr[3]);
+		map.put("enddoing", doingArr[4]);
+		
+		return map;
+	}
 	
 
 	@RequestMapping("/selectTaksMember")

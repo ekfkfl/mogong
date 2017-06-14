@@ -158,4 +158,34 @@ public class MyPageController {
 		System.out.println("삭제 결과 : "+ result);
 	}
 	
+	@RequestMapping("/member/mypage/sendDelete")
+	@ResponseBody
+	public void sendDelete(String[] messageCode){
+		int result=0;
+		for(int i=0;i<messageCode.length; i++){
+			result = myPageServiceImpl.deleteSendMessage(Integer.parseInt(messageCode[i]));
+		}
+		System.out.println("삭제 결과 : "+ result);
+	}
+	
+	@RequestMapping("/member/mypage/searchSendMail")
+	public ModelAndView searchSendMail(HttpSession session, String word){
+		
+		String id = (String)session.getAttribute("id"); 
+		
+		List<SendMessageDTO> list = myPageServiceImpl.searchSendMail(id, word);
+		
+		return new ModelAndView("/mypage/sendMail", "list", list);
+	}
+	
+	@RequestMapping("/member/mypage/searchRecvMail")
+	public ModelAndView searchRecvMail(HttpSession session, String word){
+		
+		String id = (String)session.getAttribute("id"); 
+		
+		List<RecvMessageDTO> list = myPageServiceImpl.searchRecvMail(id, word);
+		
+		return new ModelAndView("/mypage/recvMail", "list", list);
+	}
+	
 }
