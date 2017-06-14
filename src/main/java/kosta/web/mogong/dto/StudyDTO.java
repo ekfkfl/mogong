@@ -22,20 +22,6 @@ public class StudyDTO {
 	private MemberDTO memberDTO; //멤버 DTO
 	
 	private CommCodeDTO commDTO; //공통 코드 DTO
-<<<<<<< HEAD
-=======
-
-	
-	@Override
-	public String toString() {
-		return "StudyDTO [studyCode=" + studyCode + ", id=" + id + ", category=" + category + ", cityCode=" + cityCode
-				+ ", name=" + name + ", writeDate=" + writeDate + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", day=" + day + ", startTime=" + startTime + ", endTime=" + endTime + ", people=" + people
-				+ ", area=" + area + ", description=" + description + ", read=" + read + ", studyStatus=" + studyStatus
-				+ "]";
-	}
-
->>>>>>> 830439c8dc618294be1a339e2dee98435552c0b5
 
 	public StudyDTO() {}
 
@@ -206,8 +192,5 @@ public class StudyDTO {
 	public void setCommDTO(CommCodeDTO commDTO) {
 		this.commDTO = commDTO;
 	}
-<<<<<<< HEAD
-=======
 
->>>>>>> 830439c8dc618294be1a339e2dee98435552c0b5
 }

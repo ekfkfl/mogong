@@ -304,7 +304,7 @@ desired effect
         <li class="active" id="sideMain"><a id="main" href="#"><i class="fa fa-link"></i> <span>스터디 메인</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
         <li id="sideTask"><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>채팅</span></a></li>
+        <li id="sideChatting"><a href="#" id="chatting"><i class="fa fa-link"></i> <span>채팅</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>게시판</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
       </ul>
@@ -487,11 +487,19 @@ desired effect
 			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task');
 			$("#sideTask").attr('class','active');
 			$("#sideMain").attr('class','');
+			$("#sideChatting").attr('class','');
 		})
 		$("#main").click(function() {
 			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
 			$("#sideTask").attr('class','');
 			$("#sideMain").attr('class','active');
+			$("#sideChatting").attr('class','');
+		})
+		 $("#chatting").click(function() {
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/chatting');
+			$("#sideTask").attr('class','');
+			$("#sideMain").attr('class','');
+			$("#sideChatting").attr('class','active');
 		})
 	})
 
