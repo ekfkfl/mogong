@@ -27,6 +27,14 @@ public class TaskDTO {
 		this.progressStatus=progressStatus;
 	}
 	
+	public TaskDTO(String title, String content, String startDate, String endDate, List<TaskMemberDTO> taskMemberList) {
+		this.title=title;
+		this.content=content;
+		this.startDate=startDate;
+		this.endDate=endDate;
+		this.taskMemberList=taskMemberList;
+	}
+	
 	public TaskDTO(int taskCode, int studyCode, String title, String content, String progressStatus, String startDate,
 			String endDate, String successDate) {
 		super();

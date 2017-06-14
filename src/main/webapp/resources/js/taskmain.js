@@ -1,4 +1,6 @@
 $(function() {
+	var taskCode;
+	
 	$(".select2").select2();
 	
 	moment.locale('ko');
@@ -7,7 +9,7 @@ $(function() {
 	    "timePicker": true,
 	    "locale": {
 	        "format": "LL LT",
-	        "separator": " - ",
+	        "separator": " ~ ",
 	        "applyLabel": "확인",
 	        "cancelLabel": "취소",
 	        "daysOfWeek": [
@@ -35,10 +37,9 @@ $(function() {
 	        ],
 	        "firstDay": 1
 	    },
-	    "startDate": '20131224130309',
-	    "endDate": '20131224130309'
+	    "startDate": moment(),
+	    "endDate": moment()
 	}, function(start, end, label) {
-		//alert(start.format('YYYY-MM-DD') + end.format('YYYY-MM-DD')  + label);
 	});
 
 	$('#todo,#doing,#done').sortable({
@@ -130,10 +131,8 @@ $(function() {
 			data: "taskCode="+taskCode,
 			dataType: "json",
 			success: function(data) {
-				$(".modal-title").text(data.title);
+				$("#title").val(data.title);
 				$("#content").val(data.content);
-				
-				
 				
 				if(data.startDate != "") {
 					$('#dateChooser').data('daterangepicker').setStartDate(moment(data.startDate, moment.ISO_8601));
@@ -148,7 +147,7 @@ $(function() {
 					var str="";
 					
 					$.each(data.taskMemberList,function(index, item) {
-						str+="<option value="+item.memberCode+">"+item.name+"";
+						str+="<option value="+item.memberCode+" selected>"+item.name+"";
 					})
 					$("#member option:gt(0)").remove();
 					
@@ -159,8 +158,48 @@ $(function() {
 		})
 	}
 	$("#taskUpdate").click(function() {
-		alert($("#member").select2("val"));
+		
+		var taskDTO = new Object();
+		var taskMemberList = new Array();
+		
+		taskDTO.taskCode=taskCode;
+		taskDTO.title=$("#title").val();
+		taskDTO.content=$("#content").val();
+		
+		var date=$("#dateChooser").val();
+		var dateArray=date.split(' ~ ');
+		var startDate=dateArray[0];
+		var endDate=dateArray[1];
+		
+		startDate=moment(startDate,"LL LT").format("YYYYMMDDHHmm");
+		endDate=moment(endDate,"LL LT").format("YYYYMMDDHHmm");
+		
+		taskDTO.startDate=startDate;
+		taskDTO.endDate=endDate;
+		
+		var memberCodeArray=$("#member").select2("val");
+		
+		
+		
+		
+		for(var i=0; i<memberCodeArray.length; i++) {
+			taskDTO['taskMemberList['+i+'].taskCode']=taskCode;
+			taskDTO['taskMemberList['+i+'].memberCode']=memberCodeArray[i];
+		}
+			
+		updateTask(taskDTO);
 	})
+	
+	function updateTask(taskDTO) {
+		$.ajax({
+			type: "post",
+			url: "task/updateTask",
+			data: taskDTO,
+			success: function() {
+				alert('저장 완료');
+			}
+		})
+	}
 	
 	function selectAllTask(studyCode) {
 		$.ajax({
@@ -193,14 +232,12 @@ $(function() {
 	}
 	
 	$(document).on('click','#task',function() {
-		var taskCode;
 		taskCode=$(this).find('span').attr('id');
 		
 		selectOneTask(taskCode);
 	})
 	
 	$(document).on('click','#deleteTask',function() {
-		var taskCode;
 		taskCode=$(this).parent().find('span').attr('id');
 		
 		deleteTask(taskCode);
@@ -221,6 +258,7 @@ $(function() {
 		
 		var option = $("<option ")
 	}*/
+	
 	
 	/*function printTaskNum() {
 		$("#todoNum").text("진행 중인 Task "+$(".todoNum").length+"개");

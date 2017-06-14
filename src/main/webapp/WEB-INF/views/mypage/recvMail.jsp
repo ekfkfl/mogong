@@ -55,13 +55,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		
 	})
 	
-	function aa() {
-		$(':checkbox[name=messageCode]:checked').each(function() { 
-	        return $(this).val();
-	   });
-
-	}
-	
 	function checkedValuesGet() {
 		var chked_val = "";
 		  $(":checkbox[name='messageCode']:checked").each(function(pi,po){
@@ -71,6 +64,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		  return chked_val;
 	}
 </script>
+<style type="text/css">
+	a{
+		color:black
+	}
+	
+	a:hover{
+		color:sky-blue
+	}
+</style>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -84,8 +87,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
               <div class="box-tools pull-right">
                 <div class="has-feedback">
-                  <input type="text" class="form-control input-sm" placeholder="Search Mail">
-                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                   <form name="search" id="search" action="${pageContext.request.contextPath}/member/mypage/searchRecvMail" method="post">
+	                  <input type="text" class="form-control input-sm" placeholder="Search Mail" name="word" id="keyWord">
+	                  <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                  </form>
                 </div>
               </div>
               <!-- /.box-tools -->
@@ -103,7 +108,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
                 </div>
                 <!-- /.btn-group -->
-                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                <a href="${pageContext.request.contextPath}/member/mypage/recvMail">
+                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button></a>
                 <div class="pull-right">
                   1-50/200
                   <div class="btn-group">
@@ -116,17 +122,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </div>
             </div>
               <div class="mailbox-controls">
-              <table class="table table-hover table-striped">
-              <tr>
-              	<td>선택</td>
-              	<td>번호</td>
-              	<td>제목</td>
-              	<td>내용</td>
-              	<td>보낸이</td>
-              	<td>받은날짜</td>
-              	<td>확인여부</td>
-              </tr>
-              </div>
+	              <table class="table table-hover table-striped">
+	              <tr>
+	              	<td>선택</td>
+	              	<td>번호</td>
+	              	<td>제목</td>
+	              	<td>내용</td>
+	              	<td>보낸이</td>
+	              	<td>받은날짜</td>
+	              	<td>확인여부</td>
+	              </tr>
 	              <c:choose>
 				    <c:when test="${empty requestScope.list}">
 					<tr>
@@ -165,9 +170,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- /.col -->
       </div>
       <!-- /.row -->
+      </div>
     </section>
     <!-- /.content -->
-  </div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->

@@ -22,7 +22,7 @@ import kosta.web.mogong.dto.TaskMemberDTO;
 public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private TaskDAO taskDAO;
-
+	
 	@Override
 	public List<TaskDTO> selectAllTask(String studyCode) {
 		return taskDAO.selectAllTask(studyCode);
@@ -89,6 +89,13 @@ public class TaskServiceImpl implements TaskService {
 				dto.setState("4"); //마감일 없음
 			}
 		}
+		return list;
+	}
+	/**
+	 * 성훈
+	 */
+	public List<Integer> chartResult(){
+		List<Integer> list = taskDAO.chartResult();
 		return list;
 	}
 

@@ -13,6 +13,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>모여서 공부하자</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+  <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
+  <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
+ 
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
   <!-- Font Awesome -->
@@ -219,7 +223,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"></h4>
+                <label>제목</label>
+                <input type="text" id="title" name="title" class="form-control">
               </div>
               <div class="modal-body">
               	<div class="form-group">
@@ -237,7 +242,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- /.input group -->
                 <hr>
                 <label>배정된 멤버</label>
-                	<select id="member" class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                	<select id="member" class="form-control select2" multiple="multiple" data-placeholder="멤버 할당하기" style="width: 100%;">
                 		<option></option>
                 	</select>
               	</div>
