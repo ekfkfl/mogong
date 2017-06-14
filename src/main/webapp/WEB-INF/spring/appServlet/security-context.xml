@@ -7,13 +7,14 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
 	
+<context:component-scan base-package="kosta.web.mogong.security.handler,kosta.web.mogong.security.provider" />
 
-<security:http use-expressions="true" auto-config="true">
+<!-- <security:http use-expressions="true" auto-config="true">
 	<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
 	<security:intercept-url pattern="/member/**" access="isAuthenticated()"/>
-	<security:intercept-url pattern="/main/index" access="permitAll"/>	
+	<security:intercept-url pattern="/main/**" access="permitAll"/>
 		
-	<!-- <security:form-login 
+	 <security:form-login 
 		login-page="/loginForm"
 		login-processing-url="/login"
 		username-parameter="id"
@@ -27,11 +28,11 @@
 		delete-cookies="JSESSIONID"
 		logout-url="/member/logout"
 		logout-success-url="/"
-	/> -->
-</security:http>
+	/> 
+</security:http> -->
 
-<security:authentication-manager>
+<!-- <security:authentication-manager>
 	<security:authentication-provider ref="memberAuthenticationProvider"/>
-</security:authentication-manager>
+</security:authentication-manager> -->
 
 </beans>

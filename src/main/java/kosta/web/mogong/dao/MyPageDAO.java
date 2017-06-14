@@ -35,5 +35,30 @@ public interface MyPageDAO {
 	/**
 	 * 받은 메세지 목록 가져오기
 	 * */
-	List<RecvMessageDTO> mailMypage(String id);
+	List<RecvMessageDTO> recvMail(String id);
+	
+	/**
+	 * 보낸 메세지 목록 가져오기
+	 * */
+	List<SendMessageDTO> sendMail(String id);
+	
+	/**
+	 * 메세지 불러오기
+	 * */
+	RecvMessageDTO readMail(int recvMessageCode);
+	
+	/**
+	 * 보낸 메세지 불러오기
+	 * */
+	SendMessageDTO sendReadMail(int sendMessageCode);
+	
+	/**
+	 * 읽은 메세지 업데이트
+	 * */
+	int readMessageUpdate(int recvMessageCode);
+	
+	/**
+	 * 메세지 삭제하기
+	 * */
+	int deleteMessage(int messageCode);
 }

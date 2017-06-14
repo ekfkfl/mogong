@@ -37,13 +37,41 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<RecvMessageDTO> mailMypage(String id) {
-		return myPageDAOImpl.mailMypage(id);
+	public List<RecvMessageDTO> recvMail(String id) {
+		return myPageDAOImpl.recvMail(id);
+	}
+	
+	@Override
+	public List<SendMessageDTO> sendMail(String id) {
+		return myPageDAOImpl.sendMail(id);
 	}
 
 	@Override
 	public int recvMessageInsert(SendMessageDTO sendMessage) {
 		return myPageDAOImpl.recvMessageInsert(sendMessage);
 	}
+
+	@Override
+	public RecvMessageDTO readMail(int recvMessageCode) {
+		return myPageDAOImpl.readMail(recvMessageCode);
+	}
+	
+	@Override
+	public SendMessageDTO sendReadMail(int sendMessageCode) {
+		return myPageDAOImpl.sendReadMail(sendMessageCode);
+	}
+
+	@Override
+	public int readMessageUpdate(int recvMessageCode) {
+		return myPageDAOImpl.readMessageUpdate(recvMessageCode);
+	}
+
+	@Override
+	public int deleteMessage(int messageCode) {
+		return myPageDAOImpl.deleteMessage(messageCode);
+	}
+
+	
+
 
 }

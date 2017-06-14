@@ -95,11 +95,37 @@ where STUDY_STATUS='0043' and id=#{_parameter}
 	insert into recv_message values(RECV_MESSAGE_SEQ.nextval,#{recvId}, #{title}, #{content}, #{id}, sysdate,'0051')
 </insert>
 
-<select id="mailMypage" parameterType="string" resultMap="recvMessageDTO">
+<select id="recvMail" parameterType="string" resultMap="recvMessageDTO">
 select RECV_MESSAGE_CODE, ID, title, content, SEND_ID, write_date, CONFIRM
 from RECV_MESSAGE 
 where ID=#{_parameter}
 order by RECV_MESSAGE_CODE desc
 </select>
+
+<select id="sendMail" parameterType="string" resultMap="sendMessageDTO">
+select SEND_MESSAGE_CODE, ID, title, content, RECV_ID, write_date
+from SEND_MESSAGE 
+where ID=#{_parameter}
+order by SEND_MESSAGE_CODE desc
+</select>
+
+<select id="readMail" parameterType="int" resultMap="recvMessageDTO">
+	select RECV_MESSAGE_CODE, ID, title, content, SEND_ID, write_date, CONFIRM
+	from RECV_MESSAGE where RECV_MESSAGE_CODE=${_parameter}
+</select>
+
+<select id="sendReadMail" parameterType="int" resultMap="sendMessageDTO">
+	select SEND_MESSAGE_CODE, ID, title, content, RECV_ID, write_date
+	from SEND_MESSAGE where SEND_MESSAGE_CODE=${_parameter}
+</select>
+
+<update id="readMessageUpdate" parameterType="int">
+	update RECV_MESSAGE set  CONFIRM='0050'
+	where RECV_MESSAGE_CODE=${_parameter}
+</update>
+
+<delete id="deleteMessage" parameterType="int">
+	delete from RECV_MESSAGE where RECV_MESSAGE_CODE=${_parameter}
+</delete>
 
 </mapper>

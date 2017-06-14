@@ -228,6 +228,10 @@ select RECV_MESSAGE_CODE, id, title, content, SEND_ID, write_date, CONFIRM
 from RECV_MESSAGE 
 where ID='gwang12'
 order by RECV_MESSAGE_CODE desc
+
+select RECV_MESSAGE_CODE, id, title, content, SEND_ID, write_date, CONFIRM
+from RECV_MESSAGE 
+where RECV_MESSAGE_CODE=1
  
 CREATE SEQUENCE RECV_MESSAGE_SEQ
 START WITH 1

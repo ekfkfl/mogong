@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="kosta.web.mogong.util.CodeUtil" %>
  <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -36,7 +37,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="col-md-12">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">받은쪽지함</h3>
+              <h3 class="box-title">보낸쪽지함</h3>
 
               <div class="box-tools pull-right">
                 <div class="has-feedback">
@@ -55,31 +56,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
               	<td>번호</td>
               	<td>제목</td>
               	<td>내용</td>
-              	<td>보낸이</td>
+              	<td>받는이</td>
               	<td>보낸날짜</td>
-              	<td>확인여부</td>
               </tr>
               </div>
 	              <c:choose>
 				    <c:when test="${empty requestScope.list}">
 					<tr>
 				        <td colspan="6">
-				            <p align="center"><b><span style="font-size:20pt;">받은 쪽지가 없습니다</span></b></p>
+				            <p align="center"><b><span style="font-size:20pt;">보낸 쪽지가 없습니다</span></b></p>
 				        </td>
 				    </tr>
 				    </c:when>
 				   	 <c:otherwise>
-			              <c:forEach items="${list}" var="recvDTO" varStatus="status">
+			              <c:forEach items="${list}" var="sendDTO" varStatus="status">
 			              <div class="table-responsive mailbox-messages">
 			                  <tbody>
 			                  <tr>
 			                    <td><input type="checkbox"></td>
 			                    <td class="mailbox-star">${status.count}</td>
-			                    <td class="mailbox-subject"><b>${recvDTO.title}</b></td>
-			                    <td class="mailbox-subject"><b>${recvDTO.content}</b></td>
-			                    <td class="mailbox-name">${recvDTO.sendId}</td>
-			                    <td class="mailbox-attachment">${recvDTO.writeDate}</td>
-			                    <td class="mailbox-date">${recvDTO.confirm}</td>
+			                    <td class="mailbox-subject">
+			                    <a href="${pageContext.request.contextPath}/member/mypage/readMail2?sendMessageCode=${sendDTO.sendMessageCode}">
+			                    <b>${sendDTO.title}</b></a>
+			                    </td>
+			                    <td class="mailbox-subject"><b>${sendDTO.content}</b></td>
+			                    <td class="mailbox-name">${sendDTO.recvId}</td>
+			                    <td class="mailbox-attachment">${sendDTO.writeDate}</td>
 			                  </tr>
 			                  </tbody>
 			                
