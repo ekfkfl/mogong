@@ -256,7 +256,7 @@
 
 					<div class="about-right-boot">
 						<div class="about-right-wrapper">
-							<a href="#"><h3>스터디 모집하기</h3></a>
+							<a href="${pageContext.request.contextPath}/enrollForm"><h3>스터디 모집하기</h3></a>
 							<p>스터디의 조장이 되어보세요. 카테고리로 스터디를 만들고 스터디를 찾고 있는 다른 스터디원들을 모집하세요.
 								그들이 당신의 조원이 될 것입니다.</p>
 						</div>
@@ -264,7 +264,7 @@
 
 					<div class="about-right-best">
 						<div class="about-right-wrapper">
-							<a href="#"><h3>스터디 찾기</h3></a>
+							<a href="${pageContext.request.contextPath}/search/study"><h3>스터디 찾기</h3></a>
 							<p>자신이 공부하고 싶은 스터디를 보다 쉽게 찾을 수 있습니다. 카테고리를 선택한 후 스터디에 대한 정보를
 								확인하고 스터디의 구성원이 되어보세요.</p>
 						</div>
