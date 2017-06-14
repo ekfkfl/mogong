@@ -1,6 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
 <jsp:include page="/WEB-INF/views/main/header.jsp" />
+
+<style>
+  table {
+  
+    width: 500px;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+    text-align: center;
+    
+    
+  }
+</style>
+
 
 	<form name="insert"
 		action="${pageContext.request.contextPath}/enroll"
@@ -93,8 +112,10 @@
 			</tr>
 
 			<tr>
-				<td><input type=submit value=스터디등록하기> <input type=reset
-					value=다시쓰기></td>
+				<td colspan="2">
+					<input type=submit value=스터디등록하기> 
+					<input type=reset value=다시쓰기>
+				</td>
 			</tr>
 
 
