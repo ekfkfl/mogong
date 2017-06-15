@@ -162,14 +162,41 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
  <!-- Bootstrap 3.3.7 -->
  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-<!-- Select2 -->
-<script src="${pageContext.request.contextPath}/resources/js/select2.full.min.js"></script>
-<!-- date-range-picker -->
-<script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
 <!-- taskmain.js -->
 <script src="${pageContext.request.contextPath}/resources/js/taskmain.js"></script>
+
+<script src="${pageContext.request.contextPath}/resources/js/sockjs.js"></script>
+	
+	<script type="text/javascript">
+		var sock = null;
+		
+		$(document).ready(function(){
+			
+			sock = new SockJS("/mogong/echo-ws");
+		   /*sock.onopen=function(){
+				sock.send("반갑?");
+			}
+			
+			sock.onclose= function(){
+				sock.send("10.255.152.165 퇴장");
+			} */
+			sock.onmessage = function(evt){
+				$("#chatMessage").append(evt.data+"<br/>");
+			}
+			
+			$("#sendMessage").click(function(){
+				if($("#message").val() != ""){
+					sock.send($("#message").val());
+					/* $("#chatMessage").append("나->"+$("#message").val()+"<br/>"); */
+					$("#message").val("");
+				}
+			})
+			
+		})
+		
+	</script>
+	
 </body>
 </html>
