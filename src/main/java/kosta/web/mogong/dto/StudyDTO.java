@@ -22,7 +22,11 @@ public class StudyDTO {
 	private MemberDTO memberDTO; //멤버 DTO
 	
 	private CommCodeDTO commDTO; //공통 코드 DTO
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 81d4f8d228876fb2a9ab5f013bb5f529c8a1c28e
 	public StudyDTO() {}
 
 	public StudyDTO(int studyCode, String id, String category, String cityCode, String name, String writeDate,
@@ -192,5 +196,8 @@ public class StudyDTO {
 	public void setCommDTO(CommCodeDTO commDTO) {
 		this.commDTO = commDTO;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 81d4f8d228876fb2a9ab5f013bb5f529c8a1c28e
 }

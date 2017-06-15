@@ -72,7 +72,7 @@ public class TaskDAOImpl implements TaskDAO {
 	}
 
 	@Override
-	public int deleteTaskMember(TaskDTO taskDTO) {
-		return sqlSession.delete("taskMapper.deleteTaskMember", taskDTO);
+	public int deleteTaskMember(int taskCode) {
+		return sqlSession.delete("taskMapper.deleteTaskMember", taskCode);
 	}
 }
