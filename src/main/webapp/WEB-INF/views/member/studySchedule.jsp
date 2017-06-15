@@ -36,10 +36,9 @@
 
 	$(document).ready(function() {
 	    var date = new Date();
-		var d = date.getDate();
-		var m = date.getMonth();
-		var y = date.getFullYear();
-		
+		var d = date.getDate(); //15
+		var m = date.getMonth(); //5
+		var y = date.getFullYear(); //2017
 	
 		$('#external-events div.external-event').each(function() {
 		
@@ -64,122 +63,179 @@
 	
 		/* initialize the calendar
 		-----------------------------------------------------------------*/
-		
-		var calendar =  $('#calendar').fullCalendar({
-			header: {
-				left: 'title',
-				center: 'agendaDay,agendaWeek,month',
-				right: 'prev,next today'
-			},
-			editable: true,
-			firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
-			selectable: true,
-			defaultView: 'month',
-			
-			axisFormat: 'h:mm',
-			columnFormat: {
-                month: 'ddd',    // Mon
-                week: 'ddd d', // Mon 7
-                day: 'dddd M/d',  // Monday 9/7
-                agendaDay: 'dddd d'
-            },
-            titleFormat: {
-                month: 'MMMM yyyy', // September 2009
-                week: "MMMM yyyy", // September 2009
-                day: 'MMMM yyyy'                  // Tuesday, Sep 8, 2009
-            },
-			allDaySlot: false,
-			selectHelper: true,
-			select: function(start, end, allDay) {
-				var title = prompt('Event Title:');
-				if (title) {
-					calendar.fullCalendar('renderEvent',
+				
+				var calendar =  $('#calendar').fullCalendar({
+					header: {
+						left: 'title',
+						center: 'agendaDay,agendaWeek,month',
+						right: 'prev,next today'
+					},
+					editable: true,
+					firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
+					selectable: true,
+					defaultView: 'month',
+					
+					axisFormat: 'h:mm',
+					columnFormat: {
+		                month: 'ddd',    // Mon
+		                week: 'ddd d', // Mon 7
+		                day: 'dddd M/d',  // Monday 9/7
+		                agendaDay: 'dddd d'
+		            },
+		            titleFormat: {
+		                month: 'MMMM yyyy', // September 2009
+		                week: "MMMM yyyy", // September 2009
+		                day: 'MMMM yyyy'                  // Tuesday, Sep 8, 2009
+		            },
+					allDaySlot: false,
+					selectHelper: true,
+					select: function(start, end, allDay) {
+						var title = prompt('Event Title:');
+						if (title) {
+							calendar.fullCalendar('renderEvent',
+								{
+									title: title,
+									start: start,
+									end: end,
+									allDay: allDay
+								},
+								true // make the event "stick"
+							);
+						}
+						calendar.fullCalendar('unselect');
+					},
+					droppable: true, // this allows things to be dropped onto the calendar !!!
+					drop: function(date, allDay) { // this function is called when something is dropped
+					
+						// retrieve the dropped element's stored Event Object
+						var originalEventObject = $(this).data('eventObject');
+						
+						// we need to copy it, so that multiple events don't have a reference to the same object
+						var copiedEventObject = $.extend({}, originalEventObject);
+						
+						// assign it the date that was reported
+						copiedEventObject.start = date;
+						copiedEventObject.allDay = allDay;
+						
+						// render the event on the calendar
+						// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+						$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+						
+						// is the "remove after drop" checkbox checked?
+						if ($('#drop-remove').is(':checked')) {
+							// if so, remove the element from the "Draggable Events" list
+							$(this).remove();
+						}
+						
+					},
+					
+					  events: function (start,end,callback) {
+						$.ajax({
+							url: "${pageContext.request.contextPath}/member/study/schedule/data",
+							type: "post",
+							dataType: "json",
+							success: function (result) {
+								var events = [];
+								$.each(result , function (index, item) {
+									 var yy;
+									var mm;
+									var dd;
+									var hh;
+									var mi;
+									var yy2;
+									var mm2;
+									var dd2;
+									var hh2;
+									var mi2;
+									var startDate;
+									var endDate;
+									var sDate;
+									var eDate = new Date(endDate);
+									
+									if(item.startDate){
+										startDate = Date.parse(item.startDate);
+										sDate = new Date(startDate);
+										 yy = sDate.getFullYear();
+										 mm = sDate.getMonth();
+										 dd = sDate.getDate();
+										 hh = sDate.getHours();
+										 mi = sDate.getMinutes();
+									} 
+									if(item.endDate){
+										endDate = Date.parse(item.endDate);
+										eDate = new Date(endDate);
+										 yy2 = eDate.getFullYear();
+										 mm2 = eDate.getMonth();
+										 dd2 = eDate.getDate();
+										 hh2 = eDate.getHours();
+										 mi2 = eDate.getMinutes();
+									} 
+									
+									if(sDate || eDate){
+									events.push({
+										title: item.title,
+										start: new Date(yy,mm,dd,hh,mi),
+										end : new Date(yy2,mm2,dd2,hh2,mi2),
+										allDay: false
+									});
+									}
+								});
+								callback(events);
+							},
+							error : function (request,status,error) {
+								alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+							}
+						})//ajax 끝
+					}, 
+					/* events: [
 						{
-							title: title,
-							start: start,
-							end: end,
-							allDay: allDay
+							title: 'All Day Event',
+							start: new Date(y, m, 1)
 						},
-						true // make the event "stick"
-					);
-				}
-				calendar.fullCalendar('unselect');
-			},
-			droppable: true, // this allows things to be dropped onto the calendar !!!
-			drop: function(date, allDay) { // this function is called when something is dropped
+						{
+							id: 999,
+							title: 'Repeating Event',
+							start: new Date(y, m, d-3, 16, 0),
+							allDay: false,
+							className: 'info'
+						},
+						{
+							id: 999,
+							title: 'Repeating Event',
+							start: new Date(y, m, d+4, 16, 0),
+							allDay: false,
+							className: 'info'
+						},
+						{
+							title: 'Meeting',
+							start: new Date(y, m, d-4, 10, 0),
+							end: new Date(y, m, d, 8, 0),
+							allDay: false
+						},
+						{
+							title: 'Lunch',
+							start: new Date(y, m, d, 12, 0),
+							end: new Date(y, m, d, 14, 0),
+							allDay: false,
+							className: 'important'
+						},
+						{
+							title: 'Birthday Party',
+							start: new Date(y, m, d+1, 19, 0),
+							end: new Date(y, m, d+1, 22, 30),
+							allDay: false
+						},
+						{
+							title: 'Click for Google',
+							start: new Date(y, m, 28),
+							end: new Date(y, m, 29),
+							url: 'http://google.com/',
+							className: 'success'
+						}
+					], 		  */
+				}); //calendar 끝
 			
-				// retrieve the dropped element's stored Event Object
-				var originalEventObject = $(this).data('eventObject');
-				
-				// we need to copy it, so that multiple events don't have a reference to the same object
-				var copiedEventObject = $.extend({}, originalEventObject);
-				
-				// assign it the date that was reported
-				copiedEventObject.start = date;
-				copiedEventObject.allDay = allDay;
-				
-				// render the event on the calendar
-				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-				$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-				
-				// is the "remove after drop" checkbox checked?
-				if ($('#drop-remove').is(':checked')) {
-					// if so, remove the element from the "Draggable Events" list
-					$(this).remove();
-				}
-				
-			},
-			
-			events: [
-				{
-					title: 'All Day Event',
-					start: new Date(y, m, 1)
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: new Date(y, m, d-3, 16, 0),
-					allDay: false,
-					className: 'info'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: new Date(y, m, d+4, 16, 0),
-					allDay: false,
-					className: 'info'
-				},
-				{
-					title: 'Meeting',
-					start: new Date(y, m, d, 10, 30),
-					allDay: false,
-					className: 'important'
-				},
-				{
-					title: 'Lunch',
-					start: new Date(y, m, d, 12, 0),
-					end: new Date(y, m, d, 14, 0),
-					allDay: false,
-					className: 'important'
-				},
-				{
-					title: 'Birthday Party',
-					start: new Date(y, m, d+1, 19, 0),
-					end: new Date(y, m, d+1, 22, 30),
-					allDay: false,
-				},
-				{
-					title: 'Click for Google',
-					start: new Date(y, m, 28),
-					end: new Date(y, m, 29),
-					url: 'http://google.com/',
-					className: 'success'
-				}
-			],			
-		});
-		
-		
-	});
+	});//function 끝
 
 </script>
 <style>
@@ -259,7 +315,7 @@ box-shadow: 0px 0px 21px 2px rgba(0,0,0,0.18);
 
 <section class="content container-fluid">
  	<div class="box box-primary">
- 	<br><br><br><br>
+ 	<br><br>
  		<div id='calendar'></div>
 	<div style='clear:both'></div>
  </div>

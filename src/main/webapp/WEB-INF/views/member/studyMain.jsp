@@ -437,6 +437,11 @@ desired effect
 				type:"post",
 				dataType:"json",
 				success: function (result) {
+					
+					var done = parseInt(result.done)/(parseInt(result.done)+parseInt(result.todo)+parseInt(result.doing))*100;
+				    var doing = parseInt(result.doing)/(parseInt(result.done)+parseInt(result.todo)+parseInt(result.doing))*100;
+				    var todo = parseInt(result.todo)/(parseInt(result.done)+parseInt(result.todo)+parseInt(result.doing))*100;
+					
 					var colors = Highcharts.getOptions().colors,
 					categories = ['To Do', 'Doing', 'Done'],
 					data = [{
@@ -445,7 +450,7 @@ desired effect
 					    drilldown: {
 					        name: '계획됨(To Do)',
 					        categories: ['계획됨(To Do)'],
-					        data: [result.todo/(result.done+result.todo+result.doing)*100],
+					        data: [todo/(done+todo+doing)*100],
 					        color: "#f39c12"
 					    }
 					}, {
@@ -454,7 +459,7 @@ desired effect
 					    drilldown: {
 					        name: '진행중(Doing)',
 					        categories: ['진행중(Doing)'],
-					        data: [result.doing/(result.done+result.todo+result.doing)*100],
+					        data: [doing/(done+todo+doing)*100],
 					        color: colors[1]
 					    }
 					}, {
@@ -463,7 +468,7 @@ desired effect
 					    drilldown: {
 					        name: '완료(Done)',
 					        categories: ['완료(Done)'],
-					        data: [result.done/(result.done+result.todo+result.doing)*100],
+					        data: [done/(done+todo+doing)*100],
 					        color: colors[2]
 					    }
 					}],
@@ -520,9 +525,7 @@ desired effect
 					       
 					    }]
 					}); //하이차트 끝
-				       var done = result.done/(result.done+result.todo+result.doing)*100;
-				       var doing = result.doing/(result.done+result.todo+result.doing)*100;
-				       var todo = result.todo/(result.done+result.todo+result.doing)*100;
+				       
 				       $("#doneSpan").text(done.toFixed(1)+"%");
 				       $("#doneSp").text(result.done);
 				       $("#doneProgress").css('width',done+'%');
@@ -553,7 +556,7 @@ desired effect
 				    	    },
 
 				    	    xAxis: {
-				    	        categories: ['오늘까지', '이번 주까지', '이번 달까지','마감일 없음','마감일 지남'],
+				    	        categories: ['오늘까지', '이번 주까지', '이번 달까지','마감일 없음','마감일 지남','이번 달 이후'],
 				    	        labels: {
 				    	            x: -10
 				    	        }
@@ -568,10 +571,10 @@ desired effect
 
 				    	    series: [{
 				    	        name: '계획됨(To Do)',
-				    	        data: [result.todaytodo,result.weektodo,result.monthtodo,result.noendtodo,result.endtodo]
+				    	        data: [result.todaytodo,result.weektodo,result.monthtodo,result.noendtodo,result.endtodo,result.aftertodo]
 				    	    }, {
 				    	        name: '진행중(Doing)',
-				    	        data: [result.todaydoing, result.weekdoing, result.monthdoing,result.noenddoing,result.enddoing]
+				    	        data: [result.todaydoing, result.weekdoing, result.monthdoing,result.noenddoing,result.enddoing,result.afterdoing]
 				    	    }],
 
 				    	    responsive: {

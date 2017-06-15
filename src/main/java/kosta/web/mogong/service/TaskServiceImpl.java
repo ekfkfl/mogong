@@ -57,7 +57,7 @@ public class TaskServiceImpl implements TaskService {
 					int dbHour = dbCal.get(dbCal.HOUR_OF_DAY);
 					int dbMinute = dbCal.get(dbCal.MINUTE);
 					
-					if(dbDay == date){
+					if(dbDay == date && dbMonth == month){
 						dto.setState("1"); //오늘까지
 						if(dbHour==hour){
 							if(dbMinute < minute){
@@ -79,9 +79,11 @@ public class TaskServiceImpl implements TaskService {
 					else if(dbDate.getTime()-currentDate.getTime() > 0 && dbMonth==month){
 						dto.setState("3"); //이번달까지
 						dto.setRemain("D-"+Math.abs(dbDay-date)+"일 남음");
-					} else{
+					} else if(dbDate.getTime()-currentDate.getTime() < 0){
 						dto.setState("5"); //마감일 지남
 						dto.setRemain("D+"+Math.abs(date-dbDay)+"일 지남");
+					} else{
+						dto.setState("6"); //이번달 이후
 					}
 				} catch (ParseException e) {
 					e.printStackTrace();

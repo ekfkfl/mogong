@@ -4140,7 +4140,7 @@ function AgendaEventRenderer() {
 		var dayDelta; // derived from colDelta
 		var minuteDelta, prevMinuteDelta;
 
-		eventElement.draggable({
+		/*eventElement.draggable({
 			scroll: false,
 			grid: [ colWidth, snapHeight ],
 			axis: colCnt==1 ? 'y' : false,
@@ -4245,7 +4245,7 @@ function AgendaEventRenderer() {
 					showEvents(event, eventElement);
 				}
 			}
-		});
+		});*/
 
 		function updateUI() {
 			clearOverlays();
@@ -5648,7 +5648,7 @@ function DayEventRenderer() {
 	function draggableDayEvent(event, eventElement) {
 		var hoverListener = getHoverListener();
 		var dayDelta;
-		eventElement.draggable({
+		/*eventElement.draggable({
 			delay: 50,
 			opacity: opt('dragOpacity'),
 			revertDuration: opt('dragRevertDuration'),
@@ -5682,7 +5682,7 @@ function DayEventRenderer() {
 					showEvents(event, eventElement);
 				}
 			}
-		});
+		});*/
 	}
 
 	
