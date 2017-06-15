@@ -136,7 +136,7 @@ $(function() {
 		$.ajax({
 			type: "post",
 			url: "task/selectOneTask",
-			data: "taskCode="+taskCode,
+			data: "taskCode="+taskCode+"&studyCode="+$("#studyCode").val(),
 			dataType: "json",
 			success: function(data) {
 				$("#title").val(data.title);
@@ -154,11 +154,15 @@ $(function() {
 					$("#member option").remove();
 				} else {
 					var str="";
-					alert()
-					$.each(data.taskMemberList,function(index, item) {
-//						str+="<option value="+item.memberCode+" selected>"+item.name+"";
-						str+="<option value="+item.memberCode+">"+item.name+"";
+					
+					$.each(data.taskMemberList,function(index,item) {
+						if(item.isSeleted) {
+							str+="<option value="+item.memberCode+" selected>"+item.name+"";
+						} else {
+							str+="<option value="+item.memberCode+">"+item.name+"";
+						}
 					})
+					
 					$("#member option:gt(0)").remove();
 					
 					
@@ -167,6 +171,7 @@ $(function() {
 			}
 		})
 	}
+
 	$("#taskUpdate").click(function() {
 		
 		var taskDTO = new Object();

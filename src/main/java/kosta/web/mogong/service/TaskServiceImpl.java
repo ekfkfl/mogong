@@ -102,11 +102,22 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public TaskDTO selectOneTask(String taskCode) {
-		List<TaskMemberDTO> list = taskDAO.selectMember(taskCode);
-		
+	public TaskDTO selectOneTask(String taskCode,String studyCode) {
 		TaskDTO taskDTO = taskDAO.selectOneTask(taskCode);
-		taskDTO.setTaskMemberList(list);
+		
+		List<TaskMemberDTO> taskMemberList = taskDAO.selectMember(studyCode);
+		List<TaskMemberDTO> taskSelectedMemberList = taskDAO.selectTaskMember(taskCode);
+		
+		for(TaskMemberDTO tml : taskMemberList) {
+			for(TaskMemberDTO tsl : taskSelectedMemberList) {
+				if(tml.getMemberCode()==tsl.getMemberCode()) {
+					tml.setSeleted(true);
+					break;
+				}
+			}
+		}
+		
+		taskDTO.setTaskMemberList(taskMemberList);
 
 		return taskDTO;
 	}
@@ -126,6 +137,8 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void updateTask(TaskDTO taskDTO) {
 		List<TaskMemberDTO> inputList = taskDTO.getTaskMemberList();
+		
+		
 		
 		taskDAO.deleteTaskMember(taskDTO.getTaskCode());
 

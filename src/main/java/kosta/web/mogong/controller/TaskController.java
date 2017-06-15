@@ -57,9 +57,9 @@ public class TaskController {
 	
 	@RequestMapping("/selectOneTask")
 	@ResponseBody
-	public TaskDTO selectOneTask(String taskCode) {
+	public TaskDTO selectOneTask(String taskCode,String studyCode) {
 		
-		return taskService.selectOneTask(taskCode);
+		return taskService.selectOneTask(taskCode,studyCode);
 	}
 	
 	@RequestMapping("/deleteTask")

@@ -77,7 +77,7 @@ public class TaskDAOImpl implements TaskDAO {
 	}
 
 	@Override
-	public List<TaskMemberDTO> selectMember(String taskCode) {
-		return sqlSession.selectList("taskMapper.selectMember", taskCode);
+	public List<TaskMemberDTO> selectMember(String studyCode) {
+		return sqlSession.selectList("taskMapper.selectMember", studyCode);
 	}
 }

@@ -28,5 +28,5 @@ public interface TaskDAO {
 	
 	List<Integer> chartResult();
 	
-	List<TaskMemberDTO> selectMember(String taskCode);
+	List<TaskMemberDTO> selectMember(String studyCode);
 }

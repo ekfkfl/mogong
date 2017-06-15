@@ -153,8 +153,4 @@ public class TaskDTO {
 	public void setRemain(String remain) {
 		this.remain = remain;
 	}
-	
-	
-	
-	
 }
