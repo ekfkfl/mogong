@@ -311,7 +311,7 @@ desired effect
         <li class="active" id="sideMain"><a id="main" href="#"><i class="fa fa-link"></i> <span>스터디 메인</span></a></li>
         <li id="sideSchedule"><a id="schedule" href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
         <li id="sideTask"><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>채팅</span></a></li>
+        <li id="sideChatting"><a href="#" id="chatting"><i class="fa fa-link"></i> <span>채팅</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>게시판</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
       </ul>
@@ -428,6 +428,81 @@ desired effect
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <script type="text/javascript">
+	$(function () {
+		// Build the chart
+	    Highcharts.chart('container', {
+	        chart: {
+	            plotBackgroundColor: null,
+	            plotBorderWidth: null,
+	            plotShadow: false,
+	            type: 'pie'
+	        },
+	        credits:{
+	        	enabled: false
+	        },
+	        exporting:{
+	        	enabled: false
+	        },
+	        title: {
+	            text: ''
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	        },
+	        plotOptions: {
+	            pie: {
+	                allowPointSelect: true,
+	                cursor: 'pointer',
+	                dataLabels: {
+	                    enabled: false
+	                },
+	                showInLegend: true
+	            }
+	        },
+	        series: [{
+	            name: '진행률',
+	            colorByPoint: true,
+	            data: [{
+	                name: '완료',
+	                color:'#51a8ff',
+	                y: 25
+	            }, {
+	                name: '마감일 지남',
+	                color:'#fd6a6a',
+	                y: 25,
+	                sliced: true,
+	                selected: true
+	            }, {
+	                name: '계획됨',
+	                color:'#f9c62d',
+	                y: 25
+	            }, {
+	                name: '마감일 없음',
+	                color:'#c0c0c0',
+	                y: 25
+	            }]
+	        }]
+	    });
+		
+	    $("#task").click(function() {
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task');
+			$("#sideTask").attr('class','active');
+			$("#sideMain").attr('class','');
+			$("#sideChatting").attr('class','');
+		})
+		$("#main").click(function() {
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
+			$("#sideTask").attr('class','');
+			$("#sideMain").attr('class','active');
+			$("#sideChatting").attr('class','');
+		})
+		 $("#chatting").click(function() {
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/task/chatting');
+			$("#sideTask").attr('class','');
+			$("#sideMain").attr('class','');
+			$("#sideChatting").attr('class','active');
+		})
+	})
 
    $(function () {
       

@@ -4,7 +4,16 @@ public class TaskMemberDTO {
 	private int taskCode;
 	private int memberCode;
 	private String name;
+	private boolean isSeleted;
 	
+	public boolean isSeleted() {
+		return isSeleted;
+	}
+
+	public void setSeleted(boolean isSeleted) {
+		this.isSeleted = isSeleted;
+	}
+
 	public TaskMemberDTO() {}
 	
 	public TaskMemberDTO(int memberCode, String name) {

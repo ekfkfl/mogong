@@ -200,7 +200,14 @@
   		  <artifactId>spring-security-taglibs</artifactId>
  		   <version>4.2.2.RELEASE</version>
 		</dependency>
-	
+		
+		<!-- web Soket -->
+		<dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-websocket</artifactId>
+          <version>4.1.6.RELEASE</version>
+	    </dependency>
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

@@ -1,7 +1,15 @@
 $(function() {
 	var taskCode;
 	
-	$(".select2").select2();
+	$(".select2").select2({"language": {
+	       "noResults": function(){
+	           return "스터디에 가입 된 멤버가 없습니다.";
+	       }
+	   }});
+	
+	$('.select2').on("select2:select", function(e) { 
+	    alert()
+	});
 	
 	moment.locale('ko');
 	
@@ -117,7 +125,7 @@ $(function() {
 					progress="#done";
 				}
 				
-				str="<li id='task'><span data-toggle='modal' data-target='#modal-default' class='text' data-code='"+data.taskCode+"'>"+data.title+"</span><i id='deleteTask' class='fa fa-fw fa-trash-o pull-right'></i></li>";
+				str="<li id='task'><span data-toggle='modal' data-target='#modal-default' class='text' id='"+data.taskCode+"'>"+data.title+"</span><i id='deleteTask' class='fa fa-fw fa-trash-o pull-right'></i></li>";
 				
 				$(progress).prepend(str);
 			}
@@ -128,27 +136,33 @@ $(function() {
 		$.ajax({
 			type: "post",
 			url: "task/selectOneTask",
-			data: "taskCode="+taskCode,
+			data: "taskCode="+taskCode+"&studyCode="+$("#studyCode").val(),
 			dataType: "json",
 			success: function(data) {
 				$("#title").val(data.title);
 				$("#content").val(data.content);
 				
-				if(data.startDate != "") {
+				if(data.startDate != null && data.endDate != null) {
 					$('#dateChooser').data('daterangepicker').setStartDate(moment(data.startDate, moment.ISO_8601));
 					$('#dateChooser').data('daterangepicker').setEndDate(moment(data.endDate, moment.ISO_8601));
+				} else {
+					$('#dateChooser').data('daterangepicker').setStartDate(moment());
+					$('#dateChooser').data('daterangepicker').setEndDate(moment());
 				}
-				
-//				selectMember(data.taskMemberList);
 				
 				if(data.taskMemberList == "") {
 					$("#member option").remove();
 				} else {
 					var str="";
 					
-					$.each(data.taskMemberList,function(index, item) {
-						str+="<option value="+item.memberCode+" selected>"+item.name+"";
+					$.each(data.taskMemberList,function(index,item) {
+						if(item.isSeleted) {
+							str+="<option value="+item.memberCode+" selected>"+item.name+"";
+						} else {
+							str+="<option value="+item.memberCode+">"+item.name+"";
+						}
 					})
+					
 					$("#member option:gt(0)").remove();
 					
 					
@@ -157,6 +171,7 @@ $(function() {
 			}
 		})
 	}
+
 	$("#taskUpdate").click(function() {
 		
 		var taskDTO = new Object();
@@ -178,9 +193,6 @@ $(function() {
 		taskDTO.endDate=endDate;
 		
 		var memberCodeArray=$("#member").select2("val");
-		
-		
-		
 		
 		for(var i=0; i<memberCodeArray.length; i++) {
 			taskDTO['taskMemberList['+i+'].taskCode']=taskCode;
