@@ -428,6 +428,10 @@ desired effect
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <script type="text/javascript">
+<<<<<<< HEAD
+
+=======
+>>>>>>> 81d4f8d228876fb2a9ab5f013bb5f529c8a1c28e
 	$(function () {
 		// Build the chart
 	    Highcharts.chart('container', {
@@ -497,12 +501,16 @@ desired effect
 			$("#sideChatting").attr('class','');
 		})
 		 $("#chatting").click(function() {
-			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/chatting');
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/task/chatting');
 			$("#sideTask").attr('class','');
 			$("#sideMain").attr('class','');
 			$("#sideChatting").attr('class','active');
 		})
 	})
+<<<<<<< HEAD
+
+=======
+>>>>>>> 81d4f8d228876fb2a9ab5f013bb5f529c8a1c28e
 
    $(function () {
       
