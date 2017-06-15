@@ -428,7 +428,7 @@ desired effect
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <script type="text/javascript">
-<<<<<<< HEAD
+
 	$(function () {
 		// Build the chart
 	    Highcharts.chart('container', {
@@ -498,13 +498,13 @@ desired effect
 			$("#sideChatting").attr('class','');
 		})
 		 $("#chatting").click(function() {
-			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/chatting');
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/task/chatting');
 			$("#sideTask").attr('class','');
 			$("#sideMain").attr('class','');
 			$("#sideChatting").attr('class','active');
 		})
 	})
-=======
+
 
    $(function () {
       
@@ -712,7 +712,6 @@ desired effect
 		$("#sideMain").attr('class','');
 	  })
    })
->>>>>>> af9f6f27c35ebc363c951ff320bda1b4f998d3c7
 
 </script>
 
