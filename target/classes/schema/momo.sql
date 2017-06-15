@@ -127,6 +127,11 @@ where study.STUDY_CODE = member.STUDY_CODE
 and member.JOIN_STATUS= comm_code.COMM_CODE
 and comm_code.COMM_CODE = '0002'
 and member.id='gwang12' -- 신청중
+
+select SEND_MESSAGE_CODE, ID, title, content, RECV_ID, write_date
+	from SEND_MESSAGE 
+	where ID='gwang12' and title||content||id like '%1%'
+	order by SEND_MESSAGE_CODE desc --sendMail 검색 쿼리
  
 CREATE SEQUENCE MEMBER_SEQ
 START WITH 1

@@ -54,6 +54,7 @@
 			<param-value>
 					/WEB-INF/spring/appServlet/servlet-context.xml
 					/WEB-INF/spring/appServlet/upDown-servlet.xml
+					/WEB-INF/spring/appServlet/ws-config.xml
 			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>

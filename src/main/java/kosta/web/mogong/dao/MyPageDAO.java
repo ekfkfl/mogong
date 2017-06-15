@@ -61,4 +61,19 @@ public interface MyPageDAO {
 	 * 메세지 삭제하기
 	 * */
 	int deleteMessage(int messageCode);
+	
+	/**
+	 * 보낸메세지 삭제하기
+	 * */
+	int deleteSendMessage(int messageCode);
+	
+	/**
+	 * 검색하기(보낸메세지)
+	 * */
+	List<SendMessageDTO> searchSendMail(String id, String word);
+	
+	/**
+	 * 검색하기(받은메세지)
+	 * */
+	List<RecvMessageDTO> searchRecvMail(String id, String word);
 }

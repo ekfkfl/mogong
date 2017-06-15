@@ -23,17 +23,6 @@ public class StudyDTO {
 	
 	private CommCodeDTO commDTO; //공통 코드 DTO
 
-	
-	@Override
-	public String toString() {
-		return "StudyDTO [studyCode=" + studyCode + ", id=" + id + ", category=" + category + ", cityCode=" + cityCode
-				+ ", name=" + name + ", writeDate=" + writeDate + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", day=" + day + ", startTime=" + startTime + ", endTime=" + endTime + ", people=" + people
-				+ ", area=" + area + ", description=" + description + ", read=" + read + ", studyStatus=" + studyStatus
-				+ "]";
-	}
-
-
 	public StudyDTO() {}
 
 	public StudyDTO(int studyCode, String id, String category, String cityCode, String name, String writeDate,
@@ -203,5 +192,4 @@ public class StudyDTO {
 	public void setCommDTO(CommCodeDTO commDTO) {
 		this.commDTO = commDTO;
 	}
-
 }

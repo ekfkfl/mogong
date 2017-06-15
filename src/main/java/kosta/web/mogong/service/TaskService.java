@@ -10,7 +10,7 @@ public interface TaskService {
 	
 	List<TaskDTO> selectMainTask(String studyCode);
 
-	TaskDTO selectOneTask(String taskCode);
+	TaskDTO selectOneTask(String taskCode,String studyCode);
 
 	TaskDTO insertTask(TaskDTO taskDTO);
 
@@ -20,5 +20,5 @@ public interface TaskService {
 
 	void deleteTask(String taskCode);
 	
-	List<TaskMemberDTO> selectTaksMember(String taskCode);
+	List<Integer> chartResult();
 }

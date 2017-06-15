@@ -1,6 +1,7 @@
 package kosta.web.mogong.dao;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +72,31 @@ public class MyPageDAOImpl implements MyPageDAO {
 	@Override
 	public int deleteMessage(int messageCode) {
 		return sqlSession.delete("mypageMapper.deleteMessage", messageCode);
+	}
+
+	@Override
+	public int deleteSendMessage(int messageCode) {
+		return sqlSession.delete("mypageMapper.deleteSendMessage", messageCode);
+	}
+
+	@Override
+	public List<SendMessageDTO> searchSendMail(String id, String word) {
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("id", id);
+		map.put("word", word);
+		
+		return sqlSession.selectList("mypageMapper.searchSendMail", map);
+	}
+
+	@Override
+	public List<RecvMessageDTO> searchRecvMail(String id, String word) {
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("id", id);
+		map.put("word", word);
+		
+		return sqlSession.selectList("mypageMapper.searchRecvMail", map);
 	}
 
 

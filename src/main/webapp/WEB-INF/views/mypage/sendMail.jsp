@@ -28,6 +28,55 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/skins/skin-blue.css">
 <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+<!-- jQuery 3.1.1 -->
+ <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#check_all").click(function() {
+			  $("input[name=messageCode]:checkbox").prop("checked", "checked");
+			});
+		$("#uncheck_all").click(function() {
+			  $("input[name=messageCode]:checkbox").removeProp("checked");
+			});
+		
+		$("#div_content").on("click","#delete",function(){
+			var val = checkedValuesGet()
+			alert(val)
+			 $.ajax({
+				  url: "${pageContext.request.contextPath}/member/mypage/sendDelete" , //서버 요청 이름(주소)
+				  type: "post" ,//method방식(get, post)
+				  data: "messageCode="+val ,//서버에게 보낼 parameter 정보
+				  success: function(){
+					  $(':checkbox[name=messageCode]:checked').parent().parent().remove();
+				  }
+			  }); 
+		})
+		
+		$("#back").click(function(){
+			window.history.back();
+		})
+		
+	})
+	
+	function checkedValuesGet() {
+		var chked_val = "";
+		  $(":checkbox[name='messageCode']:checked").each(function(pi,po){
+		    chked_val += ","+po.value;
+		  });
+		  if(chked_val!="")chked_val = chked_val.substring(1);
+		  return chked_val;
+	}
+</script>
+<style type="text/css">
+	a{
+		color:black
+	}
+	
+	a:hover{
+		color:sky-blue
+	}
+</style>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -41,13 +90,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
               <div class="box-tools pull-right">
                 <div class="has-feedback">
-                  <input type="text" class="form-control input-sm" placeholder="Search Mail">
+                 <form name="search" id="search" action="${pageContext.request.contextPath}/member/mypage/searchSendMail" method="post">
+                  <input type="text" class="form-control input-sm" placeholder="Search Mail" name="word" id="keyWord">
                   <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                  </form>
                 </div>
               </div>
               <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
+            <div class="box-footer no-padding" id="div_content">
+              <div class="mailbox-controls">
+                <!-- Check all button -->
+                 <button type="button" class="btn btn-default btn-sm checkbox-toggle" id="check_all">전체선택</button>
+                <button type="button" class="btn btn-default btn-sm checkbox-toggle" id="uncheck_all">전체해제</button>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm" id="delete"><i class="fa fa-trash-o"></i></button>
+                  <button type="button" class="btn btn-default btn-sm" id="back"><i class="fa fa-reply"></i></button>
+                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                </div>
+                <!-- /.btn-group -->
+                <a href="${pageContext.request.contextPath}/member/mypage/sendMail">
+                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button></a>
+                <div class="pull-right">
+                  1-50/200
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                  </div>
+                  <!-- /.btn-group -->
+                </div>
+                <!-- /.pull-right -->
+              </div>
+            </div>
             <div class="box-body no-padding">
               <div class="mailbox-controls">
               <table class="table table-hover table-striped">
@@ -59,7 +134,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               	<td>받는이</td>
               	<td>보낸날짜</td>
               </tr>
-              </div>
 	              <c:choose>
 				    <c:when test="${empty requestScope.list}">
 					<tr>
@@ -70,10 +144,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				    </c:when>
 				   	 <c:otherwise>
 			              <c:forEach items="${list}" var="sendDTO" varStatus="status">
-			              <div class="table-responsive mailbox-messages">
 			                  <tbody>
 			                  <tr>
-			                    <td><input type="checkbox"></td>
+			                    <td><input type="checkbox" name="messageCode" value="${sendDTO.sendMessageCode}"></td>
 			                    <td class="mailbox-star">${status.count}</td>
 			                    <td class="mailbox-subject">
 			                    <a href="${pageContext.request.contextPath}/member/mypage/readMail2?sendMessageCode=${sendDTO.sendMessageCode}">
@@ -86,7 +159,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			                  </tbody>
 			                
 			                <!-- /.table -->
-			              </div>
 			              </c:forEach>
 		              </c:otherwise>
 	              </c:choose>
@@ -94,40 +166,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <!-- /.mail-box-messages -->
             </div>
             <!-- /.box-body -->
-            <div class="box-footer no-padding">
-              <div class="mailbox-controls">
-                <!-- Check all button -->
-                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
-                </button>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                </div>
-                <!-- /.btn-group -->
-                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                <div class="pull-right">
-                  1-50/200
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                  </div>
-                  <!-- /.btn-group -->
-                </div>
-                <!-- /.pull-right -->
-              </div>
-            </div>
           </div>
           <!-- /. box -->
         </div>
         <!-- /.col -->
       </div>
       <!-- /.row -->
+      </div>
     </section>
     <!-- /.content -->
-  </div>
 <!-- ./wrapper -->
-
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3.1.1 -->

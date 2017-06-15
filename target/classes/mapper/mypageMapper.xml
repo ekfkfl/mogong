@@ -128,4 +128,22 @@ order by SEND_MESSAGE_CODE desc
 	delete from RECV_MESSAGE where RECV_MESSAGE_CODE=${_parameter}
 </delete>
 
+<delete id="deleteSendMessage" parameterType="int">
+	delete from SEND_MESSAGE where SEND_MESSAGE_CODE=${_parameter}
+</delete>
+
+<select id="searchSendMail" parameterType="map" resultMap="sendMessageDTO">
+	select SEND_MESSAGE_CODE, ID, title, content, RECV_ID, write_date
+	from SEND_MESSAGE 
+	where ID=#{id} and title||content||id like '%'||#{word}||'%'
+	order by SEND_MESSAGE_CODE desc
+</select>
+
+<select id="searchRecvMail" parameterType="map" resultMap="recvMessageDTO">
+	select RECV_MESSAGE_CODE, ID, title, content, SEND_ID, write_date, CONFIRM
+	from RECV_MESSAGE 
+	where ID=#{id} and title||content||id like '%'||#{word}||'%'
+	order by RECV_MESSAGE_CODE desc
+</select>
+
 </mapper>
