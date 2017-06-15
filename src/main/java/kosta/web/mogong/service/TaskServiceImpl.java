@@ -103,7 +103,8 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public TaskDTO selectOneTask(String taskCode) {
-		List<TaskMemberDTO> list = taskDAO.selectTaskMember(taskCode);
+		List<TaskMemberDTO> list = taskDAO.selectMember(taskCode);
+		
 		TaskDTO taskDTO = taskDAO.selectOneTask(taskCode);
 		taskDTO.setTaskMemberList(list);
 

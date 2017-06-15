@@ -72,4 +72,8 @@
 	where task_code=#{taskCode}
 </update>
 
+<select id="selectMember" parameterType="int" resultType="TaskMemberDTO">
+	select m.member_code as memberCode, u.name as name from user_tb u join member m on u.id=m.id where m.study_code=#{value}
+</select>
+
 </mapper>
