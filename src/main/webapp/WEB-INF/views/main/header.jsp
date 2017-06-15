@@ -24,8 +24,7 @@
 <link rel="stylesheet"    
 	href="${pageContext.request.contextPath}/resources/dist/css/AdminLTE.min.css">
 
-<style type="text/css">
-</style>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 
 </head>
 <body id="top" data-spy="scroll">
