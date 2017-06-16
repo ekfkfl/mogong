@@ -71,7 +71,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 <body>
 <input type="hidden" name="studyCode" id="studyCode" value="6"/>
-<a href="task/test">아ㅏㅏㅏㅏㅏㅏㅏ</a>
     <section class="content-header">
       <h1>
         Task 관리

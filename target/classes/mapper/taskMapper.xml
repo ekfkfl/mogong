@@ -76,4 +76,15 @@
 	select m.member_code as memberCode, u.name as name from user_tb u join member m on u.id=m.id where m.study_code=#{value}
 </select>
 
+<update id="moveTask" parameterType="map">
+	<choose>
+		<when test="progressStatus==0003">
+			update set progress_status=#{progressStatus},success_date=sysdate where task_code=#{taskCode}
+		</when>
+		<otherwise>
+			update set progress_status=#{progressStatus},success_date=null where task_code=#{taskCode}
+		</otherwise>
+	</choose>
+</update>
+
 </mapper>

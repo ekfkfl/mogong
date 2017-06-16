@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kosta.web.mogong.dto.ProgressDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
 import kosta.web.mogong.service.TaskService;
@@ -72,6 +73,12 @@ public class TaskController {
 	@ResponseBody
 	public void updateTask(TaskDTO taskDTO) {
 		taskService.updateTask(taskDTO);
+	}
+	
+	@RequestMapping("/moveTask")
+	@ResponseBody
+	public void moveTask(String taskCode, ProgressDTO progressDTO) {
+		taskService.moveTask(taskCode,progressDTO);
 	}
 	
 	/**
@@ -185,11 +192,4 @@ public class TaskController {
 		
 		return map;
 	}
-	
-	@RequestMapping("/test")
-	public String test() {
-		return "task/test";
-	}
-	
-	
 }
