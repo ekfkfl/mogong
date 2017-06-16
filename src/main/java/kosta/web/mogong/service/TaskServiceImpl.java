@@ -56,7 +56,7 @@ public class TaskServiceImpl implements TaskService {
 					int dbDay = dbCal.get(dbCal.DATE);
 					int dbHour = dbCal.get(dbCal.HOUR_OF_DAY);
 					int dbMinute = dbCal.get(dbCal.MINUTE);
-					
+
 					if (dbDay == date && dbMonth == month) {
 						dto.setState("1"); // 오늘까지
 						if (dbHour == hour) {
@@ -71,20 +71,20 @@ public class TaskServiceImpl implements TaskService {
 							dto.setState("5"); // 마감일 지남
 							dto.setRemain(Math.abs(dbHour - hour) + "시간 지남");
 						}
-					} else if(dbDate.getTime()-currentDate.getTime() > 0 && dbDate.getTime()-currentDate.getTime() < 1000*60*60*24*7) {
-						
-						dto.setState("2"); //이번주까지	
-						dto.setRemain("D-"+Math.abs(dbDay-date)+"일 남음");
+					} else if (dbDate.getTime() - currentDate.getTime() > 0
+							&& dbDate.getTime() - currentDate.getTime() < 1000 * 60 * 60 * 24 * 7) {
+
+						dto.setState("2"); // 이번주까지
+						dto.setRemain("D-" + Math.abs(dbDay - date) + "일 남음");
+					} else if (dbDate.getTime() - currentDate.getTime() > 0 && dbMonth == month) {
+						dto.setState("3"); // 이번달까지
+						dto.setRemain("D-" + Math.abs(dbDay - date) + "일 남음");
+					} else if (dbDate.getTime() - currentDate.getTime() < 0) {
+						dto.setState("5"); // 마감일 지남
+						dto.setRemain("D+" + Math.abs(date - dbDay) + "일 지남");
+					} else {
+						dto.setState("6"); // 이번달 이후
 					}
-					else if(dbDate.getTime()-currentDate.getTime() > 0 && dbMonth==month){
-						dto.setState("3"); //이번달까지
-						dto.setRemain("D-"+Math.abs(dbDay-date)+"일 남음");
-					} else if(dbDate.getTime()-currentDate.getTime() < 0){
-						dto.setState("5"); //마감일 지남
-						dto.setRemain("D+"+Math.abs(date-dbDay)+"일 지남");
-					} else{
-						dto.setState("6"); //이번달 이후
-					} 
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
@@ -104,21 +104,23 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public TaskDTO selectOneTask(String taskCode,String studyCode) {
+	public TaskDTO selectOneTask(String taskCode, String studyCode) {
 		TaskDTO taskDTO = taskDAO.selectOneTask(taskCode);
-		
+
 		List<TaskMemberDTO> taskMemberList = taskDAO.selectMember(studyCode);
 		List<TaskMemberDTO> taskSelectedMemberList = taskDAO.selectTaskMember(taskCode);
 		
-		for(TaskMemberDTO tml : taskMemberList) {
-			for(TaskMemberDTO tsl : taskSelectedMemberList) {
-				if(tml.getMemberCode()==tsl.getMemberCode()) {
-					tml.setSeleted(true);
-					break;
+		if (taskSelectedMemberList.size() > 0) {
+			for (TaskMemberDTO tml : taskMemberList) {
+				for (TaskMemberDTO tsl : taskSelectedMemberList) {
+					if (tml.getMemberCode() == tsl.getMemberCode()) {
+						tml.setSelect(1);
+						break;
+					}
 				}
 			}
 		}
-		
+
 		taskDTO.setTaskMemberList(taskMemberList);
 
 		return taskDTO;
@@ -139,9 +141,7 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void updateTask(TaskDTO taskDTO) {
 		List<TaskMemberDTO> inputList = taskDTO.getTaskMemberList();
-		
-		
-		
+
 		taskDAO.deleteTaskMember(taskDTO.getTaskCode());
 
 		if (inputList.size() > 0) {
