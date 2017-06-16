@@ -31,6 +31,16 @@ public class TaskDTO {
 		this.progressStatus=progressStatus;
 	}
 	
+	/**
+	 * 성훈 schedule 생성자
+	 */
+	public TaskDTO(int studyCode, String title, String startDate,String endDate) {
+		this.studyCode=studyCode;
+		this.title=title;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
 	public TaskDTO(int taskCode, List<TaskMemberDTO> taskMemberList) {
 		this.taskCode=taskCode;
 		this.taskMemberList=taskMemberList;

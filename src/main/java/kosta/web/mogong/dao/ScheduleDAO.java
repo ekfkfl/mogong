@@ -7,4 +7,6 @@ import kosta.web.mogong.dto.TaskDTO;
 public interface ScheduleDAO {
 	
 	List<TaskDTO> getSchedule();
+	
+	int scheduleInsert(TaskDTO taskDTO);
 }
