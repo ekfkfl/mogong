@@ -40,8 +40,6 @@ public class ScheduleController {
 	@ResponseBody
 	public int scheduleInsert(String studyCode,String title,String start,String end) throws ParseException{
 		
-		System.out.println(start);
-		
 		return scheduleService.scheduleInsert(new TaskDTO(Integer.parseInt(studyCode), title, start,end));
 	}
 	

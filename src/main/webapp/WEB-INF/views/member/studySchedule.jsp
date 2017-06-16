@@ -105,9 +105,7 @@
 								type: "post",
 								dataType: "text",
 								success: function (result) {
-									if(result=='1'){
-										alert("삽입 성공")
-									}
+									
 								},
 								error : function (request,status,error) {
 									alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
