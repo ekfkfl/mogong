@@ -5,4 +5,9 @@
 	<select id="scheduleData" resultType="taskDTO">
 		select title,progress_status as progressStatus,to_char(start_date,'YYYY-MM-DD HH:MM') as startDate,to_char(end_date,'YYYY-MM-DD HH:MM') as endDate from task
 	</select>
+	
+	<insert id="scheduleInsert" parameterType="taskDTO">
+	insert into task
+	values(task_seq.nextval,#{studyCode},#{title},null,'0001',to_date(#{startDate},'yyyy-mm-dd hh24:mi:ss'),to_date(#{endDate},'yyyy-mm-dd hh24:mi:ss'),null,null,null,null)
+</insert>
 </mapper>

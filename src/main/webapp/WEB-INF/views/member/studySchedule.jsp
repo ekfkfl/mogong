@@ -90,8 +90,30 @@
 					allDaySlot: false,
 					selectHelper: true,
 					select: function(start, end, allDay) {
-						var title = prompt('Event Title:');
+						var title = prompt('Task 제목');
+						
+						var startDateStr = start.getFullYear()+"-"+(start.getMonth()+1)+"-"+start.getDate()+" "
+											+start.getHours()+":"+start.getMinutes()+":"+start.getSeconds();
+						
+						var endDateStr = end.getFullYear()+"-"+(end.getMonth()+1)+"-"+end.getDate()+" "
+										+end.getHours()+":"+end.getMinutes()+":"+end.getSeconds();
+						
 						if (title) {
+							$.ajax({
+								url: "${pageContext.request.contextPath}/member/study/schedule/insert",
+								data: "studyCode=6&title="+title+"&start="+startDateStr+"&end="+endDateStr,
+								type: "post",
+								dataType: "text",
+								success: function (result) {
+									if(result=='1'){
+										alert("삽입 성공")
+									}
+								},
+								error : function (request,status,error) {
+									alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+								}
+							});//ajax 끝
+							
 							calendar.fullCalendar('renderEvent',
 								{
 									title: title,
@@ -137,47 +159,43 @@
 							success: function (result) {
 								var events = [];
 								$.each(result , function (index, item) {
-									 var yy;
-									var mm;
-									var dd;
-									var hh;
-									var mi;
-									var yy2;
-									var mm2;
-									var dd2;
-									var hh2;
-									var mi2;
-									var startDate;
-									var endDate;
+									 var sYear;
+									var sMonth;
+									var sDay;
+									var sHour;
+									var sMinute;
+									var eYear;
+									var eMonth;
+									var eDay;
+									var eHour;
+									var eMinute;
 									var sDate;
-									var eDate = new Date(endDate);
+									var eDate;
 									
 									if(item.startDate){
-										startDate = Date.parse(item.startDate);
-										sDate = new Date(startDate);
-										 yy = sDate.getFullYear();
-										 mm = sDate.getMonth();
-										 dd = sDate.getDate();
-										 hh = sDate.getHours();
-										 mi = sDate.getMinutes();
+										sDate = new Date(Date.parse(item.startDate));
+										 sYear = sDate.getFullYear();
+										 sMonth = sDate.getMonth();
+										 sDay = sDate.getDate();
+										 sHour = sDate.getHours();
+										 sMinute = sDate.getMinutes();
 									} 
 									if(item.endDate){
-										endDate = Date.parse(item.endDate);
-										eDate = new Date(endDate);
-										 yy2 = eDate.getFullYear();
-										 mm2 = eDate.getMonth();
-										 dd2 = eDate.getDate();
-										 hh2 = eDate.getHours();
-										 mi2 = eDate.getMinutes();
+										eDate = new Date(Date.parse(item.endDate));
+										 eYear = eDate.getFullYear();
+										 eMonth = eDate.getMonth();
+										 eDay = eDate.getDate();
+										 eHour = eDate.getHours();
+										 eMinute = eDate.getMinutes();
 									} 
 									
 									if(sDate || eDate){
-									events.push({
-										title: item.title,
-										start: new Date(yy,mm,dd,hh,mi),
-										end : new Date(yy2,mm2,dd2,hh2,mi2),
-										allDay: false
-									});
+										events.push({
+											title: item.title,
+											start: new Date(sYear,sMonth,sDay,sHour,sMinute),
+											end : new Date(eYear,eMonth,eDay,eHour,eMinute),
+											allDay: false
+										});
 									}
 								});
 								callback(events);
@@ -187,52 +205,7 @@
 							}
 						})//ajax 끝
 					}, 
-					/* events: [
-						{
-							title: 'All Day Event',
-							start: new Date(y, m, 1)
-						},
-						{
-							id: 999,
-							title: 'Repeating Event',
-							start: new Date(y, m, d-3, 16, 0),
-							allDay: false,
-							className: 'info'
-						},
-						{
-							id: 999,
-							title: 'Repeating Event',
-							start: new Date(y, m, d+4, 16, 0),
-							allDay: false,
-							className: 'info'
-						},
-						{
-							title: 'Meeting',
-							start: new Date(y, m, d-4, 10, 0),
-							end: new Date(y, m, d, 8, 0),
-							allDay: false
-						},
-						{
-							title: 'Lunch',
-							start: new Date(y, m, d, 12, 0),
-							end: new Date(y, m, d, 14, 0),
-							allDay: false,
-							className: 'important'
-						},
-						{
-							title: 'Birthday Party',
-							start: new Date(y, m, d+1, 19, 0),
-							end: new Date(y, m, d+1, 22, 30),
-							allDay: false
-						},
-						{
-							title: 'Click for Google',
-							start: new Date(y, m, 28),
-							end: new Date(y, m, 29),
-							url: 'http://google.com/',
-							className: 'success'
-						}
-					], 		  */
+					
 				}); //calendar 끝
 			
 	});//function 끝
@@ -243,7 +216,6 @@
 	body {
 	    margin-bottom: 40px;
 		margin-top: 40px;
-		text-align: center;
 		font-size: 14px;
 		font-family: 'Roboto', sans-serif;
 		}

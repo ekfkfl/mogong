@@ -19,5 +19,10 @@ public class ScheduleDAOImpl implements ScheduleDAO {
 		
 		return session.selectList("scheduleMapper.scheduleData");
 	}
+	
+	public int scheduleInsert(TaskDTO taskDTO){
+		
+		return session.insert("scheduleMapper.scheduleInsert", taskDTO);
+	}
 
 }
