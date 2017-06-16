@@ -21,9 +21,6 @@ public class AuthDAOImpl implements AuthDAO {
 
 	@Override
 	public UserDTO selectUser(String id) {
-		System.out.println(id);
-		UserDTO userDTO=sqlSession.selectOne("authMapper.selectUser", id);
-		System.err.println(userDTO);
 		return sqlSession.selectOne("authMapper.selectUser", id);
 	}
 
