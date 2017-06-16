@@ -19,7 +19,8 @@ public class TaskDTO {
 	private String remain; //남은 시간 표시
 	private Date startSchedule; //시작일 달력표시
 	private Date endSchedule; //마감일 달력표시
-	
+	private String taskIndex;
+
 	private List<TaskMemberDTO> taskMemberList;
 	
 	public TaskDTO() {}
@@ -171,6 +172,14 @@ public class TaskDTO {
 
 	public void setEndSchedule(Date endSchedule) {
 		this.endSchedule = endSchedule;
+	}
+	
+	public String getTaskIndex() {
+		return taskIndex;
+	}
+
+	public void setTaskIndex(String taskIndex) {
+		this.taskIndex = taskIndex;
 	}
 	
 }

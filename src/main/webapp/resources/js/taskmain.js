@@ -7,9 +7,6 @@ $(function() {
 	       }
 	   }});
 	
-	$('.select2').on("select2:select", function(e) { 
-	});
-	
 	moment.locale('ko');
 	
 	$('#dateChooser').daterangepicker({
@@ -261,5 +258,20 @@ $(function() {
 	
 	function updateSame(start_pro,start_pos,end_pos) {
 		console.log('시작 '+start_pro+' '+start_pos+' 끝 '+end_pos);
+	}
+	
+	function moveTask(start_pro,start_pos,end_pro,end_pos) {
+		var progressData = new Object();
+		
+		progressData.startPro=start_pro;
+		progressData.startPos=start_pos;
+		progressData.endPro=end_pro;
+		progressData.endPos=end_pos;
+		
+		$.ajax({
+			type: "post",
+			url: "task/moveTask",
+			data: progressData,
+		})
 	}
 });

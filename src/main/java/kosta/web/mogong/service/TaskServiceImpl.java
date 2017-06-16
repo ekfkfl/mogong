@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import kosta.web.mogong.dao.TaskDAO;
+import kosta.web.mogong.dto.ProgressDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
 
@@ -134,8 +135,9 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void moveTask(String taskCode) {
-		taskDAO.moveTask(taskCode);
+	public void moveTask(String taskCode, ProgressDTO progressDTO) {
+		progressDTO.getEndPos();
+		taskDAO.moveTask(taskCode,progressDTO);
 	}
 
 	@Override
