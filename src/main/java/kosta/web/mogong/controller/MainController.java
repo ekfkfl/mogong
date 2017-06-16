@@ -77,9 +77,10 @@ public class MainController {
 		
 		MultipartFile file=userDTO.getFile();
 
+		//파일이름 구성
 		String fileName=file.getOriginalFilename();
 		int lastIdx=fileName.lastIndexOf(".");
-		String fileExtName=fileName.substring(lastIdx=1);
+		String fileExtName=fileName.substring(lastIdx+1);
 		fileName=userDTO.getId() + "." + fileExtName;
 		
 		
@@ -88,8 +89,6 @@ public class MainController {
 			try{
 				file.transferTo(new File(path+fileName));
 				userDTO.setPath("/data/user/"+fileName);
-
-				System.out.println("파일 저장에 성공했습니다.");
 			}catch(Exception e){
 				throw new Exception("파일 저정에 실패했습니다.");
 			}
