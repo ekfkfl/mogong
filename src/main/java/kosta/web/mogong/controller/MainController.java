@@ -1,5 +1,6 @@
 package kosta.web.mogong.controller;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,10 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.web.mogong.dto.StudyDTO;
 import kosta.web.mogong.dto.TaskDTO;
+import kosta.web.mogong.dto.UserDTO;
+import kosta.web.mogong.service.AuthService;
 import kosta.web.mogong.service.MainService;
 import kosta.web.mogong.service.TaskService;
 
@@ -30,6 +34,9 @@ public class MainController {
 	
 	@Autowired
 	private TaskService taskService;
+	
+	@Autowired
+	private AuthService authService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -65,7 +72,32 @@ public class MainController {
 	//아이디, 패스워드를 받아서 로그인처리할때 사용됨.
 	
 	@RequestMapping("/login/signup")
-	public String signUp(){
+	public String signUp(HttpServletRequest request, UserDTO userDTO) throws Exception{
+		String path = request.getSession().getServletContext().getRealPath("/data/user/");
+		
+		MultipartFile file=userDTO.getFile();
+
+		String fileName=file.getOriginalFilename();
+		int lastIdx=fileName.lastIndexOf(".");
+		String fileExtName=fileName.substring(lastIdx=1);
+		fileName=userDTO.getId() + "." + fileExtName;
+		
+		
+		if(file.getSize()>0){
+			//파일저장
+			try{
+				file.transferTo(new File(path+fileName));
+				userDTO.setPath("/data/user/"+fileName);
+
+				System.out.println("파일 저장에 성공했습니다.");
+			}catch(Exception e){
+				throw new Exception("파일 저정에 실패했습니다.");
+			}
+		}
+		
+		
+		authService.insertUser(userDTO);
+		
 		return "main/index";//로그인 처리를 하고 메인으로 간다.
 	}
 	

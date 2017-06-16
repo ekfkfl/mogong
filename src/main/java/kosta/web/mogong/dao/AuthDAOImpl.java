@@ -16,8 +16,7 @@ public class AuthDAOImpl implements AuthDAO {
 	
 	@Override
 	public int insertUser(UserDTO userDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("insertUser", userDTO);
 	}
 
 	@Override

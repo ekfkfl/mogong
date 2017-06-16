@@ -17,4 +17,9 @@ select  id, user_type as role from user_tb
 where id=#{_parameter}
 </select>
 
+
+<insert id="insertUser">
+insert into user_tb values(#{id}, #{password}, #{name}, #{path}, #{birth}, #{addr}, 
+						   #{phone}, #{email}, #{intro}, null, #{userType}, #{gender})
+</insert>
 </mapper>
