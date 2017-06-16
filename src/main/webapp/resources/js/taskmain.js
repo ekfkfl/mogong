@@ -8,7 +8,6 @@ $(function() {
 	   }});
 	
 	$('.select2').on("select2:select", function(e) { 
-	    alert()
 	});
 	
 	moment.locale('ko');
@@ -156,7 +155,7 @@ $(function() {
 					var str="";
 					
 					$.each(data.taskMemberList,function(index,item) {
-						if(item.isSeleted) {
+						if(item.select===1) {
 							str+="<option value="+item.memberCode+" selected>"+item.name+"";
 						} else {
 							str+="<option value="+item.memberCode+">"+item.name+"";
