@@ -1,5 +1,7 @@
 package kosta.web.mogong.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class BoardDTO {
 	private int boardCode;
 	private int studyCode;
@@ -7,6 +9,11 @@ public class BoardDTO {
 	private String title;
 	private String content;
 	private String writeDate;
+	private int hit;
+	private String fileName;
+	private int fileSize;
+	
+	private MultipartFile file;
 	
 	public BoardDTO() {}
 	
@@ -58,5 +65,38 @@ public class BoardDTO {
 	public void setWriteDate(String writeDate) {
 		this.writeDate = writeDate;
 	}
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
+	public int getHit() {
+		return hit;
+	}
+
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public int getFileSize() {
+		return fileSize;
+	}
+
+	public void setFileSize(int fileSize) {
+		this.fileSize = fileSize;
+	}
+	
 	
 }

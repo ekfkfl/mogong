@@ -26,16 +26,21 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.0.min.js"></script>
-
+	
+	<script type="text/javascript">
+		$(function () {
+			$("#write").click( function () {
+				location.href="${pageContext.request.contextPath}/member/study/writeForm";
+			});
+		})	
+	
+	</script>
 	<style type="text/css">
-		th,td{
-			text-align:center;
-		}
-		th{
-			background:#dfdfdf;
-		}
+		th,td{text-align:center;}
+		th{background:#dfdfdf;}
+		li{float:left;list-style:none;margin:0 auto;}
+		.number:hover{background:#eeeeee;}
 	</style>
-
 </head>
 <body>
 <section class="content-header">
@@ -65,40 +70,22 @@
             <!-- /.box-header -->
             <div class="box-body no-padding">
               <div class="mailbox-controls">
-                <!-- Check all button -->
-                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
-                </button>
-                <div class="btn-group">
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
-                  <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
-                </div>
-                <!-- /.btn-group -->
-                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                <div class="pull-right">
-                  1-50/200
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                  </div>
-                  <!-- /.btn-group -->
-                </div>
-                <!-- /.pull-right -->
+                <button id="write" type="button" class="btn btn-default btn-sm checkbox-toggle">글쓰기</button>
               </div>
               <div class="table-responsive mailbox-messages">
                 <table class="table table-hover table-striped">
                   <tbody>
                   <tr>
-                  	<th width="10%">번호</th>
-                  	<th width="25%">제목</th>
+                  	<th width="5%">번호</th>
+                  	<th width="40%">제목</th>
                   	<th width="10%">작성자</th>
                   	<th width="15%">작성일</th>
-                  	<th width="10%">조회</th>
-                  	<th width="10%">첨부</th>
+                  	<th width="5%">조회</th>
+                  	<th width="5%">첨부</th>
                   </tr>
                   <tr>
                     <td>1</td>
-                    <td><a href="#">test</a></td>
+                    <td><a href="#">testdawdadwawdawdawdawdawd</a></td>
                     <td>최성훈</td>
                     <td>2017-06-16 16:12:10</td>
                     <td>10</td>
@@ -129,12 +116,21 @@
             </div>
           <!-- /. box -->
         </div>
-        <ul>
+        <div>
         	
-              <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-              <a href="#"><span>1</span></a>
-              <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-		</ul>
+	        <ul>
+	        	<li>
+	        	<button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button> 
+				</li>
+				<li>
+					<a href="#" class="number" style="padding:15px;display:inline"><span>1</span></a>
+				</li>              
+	            <li>
+	            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+				</li>
+			</ul>
+			
+		</div>
 	</section>
 </body>
 </html>
