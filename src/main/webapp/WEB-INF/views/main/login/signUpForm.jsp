@@ -19,8 +19,20 @@
 <script>
 $(function(){
 
+	$("#profileSelector").change(function(){
+		var input=this;
+		
+		if (input.files && input.files[0]){
+			var reader = new FileReader();
+			reader.onload = function (e){
+				$('#profileImage').attr('src', e.target.result);
+			}
+			
+			reader.readAsDataURL(input.files[0]); 
+		}
+	})
 	
-	
+
 	//생년월일 마스크
 	$("#birth").inputmask();
 	
@@ -67,9 +79,8 @@ function checkValid() {
 	var f = window.document.userInfoForm;
 	
 	//주소 만들기 (미입력 , "", 지역주소+상세주소)
-	alert(checkAddr());
 	$(f.addr).val(checkAddr());
-	
+
 	
 	var formData=[
 			{"src":f.id, "name":"아이디"},
@@ -87,13 +98,16 @@ function checkValid() {
 	for(var i=0; i<formData.length; i++){
 		if(formData[i].src.value==""){
 			alert(formData[i].name+" 입력이 필요합니다.");
-			formData[i].src.focus();
+			if(formData[i].name=="성별"){
+				formData[i].src[0].focus();
+			}else{
+				formData[i].src.focus();
+			}
+			
 			return false;
 		}
 	}
-	
-	
-	alert("입력값 확인 끝");
+
     return true;
 }
 
@@ -158,7 +172,8 @@ function checkAddr(){
 </script>
 
 
-<form class="form-horizontal" method="post" action="" name="userInfoForm" id="userInfoForm" onSubmit='return checkValid()'>
+<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/login/signup" name="userInfoForm" id="userInfoForm" onSubmit='return checkValid()'  enctype="multipart/form-data">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
 <!-- 사용자 계정 정보  - user-->
 <div class="container">
 		<div class="row">
@@ -169,7 +184,7 @@ function checkAddr(){
             </div>
           
               <div class="box-body">
-                <div class="form-group has-success">
+                <div class="form-group">
                   <div class="col-sm-12">
                   <!--   <label class="control-label" for="inputError"><i class="fa fa-check"></i> 정상</label>  -->
                     <input type="text" class="form-control" id="id" name="id"  placeholder="아이디를 입력하세요" ><!-- <span class="help-inline"><i class="fa fa-check"></i> 정상</span> -->
@@ -222,10 +237,10 @@ function checkAddr(){
                  
                    <label class="col-sm-2">성별 </label>
                     <label class="col-sm-5">
-                      <input type="radio" name="gender" id="gender" value="0001">남자
+                      <input type="radio" name="gender" value="0009">남자
                     </label>
                      <label class="col-sm-5">
-                      <input type="radio" name="gender" id="gender" value="0002">여자
+                      <input type="radio" name="gender" value="0016">여자
                     </label>
 
                   </div>
@@ -374,8 +389,14 @@ function checkAddr(){
             </div>
             <div class="box-body">
                 <!-- textarea -->
+                
                 <div class="form-group">
-                  <textarea class="form-control" id="intro" name="intro" rows="5" placeholder="스터디 신청시 스터디 모집장에게 보여집니다."></textarea>
+
+					<img src="${pageContext.request.contextPath}/resources/images/profile/profile.png" class="col-xs-3" class="form-control" id="profileImage"/>
+					
+					<textarea class="help-inline col-xs-9" id="intro" name="intro" rows="5" placeholder="스터디 신청시 스터디 모집장에게 보여집니다."></textarea>
+                    <input type="file" id="profileSelector" name="file">
+
                 </div>
             </div>
 </div>

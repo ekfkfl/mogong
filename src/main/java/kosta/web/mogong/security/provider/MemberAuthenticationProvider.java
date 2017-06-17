@@ -53,13 +53,10 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 		
 		//2. 존재하면 비밀번호 비교
 		String password=(String)auth.getCredentials(); //사용자가 입력한 비밀번호
-/*		if(!passwordEncoder.matches(password, userDTO.getPassword())){
-			throw new BadCredentialsException("패스워드 오류입니다.");
-		}*/
-		if(!userDTO.getPassword().equals(password)){
+		if(!passwordEncoder.matches(password, userDTO.getPassword())){
 			throw new BadCredentialsException("패스워드 오류입니다.");
 		}
-		//System.out.println("인증전....ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
+
 		//3  모두가 일치하면 Authentication를 만들어서 리턴 
 		List<AuthorityDTO> list=authDAO.selectAuthoritesByUserName(id);
 		
@@ -68,7 +65,6 @@ public class MemberAuthenticationProvider implements AuthenticationProvider{
 			//아무 권한이 없는 경우
 			throw new UsernameNotFoundException(id+"는 아무 권한이 없습니다.");
 		}
-		System.out.println("list" + list);
 		
 		//db에서 가지고 온 권한을 GrantedAuthority로 변환해야 함.
 		List<SimpleGrantedAuthority> authList=new ArrayList<>();
