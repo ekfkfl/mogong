@@ -1,13 +1,18 @@
 package kosta.web.mogong.controller;
 
 import java.io.File;
+import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.StudyDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.UserDTO;
@@ -101,9 +107,29 @@ public class MainController {
 	}
 	
 	//로그인 처리
-	@RequestMapping("/login")
-	public String login(){
-		System.err.println("로그인 처리...");
+	@RequestMapping("/loginPro")
+	public String loginPro(HttpServletRequest request){
+		HttpSession session=request.getSession();
+		Authentication auth=(Authentication)request.getUserPrincipal();
+		Object userObj=auth.getPrincipal();
+		
+		UserDTO userDTO=null;
+		if(userObj!=null && userObj instanceof UserDTO){
+			userDTO=((UserDTO)userObj);
+		}
+		session.setAttribute("userDTO", userDTO);
+		
+		List<MemberDTO> memberDTOList=authService.selectMemberById(userDTO.getId());
+		
+		
+		Map<String, String>memberMap=new HashMap<>();
+		if(memberDTOList!=null){
+			for(MemberDTO memberDTO: memberDTOList){
+				memberMap.put(memberDTO.getStudyCode()+"", memberDTO.getMemberCode()+"");
+			}
+		}
+		session.setAttribute("memberMap", memberMap);
+		
 		return "main/index";
 	}
 	
@@ -121,7 +147,7 @@ public class MainController {
 	//스터디 모집 폼 화면
 	@RequestMapping("/enrollForm")
 	public String enrollForm(HttpServletRequest request, StudyDTO studyDTO) {
-		System.out.println(studyDTO);
+		//System.out.println(studyDTO);
 		return "main/study/enroll";
 	}
 	
@@ -129,7 +155,7 @@ public class MainController {
 	//스터디 등록을 했을 때 뜨는 화면-->메인
 	@RequestMapping("/enroll")
 	public String insertEnroll(HttpServletRequest request, StudyDTO studyDTO) {
-		System.out.println(studyDTO);
+		//System.out.println(studyDTO);
 		service.insertStudy(studyDTO);
 
 		return "main/index";
