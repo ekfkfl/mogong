@@ -7,7 +7,7 @@ public class UserDTO {
 	private String password; //비밀번호
 	private String name; //이름
 	private String path; //사진경로
-	private int gender; //성별
+	private String gender; //성별
 	private String birth; //생년월일
 	private String addr; //주소
 	private String phone; //전화번호
@@ -20,7 +20,7 @@ public class UserDTO {
 	public UserDTO() {}
 	
 
-	public UserDTO(String id, String password, String name, String path, int gender, String birth, String addr,
+	public UserDTO(String id, String password, String name, String path, String gender, String birth, String addr,
 			String phone, String email, String intro, MultipartFile file) {
 		super();
 		this.id = id;
@@ -36,7 +36,7 @@ public class UserDTO {
 		this.file = file;
 	}
 
-	public UserDTO(String id, String password, String name, String path, int gender, String birth, String addr,
+	public UserDTO(String id, String password, String name, String path, String gender, String birth, String addr,
 			String phone, String email, String intro) {
 		super();
 		this.id = id;
@@ -52,7 +52,7 @@ public class UserDTO {
 	}
 
 	
-	public UserDTO(String id, String password, String name, String path, int gender, String birth, String addr,
+	public UserDTO(String id, String password, String name, String path, String gender, String birth, String addr,
 			String phone, String email, String intro, String userType, MultipartFile file) {
 		super();
 		this.id = id;
@@ -95,10 +95,10 @@ public class UserDTO {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	public int getGender() {
+	public String getGender() {
 		return gender;
 	}
-	public void setGender(int gender) {
+	public void setGender(String gender) {
 		this.gender = gender;
 	}
 	public String getBirth() {

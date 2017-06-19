@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kosta.web.mogong.dao.AuthDAO;
 import kosta.web.mogong.dto.AuthorityDTO;
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.util.Constants;
 
@@ -24,8 +25,15 @@ public class AuthServiceImpl implements AuthService {
 	
 	@Override
 	public int insertUser(UserDTO userDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		//비밀번호 설정
+		String encodePass=passwordEncoder.encode(userDTO.getPassword());
+		userDTO.setPassword(encodePass);
+
+		//권한설정
+		userDTO.setUserType(Constants.ROLE_MEMBER);
+		
+		//데이터 저장
+		return authDAO.insertUser(userDTO);
 	}
 
 	@Override
@@ -83,6 +91,11 @@ public class AuthServiceImpl implements AuthService {
 		}
 
 		return 1;
+	}
+
+	@Override
+	public List<MemberDTO> selectMemberById(String id) {
+		return authDAO.selectMemberById(id);
 	}
 
 }

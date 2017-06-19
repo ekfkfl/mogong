@@ -3,6 +3,7 @@ package kosta.web.mogong.service;
 import java.util.List;
 
 import kosta.web.mogong.dto.AuthorityDTO;
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.UserDTO;
 
 public interface AuthService {
@@ -31,6 +32,11 @@ public interface AuthService {
 	 */
 	List<UserDTO> selectAllUser();
 	
+	
+	/**
+	 * id에 해당하는 멤버 조회
+	 */
+	List<MemberDTO> selectMemberById(String id);
 	
 	
 	/**

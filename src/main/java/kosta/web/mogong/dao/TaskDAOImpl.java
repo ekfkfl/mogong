@@ -1,11 +1,14 @@
 package kosta.web.mogong.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kosta.web.mogong.dto.ProgressDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
 
@@ -47,8 +50,13 @@ public class TaskDAOImpl implements TaskDAO {
 	}
 
 	@Override
-	public int moveTask(String taskCode) {
-		return sqlSession.update("taskMapper.moveTask", taskCode);
+	public int moveTask(String taskCode, ProgressDTO progressDTO) {
+		Map<String, Object> map=new HashMap<>();
+		
+		map.put("taskCode", taskCode);
+		map.put("progressDTO", progressDTO);
+		
+		return sqlSession.update("taskMapper.moveTask", map);
 	}
 
 	@Override
@@ -74,5 +82,10 @@ public class TaskDAOImpl implements TaskDAO {
 	@Override
 	public int deleteTaskMember(int taskCode) {
 		return sqlSession.delete("taskMapper.deleteTaskMember", taskCode);
+	}
+
+	@Override
+	public List<TaskMemberDTO> selectMember(String studyCode) {
+		return sqlSession.selectList("taskMapper.selectMember", studyCode);
 	}
 }

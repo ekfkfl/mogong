@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import kosta.web.mogong.dao.TaskDAO;
+import kosta.web.mogong.dto.ProgressDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
 
@@ -57,7 +58,7 @@ public class TaskServiceImpl implements TaskService {
 					int dbHour = dbCal.get(dbCal.HOUR_OF_DAY);
 					int dbMinute = dbCal.get(dbCal.MINUTE);
 
-					if (dbDay == date) {
+					if (dbDay == date && dbMonth == month) {
 						dto.setState("1"); // 오늘까지
 						if (dbHour == hour) {
 							if (dbMinute < minute) {
@@ -79,9 +80,11 @@ public class TaskServiceImpl implements TaskService {
 					} else if (dbDate.getTime() - currentDate.getTime() > 0 && dbMonth == month) {
 						dto.setState("3"); // 이번달까지
 						dto.setRemain("D-" + Math.abs(dbDay - date) + "일 남음");
-					} else {
+					} else if (dbDate.getTime() - currentDate.getTime() < 0) {
 						dto.setState("5"); // 마감일 지남
 						dto.setRemain("D+" + Math.abs(date - dbDay) + "일 지남");
+					} else {
+						dto.setState("6"); // 이번달 이후
 					}
 				} catch (ParseException e) {
 					e.printStackTrace();
@@ -102,10 +105,24 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public TaskDTO selectOneTask(String taskCode) {
-		List<TaskMemberDTO> list = taskDAO.selectTaskMember(taskCode);
+	public TaskDTO selectOneTask(String taskCode, String studyCode) {
 		TaskDTO taskDTO = taskDAO.selectOneTask(taskCode);
-		taskDTO.setTaskMemberList(list);
+
+		List<TaskMemberDTO> taskMemberList = taskDAO.selectMember(studyCode);
+		List<TaskMemberDTO> taskSelectedMemberList = taskDAO.selectTaskMember(taskCode);
+		
+		if (taskSelectedMemberList.size() > 0) {
+			for (TaskMemberDTO tml : taskMemberList) {
+				for (TaskMemberDTO tsl : taskSelectedMemberList) {
+					if (tml.getMemberCode() == tsl.getMemberCode()) {
+						tml.setSelect(1);
+						break;
+					}
+				}
+			}
+		}
+
+		taskDTO.setTaskMemberList(taskMemberList);
 
 		return taskDTO;
 	}
@@ -118,14 +135,15 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void moveTask(String taskCode) {
-		taskDAO.moveTask(taskCode);
+	public void moveTask(String taskCode, ProgressDTO progressDTO) {
+		progressDTO.getEndPos();
+		taskDAO.moveTask(taskCode,progressDTO);
 	}
 
 	@Override
 	public void updateTask(TaskDTO taskDTO) {
 		List<TaskMemberDTO> inputList = taskDTO.getTaskMemberList();
-		
+
 		taskDAO.deleteTaskMember(taskDTO.getTaskCode());
 
 		if (inputList.size() > 0) {

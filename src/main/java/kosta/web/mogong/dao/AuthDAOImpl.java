@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kosta.web.mogong.dto.AuthorityDTO;
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.UserDTO;
 
 @Repository
@@ -16,15 +17,11 @@ public class AuthDAOImpl implements AuthDAO {
 	
 	@Override
 	public int insertUser(UserDTO userDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("insertUser", userDTO);
 	}
 
 	@Override
 	public UserDTO selectUser(String id) {
-		System.out.println(id);
-		UserDTO userDTO=sqlSession.selectOne("authMapper.selectUser", id);
-		System.err.println(userDTO);
 		return sqlSession.selectOne("authMapper.selectUser", id);
 	}
 
@@ -55,6 +52,11 @@ public class AuthDAOImpl implements AuthDAO {
 	@Override
 	public List<AuthorityDTO> selectAuthoritesByUserName(String userName) {
 		return sqlSession.selectList("authMapper.selectAuthorites", userName);
+	}
+
+	@Override
+	public List<MemberDTO> selectMemberById(String id) {
+		return sqlSession.selectList("authMapper.selectMemberById", id);
 	}
 
 }

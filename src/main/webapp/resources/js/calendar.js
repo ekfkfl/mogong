@@ -5648,7 +5648,7 @@ function DayEventRenderer() {
 	function draggableDayEvent(event, eventElement) {
 		var hoverListener = getHoverListener();
 		var dayDelta;
-		eventElement.draggable({
+		/*eventElement.draggable({
 			delay: 50,
 			opacity: opt('dragOpacity'),
 			revertDuration: opt('dragRevertDuration'),
@@ -5682,7 +5682,7 @@ function DayEventRenderer() {
 					showEvents(event, eventElement);
 				}
 			}
-		});
+		});*/
 	}
 
 	

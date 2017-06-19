@@ -24,8 +24,14 @@
 <link rel="stylesheet"    
 	href="${pageContext.request.contextPath}/resources/dist/css/AdminLTE.min.css">
 
-<style type="text/css">
-</style>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+
+<script>
+	function logout() {
+		document.getElementById("logoutForm").submit();
+	}
+</script>
+
 
 </head>
 <body id="top" data-spy="scroll">
@@ -48,8 +54,12 @@
 				<span class="sr-only">Toggle navigation</span>
 			  </a> -->
 				<!-- Navbar Right Menu -->
+				<!-- 로그인이 된 상태 상단 메뉴 처리  -->						
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
+					<sec:authorize access="isAuthenticated()">
+						<li style="margin:18px 5px 0px 0px;"><div><sec:authentication property="principal.name" /> 님 환영합니다.</div>
+						</li>
 						<li class="dropdown messages-menu">
 							<!-- Menu toggle button --> <a href="/mypage"
 							class="dropdown-toggle" data-toggle="dropdown"> <i
@@ -65,7 +75,7 @@
 										page</a></li>
 							</ul>
 						</li>
-						</li>
+					</sec:authorize>
 						<!-- 헤더에서 메시지 드랍다운-->
 						<%--  <li class="dropdown messages-menu">
 					<!-- Menu toggle button -->
@@ -164,36 +174,53 @@
 					</ul>
 				  </li> -->
 						<!-- User Account Menu -->
-						
-							<sec:authorize access="isAuthenticated()">
-		<sec:authentication property="principal.name" /> 님 환영합니다. <!-- Authentication의 getPrincipal().getName() -> Principal은 Provider에서 Authentication 에 넣어준 VO(생성자 첫 매개변수) -->
-	</sec:authorize>
+
+<sec:authorize access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')">
+	<li class="dropdown user user-menu">
+		<a href="${pageContext.request.contextPath}/main/mypage"><span class="hidden-xs">My page</span></a>
+	</li>				
+	<li class="dropdown user user-menu">
+		<a href="javascript:logout();"><span class="hidden-xs">Logout</span></a>
+	</li>	
+	<form id="logoutForm" action="${pageContext.request.contextPath}/member/logout" method="post" style="display: none">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	</form>
+</sec:authorize>
+
+<!-- 로그인이 되지 않은 상태에서 로그인 화면  -->
+<sec:authorize access="isAnonymous()">
+<!-- 또는 !isAuthenticated() 로 비교해도 된다.  로그인을 하지 않은 사용자-->
+
+
+		
+
 						<li class="dropdown user user-menu">
 							<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle"
 							data-toggle="dropdown"> <span class="hidden-xs">Login</span>
 						</a>
 
-							<ul class="dropdown-menu">
+							<ul class="dropdown-menu" style="width:200px;">
 								<!-- The user image in the menu -->
 								<form action="${pageContext.request.contextPath}/login" method="post">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
 									<li class="user-header">
-										<div class="form-group">
-											<label for="id">ID:</label> <input type="text"
-												class="form-control" id="id" name="id">
+										<div class="form-group input-group" style="margin:5px;">
+											<span class="input-group-addon"><i class="fa fa-user"></i></span>
+											<input type="text"
+												class="form-control input-sm" id="id" name="id">
 										</div>
-										<div class="form-group">
-											<label for="password">Password:</label> <input
-												type="password" class="form-control" id="password" name="password">
+										<div class="form-group input-group" style="margin:5px;">
+											<span class="input-group-addon"><i class="fa  fa-unlock-alt"></i></span><input
+												type="password" class="form-control input-sm" id="password" name="password">
 										</div> <!-- Menu Footer-->
 									<li class="user-footer">
-										<div class="pull-left">
-											<input class="btn btn-default btn-flat" type="submit"
-												name="login" value="login">
+										<div class="pull-left" style="margin-left:15px; margin-bottom:5px; float:left;">
+											<input class="btn btn-flat btn-default" type="submit"
+												name="login" value="login" style="padding:0px;margin:0px;width:80px;height:30px;">
 											<!--  <a href="#" class="btn btn-default btn-flat">Profile</a> -->
 										</div>
-										<div class="pull-right">
-											<a href="${pageContext.request.contextPath}/login/signupForm" class="btn btn-default btn-flat">SignUp</a>
+										<div class="pull-right" style="margin-left:0px; margin-bottom:10px; padding-right:15px;">
+											<a href="${pageContext.request.contextPath}/login/signupForm" class="btn btn-flat btn-default" style="width:80px;height:30px; padding:5px;">SignUp</a>
 										</div>
 									</li>
 								</form>
@@ -205,11 +232,17 @@
 							<!-- class="dropdown-toggle" data-toggle="dropdown" --> <span
 								class="hidden-xs">Sign up</span>
 						</a></li>
+</sec:authorize>
 
 					</ul>
 				</div>
 			</nav>
 		</section>
+
+
+
+
+
 
 		<!--main-nav-->
 

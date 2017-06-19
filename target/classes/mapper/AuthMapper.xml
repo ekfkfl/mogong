@@ -7,6 +7,12 @@
 <result column="user_type" property="userType"/>
 </resultMap>
 
+<resultMap type="memberDTO" id="memberDTOMap">
+	<id column="member_code" property="memberCode"/>
+	<result column="study_code" property="studyCode"/>
+</resultMap>
+
+
 <select id="selectUser" parameterType="string" resultMap="userDTOMap">
 select <include refid="userColumns"></include> from user_tb
 where id=#{_parameter}
@@ -17,4 +23,13 @@ select  id, user_type as role from user_tb
 where id=#{_parameter}
 </select>
 
+
+<insert id="insertUser">
+insert into user_tb values(#{id}, #{password}, #{name}, #{path}, #{birth}, #{addr}, 
+						   #{phone}, #{email}, #{intro}, null, #{userType}, #{gender})
+</insert>
+
+<select id="selectMemberById" parameterType="string" resultMap="memberDTOMap">
+select member_code, study_code from member where id=#{_parameter}
+</select>
 </mapper>

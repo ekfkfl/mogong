@@ -129,6 +129,7 @@
            
           </div>
 </c:if>
+
 <c:if test="${noEnd == '1'}">
           <div class="box box-primary">
             <div class="box-header">
@@ -182,8 +183,36 @@
               </ul>
             </div>
           </div>
-</c:if>          
-         </section>
+</c:if>
+<c:if test="${after == '1'}">
+          <div class="box box-primary">
+            <div class="box-header">
+
+              <h3 class="box-title">이번 달 이후</h3>
+              <hr>
+            </div>
+            
+            <div class="box-body">
+              <ul class="todo-list">
+                <c:forEach var="dto" items="${list}">
+	 				<c:if test="${dto.state=='6'}">
+	 					<li>
+	                        <i class="fa fa-ellipsis-v"></i>
+	                        <i class="fa fa-ellipsis-v"></i>
+	                  <span class="text">
+	                  	<c:if test="${dto.progressStatus == '0001' }">To Do</c:if>
+	                  	<c:if test="${dto.progressStatus == '0002' }">Doing</c:if>
+	                   &nbsp; > &nbsp; ${dto.title}</span>
+	                </li>
+	 				</c:if>
+	 			</c:forEach>
+              </ul>
+            </div>
+           
+          </div>
+</c:if>
+        
+</section>
           
 </body>
 </html>
