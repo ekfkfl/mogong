@@ -37,34 +37,70 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="${pageContext.request.contextPath}/resources/js/sockjs.js"></script>
 	
 	<script type="text/javascript">
-		$(function () {			
-			$("#logo").hover(
-				function () {
-					$(this).css('background-color','white');
-					$("#logoText").css('color','#349fda');
-				},		
-				function () {
-					$("#logoText").css('color','#367fa9');
-				}
-			)
-			
-			$("#toggle").hover(
-				function () {
-					$("#toggle").css('background-color','#e1e1e1');
-				},
-				function () {
-					$("#toggle").css('background-color','white');
-				}
-			)
-		})
+	$(document).ready(function(){
+        $("#sendMessage").click(function(){
+            sendMessage();
+        });
+        
+        $("#message").keydown(function (key) {
+            if (key.keyCode == 13) {
+               $("#sendMessage").click();
+            }
+         });
+        
+    });
+	//websocket을 지정한 URL로 연결
+    var sock= new SockJS("<c:url value="/echo-ws"/>");
+    //websocket 서버에서 메시지를 보내면 자동으로 실행된다.
+    sock.onmessage = onMessage;
+    //websocket 과 연결을 끊고 싶을때 실행하는 메소드
+    sock.onclose = onClose;
 	
+    
+  
+    
+    function sendMessage(){
+        //websocket으로 메시지를 보내겠다.
+        sock.send($("#message").val());
+        $("#chatMessage").append(
+	    		"<div class='direct-chat-msg right'>"+
+                "<div class='direct-chat-info clearfix'>"+
+                 "<span class='direct-chat-name pull-right'>"+"나"+"</span>"+
+                "</div>"+
+                "<div class='direct-chat-text'>"+
+                $("#message").val()+
+                "</div>"+
+         		"</div>"
+	    		);
+        $("#message").val("");
+        $("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
+	}
+        
+	//evt 파라미터는 websocket이 보내준 데이터다.
+	function onMessage(evt){  //변수 안에 function자체를 넣음.
+	    var data = evt.data;
+		var dataContent = data.split(',');
+	    $("#chatMessage").append(
+	    		"<div class='direct-chat-msg'>"+
+                "<div class='direct-chat-info clearfix'>"+
+                 "<span class='direct-chat-name pull-left'>"+dataContent[0]+"</span>"+
+                "</div>"+
+                "<div class='direct-chat-text'>"+
+                 dataContent[1]+
+                "</div>"+
+         		"</div>"
+	    		);
+	    $("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
+	    /* sock.close(); */
+	}
+	
+	function onClose(evt){
+	    $("#chatMessage").append("연결 끊김");
+	}
+
+    
+		
 	</script>
-	<style>
-  		#todo, #doing,#done {
-    		border: 1px dashed #eee;
-    		min-height: 40px;
-  		}
-  	</style>
 </head>
 <body>
 <input type="hidden" name="studyCode" id="studyCode" value="6"/>
@@ -93,61 +129,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                 </div>
               </div><!-- /.box-header -->
-              <div class="box-body">
+              <div class="box-body" >
                 <!-- Conversations are loaded here -->
-                <div class="direct-chat-messages">
-                  <!-- Message. Default to the left -->
-                  <div class="direct-chat-msg">
-                    <div class="direct-chat-info clearfix">
-                      <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                      <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-                    </div><!-- /.direct-chat-info -->
-                    <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
-                    <div class="direct-chat-text">
-                      Is this template really for free? That's unbelievable!
-                    </div><!-- /.direct-chat-text -->
-                  </div><!-- /.direct-chat-msg -->
-
-                  <!-- Message to the right -->
-                  <div class="direct-chat-msg right">
-                    <div class="direct-chat-info clearfix">
-                      <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                      <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-                    </div><!-- /.direct-chat-info -->
-                    <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="message user image"><!-- /.direct-chat-img -->
-                    <div class="direct-chat-text">
-                      You better believe it!
-                    </div><!-- /.direct-chat-text -->
-                  </div><!-- /.direct-chat-msg -->
-                </div><!--/.direct-chat-messages-->
-
-                <!-- Contacts are loaded here -->
-                <div class="direct-chat-contacts">
-                  <ul class="contacts-list">
-                    <li>
-                      <a href="#">
-                        <img class="contacts-list-img" src="../dist/img/user1-128x128.jpg" alt="Contact Avatar">
-                        <div class="contacts-list-info">
-                          <span class="contacts-list-name">
-                            Count Dracula
-                            <small class="contacts-list-date pull-right">2/28/2015</small>
-                          </span>
-                          <span class="contacts-list-msg">How have you been? I was...</span>
-                        </div><!-- /.contacts-list-info -->
-                      </a>
-                    </li><!-- End Contact Item -->
-                  </ul><!-- /.contatcts-list -->
-                </div><!-- /.direct-chat-pane -->
-              </div><!-- /.box-body -->
+                <div class="direct-chat-messages" id=chatMessage style="overflow:auto" >
+                
+					
+                </div><!-- /.box-body -->
               <div class="box-footer">
-                <form action="#" method="post">
                   <div class="input-group">
-                    <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                    <input type="text" name="message" id="message" placeholder="Type Message ..." class="form-control">
                     <span class="input-group-btn">
-                      <button type="button" class="btn btn-primary btn-flat">Send</button>
+                      <button type="button" id="sendMessage" class="btn btn-primary btn-flat">Send</button>
                     </span>
                   </div>
-                </form>
               </div><!-- /.box-footer-->
             </div><!--/.direct-chat -->
           </div><!-- /.col -->
@@ -169,34 +163,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <script src="${pageContext.request.contextPath}/resources/js/sockjs.js"></script>
 	
-	<script type="text/javascript">
-		var sock = null;
-		
-		$(document).ready(function(){
-			
-			sock = new SockJS("/mogong/echo-ws");
-		   /*sock.onopen=function(){
-				sock.send("반갑?");
-			}
-			
-			sock.onclose= function(){
-				sock.send("10.255.152.165 퇴장");
-			} */
-			sock.onmessage = function(evt){
-				$("#chatMessage").append(evt.data+"<br/>");
-			}
-			
-			$("#sendMessage").click(function(){
-				if($("#message").val() != ""){
-					sock.send($("#message").val());
-					/* $("#chatMessage").append("나->"+$("#message").val()+"<br/>"); */
-					$("#message").val("");
-				}
-			})
-			
-		})
-		
-	</script>
+	
 	
 </body>
 </html>
