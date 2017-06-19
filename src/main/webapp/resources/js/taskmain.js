@@ -1,6 +1,12 @@
 $(function() {
-	
 	var taskCode;
+	var csrf_token = $("#csrf").val();
+	
+	$(document).bind("ajaxSend", function(elm, xhr, s){
+		  if (s.type == "POST") {
+		     xhr.setRequestHeader('X-CSRF-Token', csrf_token);
+		  }
+	});
 	
 	$(".select2").select2({"language": {
 	       "noResults": function(){
@@ -120,7 +126,7 @@ $(function() {
 			type: "post",
 			url: "task/insertTask",
 			dataType: "json",
-			data: "studyCode="+$("#studyCode").val()+"&title="+title+"&progressStatus="+progressStatus+"&taskIndex="+$(progress+" li").length+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
+			data: "studyCode="+$("#studyCode").val()+"&title="+title+"&progressStatus="+progressStatus+"&taskIndex="+$(progress+" li").length,
 			success: function(data) {
 				var str="";
 				
@@ -132,10 +138,11 @@ $(function() {
 	}
 	
 	function selectOneTask(taskCode) {
+		
 		$.ajax({
 			type: "post",
 			url: "task/selectOneTask",
-			data: "taskCode="+taskCode+"&studyCode="+$("#studyCode").val()+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
+			data: "taskCode="+taskCode+"&studyCode="+$("#studyCode").val(),
 			dataType: "json",
 			success: function(data) {
 				$("#title").val(data.title);
@@ -193,19 +200,23 @@ $(function() {
 		
 		var memberCodeArray=$("#member").select2("val");
 		
-		for(var i=0; i<memberCodeArray.length; i++) {
-			taskDTO['taskMemberList['+i+'].taskCode']=taskCode;
-			taskDTO['taskMemberList['+i+'].memberCode']=memberCodeArray[i];
+		if(memberCodeArray != null) {
+		
+			for(var i=0; i<memberCodeArray.length; i++) {
+				taskDTO['taskMemberList['+i+'].taskCode']=taskCode;
+				taskDTO['taskMemberList['+i+'].memberCode']=memberCodeArray[i];
+			}
 		}
-			
+		
 		updateTask(taskDTO);
+		
 	})
 	
 	function updateTask(taskDTO) {
 		$.ajax({
 			type: "post",
 			url: "task/updateTask",
-			data: taskDTO+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
+			data: taskDTO,
 			success: function() {
 				selectOneTask(taskCode);
 				alert('저장 완료');
@@ -217,7 +228,7 @@ $(function() {
 		$.ajax({
 			type: "post",
 			url: "task/selectAllTask",
-			data: "studyCode="+studyCode+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
+			data: "studyCode="+studyCode,
 			dataType: "json",
 			success: function(data) {
 				$.each(data, function(index,item){
@@ -233,7 +244,7 @@ $(function() {
 			$.ajax({
 				type: "post",
 				url: "task/deleteTask",
-				data: "taskCode="+taskCode+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
+				data: "taskCode="+taskCode,
 				success: function() {
 					$("#"+taskCode).parent().remove();
 				}
@@ -296,10 +307,12 @@ $(function() {
 			allTaskCodeDTO.allTaskCode2=allTaskCode2;
 		}
 		
+		alert(JSON.stringify(allTaskCodeDTO));
+		
 		$.ajax({
 			type: "post",
 			url: "task/moveTask",
-			data: allTaskCodeDTO+"&"+$("#csrf").attr('name')+"="+$("#csrf").val()
+			data: "allTaskCodeDTO="+allTaskCodeDTO
 		})
 	}
 });

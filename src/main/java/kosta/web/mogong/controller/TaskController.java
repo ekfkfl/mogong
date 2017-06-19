@@ -83,6 +83,7 @@ public class TaskController {
 	@RequestMapping("/moveTask")
 	@ResponseBody
 	public void moveTask(AllTaskCodeDTO allTaskCodeDTO) {
+		
 	}
 	
 	/**
