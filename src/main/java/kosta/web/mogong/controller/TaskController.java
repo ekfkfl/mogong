@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import kosta.web.mogong.dto.ProgressDTO;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+
+import kosta.web.mogong.dto.AllTaskCodeDTO;
 import kosta.web.mogong.dto.TaskDTO;
-import kosta.web.mogong.dto.TaskMemberDTO;
 import kosta.web.mogong.service.TaskService;
 
 @Controller
@@ -52,8 +54,11 @@ public class TaskController {
 	
 	@RequestMapping("/insertTask")
 	@ResponseBody
-	public TaskDTO insertTask(String studyCode, String title, String progressStatus) {
-		return taskService.insertTask(new TaskDTO(Integer.parseInt(studyCode), title, progressStatus));
+	public TaskDTO insertTask(String studyCode, String title, String progressStatus, String taskIndex) {
+		
+		TaskDTO taskDTO=new TaskDTO(Integer.parseInt(studyCode), title, progressStatus);
+		taskDTO.setTaskIndex(Integer.parseInt(taskIndex));
+		return taskService.insertTask(taskDTO);
 	}
 	
 	@RequestMapping("/selectOneTask")
@@ -77,8 +82,7 @@ public class TaskController {
 	
 	@RequestMapping("/moveTask")
 	@ResponseBody
-	public void moveTask(String taskCode, ProgressDTO progressDTO) {
-		taskService.moveTask(taskCode,progressDTO);
+	public void moveTask(AllTaskCodeDTO allTaskCodeDTO) {
 	}
 	
 	/**

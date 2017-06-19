@@ -1,4 +1,5 @@
 $(function() {
+	
 	var taskCode;
 	
 	$(".select2").select2({"language": {
@@ -105,25 +106,27 @@ $(function() {
 	})
 	
 	function insertTask(title,progressStatus) {
+		var progress;
+		
+		if(progressStatus=='0001') {
+			progress="#todo";
+		} else if(progressStatus=='0002') {
+			progress="#doing";
+		} else if(progressStatus=='0003') {
+			progress="#done";
+		}
+		
 		$.ajax({
 			type: "post",
 			url: "task/insertTask",
 			dataType: "json",
-			data: "studyCode="+$("#studyCode").val()+"&title="+title+"&progressStatus="+progressStatus,
+			data: "studyCode="+$("#studyCode").val()+"&title="+title+"&progressStatus="+progressStatus+"&taskIndex="+$(progress+" li").length+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
 			success: function(data) {
-				var progress,str;
-				
-				if(data.progressStatus=='0001') {
-					progress="#todo";
-				} else if(data.progressStatus=='0002') {
-					progress="#doing";
-				} else if(data.progressStatus=='0003') {
-					progress="#done";
-				}
+				var str="";
 				
 				str="<li id='task'><span data-toggle='modal' data-target='#modal-default' class='text' id='"+data.taskCode+"'>"+data.title+"</span><i id='deleteTask' class='fa fa-fw fa-trash-o pull-right'></i></li>";
 				
-				$(progress).prepend(str);
+				$(progress).append(str);
 			}
 		})
 	}
@@ -132,7 +135,7 @@ $(function() {
 		$.ajax({
 			type: "post",
 			url: "task/selectOneTask",
-			data: "taskCode="+taskCode+"&studyCode="+$("#studyCode").val(),
+			data: "taskCode="+taskCode+"&studyCode="+$("#studyCode").val()+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
 			dataType: "json",
 			success: function(data) {
 				$("#title").val(data.title);
@@ -202,7 +205,7 @@ $(function() {
 		$.ajax({
 			type: "post",
 			url: "task/updateTask",
-			data: taskDTO,
+			data: taskDTO+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
 			success: function() {
 				selectOneTask(taskCode);
 				alert('저장 완료');
@@ -214,7 +217,7 @@ $(function() {
 		$.ajax({
 			type: "post",
 			url: "task/selectAllTask",
-			data: "studyCode="+studyCode,
+			data: "studyCode="+studyCode+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
 			dataType: "json",
 			success: function(data) {
 				$.each(data, function(index,item){
@@ -230,7 +233,7 @@ $(function() {
 			$.ajax({
 				type: "post",
 				url: "task/deleteTask",
-				data: "taskCode="+taskCode,
+				data: "taskCode="+taskCode+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
 				success: function() {
 					$("#"+taskCode).parent().remove();
 				}
@@ -254,24 +257,49 @@ $(function() {
 	
 	function updateAnother(start_pro,start_pos,end_pro,end_pos) {
 		console.log('시작 '+start_pro+' '+start_pos+' 끝 '+end_pro+' '+end_pos);
+		
+		var allTaskCode1=new Array();
+		var allTaskCode2=new Array();
+		
+		for(var i=0; i<$("#"+start_pro+" li").size(); i++) {
+			var oneTaskCode=$("#"+start_pro+" li:eq("+i+") span").attr('id');
+			allTaskCode1.push(oneTaskCode);
+		}
+		
+		for(var i=0; i<$("#"+end_pro+" li").size(); i++) {
+			var oneTaskCode=$("#"+end_pro+" li:eq("+i+") span").attr('id');
+			allTaskCode2.push(oneTaskCode);
+		}
+		
+		moveTask(allTaskCode1,allTaskCode2);
 	}
 	
 	function updateSame(start_pro,start_pos,end_pos) {
 		console.log('시작 '+start_pro+' '+start_pos+' 끝 '+end_pos);
+		
+		var allTaskCode=new Array();
+		
+		for(var i=0; i<$("#"+start_pro+" li").size(); i++) {
+			var oneTaskCode=$("#"+start_pro+" li:eq("+i+") span").attr('id');
+			allTaskCode.push(oneTaskCode);
+		}
+		
+		moveTask(allTaskCode);
 	}
 	
-	function moveTask(start_pro,start_pos,end_pro,end_pos) {
-		var progressData = new Object();
+	function moveTask(allTaskCode1,allTaskCode2) {
+		var allTaskCodeDTO=new Object();
 		
-		progressData.startPro=start_pro;
-		progressData.startPos=start_pos;
-		progressData.endPro=end_pro;
-		progressData.endPos=end_pos;
+		allTaskCodeDTO.allTaskCode1=allTaskCode1;
+		
+		if(allTaskCode2 != null) {
+			allTaskCodeDTO.allTaskCode2=allTaskCode2;
+		}
 		
 		$.ajax({
 			type: "post",
 			url: "task/moveTask",
-			data: progressData,
+			data: allTaskCodeDTO+"&"+$("#csrf").attr('name')+"="+$("#csrf").val()
 		})
 	}
 });
