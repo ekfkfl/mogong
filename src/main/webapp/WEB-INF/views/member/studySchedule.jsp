@@ -100,7 +100,7 @@
 						if (title) {
 							$.ajax({
 								url: "${pageContext.request.contextPath}/member/study/schedule/insert",
-								data: "studyCode=6&title="+title+"&start="+startDateStr+"&end="+endDateStr,
+								data: "studyCode=6&title="+title+"&start="+startDateStr+"&end="+endDateStr+"&${_csrf.parameterName}=${_csrf.token}",
 								type: "post",
 								dataType: "text",
 								success: function (result) {
@@ -151,6 +151,7 @@
 					  events: function (start,end,callback) {
 						$.ajax({
 							url: "${pageContext.request.contextPath}/member/study/schedule/data",
+							data: "${_csrf.parameterName}=${_csrf.token}",
 							type: "post",
 							dataType: "json",
 							success: function (result) {

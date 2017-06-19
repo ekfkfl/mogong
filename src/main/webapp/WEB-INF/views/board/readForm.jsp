@@ -36,14 +36,14 @@ $(function () {
 		if(key.keyCode == 13){
 			$.ajax({
 				url:"${pageContext.request.contextPath}/member/study/board/comment",
-				data:"boardCode=${boardDTO.boardCode}&content="+$(this).val(),
+				data:"boardCode=${boardDTO.boardCode}&content="+$(this).val()+"&${_csrf.parameterName}=${_csrf.token}",
 				type:"post",
 				dataType:"text",
 				success: function (result) {
 					
 				},
 				error : function (request,status,error) {
-					//alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
 			})
 		}
