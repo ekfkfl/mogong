@@ -19,7 +19,7 @@
 		login-processing-url="/login"
 		username-parameter="id"
 		password-parameter="password"
-		default-target-url="/"
+		default-target-url="/loginPro"
 		authentication-failure-handler-ref="memberAuthenticationFailureHandler"
 	/>
 	

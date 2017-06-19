@@ -3,6 +3,7 @@ package kosta.web.mogong.dao;
 import java.util.List;
 
 import kosta.web.mogong.dto.AuthorityDTO;
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.UserDTO;
 
 public interface AuthDAO {
@@ -31,7 +32,10 @@ public interface AuthDAO {
 	 */
 	List<UserDTO> selectAllUser();
 	
-	
+	/**
+	 * id에 해당하는 멤버 조회
+	 */
+	List<MemberDTO> selectMemberById(String id);
 	
 	/**
 	 * 사용자 권한 등록

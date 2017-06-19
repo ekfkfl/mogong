@@ -8,8 +8,7 @@ public class SocketController {
 	
 	@RequestMapping("/member/task/chatting")
 	public String viewChattingPage(){
-		return "/task/testchatting";
+		return "/task/chatting";
 	}
-	
-	
+
 }
