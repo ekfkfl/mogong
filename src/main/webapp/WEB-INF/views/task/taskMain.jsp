@@ -13,10 +13,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <title>모여서 공부하자</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-  <meta id="_csrf" name="_csrf" content="${_csrf.token}"/>
-  <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}"/>
- 
+  
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
   <!-- Font Awesome -->
@@ -71,6 +68,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 <body>
 <input type="hidden" name="studyCode" id="studyCode" value="6"/>
+<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" >
     <section class="content-header">
       <h1>
         Task 관리

@@ -11,6 +11,7 @@
 	<result column="success_date" property="successDate"/>
 	<result column="create_date" property="createDate"/>
 	<result column="update_date" property="updateDate"/>
+	<result column="task_index" property="taskIndex"/>
 </resultMap>	
 
 <sql id="mainSelectSql">
@@ -35,7 +36,7 @@
 
 <insert id="insertTask" parameterType="TaskDTO">
 	insert into task
-	values(task_seq.nextval,#{studyCode,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{progressStatus},null,null,null,sysdate,sysdate)
+	values(task_seq.nextval,#{studyCode,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{progressStatus},null,null,null,sysdate,sysdate,#{taskIndex})
 	<selectKey keyProperty="taskCode" resultType="Integer" order="AFTER">select task_seq.currval from dual</selectKey>
 </insert>
 
