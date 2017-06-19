@@ -77,7 +77,7 @@
                   <div class="col-sm-offset-2 col-sm-10">
                     <div class="checkbox">
                       <label>
-                        <input type="checkbox" name="check"> 공지글로 올리기
+                        <input type="checkbox" name="check" value="1"> 공지글로 올리기
                       </label>
                     </div>
                   </div>
