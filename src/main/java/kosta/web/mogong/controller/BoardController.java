@@ -2,11 +2,23 @@ package kosta.web.mogong.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.web.csrf.InvalidCsrfTokenException;
+import org.springframework.security.web.csrf.MissingCsrfTokenException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,11 +35,11 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 
-	@RequestMapping("/board")
+	/*@RequestMapping("/board")
 	public String boardMain(){
 		
 		return "board/board"; 
-	}
+	}*/
 	@RequestMapping("/writeForm")
 	public String writeForm(){
 		
@@ -75,11 +87,17 @@ public class BoardController {
 		return mv;
 	}
 	
-	@RequestMapping("/board/read")
-	public String readForm(){
+/*	@RequestMapping("/board/read")
+	public ModelAndView readForm(HttpServletRequest request,String boardCode) {
+		BoardDTO dto = boardService.boardSelectById(boardCode);
+		List<BoardCommentDTO> list = boardService.commentSelectAll(boardCode);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("board/readForm");
+		mv.addObject("boardDTO", dto);
+		mv.addObject("list", list);
 		
-		return "board/readForm";
-	}
+		return mv;
+	}*/
 	
 	@RequestMapping("/board/selectById")
 	public ModelAndView boardSelectById(String boardCode){
@@ -102,8 +120,8 @@ public class BoardController {
 	
 	@RequestMapping("/board/download")
 	public ModelAndView down(HttpServletRequest request,String fname){
-		System.out.println(request.getRealPath("/")+"save/"+fname);
 		return new ModelAndView("downLoadView","fname",new File(request.getRealPath("/")+"save/"+fname));
 	}
+	
 	
 }
