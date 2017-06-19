@@ -31,7 +31,7 @@
 </select>
 
 <select id="selectAllTask" parameterType="int" resultMap="taskMap">
-	select * from task where study_code=#{value}
+	select * from task where study_code=#{value} order by task_index
 </select>
 
 <insert id="insertTask" parameterType="TaskDTO">
