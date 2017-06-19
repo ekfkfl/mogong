@@ -10,6 +10,5 @@ public class SocketController {
 	public String viewChattingPage(){
 		return "/task/testchatting";
 	}
-	
-	
+
 }
