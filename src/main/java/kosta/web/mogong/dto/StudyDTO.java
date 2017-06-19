@@ -192,8 +192,4 @@ public class StudyDTO {
 	public void setCommDTO(CommCodeDTO commDTO) {
 		this.commDTO = commDTO;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> f072651713fe5cfe8a4ad0819ed2ef89be0928ac
 }
