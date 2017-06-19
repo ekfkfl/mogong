@@ -9,17 +9,17 @@
 	
 <context:component-scan base-package="kosta.web.mogong.security.handler,kosta.web.mogong.security.provider" />
 
-<!-- <security:http use-expressions="true" auto-config="true">
+<security:http use-expressions="true" auto-config="true">
 	<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
 	<security:intercept-url pattern="/member/**" access="isAuthenticated()"/>
-	<security:intercept-url pattern="/main/**" access="permitAll"/>
-		
-	 <security:form-login 
+
+	
+	<security:form-login 
 		login-page="/loginForm"
 		login-processing-url="/login"
 		username-parameter="id"
 		password-parameter="password"
-		default-target-url="/"
+		default-target-url="/loginPro"
 		authentication-failure-handler-ref="memberAuthenticationFailureHandler"
 	/>
 	
@@ -28,11 +28,11 @@
 		delete-cookies="JSESSIONID"
 		logout-url="/member/logout"
 		logout-success-url="/"
-	/> 
-</security:http> -->
+	/>
+</security:http>
 
-<!-- <security:authentication-manager>
+<security:authentication-manager>
 	<security:authentication-provider ref="memberAuthenticationProvider"/>
-</security:authentication-manager> -->
+</security:authentication-manager>
 
 </beans>

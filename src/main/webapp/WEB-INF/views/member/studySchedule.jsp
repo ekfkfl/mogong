@@ -97,7 +97,6 @@
 						
 						var endDateStr = end.getFullYear()+"-"+(end.getMonth()+1)+"-"+end.getDate()+" "
 										+end.getHours()+":"+end.getMinutes()+":"+end.getSeconds();
-						
 						if (title) {
 							$.ajax({
 								url: "${pageContext.request.contextPath}/member/study/schedule/insert",

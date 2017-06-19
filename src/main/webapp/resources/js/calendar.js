@@ -4140,7 +4140,7 @@ function AgendaEventRenderer() {
 		var dayDelta; // derived from colDelta
 		var minuteDelta, prevMinuteDelta;
 
-		/*eventElement.draggable({
+		eventElement.draggable({
 			scroll: false,
 			grid: [ colWidth, snapHeight ],
 			axis: colCnt==1 ? 'y' : false,
@@ -4245,7 +4245,7 @@ function AgendaEventRenderer() {
 					showEvents(event, eventElement);
 				}
 			}
-		});*/
+		});
 
 		function updateUI() {
 			clearOverlays();

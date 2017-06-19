@@ -312,7 +312,7 @@ desired effect
         <li id="sideSchedule"><a id="schedule" href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
         <li id="sideTask"><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
         <li id="sideChatting"><a href="#" id="chatting"><i class="fa fa-link"></i> <span>채팅</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>게시판</span></a></li>
+        <li id="sideBoard"><a href="#" id="board"><i class="fa fa-link"></i> <span>게시판</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
@@ -699,18 +699,40 @@ desired effect
          $("#sideTask").attr('class','active');
          $("#sideMain").attr('class','');
          $("#sideSchedule").attr('class','');
+         $("#sideBoard").attr('class','');
+         $("#sideChatting").attr('class','');
       })
       $("#main").click(function() {
          $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
          $("#sideTask").attr('class','');
          $("#sideMain").attr('class','active');
          $("#sideSchedule").attr('class','');
+         $("#sideBoard").attr('class','');
+         $("#sideChatting").attr('class','');
       })
       $("#schedule").click(function () {
 		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/schedule');
 		$("#sideSchedule").attr('class','active');
 		$("#sideTask").attr('class','');
 		$("#sideMain").attr('class','');
+		$("#sideBoard").attr('class','');
+		$("#sideChatting").attr('class','');
+	  })
+	  $("#chatting").click(function() {
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/task/chatting');
+			$("#sideTask").attr('class','');
+			$("#sideMain").attr('class','');
+			$("#sideSchedule").attr('class','');
+			$("#sideBoard").attr('class','');
+			$("#sideChatting").attr('class','active');
+		})
+	  $("#board").click(function () {
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/board');
+		$("#sideBoard").attr('class','active');
+		$("#sideSchedule").attr('class','');
+		$("#sideTask").attr('class','');
+		$("#sideMain").attr('class','');
+		$("#sideChatting").attr('class','');
 	  })
    })
 
