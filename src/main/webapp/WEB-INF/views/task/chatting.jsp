@@ -42,7 +42,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	 
 	$(document).ready(function(){
         $("#sendMessage").click(function(){
-            sendMessage();
+            
+        	var str = $.trim($('#message').val())
+        	if(str==""){
+            	$('#message').focus()
+            	return
+            }else{
+            	sendMessage();
+            }
         });
         
         $("#message").keydown(function (key) {
@@ -113,14 +120,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	    		);
 	    $("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
 	    /* sock.close(); */
-	     $.ajax({
+	     /* $.ajax({
   			  url: "${pageContext.request.contextPath}/member/task/fileSave" , //서버 요청 이름(주소)
   			  type: "get" ,//method방식(get, post)
   			  data: "sessionId="+dataContent[0]+"&message="+dataContent[1]+"&date="+dataContent[2]+"&photo="+dataContent[3] ,//서버에게 보낼 parameter 정보
   			  success: function(result){
   				  
   			  }
-        })
+        	}) */
 	}
 	
 	function onClose(evt){
@@ -160,16 +167,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="box box-primary direct-chat direct-chat-primary">
               <div class="box-header with-border">
                 <h3 class="box-title">Direct Chat</h3>
-                <div class="box-tools pull-right">
-                  <span data-toggle="tooltip" title="3 New Messages" class="badge bg-light-blue">3</span>
-                  <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                  <button class="btn btn-box-tool" data-toggle="tooltip" title="Contacts" data-widget="chat-pane-toggle"><i class="fa fa-comments"></i></button>
-                  <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                </div>
               </div><!-- /.box-header -->
-              <div class="box-body" >
+              <div class="box-body">
                 <!-- Conversations are loaded here -->
-                <div class="direct-chat-messages" id=chatMessage style="overflow:auto" >
+                <div class="direct-chat-messages" id=chatMessage style="overflow:auto; height:500px" >
                 <c:choose>
                 	<c:when test="${empty chatList}">
                 	
