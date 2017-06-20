@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kosta.web.mogong.dao.AuthDAO;
 import kosta.web.mogong.dto.AuthorityDTO;
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.util.Constants;
 
@@ -90,6 +91,11 @@ public class AuthServiceImpl implements AuthService {
 		}
 
 		return 1;
+	}
+
+	@Override
+	public List<MemberDTO> selectMemberById(String id) {
+		return authDAO.selectMemberById(id);
 	}
 
 }

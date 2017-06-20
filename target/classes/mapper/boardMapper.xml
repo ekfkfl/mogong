@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+
+	<resultMap type="boardDTO" id="boardResultMap">
+		<id column="board_code" property="boardCode"/>
+		<result column="study_code" property="studyCode"/>
+		<result column="member_code" property="memberCode"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="write_date" property="writeDate"/>
+		<result column="hit" property="hit"/>
+		<result column="filename" property="fileName"/>
+		<result column="name" property="name"/>
+		<result column="notice" property="notice"/>
+		<result column="path" property="path"/>
+	</resultMap>
+	
+	<resultMap type="boardCommentDTO" id="commentResultMap">
+		<id column="comment_code" property="commentCode"/>
+		<result column="board_code" property="boardCode"/>
+		<result column="member_code" property="memberCode"/>
+		<result column="content" property="content"/>
+		<result column="write_date" property="writeDate"/>
+	</resultMap>
+	
+	<insert id="boardInsert" parameterType="boardDTO">
+		insert into board values(board_seq.nextval,#{studyCode},#{memberCode},#{title},#{content},sysdate,0,#{fileName},#{notice})
+	</insert>
+	
+	<select id="boardSelectAll" resultMap="boardResultMap">
+		select board.board_code,board.title,user_tb.name,board.write_date,board.hit,board.filename,board.notice
+		from member,board,user_tb
+		where member.member_code=board.member_code and user_tb.id=member.id order by notice desc
+	</select>
+	
+	<select id="boardSelectById" resultMap="boardResultMap" parameterType="string">
+		select board.board_code,board.title,user_tb.name,board.content,board.write_date,board.filename,user_tb.path
+		from member,board,user_tb
+		where member.member_code=board.member_code and user_tb.id=member.id and board.board_code=#{value}
+	
+	</select>
+	
+	<insert id="commentInsert" parameterType="boardCommentDTO">
+		insert into board_comment values(comment_seq.nextval,#{boardCode},#{memberCode},#{content},sysdate,#{studyCode})
+	</insert>
+	
+	<select id="commentSelect" resultMap="commentResultMap" parameterType="string">
+		select board_comment.content,board_comment.write_date,user_tb.path,user_tb.name
+		from member,board_comment,user_tb
+		where member.member_code=board_comment.member_code and user_tb.id=member.id and board_comment.board_code=#{value}
+	</select>
+	
+	
+
+
+</mapper>

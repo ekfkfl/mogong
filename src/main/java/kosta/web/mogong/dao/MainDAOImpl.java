@@ -43,5 +43,9 @@ public class MainDAOImpl implements MainDAO {
 		
 		return result;
 	}
-
+	
+	@Override
+	public String messageCount(String id) {
+		return sqlSession.selectOne("mainMapper.messageCount", id);
+	}
 }

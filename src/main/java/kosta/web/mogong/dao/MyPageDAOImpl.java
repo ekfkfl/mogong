@@ -98,6 +98,4 @@ public class MyPageDAOImpl implements MyPageDAO {
 		
 		return sqlSession.selectList("mypageMapper.searchRecvMail", map);
 	}
-
-
 }

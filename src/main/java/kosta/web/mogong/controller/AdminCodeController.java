@@ -4,18 +4,19 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kosta.web.mogong.dto.CommCodeDTO;
+import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.service.AdminCodeService;
-import kosta.web.mogong.util.CodeUtil;
+import kosta.web.mogong.service.MainService;
 
 @Controller
 @RequestMapping("/admin")
@@ -23,8 +24,17 @@ public class AdminCodeController {
 	@Autowired
 	private AdminCodeService adminCodeService;
 	
+	@Autowired
+	private MainService mainService;
+	
 	@RequestMapping("")
-	public String adminMain(HttpServletRequest request){
+	public String adminMain(HttpServletRequest request, HttpSession session, Model model){
+		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
+		
+		if(userDTO != null) {
+			model.addAttribute("messageCount", mainService.messageCount(userDTO.getId()));
+		}
+		
 		List<CommCodeDTO> commCodeDTOList=adminCodeService.selectCodeAll();
 		
 		request.setAttribute("commCodeDTOList", commCodeDTOList);

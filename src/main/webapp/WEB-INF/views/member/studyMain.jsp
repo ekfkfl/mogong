@@ -142,10 +142,10 @@ desired effect
             <!-- Menu toggle button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">4</span>
+              <span class="label label-success">${messageCount}</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 4 messages</li>
+              <li class="header">읽지 않은 메시지 ${messageCount}개</li>
               <li>
                 <!-- inner menu: contains the messages -->
                 <ul class="menu">
@@ -484,24 +484,7 @@ desired effect
 	        }]
 	    });
 		
-	    $("#task").click(function() {
-			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task');
-			$("#sideTask").attr('class','active');
-			$("#sideMain").attr('class','');
-			$("#sideChatting").attr('class','');
-		})
-		$("#main").click(function() {
-			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
-			$("#sideTask").attr('class','');
-			$("#sideMain").attr('class','active');
-			$("#sideChatting").attr('class','');
-		})
-		 $("#chatting").click(function() {
-			$("#iframe").attr('src','${pageContext.request.contextPath}/member/task/chatting');
-			$("#sideTask").attr('class','');
-			$("#sideMain").attr('class','');
-			$("#sideChatting").attr('class','active');
-		})
+	   
 	})
 
    $(function () {
@@ -727,7 +710,7 @@ desired effect
 			$("#sideChatting").attr('class','active');
 		})
 	  $("#board").click(function () {
-		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/board');
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/board/selectAll');
 		$("#sideBoard").attr('class','active');
 		$("#sideSchedule").attr('class','');
 		$("#sideTask").attr('class','');
