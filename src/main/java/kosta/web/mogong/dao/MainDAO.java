@@ -20,5 +20,8 @@ public interface MainDAO {
 	 * */
 	int readNumUpdate(String studyCode);
 	
-
+	/**
+	 * 읽지 않은 메시지 개수 가져오기
+	 */
+	String messageCount(String id);
 }

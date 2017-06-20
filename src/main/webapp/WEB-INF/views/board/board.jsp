@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -83,30 +84,27 @@
                   	<th width="5%">조회</th>
                   	<th width="5%">첨부</th>
                   </tr>
-                  <tr>
-                    <td>1</td>
-                    <td><a href="#">testdawdadwawdawdawdawdawd</a></td>
-                    <td>최성훈</td>
-                    <td>2017-06-16 16:12:10</td>
-                    <td>10</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td><a href="#">test</a></td>
-                    <td>최성훈</td>
-                    <td>2017-06-16 16:12:10</td>
-                    <td>10</td>
-                    <td>2</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td><a href="#">test</a></td>
-                    <td>최성훈</td>
-                    <td>2017-06-16 16:12:10</td>
-                    <td>10</td>
-                    <td>2</td>
-                  </tr>
+                  <c:forEach items="${requestScope.list}" var="dto">
+                  	<tr>
+                  		<c:if test="${dto.notice == '1'}">
+                  			<td><button type="button" class="btn btn-block btn-danger btn-xs">공지</button></td>
+                  		</c:if>
+                  		<c:if test="${dto.notice=='0'}">
+                  			<td>${dto.boardCode}</td>
+                  		</c:if>
+	                    <td><a href="${pageContext.request.contextPath}/member/study/board/selectById?boardCode=${dto.boardCode}">${dto.title}</a></td>
+	                    <td>${dto.name}</td>
+	                    <td>${dto.writeDate}</td>
+	                    <td>${dto.hit}</td>
+	                    <c:if test="${dto.fileName != null}">
+	                   		<td><i class="fa fa-file-o"></i></td> 
+	                    </c:if>
+	                    <c:if test="${dto.fileName == null}">
+	                   		<td>&nbsp;</td> 
+	                    </c:if>
+                    </tr>
+                  
+                  </c:forEach>
                   </tbody>
                 </table>
                 <!-- /.table -->

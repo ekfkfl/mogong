@@ -7,5 +7,7 @@ public interface MainService {
 	int insertStudy(StudyDTO studyDTO);
 	
 	StudyDTO selectByStudyCode(String studyCode, boolean state);
+	
+	String messageCount(String id);
 
 }

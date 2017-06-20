@@ -45,15 +45,24 @@ public class MainController {
 	private AuthService authService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model, HttpSession session) {
+		
+		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
+		
+		if(userDTO != null) {
+			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
+		}
+		
 		return "main/index";
 	}
 	
 	@RequestMapping("/main/mypage")
-	public String myPage(HttpSession session){
+	public String myPage(HttpSession session, Model model){
+		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
 		
-		 String id = "gwang12";
-		 session.setAttribute("id", id);
+		if(userDTO != null) {
+			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
+		}
 		
 		return "/mypage/mypageMain";
 	}
@@ -108,7 +117,7 @@ public class MainController {
 	
 	//로그인 처리
 	@RequestMapping("/loginPro")
-	public String loginPro(HttpServletRequest request){
+	public String loginPro(HttpServletRequest request, Model model){
 		HttpSession session=request.getSession();
 		Authentication auth=(Authentication)request.getUserPrincipal();
 		Object userObj=auth.getPrincipal();
@@ -121,6 +130,7 @@ public class MainController {
 		
 		List<MemberDTO> memberDTOList=authService.selectMemberById(userDTO.getId());
 		
+		model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
 		
 		Map<String, String>memberMap=new HashMap<>();
 		if(memberDTOList!=null){
@@ -162,7 +172,13 @@ public class MainController {
 	}
 
 	@RequestMapping("/study/main")
-	public String studyMain(HttpServletRequest request) {
+	public String studyMain(HttpServletRequest request,HttpSession session, Model model) {
+		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
+		
+		if(userDTO != null) {
+			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
+		}
+		
 		return "member/studyMain";
 	}
 }

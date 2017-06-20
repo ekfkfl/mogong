@@ -19,11 +19,21 @@ public class TaskDTO {
 	private String remain; //남은 시간 표시
 	private Date startSchedule; //시작일 달력표시
 	private Date endSchedule; //마감일 달력표시
-	private String taskIndex;
+	private int taskIndex;
 
 	private List<TaskMemberDTO> taskMemberList;
 	
 	public TaskDTO() {}
+	
+	public TaskDTO(int taskCode, int taskIndex) {
+		this.taskCode=taskCode;
+		this.taskIndex=taskIndex;
+	}
+	
+	public TaskDTO(int taskCode, String progressStatus) {
+		this.taskCode=taskCode;
+		this.progressStatus=progressStatus;
+	}
 	
 	public TaskDTO(int studyCode, String title, String progressStatus) {
 		this.studyCode=studyCode;
@@ -184,12 +194,11 @@ public class TaskDTO {
 		this.endSchedule = endSchedule;
 	}
 	
-	public String getTaskIndex() {
+	public int getTaskIndex() {
 		return taskIndex;
 	}
 
-	public void setTaskIndex(String taskIndex) {
+	public void setTaskIndex(int taskIndex) {
 		this.taskIndex = taskIndex;
 	}
-	
 }

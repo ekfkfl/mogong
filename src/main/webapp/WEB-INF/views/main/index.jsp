@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<jsp:include page="/WEB-INF/views/main/header.jsp" />
+<jsp:include page="/WEB-INF/views/main/header.jsp">
+	<jsp:param value="${messageCount}" name="messageCount"/>
+</jsp:include>
 
 <!--slider-->
 <div id="slider" class="flexslider">

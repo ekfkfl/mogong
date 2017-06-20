@@ -2,9 +2,8 @@ package kosta.web.mogong.service;
 
 import java.util.List;
 
-import kosta.web.mogong.dto.ProgressDTO;
+import kosta.web.mogong.dto.AllTaskCodeDTO;
 import kosta.web.mogong.dto.TaskDTO;
-import kosta.web.mogong.dto.TaskMemberDTO;
 
 public interface TaskService {
 	List<TaskDTO> selectAllTask(String studyCode);
@@ -15,7 +14,7 @@ public interface TaskService {
 
 	TaskDTO insertTask(TaskDTO taskDTO);
 
-	void moveTask(String taskCode, ProgressDTO progressDTO);
+	void moveTask(AllTaskCodeDTO allTaskCodeDTO);
 
 	void updateTask(TaskDTO taskDTO);
 

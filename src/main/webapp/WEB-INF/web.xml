@@ -38,7 +38,7 @@
 	
 	<!-- spring security 등록 -->
 	
- 	<filter>
+ 	 <filter>
 		<filter-name>springSecurityFilterChain</filter-name>	
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter> 
@@ -61,7 +61,6 @@
         	<param-value>SAMEORIGIN</param-value>
         </init-param>
 <!--    <async-supported>true</async-supported>    -->
-       
     </filter>
 		<filter-mapping>
 		<filter-name>httpHeaderSecurity</filter-name>
