@@ -15,6 +15,7 @@ import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.RecvMessageDTO;
 import kosta.web.mogong.dto.SendMessageDTO;
 import kosta.web.mogong.dto.StudyDTO;
+import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.service.MyPageService;
 
 @Controller
@@ -26,10 +27,9 @@ public class MyPageController {
 	@RequestMapping("/member/mypage/studyRequest")
 	public ModelAndView studyRequest(HttpSession session){
 		
-		String id = (String)session.getAttribute("id");
-		System.out.println(id);
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
 		
-		List<StudyDTO> list = myPageServiceImpl.studyRequestList(id);
+		List<StudyDTO> list = myPageServiceImpl.studyRequestList(userDTO.getId());
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -42,10 +42,9 @@ public class MyPageController {
 	@RequestMapping("/member/mypage/ongoingStudy")
 	public ModelAndView ongoingStudy(HttpSession session){
 		
-		String id = (String)session.getAttribute("id");
-		System.out.println(id);
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
 		
-		List<StudyDTO> list = myPageServiceImpl.ongoingStudyList(id);
+		List<StudyDTO> list = myPageServiceImpl.ongoingStudyList(userDTO.getId());
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -57,10 +56,9 @@ public class MyPageController {
 	@RequestMapping("/member/mypage/recruitStudy")
 	public ModelAndView recruitStudy(HttpSession session){
 		
-		String id = (String)session.getAttribute("id");
-		System.out.println(id);
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
 		
-		List<StudyDTO> list = myPageServiceImpl.recruitStudyList(id);
+		List<StudyDTO> list = myPageServiceImpl.recruitStudyList(userDTO.getId());
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -72,9 +70,9 @@ public class MyPageController {
 	@RequestMapping("/member/mypage/recvMail")
 	public ModelAndView recvMail(HttpSession session){
 		
-		String id = (String)session.getAttribute("id");
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
 		
-		List<RecvMessageDTO> list = myPageServiceImpl.recvMail(id);
+		List<RecvMessageDTO> list = myPageServiceImpl.recvMail(userDTO.getId());
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -87,9 +85,9 @@ public class MyPageController {
 	@RequestMapping("/member/mypage/sendMail")
 	public ModelAndView sendMail(HttpSession session){
 		
-		String id = (String)session.getAttribute("id");
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
 		
-		List<SendMessageDTO> list = myPageServiceImpl.sendMail(id);
+		List<SendMessageDTO> list = myPageServiceImpl.sendMail(userDTO.getId());
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("list", list);
@@ -171,9 +169,9 @@ public class MyPageController {
 	@RequestMapping("/member/mypage/searchSendMail")
 	public ModelAndView searchSendMail(HttpSession session, String word){
 		
-		String id = (String)session.getAttribute("id"); 
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
 		
-		List<SendMessageDTO> list = myPageServiceImpl.searchSendMail(id, word);
+		List<SendMessageDTO> list = myPageServiceImpl.searchSendMail(userDTO.getId(), word);
 		
 		return new ModelAndView("/mypage/sendMail", "list", list);
 	}
@@ -181,9 +179,9 @@ public class MyPageController {
 	@RequestMapping("/member/mypage/searchRecvMail")
 	public ModelAndView searchRecvMail(HttpSession session, String word){
 		
-		String id = (String)session.getAttribute("id"); 
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
 		
-		List<RecvMessageDTO> list = myPageServiceImpl.searchRecvMail(id, word);
+		List<RecvMessageDTO> list = myPageServiceImpl.searchRecvMail(userDTO.getId(), word);
 		
 		return new ModelAndView("/mypage/recvMail", "list", list);
 	}
