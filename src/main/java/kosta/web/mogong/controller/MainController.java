@@ -45,7 +45,14 @@ public class MainController {
 	private AuthService authService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model, HttpSession session) {
+		
+		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
+		
+		if(userDTO != null) {
+			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
+		}
+		
 		return "main/index";
 	}
 	
