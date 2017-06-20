@@ -3,6 +3,7 @@ package kosta.web.mogong.service;
 import java.util.List;
 
 import kosta.web.mogong.dto.AllTaskCodeDTO;
+import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
 
 public interface TaskService {
@@ -21,4 +22,8 @@ public interface TaskService {
 	void deleteTask(String taskCode);
 	
 	List<Integer> chartResult();
+	
+	int insertTaskComment(TaskCommentDTO taskCommentDTO);
+	
+	List<TaskCommentDTO> selectTaskComment(int taskCode);
 }

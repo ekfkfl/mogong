@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kosta.web.mogong.dao.TaskDAO;
 import kosta.web.mogong.dto.AllTaskCodeDTO;
 import kosta.web.mogong.dto.ProgressDTO;
+import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
 
@@ -183,5 +184,15 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void deleteTask(String taskCode) {
 		taskDAO.deleteTask(taskCode);
+	}
+
+	@Override
+	public int insertTaskComment(TaskCommentDTO taskCommentDTO) {
+		return taskDAO.insertTaskComment(taskCommentDTO);
+	}
+
+	@Override
+	public List<TaskCommentDTO> selectTaskComment(int taskCode) {
+		return taskDAO.selectTaskComment(taskCode);
 	}
 }

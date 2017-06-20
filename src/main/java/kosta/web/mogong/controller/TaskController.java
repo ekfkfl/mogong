@@ -17,6 +17,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import kosta.web.mogong.dto.AllTaskCodeDTO;
+import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.service.TaskService;
 
@@ -87,7 +88,19 @@ public class TaskController {
 	public void moveTask(AllTaskCodeDTO allTaskCodeDTO) {
 		taskService.moveTask(allTaskCodeDTO);
 	}
+	
+	@RequestMapping("/inserTaskComment")
+	@ResponseBody
+	public void inserTaskComment(TaskCommentDTO taskCommentDTO) {
+		taskService.insertTaskComment(taskCommentDTO);
+	}
 
+	@RequestMapping("/selectTaskComment")
+	@ResponseBody
+	public List<TaskCommentDTO> selectTaskComment(String taskCode) {
+		return taskService.selectTaskComment(Integer.parseInt(taskCode));
+	}
+	
 	/**
 	 * 성훈 스터디 메인 페이지
 	 */

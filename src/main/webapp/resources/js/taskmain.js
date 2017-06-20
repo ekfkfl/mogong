@@ -127,6 +127,19 @@ $(function() {
 		insertTask($("#doneTitle").val(),'0144');
 	})
 	
+	$("#inputTaskComment").keyup(function(e) {
+		if(e.keyCode == 13)
+		insertTaskComment();
+	})
+	
+	$("#inputTaskComment").click(function() {
+		insertTaskComment();
+	})
+	
+	$("#comment").click(function() {
+		selectTaskComment();
+	})
+	
 	function insertTask(title,progressStatus) {
 		var progress;
 		
@@ -279,6 +292,10 @@ $(function() {
 	$(document).on('click','#task',function() {
 		taskCode=$(this).find('span').attr('id');
 		
+		$("attribute").parent().addClass('active');
+		$("content").parent().removeClass('active');
+		$("fileUpload").parent().removeClass('active');
+		
 		selectOneTask(taskCode);
 	})
 	
@@ -357,4 +374,92 @@ $(function() {
 			data: allTaskCodeDTO
 		})
 	}
+	
+	function inserTaskComment(taskCommentDTO) {
+		$.ajax({
+			type: "post",
+			url: "task/inserTaskComment",
+			data: taskCommentDTO,
+			success: function() {
+				alert(taskCommentDTO);
+			}
+		})
+	}
+	
+	function selectTaskComment() {
+		scroll();
+		
+		$.ajax({
+			type: "post",
+			url: "task/selectTaskComment",
+			data: "taskCode="+taskCode,
+			success: function() {
+				alert(taskCommentDTO);
+			}
+		})
+	}
+	
+	function scroll(){
+		$("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
+	}
+	
+	/*function sendMessage(){
+        var date = new Date();
+        
+        var presentDate = (date.getMonth()+1)+"월 "+date.getDate()+"일 "+addZero(date.getHours())+":"+addZero(date.getMinutes())
+     
+        var message = $('#message').val()
+        
+        sock.send("${requestScope.sessionId}"+","+$("#message").val()+","+presentDate+","+"${requestScope.sessionPhoto}");
+        $("#chatMessage").append(
+	    		"<div class='direct-chat-msg right'>"+
+                "<div class='direct-chat-info clearfix'>"+
+                 "<span class='direct-chat-name pull-right'>"+"${requestScope.sessionId}"+"</span>"+
+                 "<span class='direct-chat-timestamp pull-left'>"+presentDate+"</span>"+
+                "</div>"+
+                "<img class='direct-chat-img' src='${requestScope.sessionPhoto}' alt='message user image'>"+
+                "<div class='direct-chat-text'>"+
+                $("#message").val()+
+                "</div>"+
+         		"</div>"
+	    		);
+        $("#message").val("");
+        $("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
+        $.ajax({
+  			  url: "${pageContext.request.contextPath}/member/task/fileSave" , //서버 요청 이름(주소)
+  			  type: "get" ,//method방식(get, post)
+  			  data: "sessionId=${requestScope.sessionId}&message="+message+"&date="+presentDate+"&photo=${requestScope.sessionPhoto}" ,//서버에게 보낼 parameter 정보
+  			  success: function(result){
+  				 
+  			  }
+        })
+        
+	}
+        
+	function onMessage(evt){  //변수 안에 function자체를 넣음.
+	    var data = evt.data;
+		var dataContent = data.split(',');
+	    $("#chatMessage").append(
+	    		"<div class='direct-chat-msg'>"+
+                "<div class='direct-chat-info clearfix'>"+
+                 "<span class='direct-chat-name pull-left'>"+dataContent[0]+"</span>"+
+                 "<span class='direct-chat-timestamp pull-right'>"+dataContent[2]+"</span>"+
+                "</div>"+
+                "<img class='direct-chat-img' src='"+dataContent[3]+"' alt='message user image'>"+
+                "<div class='direct-chat-text'>"+
+                 dataContent[1]+
+                "</div>"+
+         		"</div>"
+	    		);
+	    $("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
+	     sock.close(); 
+	     $.ajax({
+  			  url: "${pageContext.request.contextPath}/member/task/fileSave" , //서버 요청 이름(주소)
+  			  type: "get" ,//method방식(get, post)
+  			  data: "sessionId="+dataContent[0]+"&message="+dataContent[1]+"&date="+dataContent[2]+"&photo="+dataContent[3] ,//서버에게 보낼 parameter 정보
+  			  success: function(result){
+  				  
+  			  }
+        })
+	}*/
 });

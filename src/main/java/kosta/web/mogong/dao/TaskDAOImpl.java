@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kosta.web.mogong.dto.AllTaskCodeDTO;
+import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
 
@@ -85,5 +86,15 @@ public class TaskDAOImpl implements TaskDAO {
 	@Override
 	public int moveTaskProgress(int taskCode, String progressStatus) {
 		return sqlSession.update("taskMapper.moveTaskProgress", new TaskDTO(taskCode, progressStatus));
+	}
+
+	@Override
+	public int insertTaskComment(TaskCommentDTO taskCommentDTO) {
+		return sqlSession.insert("taskMapper.insertTaskComment", taskCommentDTO);
+	}
+
+	@Override
+	public List<TaskCommentDTO> selectTaskComment(int taskCode) {
+		return sqlSession.selectList("taskMapper.selectTaskComment", taskCode);
 	}
 }

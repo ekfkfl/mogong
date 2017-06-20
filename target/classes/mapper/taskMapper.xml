@@ -100,4 +100,12 @@
 		</foreach>
 </update>
 
+<insert id="insertTaskComment" parameterType="TaskCommentDTO">
+	insert into task_comment values(task_comment_seq.nextval,#{taskCode},#{id},#{name},#{path},#{content},sysdate)
+</insert>
+
+<select id="selectTaskComment" parameterType="int" resultType="TaskCommentDTO">
+	select task_comment_code as taskCommentCode, id, name, path, content, write_date as writeDate from task_comment where task_code=#{taskCode}
+</select>
+
 </mapper>
