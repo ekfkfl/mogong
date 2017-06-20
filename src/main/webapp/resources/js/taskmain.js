@@ -1,4 +1,5 @@
 $(function() {
+	jQuery.ajaxSettings.traditional = true;
 	var taskCode;
 	var csrf_token = $("#csrf").val();
 	
@@ -100,25 +101,25 @@ $(function() {
 	})
 	
 	$("#todoInsertBoxSubmit").click(function() {
-		insertTask($("#todoTitle").val(),'0001');
+		insertTask($("#todoTitle").val(),'0142');
 	})
 	
 	$("#doingInsertBoxSubmit").click(function() {
-		insertTask($("#doingTitle").val(),'0002');
+		insertTask($("#doingTitle").val(),'0143');
 	})
 	
 	$("#doneInsertBoxSubmit").click(function() {
-		insertTask($("#doneTitle").val(),'0003');
+		insertTask($("#doneTitle").val(),'0144');
 	})
 	
 	function insertTask(title,progressStatus) {
 		var progress;
 		
-		if(progressStatus=='0001') {
+		if(progressStatus=='0142') {
 			progress="#todo";
-		} else if(progressStatus=='0002') {
+		} else if(progressStatus=='0143') {
 			progress="#doing";
-		} else if(progressStatus=='0003') {
+		} else if(progressStatus=='0144') {
 			progress="#done";
 		}
 		
@@ -218,6 +219,8 @@ $(function() {
 			url: "task/updateTask",
 			data: taskDTO,
 			success: function() {
+				alert($("#"+taskCode).val());
+				$("#"+taskCode).val(taskDTO.title);
 				selectOneTask(taskCode);
 				alert('저장 완료');
 			}
@@ -269,6 +272,17 @@ $(function() {
 	function updateAnother(start_pro,start_pos,end_pro,end_pos) {
 		console.log('시작 '+start_pro+' '+start_pos+' 끝 '+end_pro+' '+end_pos);
 		
+		var progressStatus="";
+		var selectCode=$("#"+end_pro+" li:eq("+end_pos+") span").attr('id');
+		
+		if(end_pro == "todo") {
+			progressStatus='0142';
+		} else if(end_pro == "doing") {
+			progressStatus='0143';
+		} else if(end_pro == "done") {
+			progressStatus='0144';
+		}
+		
 		var allTaskCode1=new Array();
 		var allTaskCode2=new Array();
 		
@@ -282,12 +296,23 @@ $(function() {
 			allTaskCode2.push(oneTaskCode);
 		}
 		
-		moveTask(allTaskCode1,allTaskCode2);
+		console.log(allTaskCode1.length)
+		
+		if(allTaskCode1.length == 0) {
+			allTaskCode1=null;
+		}
+		
+		if(allTaskCode2.length == 0) {
+			allTaskCode2=null;
+		}
+		
+		moveTask(allTaskCode1,allTaskCode2,selectCode,progressStatus);
 	}
 	
 	function updateSame(start_pro,start_pos,end_pos) {
 		console.log('시작 '+start_pro+' '+start_pos+' 끝 '+end_pos);
 		
+		var selectCode=$("#"+end_pro+" li:eq("+end_pos+") span").attr('id');
 		var allTaskCode=new Array();
 		
 		for(var i=0; i<$("#"+start_pro+" li").size(); i++) {
@@ -295,10 +320,10 @@ $(function() {
 			allTaskCode.push(oneTaskCode);
 		}
 		
-		moveTask(allTaskCode);
+		moveTask(allTaskCode,selectCode);
 	}
 	
-	function moveTask(allTaskCode1,allTaskCode2) {
+	function moveTask(allTaskCode1,allTaskCode2,selectCode,progressStatus) {
 		var allTaskCodeDTO=new Object();
 		
 		allTaskCodeDTO.allTaskCode1=allTaskCode1;
@@ -307,12 +332,16 @@ $(function() {
 			allTaskCodeDTO.allTaskCode2=allTaskCode2;
 		}
 		
-		alert(JSON.stringify(allTaskCodeDTO));
+		if(progressStatus != "") {
+			allTaskCodeDTO.progressStatus=progressStatus;
+		}
+		
+		allTaskCodeDTO.taskCode=parseInt(selectCode);
 		
 		$.ajax({
 			type: "post",
 			url: "task/moveTask",
-			data: "allTaskCodeDTO="+allTaskCodeDTO
+			data: allTaskCodeDTO
 		})
 	}
 });

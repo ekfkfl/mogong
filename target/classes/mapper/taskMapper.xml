@@ -21,7 +21,7 @@
 
 <!-- 성훈 main select -->
 <select id="selectMainTask" parameterType="int" resultMap="taskMap">
-	select <include refid="mainSelectSql"/> from task where study_code=#{value} and progress_status != '0003' order by end_date desc
+	select <include refid="mainSelectSql"/> from task where study_code=#{value} and progress_status != '0144' order by end_date desc
 
 </select>
 
@@ -77,15 +77,27 @@
 	select m.member_code as memberCode, u.name as name from user_tb u join member m on u.id=m.id where m.study_code=#{value}
 </select>
 
-<update id="moveTask" parameterType="map">
+<update id="moveTaskProgress" parameterType="TaskDTO">
 	<choose>
-		<when test="progressStatus==0003">
-			update set progress_status=#{progressStatus},success_date=sysdate where task_code=#{taskCode}
+		<when test="progressStatus==0144">
+			update task set progress_status=#{progressStatus},success_date=sysdate where task_code=#{taskCode}
 		</when>
 		<otherwise>
-			update set progress_status=#{progressStatus},success_date=null where task_code=#{taskCode}
+			update task set progress_status=#{progressStatus},success_date=null where task_code=#{taskCode}
 		</otherwise>
 	</choose>
+</update>
+
+<update id="moveTask" parameterType="list">
+	update task set task_index = case task_code 
+		<foreach collection="list" item="item"> 
+			when #{item.taskCode} then #{item.taskIndex}
+		</foreach>
+			else task_code end                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+			where task_code in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item.taskCode}
+		</foreach>
 </update>
 
 </mapper>
