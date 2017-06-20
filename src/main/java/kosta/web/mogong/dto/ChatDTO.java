@@ -1,51 +1,51 @@
 package kosta.web.mogong.dto;
 
 public class ChatDTO {
-	private int chatCode;
-	private int studyCode;
-	private int memberCode;
+	private String sessionId;
 	private String content;
-	private String writeDate;
+	private String date;
+	private String path;
 	
 	public ChatDTO() {}
 	
-	public ChatDTO(int chatCode, int studyCode, int memberCode, String content, String writeDate) {
+	public ChatDTO(String sessionId, String content, String date, String path) {
 		super();
-		this.chatCode = chatCode;
-		this.studyCode = studyCode;
-		this.memberCode = memberCode;
+		this.sessionId = sessionId;
 		this.content = content;
-		this.writeDate = writeDate;
+		this.date = date;
+		this.path = path;
 	}
 
-	public int getChatCode() {
-		return chatCode;
+	public String getSessionId() {
+		return sessionId;
 	}
-	public void setChatCode(int chatCode) {
-		this.chatCode = chatCode;
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
 	}
-	public int getStudyCode() {
-		return studyCode;
-	}
-	public void setStudyCode(int studyCode) {
-		this.studyCode = studyCode;
-	}
-	public int getMemberCode() {
-		return memberCode;
-	}
-	public void setMemberCode(int memberCode) {
-		this.memberCode = memberCode;
-	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getWriteDate() {
-		return writeDate;
+
+	public String getDate() {
+		return date;
 	}
-	public void setWriteDate(String writeDate) {
-		this.writeDate = writeDate;
+
+	public void setDate(String date) {
+		this.date = date;
 	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+	
 }

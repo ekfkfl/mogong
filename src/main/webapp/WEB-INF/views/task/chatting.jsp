@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -37,6 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script src="${pageContext.request.contextPath}/resources/js/sockjs.js"></script>
 	
 	<script type="text/javascript">
+	 
 	$(document).ready(function(){
         $("#sendMessage").click(function(){
             sendMessage();
@@ -49,6 +52,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          });
         
     });
+	
 	//websocket을 지정한 URL로 연결
     var sock= new SockJS("<c:url value="/echo-ws"/>");
     //websocket 서버에서 메시지를 보내면 자동으로 실행된다.
@@ -56,17 +60,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
     //websocket 과 연결을 끊고 싶을때 실행하는 메소드
     sock.onclose = onClose;
 	
-    
-  
-    
+   
     function sendMessage(){
         //websocket으로 메시지를 보내겠다.
-        sock.send($("#message").val());
+        var date = new Date();
+        
+        var presentDate = (date.getMonth()+1)+"월 "+date.getDate()+"일 "+addZero(date.getHours())+":"+addZero(date.getMinutes())
+     
+        var message = $('#message').val()
+        
+        sock.send("${requestScope.sessionId}"+","+$("#message").val()+","+presentDate+","+"${requestScope.sessionPhoto}");
         $("#chatMessage").append(
 	    		"<div class='direct-chat-msg right'>"+
                 "<div class='direct-chat-info clearfix'>"+
-                 "<span class='direct-chat-name pull-right'>"+"나"+"</span>"+
+                 "<span class='direct-chat-name pull-right'>"+"${requestScope.sessionId}"+"</span>"+
+                 "<span class='direct-chat-timestamp pull-left'>"+presentDate+"</span>"+
                 "</div>"+
+                "<img class='direct-chat-img' src='${requestScope.sessionPhoto}' alt='message user image'>"+
                 "<div class='direct-chat-text'>"+
                 $("#message").val()+
                 "</div>"+
@@ -74,6 +84,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	    		);
         $("#message").val("");
         $("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
+        $.ajax({
+  			  url: "${pageContext.request.contextPath}/member/task/fileSave" , //서버 요청 이름(주소)
+  			  type: "get" ,//method방식(get, post)
+  			  data: "sessionId=${requestScope.sessionId}&message="+message+"&date="+presentDate+"&photo=${requestScope.sessionPhoto}" ,//서버에게 보낼 parameter 정보
+  			  success: function(result){
+  				 
+  			  }
+        })
+        
 	}
         
 	//evt 파라미터는 websocket이 보내준 데이터다.
@@ -84,7 +103,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	    		"<div class='direct-chat-msg'>"+
                 "<div class='direct-chat-info clearfix'>"+
                  "<span class='direct-chat-name pull-left'>"+dataContent[0]+"</span>"+
+                 "<span class='direct-chat-timestamp pull-right'>"+dataContent[2]+"</span>"+
                 "</div>"+
+                "<img class='direct-chat-img' src='"+dataContent[3]+"' alt='message user image'>"+
                 "<div class='direct-chat-text'>"+
                  dataContent[1]+
                 "</div>"+
@@ -92,17 +113,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	    		);
 	    $("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
 	    /* sock.close(); */
+	     $.ajax({
+  			  url: "${pageContext.request.contextPath}/member/task/fileSave" , //서버 요청 이름(주소)
+  			  type: "get" ,//method방식(get, post)
+  			  data: "sessionId="+dataContent[0]+"&message="+dataContent[1]+"&date="+dataContent[2]+"&photo="+dataContent[3] ,//서버에게 보낼 parameter 정보
+  			  success: function(result){
+  				  
+  			  }
+        })
 	}
 	
 	function onClose(evt){
 	    $("#chatMessage").append("연결 끊김");
 	}
-
+	
+	function addZero(i) {
+	    if (i < 10) {
+	        i = "0" + i;
+	    }
+	    return i;
+	}
     
+	function scroll(){
+		$("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
+	}
 		
 	</script>
 </head>
-<body>
+<body onload="scroll()">
 <input type="hidden" name="studyCode" id="studyCode" value="6"/>
     <section class="content-header">
       <h1>
@@ -132,11 +170,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <div class="box-body" >
                 <!-- Conversations are loaded here -->
                 <div class="direct-chat-messages" id=chatMessage style="overflow:auto" >
-                
-					
+                <c:choose>
+                	<c:when test="${empty chatList}">
+                	
+                	</c:when>
+                	<c:otherwise>
+                		<c:forEach items="${chatList}" var="chatList">
+                			<c:choose>
+                				<c:when test="${chatList.sessionId eq requestScope.sessionId }">
+                					<div class='direct-chat-msg right'>
+						                <div class='direct-chat-info clearfix'>
+							                <span class='direct-chat-name pull-right'>${chatList.sessionId}</span>
+							                <span class='direct-chat-timestamp pull-left'>${chatList.date}</span>
+						                </div>
+						                <img class='direct-chat-img' src='${chatList.path}' alt='message user image'>
+						                <div class='direct-chat-text'>${chatList.content}</div>
+					         		</div>
+                				</c:when>
+                				<c:otherwise>
+                					<div class='direct-chat-msg'>
+						                <div class='direct-chat-info clearfix'>
+							                <span class='direct-chat-name pull-left'>${chatList.sessionId}</span>
+							                <span class='direct-chat-timestamp pull-right'>${chatList.date}</span>
+						                </div>
+						                <img class='direct-chat-img' src='${chatList.path}' alt='message user image'>
+						                <div class='direct-chat-text'>${chatList.content}</div>
+					         		</div>
+                				</c:otherwise>
+                			</c:choose>
+                		</c:forEach>
+                	</c:otherwise>
+                </c:choose>
                 </div><!-- /.box-body -->
               <div class="box-footer">
-                  <div class="input-group">
+                  <div class="input-group" id="sendDiv">
                     <input type="text" name="message" id="message" placeholder="Type Message ..." class="form-control">
                     <span class="input-group-btn">
                       <button type="button" id="sendMessage" class="btn btn-primary btn-flat">Send</button>

@@ -1,6 +1,10 @@
 package kosta.web.mogong.websocket.handler;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -35,12 +39,14 @@ public class EchoHandler extends TextWebSocketHandler {
 		protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 			logger.info("{}로 부터 {} 받음", session.getId(), message.getPayload());
 			
+			String messageBox[] = message.getPayload().split(",");
 			//연결된 모든 클라이언트에게 메세지 전송 : 리스트 방법
 			for(WebSocketSession sess : sessionList){
 				if(!session.getId().equals(sess.getId())){
-					 sess.sendMessage(new TextMessage(session.getId()+","+ message.getPayload()));
+					 sess.sendMessage(new TextMessage(messageBox[0]+","+ messageBox[1]+","+messageBox[2]+","+messageBox[3]));
 				}
 	        }
+			
 		}
 		
 		/**
