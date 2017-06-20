@@ -219,8 +219,8 @@ $(function() {
 			url: "task/updateTask",
 			data: taskDTO,
 			success: function() {
-				alert($("#"+taskCode).val());
-				$("#"+taskCode).val(taskDTO.title);
+//				$("#modal-default").modal("hide");
+				$("#"+taskDTO.taskCode).text(taskDTO.title);
 				selectOneTask(taskCode);
 				alert('저장 완료');
 			}
@@ -270,8 +270,6 @@ $(function() {
 	})
 	
 	function updateAnother(start_pro,start_pos,end_pro,end_pos) {
-		console.log('시작 '+start_pro+' '+start_pos+' 끝 '+end_pro+' '+end_pos);
-		
 		var progressStatus="";
 		var selectCode=$("#"+end_pro+" li:eq("+end_pos+") span").attr('id');
 		
@@ -296,8 +294,6 @@ $(function() {
 			allTaskCode2.push(oneTaskCode);
 		}
 		
-		console.log(allTaskCode1.length)
-		
 		if(allTaskCode1.length == 0) {
 			allTaskCode1=null;
 		}
@@ -310,8 +306,6 @@ $(function() {
 	}
 	
 	function updateSame(start_pro,start_pos,end_pos) {
-		console.log('시작 '+start_pro+' '+start_pos+' 끝 '+end_pos);
-		
 		var selectCode=$("#"+end_pro+" li:eq("+end_pos+") span").attr('id');
 		var allTaskCode=new Array();
 		
