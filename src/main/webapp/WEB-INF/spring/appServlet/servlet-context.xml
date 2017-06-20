@@ -31,7 +31,7 @@
 	<context:component-scan base-package="kosta.web.mogong" />
 	
 	<!-- Exception 등록하기 -->
-	<beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	<!-- <beans:bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<beans:property name="exceptionMappings">
 			<beans:props>
 				<beans:prop key="java.lang.Exception">
@@ -39,7 +39,7 @@
 				</beans:prop>
 			</beans:props>
 		</beans:property>
-	</beans:bean>
+	</beans:bean> -->
 	
 	<!-- 뒤로가기 새로고침 방지 -->
 	<interceptors>

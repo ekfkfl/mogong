@@ -38,15 +38,17 @@
 
 
 	<!-- jQuery -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.flexslider.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.inview.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+	<script	src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.flexslider.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.inview.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/script.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/plugins/input-mask/jquery.inputmask.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+
 
 </body>
 </html>

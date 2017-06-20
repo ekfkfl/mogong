@@ -1,5 +1,6 @@
 package kosta.web.mogong.dto;
 
+import java.util.Date;
 import java.util.List;
 
 public class TaskDTO {
@@ -16,7 +17,10 @@ public class TaskDTO {
 	private String updateDate; //수정일
 	private String state; //완료,진행,마감일없음 상태
 	private String remain; //남은 시간 표시
-	
+	private Date startSchedule; //시작일 달력표시
+	private Date endSchedule; //마감일 달력표시
+	private String taskIndex;
+
 	private List<TaskMemberDTO> taskMemberList;
 	
 	public TaskDTO() {}
@@ -25,6 +29,21 @@ public class TaskDTO {
 		this.studyCode=studyCode;
 		this.title=title;
 		this.progressStatus=progressStatus;
+	}
+	
+	/**
+	 * 성훈 schedule 생성자
+	 */
+	public TaskDTO(int studyCode, String title, String startDate,String endDate) {
+		this.studyCode=studyCode;
+		this.title=title;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+	
+	public TaskDTO(int taskCode, List<TaskMemberDTO> taskMemberList) {
+		this.taskCode=taskCode;
+		this.taskMemberList=taskMemberList;
 	}
 	
 	public TaskDTO(String title, String content, String startDate, String endDate, List<TaskMemberDTO> taskMemberList) {
@@ -148,8 +167,29 @@ public class TaskDTO {
 	public void setRemain(String remain) {
 		this.remain = remain;
 	}
+
+	public Date getStartSchedule() {
+		return startSchedule;
+	}
+
+	public void setStartSchedule(Date startSchedule) {
+		this.startSchedule = startSchedule;
+	}
+
+	public Date getEndSchedule() {
+		return endSchedule;
+	}
+
+	public void setEndSchedule(Date endSchedule) {
+		this.endSchedule = endSchedule;
+	}
 	
-	
-	
+	public String getTaskIndex() {
+		return taskIndex;
+	}
+
+	public void setTaskIndex(String taskIndex) {
+		this.taskIndex = taskIndex;
+	}
 	
 }

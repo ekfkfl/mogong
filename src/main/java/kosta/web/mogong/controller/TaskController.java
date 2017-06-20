@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kosta.web.mogong.dto.ProgressDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
 import kosta.web.mogong.service.TaskService;
@@ -57,9 +58,9 @@ public class TaskController {
 	
 	@RequestMapping("/selectOneTask")
 	@ResponseBody
-	public TaskDTO selectOneTask(String taskCode) {
+	public TaskDTO selectOneTask(String taskCode,String studyCode) {
 		
-		return taskService.selectOneTask(taskCode);
+		return taskService.selectOneTask(taskCode,studyCode);
 	}
 	
 	@RequestMapping("/deleteTask")
@@ -72,6 +73,12 @@ public class TaskController {
 	@ResponseBody
 	public void updateTask(TaskDTO taskDTO) {
 		taskService.updateTask(taskDTO);
+	}
+	
+	@RequestMapping("/moveTask")
+	@ResponseBody
+	public void moveTask(String taskCode, ProgressDTO progressDTO) {
+		taskService.moveTask(taskCode,progressDTO);
 	}
 	
 	/**
@@ -89,6 +96,7 @@ public class TaskController {
 		mv.addObject("month", "0");
 		mv.addObject("noEnd", "0");
 		mv.addObject("end", "0");
+		mv.addObject("after","0");
 		
 		for(TaskDTO dto : list){
 			stateList.add(dto.getState());
@@ -103,6 +111,9 @@ public class TaskController {
 			mv.addObject("noEnd", "1");
 		if(stateList.contains("5"))
 			mv.addObject("end", "1");
+		if(stateList.contains("6"))
+			mv.addObject("after","1");
+		
 		
 		mv.addObject("list",list);
 		return mv;
@@ -114,70 +125,71 @@ public class TaskController {
 		Map<String, Object> map = new HashMap<>();
 		List<Integer> list = taskService.chartResult();
 		List<TaskDTO> taskList = taskService.selectMainTask("6");
-		int todoArr[] = {0,0,0,0,0};
-		int doingArr[] = {0,0,0,0,0};
+		int todoArr[] = {0,0,0,0,0,0};
+		int doingArr[] = {0,0,0,0,0,0};
 		
 		for(TaskDTO dto : taskList){
-			if(dto.getState().equals("1")){ //오늘까지
+			if("1".equals(dto.getState())){ //오늘까지
 				if(dto.getProgressStatus().equals("0001")){ //To Do
 					todoArr[0]++;
 				} else if(dto.getProgressStatus().equals("0002")){ //Doing
 					doingArr[0]++;
 				}
-			} else if(dto.getState().equals("2")){
+			} else if("2".equals(dto.getState())){
 				if(dto.getProgressStatus().equals("0001")){ //To Do
 					todoArr[1]++;
 				} else if(dto.getProgressStatus().equals("0002")){ //Doing
 					doingArr[1]++;
 				}
-			} else if(dto.getState().equals("3")){
+			} else if("3".equals(dto.getState())){
 				if(dto.getProgressStatus().equals("0001")){ //To Do
 					todoArr[2]++;
 				} else if(dto.getProgressStatus().equals("0002")){ //Doing
 					doingArr[2]++;
 				}
-			}else if(dto.getState().equals("4")){
+			}else if("4".equals(dto.getState())){
 				if(dto.getProgressStatus().equals("0001")){ //To Do
 					todoArr[3]++;
 				} else if(dto.getProgressStatus().equals("0002")){ //Doing
 					doingArr[3]++;
 				}
-			}else if(dto.getState().equals("5")){
+			}else if("5".equals(dto.getState())){
 				if(dto.getProgressStatus().equals("0001")){ //To Do
 					todoArr[4]++;
 				} else if(dto.getProgressStatus().equals("0002")){ //Doing
 					doingArr[4]++;
 				}
+			} else if("6".equals(dto.getState())){
+				if(dto.getProgressStatus().equals("0001")){ //To Do
+					todoArr[5]++;
+				} else if(dto.getProgressStatus().equals("0002")){ //Doing
+					doingArr[5]++;
+				}
 			}
-			
 		}
 		
-		map.put("todo", list.get(0));
-		map.put("doing", list.get(1));
-		map.put("done", list.get(2));
+		map.put("todo", "0");
+		map.put("doing", "0");
+		map.put("done", "0");
+		for(int i=0;i<list.size();i++){
+			if(i==0) map.put("todo", list.get(i));
+			if(i==1) map.put("doing", list.get(i));
+			if(i==2) map.put("done", list.get(i));
+		}
+		
 		map.put("todaytodo", todoArr[0]);
 		map.put("weektodo", todoArr[1]);
 		map.put("monthtodo", todoArr[2]);
 		map.put("noendtodo", todoArr[3]);
 		map.put("endtodo", todoArr[4]);
+		map.put("aftertodo", todoArr[5]);
 		map.put("todaydoing", doingArr[0]);
 		map.put("weekdoing", doingArr[1]);
 		map.put("monthdoing", doingArr[2]);
 		map.put("noenddoing", doingArr[3]);
 		map.put("enddoing", doingArr[4]);
+		map.put("afterdoing", doingArr[5]);
 		
 		return map;
-	}
-	
-
-	@RequestMapping("/selectTaksMember")
-	@ResponseBody
-	public List<TaskMemberDTO> selectTaksMember(String taskCode) {
-		return taskService.selectTaksMember(taskCode);
-	}
-	
-	@RequestMapping("/test")
-	public String test() {
-		return "task/test";
 	}
 }

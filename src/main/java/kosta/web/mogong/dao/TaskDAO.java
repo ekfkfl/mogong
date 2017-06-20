@@ -2,6 +2,7 @@ package kosta.web.mogong.dao;
 
 import java.util.List;
 
+import kosta.web.mogong.dto.ProgressDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
 
@@ -14,16 +15,19 @@ public interface TaskDAO {
 	
 	TaskDTO insertTask(TaskDTO taskDTO);
 	
-	int moveTask(String taskCode);
+	int moveTask(String taskCode, ProgressDTO progressDTO);
 	
 	int updateTask(TaskDTO taskDTO);
 	
 	int deleteTask(String taskCode);
 	
-	List<TaskMemberDTO> selectTaksMember(String taskCode);
+	List<TaskMemberDTO> selectTaskMember(String taskCode);
 	
-	int insertTaskMember(TaskMemberDTO taskMemberDTO);
+	int insertTaskMember(List<TaskMemberDTO> taskMemberList);
 	
-	int deleteTaskMember(TaskMemberDTO taskMemberDTO);
+	int deleteTaskMember(int taskCode);
+	
 	List<Integer> chartResult();
+	
+	List<TaskMemberDTO> selectMember(String studyCode);
 }

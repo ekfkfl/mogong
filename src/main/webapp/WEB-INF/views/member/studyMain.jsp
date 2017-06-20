@@ -309,10 +309,10 @@ desired effect
         <li class="header">Study Menu</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="active" id="sideMain"><a id="main" href="#"><i class="fa fa-link"></i> <span>스터디 메인</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
+        <li id="sideSchedule"><a id="schedule" href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
         <li id="sideTask"><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>채팅</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>게시판</span></a></li>
+        <li id="sideChatting"><a href="#" id="chatting"><i class="fa fa-link"></i> <span>채팅</span></a></li>
+        <li id="sideBoard"><a href="#" id="board"><i class="fa fa-link"></i> <span>게시판</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
@@ -428,6 +428,81 @@ desired effect
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <script type="text/javascript">
+	$(function () {
+		// Build the chart
+	    Highcharts.chart('container', {
+	        chart: {
+	            plotBackgroundColor: null,
+	            plotBorderWidth: null,
+	            plotShadow: false,
+	            type: 'pie'
+	        },
+	        credits:{
+	        	enabled: false
+	        },
+	        exporting:{
+	        	enabled: false
+	        },
+	        title: {
+	            text: ''
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	        },
+	        plotOptions: {
+	            pie: {
+	                allowPointSelect: true,
+	                cursor: 'pointer',
+	                dataLabels: {
+	                    enabled: false
+	                },
+	                showInLegend: true
+	            }
+	        },
+	        series: [{
+	            name: '진행률',
+	            colorByPoint: true,
+	            data: [{
+	                name: '완료',
+	                color:'#51a8ff',
+	                y: 25
+	            }, {
+	                name: '마감일 지남',
+	                color:'#fd6a6a',
+	                y: 25,
+	                sliced: true,
+	                selected: true
+	            }, {
+	                name: '계획됨',
+	                color:'#f9c62d',
+	                y: 25
+	            }, {
+	                name: '마감일 없음',
+	                color:'#c0c0c0',
+	                y: 25
+	            }]
+	        }]
+	    });
+		
+	    $("#task").click(function() {
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task');
+			$("#sideTask").attr('class','active');
+			$("#sideMain").attr('class','');
+			$("#sideChatting").attr('class','');
+		})
+		$("#main").click(function() {
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
+			$("#sideTask").attr('class','');
+			$("#sideMain").attr('class','active');
+			$("#sideChatting").attr('class','');
+		})
+		 $("#chatting").click(function() {
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/task/chatting');
+			$("#sideTask").attr('class','');
+			$("#sideMain").attr('class','');
+			$("#sideChatting").attr('class','active');
+		})
+	})
 
    $(function () {
       
@@ -437,33 +512,38 @@ desired effect
 				type:"post",
 				dataType:"json",
 				success: function (result) {
+					
+					var done = parseInt(result.done)/(parseInt(result.done)+parseInt(result.todo)+parseInt(result.doing))*100;
+				    var doing = parseInt(result.doing)/(parseInt(result.done)+parseInt(result.todo)+parseInt(result.doing))*100;
+				    var todo = parseInt(result.todo)/(parseInt(result.done)+parseInt(result.todo)+parseInt(result.doing))*100;
+					
 					var colors = Highcharts.getOptions().colors,
 					categories = ['To Do', 'Doing', 'Done'],
 					data = [{
 					   
 					    color: "#f39c12",
 					    drilldown: {
-					        name: '계획됨',
-					        categories: ['계획됨'],
-					        data: [result.todo/(result.done+result.todo+result.doing)*100],
+					        name: '계획됨(To Do)',
+					        categories: ['계획됨(To Do)'],
+					        data: [todo/(done+todo+doing)*100],
 					        color: "#f39c12"
 					    }
 					}, {
 					 
 					    color: "#ff00ff",
 					    drilldown: {
-					        name: '진행중',
-					        categories: ['진행중'],
-					        data: [result.doing/(result.done+result.todo+result.doing)*100],
+					        name: '진행중(Doing)',
+					        categories: ['진행중(Doing)'],
+					        data: [doing/(done+todo+doing)*100],
 					        color: colors[1]
 					    }
 					}, {
 					    
 					    color: colors[1],
 					    drilldown: {
-					        name: '완료',
-					        categories: ['완료'],
-					        data: [result.done/(result.done+result.todo+result.doing)*100],
+					        name: '완료(Done)',
+					        categories: ['완료(Done)'],
+					        data: [done/(done+todo+doing)*100],
 					        color: colors[2]
 					    }
 					}],
@@ -520,9 +600,7 @@ desired effect
 					       
 					    }]
 					}); //하이차트 끝
-				       var done = result.done/(result.done+result.todo+result.doing)*100;
-				       var doing = result.doing/(result.done+result.todo+result.doing)*100;
-				       var todo = result.todo/(result.done+result.todo+result.doing)*100;
+				       
 				       $("#doneSpan").text(done.toFixed(1)+"%");
 				       $("#doneSp").text(result.done);
 				       $("#doneProgress").css('width',done+'%');
@@ -553,7 +631,7 @@ desired effect
 				    	    },
 
 				    	    xAxis: {
-				    	        categories: ['오늘까지', '이번 주까지', '이번 달까지','마감일 없음','마감일 지남'],
+				    	        categories: ['오늘까지', '이번 주까지', '이번 달까지','마감일 없음','마감일 지남','이번 달 이후'],
 				    	        labels: {
 				    	            x: -10
 				    	        }
@@ -568,10 +646,10 @@ desired effect
 
 				    	    series: [{
 				    	        name: '계획됨(To Do)',
-				    	        data: [result.todaytodo,result.weektodo,result.monthtodo,result.noendtodo,result.endtodo]
+				    	        data: [result.todaytodo,result.weektodo,result.monthtodo,result.noendtodo,result.endtodo,result.aftertodo]
 				    	    }, {
 				    	        name: '진행중(Doing)',
-				    	        data: [result.todaydoing, result.weekdoing, result.monthdoing,result.noenddoing,result.enddoing]
+				    	        data: [result.todaydoing, result.weekdoing, result.monthdoing,result.noenddoing,result.enddoing,result.afterdoing]
 				    	    }],
 
 				    	    responsive: {
@@ -620,12 +698,42 @@ desired effect
          $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task');
          $("#sideTask").attr('class','active');
          $("#sideMain").attr('class','');
+         $("#sideSchedule").attr('class','');
+         $("#sideBoard").attr('class','');
+         $("#sideChatting").attr('class','');
       })
       $("#main").click(function() {
          $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
          $("#sideTask").attr('class','');
          $("#sideMain").attr('class','active');
+         $("#sideSchedule").attr('class','');
+         $("#sideBoard").attr('class','');
+         $("#sideChatting").attr('class','');
       })
+      $("#schedule").click(function () {
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/schedule');
+		$("#sideSchedule").attr('class','active');
+		$("#sideTask").attr('class','');
+		$("#sideMain").attr('class','');
+		$("#sideBoard").attr('class','');
+		$("#sideChatting").attr('class','');
+	  })
+	  $("#chatting").click(function() {
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/task/chatting');
+			$("#sideTask").attr('class','');
+			$("#sideMain").attr('class','');
+			$("#sideSchedule").attr('class','');
+			$("#sideBoard").attr('class','');
+			$("#sideChatting").attr('class','active');
+		})
+	  $("#board").click(function () {
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/board');
+		$("#sideBoard").attr('class','active');
+		$("#sideSchedule").attr('class','');
+		$("#sideTask").attr('class','');
+		$("#sideMain").attr('class','');
+		$("#sideChatting").attr('class','');
+	  })
    })
 
 </script>

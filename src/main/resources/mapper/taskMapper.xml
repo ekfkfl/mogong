@@ -35,7 +35,7 @@
 
 <insert id="insertTask" parameterType="TaskDTO">
 	insert into task
-	values(task_seq.nextval,#{studyCode,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{progressStatus},sysdate,sysdate,sysdate,sysdate,sysdate)
+	values(task_seq.nextval,#{studyCode,jdbcType=VARCHAR},#{title,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{progressStatus},null,null,null,sysdate,sysdate)
 	<selectKey keyProperty="taskCode" resultType="Integer" order="AFTER">select task_seq.currval from dual</selectKey>
 </insert>
 
@@ -55,19 +55,36 @@
 	where m.member_code in(select member_code as memberCode from task_member where task_code=#{value})
 </select>
 
+<delete id="deleteTaskMember" parameterType="int">
+	delete from task_member where task_code=#{_parameter}
+</delete>
+
 <insert id="insertTaskMember" parameterType="list">
 	insert all
 	<foreach collection="list" item="item">
 		into task_member values(#{item.taskCode}, #{item.memberCode})
 	</foreach>
-	select * from dual;
+	select * from dual
 </insert>
 
-<delete id="deleteTaskMember" parameterType="TaskDTO">
-	delete from task_member where taskCode=#{taskCode} and memberCode in
-	<foreach collection="taskMemberList" item="item"  open="(" close=")" separator=",">
-            #{item.memberCode}
-    </foreach>
-</delete>
+<update id="updateTask" parameterType="TaskDTO">
+	update task set title=#{title},content=#{content},start_date=to_date(#{startDate},'YYYYMMDDHH24MI'),end_date=to_date(#{endDate},'YYYYMMDDHH24MI'),update_date=sysdate
+	where task_code=#{taskCode}
+</update>
+
+<select id="selectMember" parameterType="int" resultType="TaskMemberDTO">
+	select m.member_code as memberCode, u.name as name from user_tb u join member m on u.id=m.id where m.study_code=#{value}
+</select>
+
+<update id="moveTask" parameterType="map">
+	<choose>
+		<when test="progressStatus==0003">
+			update set progress_status=#{progressStatus},success_date=sysdate where task_code=#{taskCode}
+		</when>
+		<otherwise>
+			update set progress_status=#{progressStatus},success_date=null where task_code=#{taskCode}
+		</otherwise>
+	</choose>
+</update>
 
 </mapper>
