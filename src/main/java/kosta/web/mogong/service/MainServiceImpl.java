@@ -32,4 +32,9 @@ public class MainServiceImpl implements MainService {
 		return  mainDAO.selectByStudyCode(studyCode);
 	}
 
+	@Override
+	public String messageCount(String id) {
+		return mainDAO.messageCount(id);
+	}
+
 }

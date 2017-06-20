@@ -63,10 +63,10 @@
 						<li class="dropdown messages-menu">
 							<!-- Menu toggle button --> <a href="/mypage"
 							class="dropdown-toggle" data-toggle="dropdown"> <i
-								class="fa fa-envelope-o"></i> <span class="label label-success">4</span>
+								class="fa fa-envelope-o"></i> <span class="label label-success">${messageCount}</span>
 						</a>
 							<ul class="dropdown-menu">
-								<li class="header">You have 4 messages</li>
+								<li class="header">읽지 않은 메시지 ${messageCount}개</li>
 								<li>
 									<!-- /.menu -->
 								</li>

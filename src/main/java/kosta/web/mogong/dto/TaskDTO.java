@@ -25,6 +25,16 @@ public class TaskDTO {
 	
 	public TaskDTO() {}
 	
+	public TaskDTO(int taskCode, int taskIndex) {
+		this.taskCode=taskCode;
+		this.taskIndex=taskIndex;
+	}
+	
+	public TaskDTO(int taskCode, String progressStatus) {
+		this.taskCode=taskCode;
+		this.progressStatus=progressStatus;
+	}
+	
 	public TaskDTO(int studyCode, String title, String progressStatus) {
 		this.studyCode=studyCode;
 		this.title=title;

@@ -1,6 +1,13 @@
 $(function() {
-	
+	jQuery.ajaxSettings.traditional = true;
 	var taskCode;
+	var csrf_token = $("#csrf").val();
+	
+	$(document).bind("ajaxSend", function(elm, xhr, s){
+		  if (s.type == "POST") {
+		     xhr.setRequestHeader('X-CSRF-Token', csrf_token);
+		  }
+	});
 	
 	$(".select2").select2({"language": {
 	       "noResults": function(){
@@ -94,25 +101,44 @@ $(function() {
 	})
 	
 	$("#todoInsertBoxSubmit").click(function() {
-		insertTask($("#todoTitle").val(),'0001');
+		insertTask($("#todoTitle").val(),'0142');
 	})
 	
 	$("#doingInsertBoxSubmit").click(function() {
-		insertTask($("#doingTitle").val(),'0002');
+		insertTask($("#doingTitle").val(),'0143');
 	})
 	
 	$("#doneInsertBoxSubmit").click(function() {
-		insertTask($("#doneTitle").val(),'0003');
+		insertTask($("#doneTitle").val(),'0144');
+	})
+	
+	$("#todoTitle").keyup(function(e) {
+		if(e.keyCode == 13) 
+		insertTask($("#todoTitle").val(),'0142');
+	})
+	
+	$("#doingTitle").keyup(function(e) {
+		if(e.keyCode == 13)
+		insertTask($("#doingTitle").val(),'0143');
+	})
+	
+	$("#doneTitle").keyup(function(e) {
+		if(e.keyCode == 13)
+		insertTask($("#doneTitle").val(),'0144');
 	})
 	
 	function insertTask(title,progressStatus) {
 		var progress;
 		
-		if(progressStatus=='0001') {
+		if(title.trim() == "") {
+			return;
+		}
+		
+		if(progressStatus=='0142') {
 			progress="#todo";
-		} else if(progressStatus=='0002') {
+		} else if(progressStatus=='0143') {
 			progress="#doing";
-		} else if(progressStatus=='0003') {
+		} else if(progressStatus=='0144') {
 			progress="#done";
 		}
 		
@@ -120,7 +146,7 @@ $(function() {
 			type: "post",
 			url: "task/insertTask",
 			dataType: "json",
-			data: "studyCode="+$("#studyCode").val()+"&title="+title+"&progressStatus="+progressStatus+"&taskIndex="+$(progress+" li").length+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
+			data: "studyCode="+$("#studyCode").val()+"&title="+title+"&progressStatus="+progressStatus+"&taskIndex="+$(progress+" li").length,
 			success: function(data) {
 				var str="";
 				
@@ -132,10 +158,11 @@ $(function() {
 	}
 	
 	function selectOneTask(taskCode) {
+		
 		$.ajax({
 			type: "post",
 			url: "task/selectOneTask",
-			data: "taskCode="+taskCode+"&studyCode="+$("#studyCode").val()+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
+			data: "taskCode="+taskCode+"&studyCode="+$("#studyCode").val(),
 			dataType: "json",
 			success: function(data) {
 				$("#title").val(data.title);
@@ -193,20 +220,26 @@ $(function() {
 		
 		var memberCodeArray=$("#member").select2("val");
 		
-		for(var i=0; i<memberCodeArray.length; i++) {
-			taskDTO['taskMemberList['+i+'].taskCode']=taskCode;
-			taskDTO['taskMemberList['+i+'].memberCode']=memberCodeArray[i];
+		if(memberCodeArray != null) {
+		
+			for(var i=0; i<memberCodeArray.length; i++) {
+				taskDTO['taskMemberList['+i+'].taskCode']=taskCode;
+				taskDTO['taskMemberList['+i+'].memberCode']=memberCodeArray[i];
+			}
 		}
-			
+		
 		updateTask(taskDTO);
+		
 	})
 	
 	function updateTask(taskDTO) {
 		$.ajax({
 			type: "post",
 			url: "task/updateTask",
-			data: taskDTO+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
+			data: taskDTO,
 			success: function() {
+//				$("#modal-default").modal("hide");
+				$("#"+taskDTO.taskCode).text(taskDTO.title);
 				selectOneTask(taskCode);
 				alert('저장 완료');
 			}
@@ -217,7 +250,7 @@ $(function() {
 		$.ajax({
 			type: "post",
 			url: "task/selectAllTask",
-			data: "studyCode="+studyCode+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
+			data: "studyCode="+studyCode,
 			dataType: "json",
 			success: function(data) {
 				$.each(data, function(index,item){
@@ -233,7 +266,7 @@ $(function() {
 			$.ajax({
 				type: "post",
 				url: "task/deleteTask",
-				data: "taskCode="+taskCode+"&"+$("#csrf").attr('name')+"="+$("#csrf").val(),
+				data: "taskCode="+taskCode,
 				success: function() {
 					$("#"+taskCode).parent().remove();
 				}
@@ -256,7 +289,16 @@ $(function() {
 	})
 	
 	function updateAnother(start_pro,start_pos,end_pro,end_pos) {
-		console.log('시작 '+start_pro+' '+start_pos+' 끝 '+end_pro+' '+end_pos);
+		var progressStatus="";
+		var selectCode=$("#"+end_pro+" li:eq("+end_pos+") span").attr('id');
+		
+		if(end_pro == "todo") {
+			progressStatus='0142';
+		} else if(end_pro == "doing") {
+			progressStatus='0143';
+		} else if(end_pro == "done") {
+			progressStatus='0144';
+		}
 		
 		var allTaskCode1=new Array();
 		var allTaskCode2=new Array();
@@ -271,12 +313,19 @@ $(function() {
 			allTaskCode2.push(oneTaskCode);
 		}
 		
-		moveTask(allTaskCode1,allTaskCode2);
+		if(allTaskCode1.length == 0) {
+			allTaskCode1=null;
+		}
+		
+		if(allTaskCode2.length == 0) {
+			allTaskCode2=null;
+		}
+		
+		moveTask(allTaskCode1,allTaskCode2,selectCode,progressStatus);
 	}
 	
 	function updateSame(start_pro,start_pos,end_pos) {
-		console.log('시작 '+start_pro+' '+start_pos+' 끝 '+end_pos);
-		
+		var selectCode=$("#"+end_pro+" li:eq("+end_pos+") span").attr('id');
 		var allTaskCode=new Array();
 		
 		for(var i=0; i<$("#"+start_pro+" li").size(); i++) {
@@ -284,10 +333,10 @@ $(function() {
 			allTaskCode.push(oneTaskCode);
 		}
 		
-		moveTask(allTaskCode);
+		moveTask(allTaskCode,selectCode);
 	}
 	
-	function moveTask(allTaskCode1,allTaskCode2) {
+	function moveTask(allTaskCode1,allTaskCode2,selectCode,progressStatus) {
 		var allTaskCodeDTO=new Object();
 		
 		allTaskCodeDTO.allTaskCode1=allTaskCode1;
@@ -296,10 +345,16 @@ $(function() {
 			allTaskCodeDTO.allTaskCode2=allTaskCode2;
 		}
 		
+		if(progressStatus != "") {
+			allTaskCodeDTO.progressStatus=progressStatus;
+		}
+		
+		allTaskCodeDTO.taskCode=parseInt(selectCode);
+		
 		$.ajax({
 			type: "post",
 			url: "task/moveTask",
-			data: allTaskCodeDTO+"&"+$("#csrf").attr('name')+"="+$("#csrf").val()
+			data: allTaskCodeDTO
 		})
 	}
 });

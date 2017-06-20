@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import kosta.web.mogong.dao.TaskDAO;
+import kosta.web.mogong.dto.AllTaskCodeDTO;
 import kosta.web.mogong.dto.ProgressDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
@@ -110,7 +111,7 @@ public class TaskServiceImpl implements TaskService {
 
 		List<TaskMemberDTO> taskMemberList = taskDAO.selectMember(studyCode);
 		List<TaskMemberDTO> taskSelectedMemberList = taskDAO.selectTaskMember(taskCode);
-		
+
 		if (taskSelectedMemberList.size() > 0) {
 			for (TaskMemberDTO tml : taskMemberList) {
 				for (TaskMemberDTO tsl : taskSelectedMemberList) {
@@ -135,9 +136,33 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public void moveTask(String taskCode, ProgressDTO progressDTO) {
-		progressDTO.getEndPos();
-		taskDAO.moveTask(taskCode,progressDTO);
+	public void moveTask(AllTaskCodeDTO allTaskCodeDTO) {
+		List<TaskDTO> allTaskCodeList1=new ArrayList<>();
+		List<TaskDTO> allTaskCodeList2=new ArrayList<>();
+		
+		if (allTaskCodeDTO.getAllTaskCode1() != null) {
+			for (int i = 0; i < allTaskCodeDTO.getAllTaskCode1().size(); i++) {
+				allTaskCodeList1.add(new TaskDTO(Integer.parseInt(allTaskCodeDTO.getAllTaskCode1().get(i)), i));
+			}
+		}
+		
+		if (allTaskCodeDTO.getAllTaskCode2() != null) {
+			for (int i = 0; i < allTaskCodeDTO.getAllTaskCode2().size(); i++) {
+				allTaskCodeList2.add(new TaskDTO(Integer.parseInt(allTaskCodeDTO.getAllTaskCode2().get(i)), i));
+			}
+		}
+
+		if (allTaskCodeDTO.getProgressStatus() == null) {
+			taskDAO.moveTask(allTaskCodeList1);
+		} else {
+			if (allTaskCodeList1 != null && allTaskCodeList1.size() > 0) {
+				taskDAO.moveTask(allTaskCodeList1);
+			}
+			
+			taskDAO.moveTask(allTaskCodeList2);
+			
+			taskDAO.moveTaskProgress(allTaskCodeDTO.getTaskCode(), allTaskCodeDTO.getProgressStatus());
+		}
 	}
 
 	@Override
@@ -146,8 +171,10 @@ public class TaskServiceImpl implements TaskService {
 
 		taskDAO.deleteTaskMember(taskDTO.getTaskCode());
 
-		if (inputList.size() > 0) {
-			taskDAO.insertTaskMember(inputList);
+		if (inputList != null) {
+			if (inputList.size() > 0) {
+				taskDAO.insertTaskMember(inputList);
+			}
 		}
 
 		taskDAO.updateTask(taskDTO);

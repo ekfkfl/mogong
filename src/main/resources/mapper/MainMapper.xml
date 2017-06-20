@@ -42,8 +42,10 @@
 	<update id="readNumUpdate" parameterType="string">
 		update study set read=read+1 where studyCode =#{value}	
 	</update>
-
-
-
+	
+	<!-- 읽지 않은 메시지 개수 가져오기 -->
+	<select id="messageCount" parameterType="string" resultType="string">
+		select COUNT(id) from recv_message where id=#{_parameter} and confirm='0051'
+	</select>
 
 </mapper>
