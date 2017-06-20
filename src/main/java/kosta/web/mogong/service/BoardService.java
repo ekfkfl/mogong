@@ -9,11 +9,13 @@ public interface BoardService {
 	
 	int boardInsert(BoardDTO boardDTO);
 	
-	List<BoardDTO> boardSelectAll();
+	List<BoardDTO> boardSelectAll(BoardDTO boardDTO);
 	
 	BoardDTO boardSelectById(String boardCode);
 	
 	int commentInsert(BoardCommentDTO boardCommentDTO);
 	
 	List<BoardCommentDTO> commentSelectAll(String boardCode);
+	
+	int getCount(String field);
 }

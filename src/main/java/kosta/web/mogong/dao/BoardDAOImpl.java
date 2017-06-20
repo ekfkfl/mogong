@@ -1,6 +1,8 @@
 package kosta.web.mogong.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,8 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 
 	@Override
-	public List<BoardDTO> boardSelectAll() {
-
-		return sqlSession.selectList("boardMapper.boardSelectAll");
+	public List<BoardDTO> boardSelectAll(BoardDTO boardDTO) {
+		return sqlSession.selectList("boardMapper.boardSelectAll",boardDTO);
 	}
 
 	@Override
@@ -41,6 +42,12 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public List<BoardCommentDTO> commentSelectAll(String boardCode) {
 		return sqlSession.selectList("boardMapper.commentSelect", boardCode);
+	}
+
+	@Override
+	public int getCount(String field) {
+
+		return sqlSession.selectOne("boardMapper.boardGetCount", field);
 	}
 	
 

@@ -2,7 +2,7 @@ package kosta.web.mogong.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class BoardDTO {
+public class BoardDTO extends PagingDTO{
 	private int boardCode;
 	private int studyCode;
 	private int memberCode;
@@ -15,6 +15,8 @@ public class BoardDTO {
 	private String name;
 	private String notice;
 	private String path;
+	private int rownum;
+	private String filed;
 	
 	private MultipartFile file;
 	
@@ -141,5 +143,23 @@ public class BoardDTO {
 	public void setPath(String path) {
 		this.path = path;
 	}
+
+	public int getRownum() {
+		return rownum;
+	}
+
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+
+	public String getFiled() {
+		return filed;
+	}
+
+	public void setFiled(String filed) {
+		this.filed = filed;
+	}
+	
+	
 	
 }

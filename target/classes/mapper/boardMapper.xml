@@ -14,6 +14,7 @@
 		<result column="name" property="name"/>
 		<result column="notice" property="notice"/>
 		<result column="path" property="path"/>
+		<result column="rwnum" property="rownum"/>
 	</resultMap>
 	
 	<resultMap type="boardCommentDTO" id="commentResultMap">
@@ -28,16 +29,29 @@
 		insert into board values(board_seq.nextval,#{studyCode},#{memberCode},#{title},#{content},sysdate,0,#{fileName},#{notice})
 	</insert>
 	
-	<select id="boardSelectAll" resultMap="boardResultMap">
-		select board.board_code,board.title,user_tb.name,board.write_date,board.hit,board.filename,board.notice
+	<select id="boardSelectAll" resultMap="boardResultMap" parameterType="boardDTO">
+		select a.* from (select rownum as rwnum, s.* from (select board.board_code,board.title,user_tb.name,board.write_date,board.hit,board.filename,board.notice
 		from member,board,user_tb
-		where member.member_code=board.member_code and user_tb.id=member.id order by notice desc
+		where member.member_code=board.member_code and user_tb.id=member.id
+		<if test="filed != null and filed != ''">
+			and title like '%' || #{filed} || '%'
+		</if>
+		 order by notice desc,board_code desc)s )a where rwnum between #{startRowNo} and #{endRowNo}
+		
+		
+	</select>
+	
+	<select id="boardGetCount" parameterType="string" resultType="int">
+		select count(*) from board
+		<if test="_parameter != null and _parameter != ''">
+			where title like '%' || #{_parameter} || '%'
+		</if>
 	</select>
 	
 	<select id="boardSelectById" resultMap="boardResultMap" parameterType="string">
 		select board.board_code,board.title,user_tb.name,board.content,board.write_date,board.filename,user_tb.path
 		from member,board,user_tb
-		where member.member_code=board.member_code and user_tb.id=member.id and board.board_code=#{value}
+		where member.member_code=board.member_code and user_tb.id=member.id and board.board_code=#{_parameter}
 	
 	</select>
 	
@@ -50,6 +64,8 @@
 		from member,board_comment,user_tb
 		where member.member_code=board_comment.member_code and user_tb.id=member.id and board_comment.board_code=#{value}
 	</select>
+	
+	
 	
 	
 

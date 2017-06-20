@@ -4,12 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import kosta.web.mogong.dao.BoardDAO;
 import kosta.web.mogong.dto.BoardCommentDTO;
 import kosta.web.mogong.dto.BoardDTO;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
 public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
@@ -22,9 +26,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardDTO> boardSelectAll() {
+	public List<BoardDTO> boardSelectAll(BoardDTO boardDTO) {
 
-		return boardDAO.boardSelectAll();
+		return boardDAO.boardSelectAll(boardDTO);
 	}
 
 	@Override
@@ -41,6 +45,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<BoardCommentDTO> commentSelectAll(String boardCode) {
 		return boardDAO.commentSelectAll(boardCode);
+	}
+
+	@Override
+	public int getCount(String field) {
+
+		return boardDAO.getCount(field);
 	}
 
 }

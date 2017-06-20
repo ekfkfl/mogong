@@ -60,8 +60,8 @@
 	                        <i class="fa fa-ellipsis-v"></i>
 	                        <i class="fa fa-ellipsis-v"></i>
 	                  <span class="text">
-	                  	<c:if test="${dto.progressStatus == '0001' }">To Do</c:if>
-	                  	<c:if test="${dto.progressStatus == '0002' }">Doing</c:if>
+	                  	<c:if test="${dto.progressStatus == '0142' }">To Do</c:if>
+	                  	<c:if test="${dto.progressStatus == '0143' }">Doing</c:if>
 	                   &nbsp; > &nbsp; ${dto.title}</span>
 	                   <small class="label label-warning pull-right">${dto.remain }</small>
 	                </li>
@@ -89,8 +89,8 @@
 	                        <i class="fa fa-ellipsis-v"></i>
 	                        <i class="fa fa-ellipsis-v"></i>
 	                  <span class="text">
-	                  	<c:if test="${dto.progressStatus == '0001' }">To Do</c:if>
-	                  	<c:if test="${dto.progressStatus == '0002' }">Doing</c:if>
+	                  	<c:if test="${dto.progressStatus == '0142' }">To Do</c:if>
+	                  	<c:if test="${dto.progressStatus == '0143' }">Doing</c:if>
 	                   &nbsp; > &nbsp; ${dto.title}</span>
 	                  <small class="label label-success pull-right">${dto.remain }</small>
 	                </li>
@@ -117,8 +117,8 @@
 	                        <i class="fa fa-ellipsis-v"></i>
 	                        <i class="fa fa-ellipsis-v"></i>
 	                  <span class="text">
-	                  	<c:if test="${dto.progressStatus == '0001' }">To Do</c:if>
-	                  	<c:if test="${dto.progressStatus == '0002' }">Doing</c:if>
+	                  	<c:if test="${dto.progressStatus == '0142' }">To Do</c:if>
+	                  	<c:if test="${dto.progressStatus == '0143' }">Doing</c:if>
 	                   &nbsp; > &nbsp; ${dto.title}</span>
 	                  <small class="label label-info pull-right">${dto.remain}</small>
 	                </li>
@@ -146,8 +146,8 @@
 	                        <i class="fa fa-ellipsis-v"></i>
 	                        <i class="fa fa-ellipsis-v"></i>
 	                 <span class="text">
-	                  	<c:if test="${dto.progressStatus == '0001' }">To Do</c:if>
-	                  	<c:if test="${dto.progressStatus == '0002' }">Doing</c:if>
+	                  	<c:if test="${dto.progressStatus == '0142' }">To Do</c:if>
+	                  	<c:if test="${dto.progressStatus == '0143' }">Doing</c:if>
 	                   &nbsp; > &nbsp; ${dto.title}</span>
 	                   <small class="label label-default pull-right">마감일 없음</small>
 	                </li>
@@ -173,8 +173,8 @@
 	                        <i class="fa fa-ellipsis-v"></i>
 	                        <i class="fa fa-ellipsis-v"></i>
 	                  <span class="text">
-	                  	<c:if test="${dto.progressStatus == '0001' }">To Do</c:if>
-	                  	<c:if test="${dto.progressStatus == '0002' }">Doing</c:if>
+	                  	<c:if test="${dto.progressStatus == '0142' }">To Do</c:if>
+	                  	<c:if test="${dto.progressStatus == '0143' }">Doing</c:if>
 	                   &nbsp; > &nbsp; ${dto.title}</span>
 	                   <small class="label label-danger pull-right">${dto.remain}</small>
 	                </li>
@@ -200,8 +200,8 @@
 	                        <i class="fa fa-ellipsis-v"></i>
 	                        <i class="fa fa-ellipsis-v"></i>
 	                  <span class="text">
-	                  	<c:if test="${dto.progressStatus == '0001' }">To Do</c:if>
-	                  	<c:if test="${dto.progressStatus == '0002' }">Doing</c:if>
+	                  	<c:if test="${dto.progressStatus == '0142' }">To Do</c:if>
+	                  	<c:if test="${dto.progressStatus == '0143' }">Doing</c:if>
 	                   &nbsp; > &nbsp; ${dto.title}</span>
 	                </li>
 	 				</c:if>

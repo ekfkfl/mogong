@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
@@ -31,32 +31,19 @@
 <script src="${pageContext.request.contextPath}/resources/dist/js/demo.js"></script>
 
 <script type="text/javascript">
-$(function () {
-	 $("#textbox").keydown(function (key) {
-		if(key.keyCode == 13){
-			$.ajax({
-				url:"${pageContext.request.contextPath}/member/study/board/comment",
-				data:"boardCode=${boardDTO.boardCode}&content="+$(this).val()+"&${_csrf.parameterName}=${_csrf.token}",
-				type:"post",
-				dataType:"text",
-				success: function (result) {
-					
-				},
-				error : function (request,status,error) {
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				}
-			})
-		}
+	$(function () {
+		$("#btn").click(function () {
+			location.href="${pageContext.request.contextPath}/member/study/board/selectAll";
+		})
 	})
-})
-
 </script>
 
 </head>
 <body>
 <div class="box box-info">
             <div class="box-header">
-              <h3 class="box-title">ÀÚÀ¯°Ô½ÃÆÇ</h3>
+              <h3 class="box-title">ììœ ê²Œì‹œíŒ</h3>
+              <button type="button" id="btn" class="btn btn-default btn-sm pull-right">ëª©ë¡ìœ¼ë¡œ</button>
             </div>
             <!-- /.box-header -->
             <div class="box-body pad">
@@ -107,10 +94,13 @@ $(function () {
             </c:if>
             <!-- /.box-footer -->
             <div class="box-footer">
-              <form action="#" method="post">
+              <form action="${pageContext.request.contextPath}/member/study/board/selectById" method="post">
+				<input type="hidden" name="boardCode" value="${boardDTO.boardCode}">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                <input type="hidden" name="flag" value="true">
                 <img class="img-responsive img-circle img-sm" src="${pageContext.request.contextPath}/resources/dist/img/user4-128x128.jpg" alt="Alt Text">
                 <div class="img-push">
-                  <input type="text" id="textbox" class="form-control input-sm" placeholder="´ñ±ÛÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä">
+                  <input type="text" id="textbox" name="content" class="form-control input-sm" placeholder="ëŒ“ê¸€ì„ ì…ë ¥í•´ì£¼ì„¸ìš”">
                 </div>
               </form>
             </div>
