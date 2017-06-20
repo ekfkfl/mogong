@@ -112,8 +112,27 @@ $(function() {
 		insertTask($("#doneTitle").val(),'0144');
 	})
 	
+	$("#todoTitle").keyup(function(e) {
+		if(e.keyCode == 13) 
+		insertTask($("#todoTitle").val(),'0142');
+	})
+	
+	$("#doingTitle").keyup(function(e) {
+		if(e.keyCode == 13)
+		insertTask($("#doingTitle").val(),'0143');
+	})
+	
+	$("#doneTitle").keyup(function(e) {
+		if(e.keyCode == 13)
+		insertTask($("#doneTitle").val(),'0144');
+	})
+	
 	function insertTask(title,progressStatus) {
 		var progress;
+		
+		if(title.trim() == "") {
+			return;
+		}
 		
 		if(progressStatus=='0142') {
 			progress="#todo";
