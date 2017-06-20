@@ -37,7 +37,7 @@ public class SocketController {
 		List<String> list = new ArrayList<>();
 		
 		try {
-			fr = new FileReader("C:\\edu\\save.txt");
+			fr = new FileReader("C:\\edu\\save2.txt");
 			br = new BufferedReader(fr);
 			
 			String line= null;
@@ -78,7 +78,7 @@ public class SocketController {
 	@ResponseBody
 	public void fileSave(String sessionId, String message, String date, String photo){
 		
-		File file = new File("C:\\edu\\save.txt");
+		File file = new File("C:\\edu\\save2.txt");
 		FileWriter fw = null;
 		try {
 			
