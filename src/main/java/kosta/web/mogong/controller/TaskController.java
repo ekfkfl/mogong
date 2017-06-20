@@ -36,11 +36,11 @@ public class TaskController {
 		List<TaskDTO> doneList = new ArrayList<>();
 		
 		for(TaskDTO dto : taskList) {
-			if(dto.getProgressStatus().equals("0001")) {
+			if(dto.getProgressStatus().equals("142")) {
 				todoList.add(dto);
-			} else if(dto.getProgressStatus().equals("0002")) {
+			} else if(dto.getProgressStatus().equals("143")) {
 				doingList.add(dto);
-			} else if(dto.getProgressStatus().equals("0003")) {
+			} else if(dto.getProgressStatus().equals("144")) {
 				doneList.add(dto);
 			}
 		}
@@ -134,39 +134,39 @@ public class TaskController {
 		
 		for(TaskDTO dto : taskList){
 			if("1".equals(dto.getState())){ //오늘까지
-				if(dto.getProgressStatus().equals("0001")){ //To Do
+				if(dto.getProgressStatus().equals("142")){ //To Do
 					todoArr[0]++;
-				} else if(dto.getProgressStatus().equals("0002")){ //Doing
+				} else if(dto.getProgressStatus().equals("143")){ //Doing
 					doingArr[0]++;
 				}
 			} else if("2".equals(dto.getState())){
-				if(dto.getProgressStatus().equals("0001")){ //To Do
+				if(dto.getProgressStatus().equals("142")){ //To Do
 					todoArr[1]++;
-				} else if(dto.getProgressStatus().equals("0002")){ //Doing
+				} else if(dto.getProgressStatus().equals("143")){ //Doing
 					doingArr[1]++;
 				}
 			} else if("3".equals(dto.getState())){
-				if(dto.getProgressStatus().equals("0001")){ //To Do
+				if(dto.getProgressStatus().equals("142")){ //To Do
 					todoArr[2]++;
-				} else if(dto.getProgressStatus().equals("0002")){ //Doing
+				} else if(dto.getProgressStatus().equals("143")){ //Doing
 					doingArr[2]++;
 				}
 			}else if("4".equals(dto.getState())){
-				if(dto.getProgressStatus().equals("0001")){ //To Do
+				if(dto.getProgressStatus().equals("142")){ //To Do
 					todoArr[3]++;
-				} else if(dto.getProgressStatus().equals("0002")){ //Doing
+				} else if(dto.getProgressStatus().equals("143")){ //Doing
 					doingArr[3]++;
 				}
 			}else if("5".equals(dto.getState())){
-				if(dto.getProgressStatus().equals("0001")){ //To Do
+				if(dto.getProgressStatus().equals("142")){ //To Do
 					todoArr[4]++;
-				} else if(dto.getProgressStatus().equals("0002")){ //Doing
+				} else if(dto.getProgressStatus().equals("143")){ //Doing
 					doingArr[4]++;
 				}
 			} else if("6".equals(dto.getState())){
-				if(dto.getProgressStatus().equals("0001")){ //To Do
+				if(dto.getProgressStatus().equals("142")){ //To Do
 					todoArr[5]++;
-				} else if(dto.getProgressStatus().equals("0002")){ //Doing
+				} else if(dto.getProgressStatus().equals("143")){ //Doing
 					doingArr[5]++;
 				}
 			}

@@ -34,7 +34,23 @@
 				location.href="${pageContext.request.contextPath}/member/study/writeForm";
 			});
 		})	
-	
+		function fn_movePage(val) {
+				$("input[name=pageNo]").val(val);
+				$("form[name=form]").attr("method","get");
+				$("form[name=form]").attr("action","${pageContext.request.contextPath}/member/study/board/selectAll?pageNo="+$("input[name=pageNo]").val()).submit();
+			}
+		function fn_search() {
+			
+			if($("#filed").val()==""){
+				$("input[name=pageNo]").val("1");
+				$("form[name=form]").attr("method","get");
+				$("form[name=form]").attr("action","${pageContext.request.contextPath}/member/study/board/selectAll?pageNo="+$("input[name=pageNo]").val()).submit();
+			} else{
+				$("input[name=pageNo]").val("1");
+				$("form[name=form]").attr("method","get");
+				$("form[name=form]").attr("action","${pageContext.request.contextPath}/member/study/board/selectAll?pageNo="+$("input[name=pageNo]").val()+"&filed="+$("#filed").val()).submit();
+			}
+		}
 	</script>
 	<style type="text/css">
 		th,td{text-align:center;}
@@ -56,13 +72,15 @@
 </section>
     
 	<section class="content container-fluid">
+		 <form name="form">
+		 	<input type="hidden" name="pageNo"/>
+	
 		 <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">&nbsp;</h3>
-	 
               <div class="box-tools pull-right">
                 <div class="has-feedback">
-                  <input type="text" class="form-control input-sm" placeholder="Search Mail">
+                  <input type="text" id="filed" name="filed" onkeydown="javascript:if(event.keyCode==13){fn_search()}" class="form-control input-sm" placeholder="제목으로 검색하기">
                   <span class="glyphicon glyphicon-search form-control-feedback"></span>
                 </div>
               </div>
@@ -114,21 +132,39 @@
             </div>
           <!-- /. box -->
         </div>
-        <div>
-        	
-	        <ul>
-	        	<li>
-	        	<button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button> 
-				</li>
-				<li>
-					<a href="#" class="number" style="padding:15px;display:inline"><span>1</span></a>
-				</li>              
-	            <li>
-	            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-				</li>
-			</ul>
-			
+        <br>
+        <div id="page" style="text-align:center">
+        <c:if test="${boardDTO.pageNo != 0}">
+        	<c:if test="${boardDTO.pageNo > boardDTO.pageBlock}">
+        		<a href="javascript:fn_movePage(${boardDTO.firstPageNo})" class="number" style="padding:15px;display:inline"><i class="fa fa-chevron-left"></i><i class="fa fa-chevron-left"></i></a>
+        	</c:if>
+        	<c:if test="${boardDTO.pageNo != 1}">
+        		<a href="javascript:fn_movePage(${boardDTO.prevPageNo})" class="number" style="padding:15px;display:inline"><i class="fa fa-chevron-left"></i></a>
+        	</c:if>
+        	<span>
+        		<c:forEach var="i" begin="${boardDTO.startPageNo}" end="${boardDTO.endPageNo}" step="1">
+        			<c:choose>
+        				<c:when test="${i eq boardDTO.pageNo}">
+        					<a href="javascript:fn_movePage(${i})" class="number" style="padding:15px;display:inline">
+        						<font style="font-weight:bold;">${i}</font>
+        					</a>
+        				</c:when>
+        				<c:otherwise>
+        					<a href="javascript:fn_movePage(${i})" class="number" style="padding:15px;display:inline">${i}</a>
+        				</c:otherwise>			
+        			</c:choose>
+        		</c:forEach>
+        	</span>
+			<c:if test="${boardDTO.pageNo != boardDTO.finalPageNo}">
+				<a href="javascript:fn_movePage(${boardDTO.nextPageNo})" class="number" style="padding:15px;display:inline"><i class="fa fa-chevron-right"></i></a>
+			</c:if>
+        	<c:if test="${boardDTO.endPageNo < boardDTO.finalPageNo}">
+        		<a href="javascript:fn_movePage(${boardDTO.finalPageNo})" class="number" style="padding:15px;display:inline"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></a>
+        	</c:if>
+        </c:if>
+		
 		</div>
+		</form>
 	</section>
 </body>
 </html>

@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.web.mogong.dto.BoardCommentDTO;
 import kosta.web.mogong.dto.BoardDTO;
+import kosta.web.mogong.dto.PagingDTO;
 import kosta.web.mogong.service.BoardService;
 
 @Controller
@@ -35,11 +36,6 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 
-	/*@RequestMapping("/board")
-	public String boardMain(){
-		
-		return "board/board"; 
-	}*/
 	@RequestMapping("/writeForm")
 	public String writeForm(){
 		
@@ -77,30 +73,33 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/selectAll")
-	public ModelAndView boardSelectAll(){
-		List<BoardDTO> list = boardService.boardSelectAll();
-		ModelAndView mv = new ModelAndView();
+	public ModelAndView boardSelectAll(BoardDTO boardDTO) throws IOException{
+		String field = boardDTO.getFiled(); 
+		if(field != null){
+			String[] str = field.split(",");
+			boardDTO.setFiled(str[0]);
+			field = str[0];
+		}
 		
+		
+		int totalCount = boardService.getCount(field);
+		boardDTO.setTotalCount(totalCount);
+		List<BoardDTO> list = boardService.boardSelectAll(boardDTO);
+		
+		ModelAndView mv = new ModelAndView();
 		mv.setViewName("board/board");
 		mv.addObject("list", list);
-		
+		mv.addObject("boardDTO", boardDTO);
 		return mv;
 	}
-	
-/*	@RequestMapping("/board/read")
-	public ModelAndView readForm(HttpServletRequest request,String boardCode) {
-		BoardDTO dto = boardService.boardSelectById(boardCode);
-		List<BoardCommentDTO> list = boardService.commentSelectAll(boardCode);
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("board/readForm");
-		mv.addObject("boardDTO", dto);
-		mv.addObject("list", list);
-		
-		return mv;
-	}*/
 	
 	@RequestMapping("/board/selectById")
-	public ModelAndView boardSelectById(String boardCode){
+	public ModelAndView boardSelectById(String boardCode,String content,String flag){
+		
+		if("true".equals(flag)){
+			boardService.commentInsert(new BoardCommentDTO(Integer.parseInt(boardCode), 2, 6, content));
+		}
+		
 		BoardDTO dto = boardService.boardSelectById(boardCode);
 		List<BoardCommentDTO> list = boardService.commentSelectAll(boardCode);
 		ModelAndView mv = new ModelAndView();
@@ -109,13 +108,6 @@ public class BoardController {
 		mv.addObject("list", list);
 		
 		return mv;
-	}
-	
-	@RequestMapping("/board/comment")
-	public String commentInsert(HttpServletRequest request, String boardCode,String content){
-		boardService.commentInsert(new BoardCommentDTO(Integer.parseInt(boardCode), 2, 6, content));
-		
-		return "board/readForm";
 	}
 	
 	@RequestMapping("/board/download")
