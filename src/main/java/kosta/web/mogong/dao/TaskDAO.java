@@ -5,6 +5,7 @@ import java.util.List;
 import kosta.web.mogong.dto.AllTaskCodeDTO;
 import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
+import kosta.web.mogong.dto.TaskFileDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
 
 public interface TaskDAO {
@@ -39,4 +40,6 @@ public interface TaskDAO {
 	List<TaskCommentDTO> selectTaskComment(int taskCode);
 	
 	TaskCommentDTO selectOneTaskComment(int taskCommentCode);
+	
+	int insertTaskFile(TaskFileDTO taskFileDTO);
 }

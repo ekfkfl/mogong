@@ -5,6 +5,7 @@ import java.util.List;
 import kosta.web.mogong.dto.AllTaskCodeDTO;
 import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
+import kosta.web.mogong.dto.TaskFileDTO;
 
 public interface TaskService {
 	List<TaskDTO> selectAllTask(String studyCode);
@@ -26,4 +27,6 @@ public interface TaskService {
 	TaskCommentDTO insertTaskComment(TaskCommentDTO taskCommentDTO);
 	
 	List<TaskCommentDTO> selectTaskComment(int taskCode);
+	
+	int insertTaskFile(TaskFileDTO taskFileDTO);
 }

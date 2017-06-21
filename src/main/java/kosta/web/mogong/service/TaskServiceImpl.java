@@ -19,6 +19,7 @@ import kosta.web.mogong.dto.AllTaskCodeDTO;
 import kosta.web.mogong.dto.ProgressDTO;
 import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
+import kosta.web.mogong.dto.TaskFileDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
 
 @Service
@@ -194,5 +195,11 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public List<TaskCommentDTO> selectTaskComment(int taskCode) {
 		return taskDAO.selectTaskComment(taskCode);
+	}
+
+	@Override
+	public int insertTaskFile(TaskFileDTO taskFileDTO) {
+		taskDAO.insertTaskFile(taskFileDTO);
+		return 0;
 	}
 }

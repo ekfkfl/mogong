@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import kosta.web.mogong.dto.AllTaskCodeDTO;
 import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
+import kosta.web.mogong.dto.TaskFileDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
 
 @Repository
@@ -103,5 +104,10 @@ public class TaskDAOImpl implements TaskDAO {
 	@Override
 	public TaskCommentDTO selectOneTaskComment(int taskCommentCode) {
 		return sqlSession.selectOne("taskMapper.selectOneTaskComment", taskCommentCode);
+	}
+
+	@Override
+	public int insertTaskFile(TaskFileDTO taskFileDTO) {
+		return sqlSession.insert("taskMapper.insertTaskFile", taskFileDTO);
 	}
 }
