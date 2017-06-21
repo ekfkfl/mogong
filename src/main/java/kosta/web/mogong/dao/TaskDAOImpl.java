@@ -109,4 +109,9 @@ public class TaskDAOImpl implements TaskDAO {
 	public int insertTaskFile(TaskFileDTO taskFileDTO) {
 		return sqlSession.insert("taskMapper.insertTaskFile", taskFileDTO);
 	}
+
+	@Override
+	public List<TaskFileDTO> selectTaskFile(int taskCode) {
+		return sqlSession.selectList("taskMapper.selectTaskFile", taskCode);
+	}
 }

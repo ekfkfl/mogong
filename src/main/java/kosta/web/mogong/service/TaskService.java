@@ -29,4 +29,6 @@ public interface TaskService {
 	List<TaskCommentDTO> selectTaskComment(int taskCode);
 	
 	void insertTaskFile(TaskFileDTO taskFileDTO);
+	
+	List<TaskFileDTO> selectTaskFile(int taskCode);
 }

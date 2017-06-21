@@ -41,4 +41,6 @@ public interface TaskDAO {
 	TaskCommentDTO selectOneTaskComment(int taskCommentCode);
 	
 	int insertTaskFile(TaskFileDTO taskFileDTO);
+	
+	List<TaskFileDTO> selectTaskFile(int taskCode);
 }

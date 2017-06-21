@@ -117,4 +117,8 @@
 	insert into task_file values(task_file_seq.nextval,#{taskCode},#{id},#{name},#{fileName},#{path},#{fileSize},sysdate)
 </insert>
 
+<select id="selectTaskFile" parameterType="int">
+	select * from task_file where task_code=#{taskCode}
+</select>
+
 </mapper>
