@@ -1,5 +1,7 @@
 package kosta.web.mogong.dto;
 
+import java.util.List;
+
 public class StudyDTO {
 	private int studyCode; //스터디 코드
 	private String id; //회원 아이디
@@ -14,6 +16,8 @@ public class StudyDTO {
 	private String endTime; //종료시간
 	private int people; //인원
 	private String area; //지역
+	private String detailArea; //상세지역
+	private String addr1; //스터디 장소 -> 다음api 주소
 	private String description; //스터디 설명
 	private int read; //조회수
 
@@ -192,4 +196,22 @@ public class StudyDTO {
 	public void setCommDTO(CommCodeDTO commDTO) {
 		this.commDTO = commDTO;
 	}
+
+	public String getDetailArea() {
+		return detailArea;
+	}
+
+	public void setDetailArea(String detailArea) {
+		this.detailArea = detailArea;
+	}
+
+	public String getAddr1() {
+		return addr1;
+	}
+
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
+	}
+	
+	
 }
