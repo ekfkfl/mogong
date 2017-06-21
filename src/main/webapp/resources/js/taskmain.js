@@ -290,11 +290,9 @@ $(function() {
 	}
 	
 	$(document).on('click','#task',function() {
-		taskCode=$(this).find('span').attr('id');
+		$('a[href="#tab1"]').click();
 		
-		$("attribute").parent().addClass('active');
-		$("content").parent().removeClass('active');
-		$("fileUpload").parent().removeClass('active');
+		taskCode=$(this).find('span').attr('id');
 		
 		selectOneTask(taskCode);
 	})

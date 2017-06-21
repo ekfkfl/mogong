@@ -243,11 +243,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<div class="nav-tabs-custom">
+					<div id="tabs" class="nav-tabs-custom">
 						<ul class="nav nav-tabs">
-							<li class="active"><a id="attribute" href="#tab1" data-toggle="tab">속성</a></li>
-							<li><a id="comment" href="#tab2" data-toggle="tab">코멘트</a></li>
-							<li><a id="fileUpload" href="#tab3" data-toggle="tab">파일 업로드</a></li>
+							<li><a href="#tab1" data-toggle="tab">속성</a></li>
+							<li><a href="#tab2" data-toggle="tab">코멘트</a></li>
+							<li><a href="#tab3" data-toggle="tab">파일 업로드</a></li>
 						</ul>
 						<div class="form-group tab-content">
 							<div class="tab-pane active" id="tab1">
