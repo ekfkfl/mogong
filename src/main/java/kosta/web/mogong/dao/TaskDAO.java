@@ -34,7 +34,9 @@ public interface TaskDAO {
 	
 	List<TaskMemberDTO> selectMember(String studyCode);
 	
-	int insertTaskComment(TaskCommentDTO taskCommentDTO);
+	TaskCommentDTO insertTaskComment(TaskCommentDTO taskCommentDTO);
 	
 	List<TaskCommentDTO> selectTaskComment(int taskCode);
+	
+	TaskCommentDTO selectOneTaskComment(int taskCommentCode);
 }

@@ -127,16 +127,39 @@ $(function() {
 		insertTask($("#doneTitle").val(),'0144');
 	})
 	
-	$("#inputTaskComment").keyup(function(e) {
-		if(e.keyCode == 13)
-		insertTaskComment();
+	$("#message").keyup(function(e) {
+		if(e.keyCode == 13) {
+			if($("#message").val().trim() == "") {
+				return
+			}
+			
+			taskCommentDTO = new Object();
+		
+			taskCommentDTO.taskCode=taskCode;
+			taskCommentDTO.id=sessionID;
+			taskCommentDTO.name=sessionName;
+			taskCommentDTO.path=sessionPath;
+			taskCommentDTO.content=$("#message").val();
+		
+			insertTaskComment(taskCommentDTO);
+		}
 	})
 	
-	$("#inputTaskComment").click(function() {
-		insertTaskComment();
+	$("#sendComment").click(function() {
+		if($("#message").val().trim() != "") {
+			taskCommentDTO = new Object();
+			
+			taskCommentDTO.taskCode=taskCode;
+			taskCommentDTO.id=sessionID;
+			taskCommentDTO.name=sessionName;
+			taskCommentDTO.path=sessionPath;
+			taskCommentDTO.content=$("#message").val();
+			insertTaskComment(taskCommentDTO);
+		}
 	})
 	
-	$("#comment").click(function() {
+	$("a[href='#tab2']").click(function() {
+		$("#message").val("");
 		selectTaskComment();
 	})
 	
@@ -373,26 +396,70 @@ $(function() {
 		})
 	}
 	
-	function inserTaskComment(taskCommentDTO) {
+	function insertTaskComment(taskCommentDTO) {
 		$.ajax({
 			type: "post",
-			url: "task/inserTaskComment",
+			url: "task/insertTaskComment",
 			data: taskCommentDTO,
-			success: function() {
-				alert(taskCommentDTO);
+			success: function(data) {
+				$("#chatMessage").append(
+			    		"<div class='direct-chat-msg right'>"+
+		                "<div class='direct-chat-info clearfix'>"+
+		                 "<span class='direct-chat-name pull-right'>"+data.name+"</span>"+
+		                 "<span class='direct-chat-timestamp pull-left'>"+data.writeDate+"</span>"+
+		                "</div>"+
+		                "<img class='direct-chat-img' src='"+data.path+"' alt='message user image'>"+
+		                "<div class='direct-chat-text'>"+
+		                data.content+
+		                "</div>"+
+		         		"</div>"
+			    		);
+		        $("#message").val("");
+		        
+		        scroll();
 			}
 		})
 	}
 	
 	function selectTaskComment() {
-		scroll();
-		
 		$.ajax({
 			type: "post",
 			url: "task/selectTaskComment",
 			data: "taskCode="+taskCode,
-			success: function() {
-				alert(taskCommentDTO);
+			success: function(data) {
+				$("#chatMessage").children().remove();
+				
+				$.each(data,function(index,item) {
+					if(sessionID == item.id) {
+						$("#chatMessage").append(
+					    		"<div class='direct-chat-msg right'>"+
+				                "<div class='direct-chat-info clearfix'>"+
+				                 "<span class='direct-chat-name pull-right'>"+item.name+"</span>"+
+				                 "<span class='direct-chat-timestamp pull-left'>"+item.writeDate+"</span>"+
+				                "</div>"+
+				                "<img class='direct-chat-img' src='"+item.path+"' alt='message user image'>"+
+				                "<div class='direct-chat-text'>"+
+				                item.content+
+				                "</div>"+
+				         		"</div>"
+					    		);
+					} else {
+						$("#chatMessage").append(
+					    		"<div class='direct-chat-msg'>"+
+				                "<div class='direct-chat-info clearfix'>"+
+				                 "<span class='direct-chat-name pull-left'>"+item.name+"</span>"+
+				                 "<span class='direct-chat-timestamp pull-right'>"+item.writeDate+"</span>"+
+				                "</div>"+
+				                "<img class='direct-chat-img' src='"+item.path+"' alt='message user image'>"+
+				                "<div class='direct-chat-text'>"+
+				                item.content+
+				                "</div>"+
+				         		"</div>"
+					    		);
+					}
+				})
+				
+				scroll();
 			}
 		})
 	}
@@ -400,64 +467,4 @@ $(function() {
 	function scroll(){
 		$("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
 	}
-	
-	/*function sendMessage(){
-        var date = new Date();
-        
-        var presentDate = (date.getMonth()+1)+"월 "+date.getDate()+"일 "+addZero(date.getHours())+":"+addZero(date.getMinutes())
-     
-        var message = $('#message').val()
-        
-        sock.send("${requestScope.sessionId}"+","+$("#message").val()+","+presentDate+","+"${requestScope.sessionPhoto}");
-        $("#chatMessage").append(
-	    		"<div class='direct-chat-msg right'>"+
-                "<div class='direct-chat-info clearfix'>"+
-                 "<span class='direct-chat-name pull-right'>"+"${requestScope.sessionId}"+"</span>"+
-                 "<span class='direct-chat-timestamp pull-left'>"+presentDate+"</span>"+
-                "</div>"+
-                "<img class='direct-chat-img' src='${requestScope.sessionPhoto}' alt='message user image'>"+
-                "<div class='direct-chat-text'>"+
-                $("#message").val()+
-                "</div>"+
-         		"</div>"
-	    		);
-        $("#message").val("");
-        $("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
-        $.ajax({
-  			  url: "${pageContext.request.contextPath}/member/task/fileSave" , //서버 요청 이름(주소)
-  			  type: "get" ,//method방식(get, post)
-  			  data: "sessionId=${requestScope.sessionId}&message="+message+"&date="+presentDate+"&photo=${requestScope.sessionPhoto}" ,//서버에게 보낼 parameter 정보
-  			  success: function(result){
-  				 
-  			  }
-        })
-        
-	}
-        
-	function onMessage(evt){  //변수 안에 function자체를 넣음.
-	    var data = evt.data;
-		var dataContent = data.split(',');
-	    $("#chatMessage").append(
-	    		"<div class='direct-chat-msg'>"+
-                "<div class='direct-chat-info clearfix'>"+
-                 "<span class='direct-chat-name pull-left'>"+dataContent[0]+"</span>"+
-                 "<span class='direct-chat-timestamp pull-right'>"+dataContent[2]+"</span>"+
-                "</div>"+
-                "<img class='direct-chat-img' src='"+dataContent[3]+"' alt='message user image'>"+
-                "<div class='direct-chat-text'>"+
-                 dataContent[1]+
-                "</div>"+
-         		"</div>"
-	    		);
-	    $("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
-	     sock.close(); 
-	     $.ajax({
-  			  url: "${pageContext.request.contextPath}/member/task/fileSave" , //서버 요청 이름(주소)
-  			  type: "get" ,//method방식(get, post)
-  			  data: "sessionId="+dataContent[0]+"&message="+dataContent[1]+"&date="+dataContent[2]+"&photo="+dataContent[3] ,//서버에게 보낼 parameter 정보
-  			  success: function(result){
-  				  
-  			  }
-        })
-	}*/
 });

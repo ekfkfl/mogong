@@ -49,6 +49,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.2.0.min.js"></script>
 
 <script type="text/javascript">
+	var sessionID="${sessionScope.userDTO.id}";
+	var sessionPath="${sessionScope.userDTO.path}"
+	var sessionName="${sessionScope.userDTO.name}"
+
 	$(function() {
 		$("#logo").hover(function() {
 			$(this).css('background-color', 'white');
@@ -278,48 +282,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<div class="tab-pane" id="tab2">
 								<div class="box-body">
 									<div class="direct-chat-messages" id=chatMessage style="overflow: auto">
-										<c:choose>
-											<c:when test="${empty taskCommentList}">
-											</c:when>
-											<c:otherwise>
-												<c:forEach items="${taskCommentList}" var="taskComment">
-													<c:choose>
-														<c:when test="${taskComment.id eq sessionScope.userDTO.id}">
-															<div class='direct-chat-msg right'>
-																<div class='direct-chat-info clearfix'>
-																	<span class='direct-chat-name pull-right'>${taskComment.name}</span>
-																	<span class='direct-chat-timestamp pull-left'>${taskComment.writeDate}</span>
-																</div>
-																<img class='direct-chat-img' src='${taskComment.path}' alt='message user image'>
-																<div class='direct-chat-text'>${taskComment.content}</div>
-															</div>
-														</c:when>
-														<c:otherwise>
-															<div class='direct-chat-msg'>
-																<div class='direct-chat-info clearfix'>
-																	<span class='direct-chat-name pull-left'>${taskComment.name}</span>
-																	<span class='direct-chat-timestamp pull-right'>${taskComment.writeDate}</span>
-																</div>
-																<img class='direct-chat-img' src='${taskComment.path}' alt='message user image'>
-																<div class='direct-chat-text'>${taskComment.content}</div>
-															</div>
-														</c:otherwise>
-													</c:choose>
-												</c:forEach>
-											</c:otherwise>
-										</c:choose>
 									</div>
 								</div>
 								<div class="box-footer">
-									<form action="#" method="post">
 										<div class="input-group">
-											<input type="text" id="inputTaskComment" name="message"
+											<input type="text" id="message" name="message"
 												placeholder="메시지를 입력하세요..." class="form-control"> <span
 												class="input-group-btn">
-												<button type="button" class="btn btn-primary btn-flat">보내기</button>
+												<button id="sendComment" type="button" class="btn btn-primary btn-flat">보내기</button>
 											</span>
 										</div>
-									</form>
 								</div>
 								<!-- /.box-footer-->
 							</div>

@@ -23,7 +23,7 @@ public interface TaskService {
 	
 	List<Integer> chartResult();
 	
-	int insertTaskComment(TaskCommentDTO taskCommentDTO);
+	TaskCommentDTO insertTaskComment(TaskCommentDTO taskCommentDTO);
 	
 	List<TaskCommentDTO> selectTaskComment(int taskCode);
 }

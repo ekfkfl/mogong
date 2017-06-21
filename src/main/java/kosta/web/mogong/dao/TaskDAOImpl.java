@@ -89,12 +89,19 @@ public class TaskDAOImpl implements TaskDAO {
 	}
 
 	@Override
-	public int insertTaskComment(TaskCommentDTO taskCommentDTO) {
-		return sqlSession.insert("taskMapper.insertTaskComment", taskCommentDTO);
+	public TaskCommentDTO insertTaskComment(TaskCommentDTO taskCommentDTO) {
+		sqlSession.insert("taskMapper.insertTaskComment", taskCommentDTO);
+		
+		return taskCommentDTO;
 	}
 
 	@Override
 	public List<TaskCommentDTO> selectTaskComment(int taskCode) {
 		return sqlSession.selectList("taskMapper.selectTaskComment", taskCode);
+	}
+
+	@Override
+	public TaskCommentDTO selectOneTaskComment(int taskCommentCode) {
+		return sqlSession.selectOne("taskMapper.selectOneTaskComment", taskCommentCode);
 	}
 }

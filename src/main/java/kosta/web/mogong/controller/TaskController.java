@@ -89,10 +89,10 @@ public class TaskController {
 		taskService.moveTask(allTaskCodeDTO);
 	}
 	
-	@RequestMapping("/inserTaskComment")
+	@RequestMapping("/insertTaskComment")
 	@ResponseBody
-	public void inserTaskComment(TaskCommentDTO taskCommentDTO) {
-		taskService.insertTaskComment(taskCommentDTO);
+	public TaskCommentDTO inserTaskComment(TaskCommentDTO taskCommentDTO) {
+		return taskService.insertTaskComment(taskCommentDTO);
 	}
 
 	@RequestMapping("/selectTaskComment")

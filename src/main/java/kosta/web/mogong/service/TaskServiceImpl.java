@@ -187,8 +187,8 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public int insertTaskComment(TaskCommentDTO taskCommentDTO) {
-		return taskDAO.insertTaskComment(taskCommentDTO);
+	public TaskCommentDTO insertTaskComment(TaskCommentDTO taskCommentDTO) {
+		return taskDAO.selectOneTaskComment(taskDAO.insertTaskComment(taskCommentDTO).getTaskCommentCode());
 	}
 
 	@Override
