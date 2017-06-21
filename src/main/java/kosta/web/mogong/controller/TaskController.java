@@ -1,23 +1,28 @@
 package kosta.web.mogong.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-
 import kosta.web.mogong.dto.AllTaskCodeDTO;
+import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
+import kosta.web.mogong.dto.TaskFileDTO;
+import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.service.TaskService;
 
 @Controller
@@ -34,8 +39,6 @@ public class TaskController {
 		List<TaskDTO> todoList = new ArrayList<>();
 		List<TaskDTO> doingList = new ArrayList<>();
 		List<TaskDTO> doneList = new ArrayList<>();
-		
-		
 
 		for (TaskDTO dto : taskList) {
 			if (dto.getProgressStatus().equals("0142")) {
@@ -88,6 +91,55 @@ public class TaskController {
 		taskService.moveTask(allTaskCodeDTO);
 	}
 
+	@RequestMapping("/insertTaskComment")
+	@ResponseBody
+	public TaskCommentDTO inserTaskComment(TaskCommentDTO taskCommentDTO) {
+		return taskService.insertTaskComment(taskCommentDTO);
+	}
+
+	@RequestMapping("/selectTaskComment")
+	@ResponseBody
+	public List<TaskCommentDTO> selectTaskComment(String taskCode) {
+		return taskService.selectTaskComment(Integer.parseInt(taskCode));
+	}
+
+	@RequestMapping("/fileUpload")
+	@ResponseBody
+	public TaskFileDTO fileUpload(MultipartHttpServletRequest mr, HttpServletRequest request, HttpSession session) {
+		MultipartFile file = mr.getFile("file");
+		
+		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
+		
+		String path=request.getServletContext().getRealPath("/")+"taskFile";
+		
+		File dir=new File(path);
+		
+		if (userDTO != null) {
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+			
+			String fileName=file.getOriginalFilename();
+			String fullPath=path+"/"+fileName+"_"+System.currentTimeMillis();
+			
+			try {
+				file.transferTo(new File(fullPath));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			taskService.insertTaskFile(new TaskFileDTO(Integer.parseInt(mr.getParameter("taskCode")), userDTO.getId(), userDTO.getName(), fileName, fullPath, (int)file.getSize()));
+		}
+
+		return new TaskFileDTO();
+	}
+	
+	@RequestMapping("/selectTaskFile")
+	@ResponseBody
+	public List<TaskFileDTO> selectTaskFile(String taskCode) {
+		return taskService.selectTaskFile(Integer.parseInt(taskCode));
+	}
+
 	/**
 	 * 성훈 스터디 메인 페이지
 	 */
@@ -108,7 +160,7 @@ public class TaskController {
 		for (TaskDTO dto : list) {
 			stateList.add(dto.getState());
 		}
-		
+
 		if (stateList.contains("1"))
 			mv.addObject("today", "1");
 		if (stateList.contains("2"))
@@ -125,7 +177,6 @@ public class TaskController {
 		mv.addObject("list", list);
 		return mv;
 	}
-	
 
 	@RequestMapping("/chartResult")
 	@ResponseBody
@@ -133,44 +184,44 @@ public class TaskController {
 		Map<String, Object> map = new HashMap<>();
 		List<Integer> list = taskService.chartResult();
 		List<TaskDTO> taskList = taskService.selectMainTask("6");
-		int todoArr[] = {0,0,0,0,0,0};
-		int doingArr[] = {0,0,0,0,0,0};
-		
-		for(TaskDTO dto : taskList){
-			if("1".equals(dto.getState())){ //오늘까지
-				if(dto.getProgressStatus().equals("0142")){ //To Do
+		int todoArr[] = { 0, 0, 0, 0, 0, 0 };
+		int doingArr[] = { 0, 0, 0, 0, 0, 0 };
+
+		for (TaskDTO dto : taskList) {
+			if ("1".equals(dto.getState())) { // 오늘까지
+				if (dto.getProgressStatus().equals("0142")) { // To Do
 					todoArr[0]++;
-				} else if(dto.getProgressStatus().equals("0143")){ //Doing
+				} else if (dto.getProgressStatus().equals("0143")) { // Doing
 					doingArr[0]++;
 				}
-			} else if("2".equals(dto.getState())){
-				if(dto.getProgressStatus().equals("0142")){ //To Do
+			} else if ("2".equals(dto.getState())) {
+				if (dto.getProgressStatus().equals("0142")) { // To Do
 					todoArr[1]++;
-				} else if(dto.getProgressStatus().equals("0143")){ //Doing
+				} else if (dto.getProgressStatus().equals("0143")) { // Doing
 					doingArr[1]++;
 				}
-			} else if("3".equals(dto.getState())){
-				if(dto.getProgressStatus().equals("0142")){ //To Do
+			} else if ("3".equals(dto.getState())) {
+				if (dto.getProgressStatus().equals("0142")) { // To Do
 					todoArr[2]++;
-				} else if(dto.getProgressStatus().equals("0143")){ //Doing
+				} else if (dto.getProgressStatus().equals("0143")) { // Doing
 					doingArr[2]++;
 				}
-			}else if("4".equals(dto.getState())){
-				if(dto.getProgressStatus().equals("0142")){ //To Do
+			} else if ("4".equals(dto.getState())) {
+				if (dto.getProgressStatus().equals("0142")) { // To Do
 					todoArr[3]++;
-				} else if(dto.getProgressStatus().equals("0143")){ //Doing
+				} else if (dto.getProgressStatus().equals("0143")) { // Doing
 					doingArr[3]++;
 				}
-			}else if("5".equals(dto.getState())){
-				if(dto.getProgressStatus().equals("0142")){ //To Do
+			} else if ("5".equals(dto.getState())) {
+				if (dto.getProgressStatus().equals("0142")) { // To Do
 					todoArr[4]++;
-				} else if(dto.getProgressStatus().equals("0143")){ //Doing
+				} else if (dto.getProgressStatus().equals("0143")) { // Doing
 					doingArr[4]++;
 				}
-			} else if("6".equals(dto.getState())){
-				if(dto.getProgressStatus().equals("0142")){ //To Do
+			} else if ("6".equals(dto.getState())) {
+				if (dto.getProgressStatus().equals("0142")) { // To Do
 					todoArr[5]++;
-				} else if(dto.getProgressStatus().equals("0143")){ //Doing
+				} else if (dto.getProgressStatus().equals("0143")) { // Doing
 					doingArr[5]++;
 				}
 			}

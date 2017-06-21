@@ -14,6 +14,11 @@
 	<result column="task_index" property="taskIndex"/>
 </resultMap>	
 
+<resultMap type="TaskFileDTO" id="taskFileMap">
+	<id column="task_file_code" property="taskFileCode"></id>
+	<result column="write_date" property="writeDate"/>
+</resultMap>
+
 <sql id="mainSelectSql">
 	title,progress_status,start_date,to_char(end_date,'YYYY-MM-DD HH24:MI:SS') as end_date,success_date,to_char(create_date,'YYYY-MM-DD HH24:MI:SS') as create_date
 </sql>
@@ -99,5 +104,26 @@
 			#{item.taskCode}
 		</foreach>
 </update>
+
+<insert id="insertTaskComment" parameterType="TaskCommentDTO">
+	insert into task_comment values(task_comment_seq.nextval,#{taskCode},#{id},#{name},#{path},#{content},sysdate)
+	<selectKey keyProperty="taskCommentCode" resultType="Integer" order="AFTER">select task_comment_seq.currval from dual</selectKey>
+</insert>
+
+<select id="selectTaskComment" parameterType="int" resultType="TaskCommentDTO">
+	select task_comment_code as taskCommentCode, id, name, path, content, write_date as writeDate from task_comment where task_code=#{taskCode}
+</select>
+
+<select id="selectOneTaskComment" parameterType="int" resultType="TaskCommentDTO">
+	select task_comment_code as taskCommentCode, id, name, path, content, write_date as writeDate from task_comment where task_comment_code=#{taskCommentCode}
+</select>
+
+<insert id="insertTaskFile" parameterType="TaskFileDTO">
+	insert into task_file values(task_file_seq.nextval,#{taskCode},#{id},#{name},#{fileName},#{path},#{fileSize},sysdate)
+</insert>
+
+<select id="selectTaskFile" parameterType="int" resultMap="taskFileMap">
+	select * from task_file where task_code=#{taskCode}
+</select>
 
 </mapper>

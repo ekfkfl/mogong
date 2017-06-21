@@ -127,6 +127,42 @@ $(function() {
 		insertTask($("#doneTitle").val(),'0144');
 	})
 	
+	$("#message").keyup(function(e) {
+		if(e.keyCode == 13) {
+			if($("#message").val().trim() == "") {
+				return
+			}
+			
+			taskCommentDTO = new Object();
+		
+			taskCommentDTO.taskCode=taskCode;
+			taskCommentDTO.id=sessionID;
+			taskCommentDTO.name=sessionName;
+			taskCommentDTO.path=sessionPath;
+			taskCommentDTO.content=$("#message").val();
+		
+			insertTaskComment(taskCommentDTO);
+		}
+	})
+	
+	$("#sendComment").click(function() {
+		if($("#message").val().trim() != "") {
+			taskCommentDTO = new Object();
+			
+			taskCommentDTO.taskCode=taskCode;
+			taskCommentDTO.id=sessionID;
+			taskCommentDTO.name=sessionName;
+			taskCommentDTO.path=sessionPath;
+			taskCommentDTO.content=$("#message").val();
+			insertTaskComment(taskCommentDTO);
+		}
+	})
+	
+	$("a[href='#tab2']").click(function() {
+		$("#message").val("");
+		selectTaskComment();
+	})
+	
 	function insertTask(title,progressStatus) {
 		var progress;
 		
@@ -277,6 +313,8 @@ $(function() {
 	}
 	
 	$(document).on('click','#task',function() {
+		$('a[href="#tab1"]').click();
+		
 		taskCode=$(this).find('span').attr('id');
 		
 		selectOneTask(taskCode);
@@ -355,6 +393,106 @@ $(function() {
 			type: "post",
 			url: "task/moveTask",
 			data: allTaskCodeDTO
+		})
+	}
+	
+	function insertTaskComment(taskCommentDTO) {
+		$.ajax({
+			type: "post",
+			url: "task/insertTaskComment",
+			data: taskCommentDTO,
+			success: function(data) {
+				$("#chatMessage").append(
+			    		"<div class='direct-chat-msg right'>"+
+		                "<div class='direct-chat-info clearfix'>"+
+		                 "<span class='direct-chat-name pull-right'>"+data.name+"</span>"+
+		                 "<span class='direct-chat-timestamp pull-left'>"+data.writeDate+"</span>"+
+		                "</div>"+
+		                "<img class='direct-chat-img' src='"+data.path+"' alt='message user image'>"+
+		                "<div class='direct-chat-text'>"+
+		                data.content+
+		                "</div>"+
+		         		"</div>"
+			    		);
+		        $("#message").val("");
+		        
+		        scroll();
+			}
+		})
+	}
+	
+	function selectTaskComment() {
+		$.ajax({
+			type: "post",
+			url: "task/selectTaskComment",
+			data: "taskCode="+taskCode,
+			success: function(data) {
+				$("#chatMessage").children().remove();
+				
+				$.each(data,function(index,item) {
+					if(sessionID == item.id) {
+						$("#chatMessage").append(
+					    		"<div class='direct-chat-msg right'>"+
+				                "<div class='direct-chat-info clearfix'>"+
+				                 "<span class='direct-chat-name pull-right'>"+item.name+"</span>"+
+				                 "<span class='direct-chat-timestamp pull-left'>"+item.writeDate+"</span>"+
+				                "</div>"+
+				                "<img class='direct-chat-img' src='"+item.path+"' alt='message user image'>"+
+				                "<div class='direct-chat-text'>"+
+				                item.content+
+				                "</div>"+
+				         		"</div>"
+					    		);
+					} else {
+						$("#chatMessage").append(
+					    		"<div class='direct-chat-msg'>"+
+				                "<div class='direct-chat-info clearfix'>"+
+				                 "<span class='direct-chat-name pull-left'>"+item.name+"</span>"+
+				                 "<span class='direct-chat-timestamp pull-right'>"+item.writeDate+"</span>"+
+				                "</div>"+
+				                "<img class='direct-chat-img' src='"+item.path+"' alt='message user image'>"+
+				                "<div class='direct-chat-text'>"+
+				                item.content+
+				                "</div>"+
+				         		"</div>"
+					    		);
+					}
+				})
+				
+				scroll();
+			}
+		})
+	}
+	
+	function scroll(){
+		$("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
+	}
+	
+	$("a[href='#tab3'").click(function() {
+		$('#fileUpload').fileinput({
+		    language: 'kr',
+			uploadUrl: "task/fileUpload",
+			uploadAsync: true,
+			uploadExtraData: {
+				taskCode: taskCode
+		    }
+		});
+	})
+	
+	$("a[href='#tab4'").click(function() {
+//		$("#modal-default").modal("hide");
+		selectTaskFile();
+	})
+	
+	function selectTaskFile() {
+		$.ajax({
+			type: "post",
+			url: "task/selectTaskFile",
+			data: "taskCode="+taskCode,
+			dataType: "json",
+			success: function(data) {
+				
+			}
 		})
 	}
 });

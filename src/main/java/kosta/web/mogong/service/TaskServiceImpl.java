@@ -1,12 +1,15 @@
 package kosta.web.mogong.service;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kosta.web.mogong.dao.TaskDAO;
 import kosta.web.mogong.dto.AllTaskCodeDTO;
-import kosta.web.mogong.dto.ProgressDTO;
+import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
+import kosta.web.mogong.dto.TaskFileDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
 
 @Service
@@ -183,5 +187,25 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public void deleteTask(String taskCode) {
 		taskDAO.deleteTask(taskCode);
+	}
+
+	@Override
+	public TaskCommentDTO insertTaskComment(TaskCommentDTO taskCommentDTO) {
+		return taskDAO.selectOneTaskComment(taskDAO.insertTaskComment(taskCommentDTO).getTaskCommentCode());
+	}
+
+	@Override
+	public List<TaskCommentDTO> selectTaskComment(int taskCode) {
+		return taskDAO.selectTaskComment(taskCode);
+	}
+
+	@Override
+	public void insertTaskFile(TaskFileDTO taskFileDTO) {
+		taskDAO.insertTaskFile(taskFileDTO);
+	}
+
+	@Override
+	public List<TaskFileDTO> selectTaskFile(int taskCode) {
+		return taskDAO.selectTaskFile(taskCode);
 	}
 }

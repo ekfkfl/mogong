@@ -6,8 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kosta.web.mogong.dto.AllTaskCodeDTO;
+import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
+import kosta.web.mogong.dto.TaskFileDTO;
 import kosta.web.mogong.dto.TaskMemberDTO;
 
 @Repository
@@ -85,5 +86,32 @@ public class TaskDAOImpl implements TaskDAO {
 	@Override
 	public int moveTaskProgress(int taskCode, String progressStatus) {
 		return sqlSession.update("taskMapper.moveTaskProgress", new TaskDTO(taskCode, progressStatus));
+	}
+
+	@Override
+	public TaskCommentDTO insertTaskComment(TaskCommentDTO taskCommentDTO) {
+		sqlSession.insert("taskMapper.insertTaskComment", taskCommentDTO);
+		
+		return taskCommentDTO;
+	}
+
+	@Override
+	public List<TaskCommentDTO> selectTaskComment(int taskCode) {
+		return sqlSession.selectList("taskMapper.selectTaskComment", taskCode);
+	}
+
+	@Override
+	public TaskCommentDTO selectOneTaskComment(int taskCommentCode) {
+		return sqlSession.selectOne("taskMapper.selectOneTaskComment", taskCommentCode);
+	}
+
+	@Override
+	public int insertTaskFile(TaskFileDTO taskFileDTO) {
+		return sqlSession.insert("taskMapper.insertTaskFile", taskFileDTO);
+	}
+
+	@Override
+	public List<TaskFileDTO> selectTaskFile(int taskCode) {
+		return sqlSession.selectList("taskMapper.selectTaskFile", taskCode);
 	}
 }
