@@ -281,7 +281,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<i class="fa fa-clock-o"></i>
 									</div>
 									<input type="text" class="form-control pull-right"
-										id=dateChooser>
+										id=dateChooser style="width:500px;">
 								</div>
 								<!-- /.input group -->
 								<hr>
@@ -305,7 +305,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<div class="box-footer">
 									<div class="input-group">
 										<input type="text" id="message" name="message"
-											placeholder="메시지를 입력하세요..." class="form-control"> <span
+											placeholder="메시지를 입력하세요..." class="form-control" style="width:450px;"> <span
 											class="input-group-btn">
 											<button id="sendComment" type="button"
 												class="btn btn-primary btn-flat">보내기</button>
