@@ -81,6 +81,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 .tab-content {
 	margin: 20px;
 }
+.modal-dialog{
+    position: relative;
+    display: table; /* This is important */ 
+    overflow-y: auto;    
+    overflow-x: auto;
+    width: auto;
+    min-width: 600px;   
+}
 </style>
 </head>
 <body>
@@ -319,20 +327,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							</div>
 							<div class="tab-pane" id="tab4">
 								<div class="box-body table-responsive no-padding">
-									<table class="table table-hover">
+									<table id="taskFileTable" class="table table-hover"" style="width:800px">
 										<tr>
 											<th width="10%">번호</th>
-											<th width="20%">이름</th>
-											<th width="30%">파일명</th>
+											<th width="10%">이름</th>
+											<th width="40%">파일명</th>
 											<th width="20%">파일크기</th>
 											<th width="20%">등록일</th>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>광준</td>
-											<td>피카츄</td>
-											<td>621byte</td>
-											<td>2017-06-21 17:04</td>
 										</tr>
 									</table>
 								</div>

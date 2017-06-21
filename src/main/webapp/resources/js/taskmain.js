@@ -480,8 +480,15 @@ $(function() {
 	})
 	
 	$("a[href='#tab4'").click(function() {
-//		$("#modal-default").modal("hide");
 		selectTaskFile();
+	})
+	
+	$(".taskFile").click(function() {
+		alert();
+	})
+	
+	$(document).on("click",".taskFile",function() {
+		fileDownload();
 	})
 	
 	function selectTaskFile() {
@@ -491,8 +498,29 @@ $(function() {
 			data: "taskCode="+taskCode,
 			dataType: "json",
 			success: function(data) {
+				var str="";
 				
+				$.each(data,function(index,item){
+					str+="<tr id='"+item.path+"' class='taskFile'>";
+					str+="<td>"+(index+1)+"</td>";
+					str+="<td>"+item.name+"</td>";
+					str+="<td>"+item.fileName+"</td>";
+					str+="<td>"+item.fileSize+"</td>";
+					str+="<td>"+item.writeDate+"</td>";
+					str+="</tr>";
+				})
+				
+				$("#taskFileTable tr:gt(0)").remove();
+				$("#taskFileTable").append(str);
 			}
+		})
+	}
+	
+	function fileDownload() {
+		$.ajax({
+			type: "post",
+			url: "task/fileDownload",
+			data: "fullPath="+taskCode,
 		})
 	}
 });

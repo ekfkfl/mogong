@@ -110,7 +110,7 @@ public class TaskController {
 		
 		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
 		
-		String path=request.getServletContext().getRealPath("/")+"taskFile";
+		String path=request.getServletContext().getRealPath("/")+"taskFile/";
 		
 		File dir=new File(path);
 		
@@ -120,7 +120,7 @@ public class TaskController {
 			}
 			
 			String fileName=file.getOriginalFilename();
-			String fullPath=path+"/"+fileName+"_"+System.currentTimeMillis();
+			String fullPath=path+System.currentTimeMillis()+"_"+fileName;
 			
 			try {
 				file.transferTo(new File(fullPath));
@@ -139,6 +139,12 @@ public class TaskController {
 	public List<TaskFileDTO> selectTaskFile(String taskCode) {
 		return taskService.selectTaskFile(Integer.parseInt(taskCode));
 	}
+	
+	@RequestMapping("/fileDownload")
+	public ModelAndView fileDownload(String fullPath) {
+		return new ModelAndView("downLoadView","fname",new File(fullPath));
+	}
+	
 
 	/**
 	 * 성훈 스터디 메인 페이지
