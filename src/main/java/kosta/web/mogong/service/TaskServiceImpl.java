@@ -1,12 +1,15 @@
 package kosta.web.mogong.service;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kosta.web.mogong.dao.TaskDAO;
 import kosta.web.mogong.dto.AllTaskCodeDTO;
-import kosta.web.mogong.dto.ProgressDTO;
 import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskFileDTO;
@@ -198,8 +200,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public int insertTaskFile(TaskFileDTO taskFileDTO) {
+	public void insertTaskFile(TaskFileDTO taskFileDTO) {
 		taskDAO.insertTaskFile(taskFileDTO);
-		return 0;
 	}
 }

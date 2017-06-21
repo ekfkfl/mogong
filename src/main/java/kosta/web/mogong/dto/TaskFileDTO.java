@@ -12,6 +12,16 @@ public class TaskFileDTO {
 	private String writeDate; //태스크 파일 등록일
 	
 	public TaskFileDTO() {}
+	
+	public TaskFileDTO(int taskCode, String id, String name, String fileName, String path,
+			int fileSize) {
+		this.taskCode = taskCode;
+		this.id = id;
+		this.name = name;
+		this.fileName = fileName;
+		this.path = path;
+		this.fileSize = fileSize;
+	}
 
 	public TaskFileDTO(int taskFileCode, int taskCode, String id, String name, String fileName, String path,
 			int fileSize, String writeDate) {

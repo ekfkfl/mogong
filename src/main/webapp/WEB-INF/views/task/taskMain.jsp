@@ -254,6 +254,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							<li><a href="#tab1" data-toggle="tab">속성</a></li>
 							<li><a href="#tab2" data-toggle="tab">코멘트</a></li>
 							<li><a href="#tab3" data-toggle="tab">파일 업로드</a></li>
+							<li><a href="#tab4" data-toggle="tab">파일 다운로드</a></li>
 						</ul>
 						<div class="form-group tab-content">
 							<div class="tab-pane active" id="tab1">
@@ -280,6 +281,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 									<option></option>
 								</select>
 								<p>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default pull-left"
+										data-dismiss="modal">닫기</button>
+									<button id="taskUpdate" type="button" class="btn btn-primary">저장</button>
+								</div>
 							</div>
 							<div class="tab-pane" id="tab2">
 								<div class="box-body">
@@ -295,18 +301,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
 											</span>
 										</div>
 								</div>
-								<!-- /.box-footer-->
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default pull-left"
+										data-dismiss="modal">닫기</button>
+								</div>
 							</div>
 							<div class="tab-pane" id="tab3">
         						<input id="fileUpload" name="file" type="file" multiple=false class="file-loading">
+        						<div class="modal-footer">
+									<button type="button" class="btn btn-default pull-left"
+										data-dismiss="modal">닫기</button>
+								</div>
+							</div>
+							<div class="tab-pane" id="tab4">
+								
+        						<div class="modal-footer">
+									<button type="button" class="btn btn-default pull-left"
+										data-dismiss="modal">닫기</button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default pull-left"
-						data-dismiss="modal">닫기</button>
-					<button id="taskUpdate" type="button" class="btn btn-primary">저장</button>
 				</div>
 			</div>
 			<!-- /.modal-content -->

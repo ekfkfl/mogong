@@ -1,25 +1,22 @@
 package kosta.web.mogong.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import kosta.web.mogong.dto.AllTaskCodeDTO;
 import kosta.web.mogong.dto.TaskCommentDTO;
@@ -108,18 +105,30 @@ public class TaskController {
 
 	@RequestMapping("/fileUpload")
 	@ResponseBody
-	public TaskFileDTO fileUpload(MultipartHttpServletRequest mr, HttpSession session) {
+	public TaskFileDTO fileUpload(MultipartHttpServletRequest mr, HttpServletRequest request, HttpSession session) {
 		MultipartFile file = mr.getFile("file");
 		
 		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
-
+		
+		String path=request.getServletContext().getRealPath("/")+"taskFile";
+		
+		File dir=new File(path);
+		
 		if (userDTO != null) {
-			mr.getParameter("taskCode");
-			userDTO.getId();
-			userDTO.getName();
-			file.getName();
-			String path="경로";
-			file.getSize();
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+			
+			String fileName=file.getOriginalFilename();
+			String fullPath=path+"/"+fileName+"_"+System.currentTimeMillis();
+			
+			try {
+				file.transferTo(new File(fullPath));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			taskService.insertTaskFile(new TaskFileDTO(Integer.parseInt(mr.getParameter("taskCode")), userDTO.getId(), userDTO.getName(), fileName, fullPath, (int)file.getSize()));
 		}
 
 		return new TaskFileDTO();
