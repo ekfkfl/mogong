@@ -1,7 +1,9 @@
 package kosta.web.mogong.controller;
 
 import java.io.File;
-import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -11,18 +13,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kosta.web.mogong.dto.CommCodeDTO;
 import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.StudyDTO;
-import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.service.AuthService;
 import kosta.web.mogong.service.MainService;
@@ -155,7 +157,7 @@ public class MainController {
 	}
 
 	//스터디 모집 폼 화면
-	@RequestMapping("/enrollForm")
+	@RequestMapping("/study/enrollForm")
 	public String enrollForm(HttpServletRequest request, StudyDTO studyDTO) {
 		//System.out.println(studyDTO);
 		return "main/study/enroll";
@@ -164,8 +166,27 @@ public class MainController {
 	//스터디 모집
 	//스터디 등록을 했을 때 뜨는 화면-->메인
 	@RequestMapping("/enroll")
-	public String insertEnroll(HttpServletRequest request, StudyDTO studyDTO) {
-		//System.out.println(studyDTO);
+	public String insertEnroll(HttpServletRequest request, StudyDTO studyDTO,String datePicker) {
+		HttpSession session = request.getSession();
+		UserDTO dto =(UserDTO)session.getAttribute("userDTO");	
+		studyDTO.setId(dto.getId());
+		
+		String[] str = datePicker.split("~");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 M월 d일 a HH:mm");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date date = sdf.parse(str[0]);
+			String s = sdf2.format(date);
+			studyDTO.setStartDate(s);
+			
+			date = sdf.parse(str[1]);
+			s = sdf2.format(date);
+			studyDTO.setEndDate(s);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 		service.insertStudy(studyDTO);
 
 		return "main/index";
@@ -180,5 +201,12 @@ public class MainController {
 		}
 		
 		return "member/studyMain";
+	}
+	
+	@RequestMapping("/study/location")
+	@ResponseBody
+	public List<CommCodeDTO> selectCode(String areaCode){
+		List<CommCodeDTO> list =  service.getAreaCode(areaCode);
+		return list;
 	}
 }

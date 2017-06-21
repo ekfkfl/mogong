@@ -2,6 +2,7 @@ package kosta.web.mogong.dao;
 
 import java.util.List;
 
+import kosta.web.mogong.dto.CommCodeDTO;
 import kosta.web.mogong.dto.StudyDTO;
 
 public interface MainDAO {
@@ -24,4 +25,9 @@ public interface MainDAO {
 	 * 읽지 않은 메시지 개수 가져오기
 	 */
 	String messageCount(String id);
+	
+	/**
+	 * 지역코드 가져오기
+	 */
+	List<CommCodeDTO> getAreaCode(String areaCode);
 }
