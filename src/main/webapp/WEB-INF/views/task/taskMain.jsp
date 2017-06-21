@@ -318,7 +318,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								</div>
 							</div>
 							<div class="tab-pane" id="tab3">
-								<input id="fileUpload" name="file" type="file" multiple=false
+								<input id="fileUpload" name="file" type="file"
 									class="file-loading">
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default pull-left"
