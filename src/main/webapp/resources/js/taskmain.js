@@ -478,4 +478,21 @@ $(function() {
 		    }
 		});
 	})
+	
+	$("a[href='#tab4'").click(function() {
+//		$("#modal-default").modal("hide");
+		selectTaskFile();
+	})
+	
+	function selectTaskFile() {
+		$.ajax({
+			type: "post",
+			url: "task/selectTaskFile",
+			data: "taskCode="+taskCode,
+			dataType: "json",
+			success: function(data) {
+				
+			}
+		})
+	}
 });

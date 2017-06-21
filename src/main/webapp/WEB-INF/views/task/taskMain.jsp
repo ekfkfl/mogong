@@ -44,8 +44,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- Google Font -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-	
-<link href="${pageContext.request.contextPath}/resources/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+
+<link
+	href="${pageContext.request.contextPath}/resources/css/fileinput.min.css"
+	media="all" rel="stylesheet" type="text/css" />
 
 <script
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.2.0.min.js"></script>
@@ -289,17 +291,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							</div>
 							<div class="tab-pane" id="tab2">
 								<div class="box-body">
-									<div class="direct-chat-messages" id=chatMessage style="overflow: auto">
-									</div>
+									<div class="direct-chat-messages" id=chatMessage
+										style="overflow: auto"></div>
 								</div>
 								<div class="box-footer">
-										<div class="input-group">
-											<input type="text" id="message" name="message"
-												placeholder="메시지를 입력하세요..." class="form-control"> <span
-												class="input-group-btn">
-												<button id="sendComment" type="button" class="btn btn-primary btn-flat">보내기</button>
-											</span>
-										</div>
+									<div class="input-group">
+										<input type="text" id="message" name="message"
+											placeholder="메시지를 입력하세요..." class="form-control"> <span
+											class="input-group-btn">
+											<button id="sendComment" type="button"
+												class="btn btn-primary btn-flat">보내기</button>
+										</span>
+									</div>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default pull-left"
@@ -307,15 +310,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								</div>
 							</div>
 							<div class="tab-pane" id="tab3">
-        						<input id="fileUpload" name="file" type="file" multiple=false class="file-loading">
-        						<div class="modal-footer">
+								<input id="fileUpload" name="file" type="file" multiple=false
+									class="file-loading">
+								<div class="modal-footer">
 									<button type="button" class="btn btn-default pull-left"
 										data-dismiss="modal">닫기</button>
 								</div>
 							</div>
 							<div class="tab-pane" id="tab4">
-								
-        						<div class="modal-footer">
+								<div class="box-body table-responsive no-padding">
+									<table class="table table-hover">
+										<tr>
+											<th width="10%">번호</th>
+											<th width="20%">이름</th>
+											<th width="30%">파일명</th>
+											<th width="20%">파일크기</th>
+											<th width="20%">등록일</th>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>광준</td>
+											<td>피카츄</td>
+											<td>621byte</td>
+											<td>2017-06-21 17:04</td>
+										</tr>
+									</table>
+								</div>
+								<div class="modal-footer">
 									<button type="button" class="btn btn-default pull-left"
 										data-dismiss="modal">닫기</button>
 								</div>
@@ -352,8 +373,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<script
 		src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
 	<!-- the main fileinput plugin file -->
-	<script src="${pageContext.request.contextPath}/resources/js/fileinput.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/fileinput-kr.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/fileinput.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/fileinput-kr.js"></script>
 	<!-- taskmain.js -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/taskmain.js"></script>

@@ -133,6 +133,12 @@ public class TaskController {
 
 		return new TaskFileDTO();
 	}
+	
+	@RequestMapping("/selectTaskFile")
+	@ResponseBody
+	public List<TaskFileDTO> selectTaskFile(String taskCode) {
+		return taskService.selectTaskFile(Integer.parseInt(taskCode));
+	}
 
 	/**
 	 * 성훈 스터디 메인 페이지
