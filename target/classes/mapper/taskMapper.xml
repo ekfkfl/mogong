@@ -113,4 +113,8 @@
 	select task_comment_code as taskCommentCode, id, name, path, content, write_date as writeDate from task_comment where task_comment_code=#{taskCommentCode}
 </select>
 
+<insert id="insertTaskFile" parameterType="TaskFileDTO">
+	insert into task_file values(task_file_seq.nextval,#{taskCode},#{id},#{name},#{fileName},#{path},#{fileSize},sysdate)
+</insert>
+
 </mapper>

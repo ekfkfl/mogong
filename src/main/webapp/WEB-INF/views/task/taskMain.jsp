@@ -44,6 +44,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- Google Font -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+	
+<link href="${pageContext.request.contextPath}/resources/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 
 <script
 	src="${pageContext.request.contextPath}/resources/js/jquery-3.2.0.min.js"></script>
@@ -95,7 +97,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 	<!-- Main content -->
 	<section class="content container-fluid">
-		<div class="col-xs-4">
+		<div class="col-sm-4">
 			<!-- TO DO List -->
 			<div class="box box-primary">
 				<div class="box-header">
@@ -143,7 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<!-- /.box -->
 		</div>
 		<!-- TO DO List -->
-		<div class="col-xs-4">
+		<div class="col-sm-4">
 			<div class="box box-primary">
 				<div class="box-header">
 					<i class="ion ion-clipboard"></i>
@@ -190,7 +192,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			<!-- /.box -->
 		</div>
 		<!-- TO DO List -->
-		<div class="col-xs-4">
+		<div class="col-sm-4">
 			<div class="box box-primary">
 				<div class="box-header">
 					<i class="ion ion-clipboard"></i>
@@ -295,7 +297,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								</div>
 								<!-- /.box-footer-->
 							</div>
-							<div class="tab-pane" id="tab3">졸라</div>
+							<div class="tab-pane" id="tab3">
+        						<input id="fileUpload" name="file" type="file" multiple=false class="file-loading">
+							</div>
 						</div>
 					</div>
 				</div>
@@ -332,6 +336,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<!-- AdminLTE App -->
 	<script
 		src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
+	<!-- the main fileinput plugin file -->
+	<script src="${pageContext.request.contextPath}/resources/js/fileinput.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/fileinput-kr.js"></script>
 	<!-- taskmain.js -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/taskmain.js"></script>

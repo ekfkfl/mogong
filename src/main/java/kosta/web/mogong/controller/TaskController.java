@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonParser;
@@ -19,6 +22,7 @@ import com.fasterxml.jackson.databind.util.JSONPObject;
 import kosta.web.mogong.dto.AllTaskCodeDTO;
 import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
+import kosta.web.mogong.dto.TaskFileDTO;
 import kosta.web.mogong.service.TaskService;
 
 @Controller
@@ -99,6 +103,15 @@ public class TaskController {
 	@ResponseBody
 	public List<TaskCommentDTO> selectTaskComment(String taskCode) {
 		return taskService.selectTaskComment(Integer.parseInt(taskCode));
+	}
+	
+	@RequestMapping("/fileUpload")
+	@ResponseBody
+	public TaskFileDTO fileUpload(MultipartHttpServletRequest mr, String taskCode) {
+		MultipartFile file=mr.getFile("file");
+		System.out.println("아아");
+		System.out.println(taskCode);
+		return new TaskFileDTO();
 	}
 	
 	/**

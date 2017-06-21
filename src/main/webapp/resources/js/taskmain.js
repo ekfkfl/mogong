@@ -467,4 +467,15 @@ $(function() {
 	function scroll(){
 		$("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
 	}
+	
+	$('#fileUpload').fileinput({
+	    language: 'kr',
+		uploadUrl: "task/fileUpload",
+		uploadAsync: true,
+		uploadExtraData: {
+	        taskCode: taskCode,
+	        id: sessionID,
+	        name: sessionName
+	    }
+	});
 });
