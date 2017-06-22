@@ -29,6 +29,7 @@ import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.service.AuthService;
 import kosta.web.mogong.service.MainService;
 import kosta.web.mogong.service.TaskService;
+import kosta.web.mogong.util.CodeUtil;
 
 /**
  * Handles requests for the application home page.
@@ -76,16 +77,30 @@ public class MainController {
 	}
 
 	@RequestMapping("/search/study")
-	public String search(HttpServletRequest request, Model model) {
+	public ModelAndView search(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
 
 		if (userDTO != null) {
 			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
 		}
+		
+		ModelAndView mv=new ModelAndView();
+		
+		StudyDTO studyDTO=new StudyDTO();
+		studyDTO.setName("");
+		int page=1;
+		
+		List<StudyDTO> studyDTOList=service.selectSearchStudy(studyDTO, page);
+		Map<String, CommCodeDTO> categoryMap=CodeUtil.getChildCodeDTO("0157");
+		Map<String, CommCodeDTO> cityCodeMap=CodeUtil.getChildCodeDTO("0061");
 
-		return "main/search/searchStudy";
-
+		mv.addObject("studyDTOList", studyDTOList);
+		mv.addObject("categoryMap", categoryMap);
+		mv.addObject("cityCodeMap", cityCodeMap);
+		mv.setViewName("main/search/searchStudy");
+		
+		return mv;
 	}
 
 	// 회원가입 입력 폼
@@ -268,7 +283,7 @@ public class MainController {
 
 	@RequestMapping("/search")
 	@ResponseBody
-	public List<StudyDTO> keywordSearch(StudyDTO studyDTO, int page) {
+	public List<StudyDTO> keywordSearch(StudyDTO studyDTO, int page){
 		return service.selectSearchStudy(studyDTO, page);
 	}
 }

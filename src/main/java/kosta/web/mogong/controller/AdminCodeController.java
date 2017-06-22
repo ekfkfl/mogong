@@ -17,9 +17,10 @@ import kosta.web.mogong.dto.CommCodeDTO;
 import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.service.AdminCodeService;
 import kosta.web.mogong.service.MainService;
+import kosta.web.mogong.util.CodeUtil;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("")
 public class AdminCodeController {
 	@Autowired
 	private AdminCodeService adminCodeService;
@@ -27,7 +28,7 @@ public class AdminCodeController {
 	@Autowired
 	private MainService mainService;
 	
-	@RequestMapping("")
+	@RequestMapping("/admin")
 	public String adminMain(HttpServletRequest request, HttpSession session, Model model){
 		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
 		
@@ -42,7 +43,7 @@ public class AdminCodeController {
 		return "admin/adminMain";
 	}
 	
-	@RequestMapping("/commCodeList")
+	@RequestMapping("/admin/commCodeList")
 	@ResponseBody
 	public List<CommCodeDTO> commCodeList(){
 		
@@ -50,7 +51,7 @@ public class AdminCodeController {
 		return adminCodeService.selectCodeAll();
 	}
 	
-	@RequestMapping("/insertCommCode")
+	@RequestMapping("/admin/insertCommCode")
 	@ResponseBody
 	public int insertCommCode(CommCodeDTO commCodeDTO, HttpSession session) throws Exception{
 		
@@ -62,7 +63,7 @@ public class AdminCodeController {
 		return result;
 	}
 	
-	@RequestMapping("/deleteCommCode")
+	@RequestMapping("/admin/deleteCommCode")
 	@ResponseBody
 	public int deleteCommCode(String commCode, HttpSession session) throws Exception{
 		System.out.println(commCode);
@@ -74,7 +75,7 @@ public class AdminCodeController {
 		return result;
 	}
 	
-	@RequestMapping("/updateCommCode")
+	@RequestMapping("/admin/updateCommCode")
 	@ResponseBody
 	public int updateCommCode(CommCodeDTO commCodeDTO, HttpSession session) throws Exception{
 		System.out.println(commCodeDTO);
@@ -95,5 +96,20 @@ public class AdminCodeController {
 		for(CommCodeDTO commCode : commCodeDTOList){
 			codeMap.put(commCode.getCommCode(), commCode);
 		}
+	}
+	
+	
+	@RequestMapping("/getCommCodeList")
+	@ResponseBody
+	public Map<String, CommCodeDTO> getCommCodeList(String commCode, HttpServletRequest request) throws Exception{
+		return CodeUtil.getChildCodeDTO(commCode);
+	}
+	
+	@RequestMapping("/getCommCodeAll")
+	@ResponseBody
+	public Map<String, CommCodeDTO> getCommCodeAll(String commCode, HttpServletRequest request) throws Exception{
+		ServletContext application=request.getServletContext();
+		
+		return (Map<String, CommCodeDTO>)application.getAttribute("codeMap");
 	}
 }
