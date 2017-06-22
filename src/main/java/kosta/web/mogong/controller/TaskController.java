@@ -141,7 +141,8 @@ public class TaskController {
 	}
 	
 	@RequestMapping("/fileDownload")
-	public ModelAndView fileDownload(String fullPath) {
+	public ModelAndView fileDownload(String fullPath, String fileName) {
+		System.out.println("아아");
 		return new ModelAndView("downLoadView","fname",new File(fullPath));
 	}
 	

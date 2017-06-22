@@ -56,6 +56,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	var sessionID="${sessionScope.userDTO.id}";
 	var sessionPath="${sessionScope.userDTO.path}"
 	var sessionName="${sessionScope.userDTO.name}"
+	var contextPath="${pageContext.request.contextPath}"
 
 	$(function() {
 		$("#logo").hover(function() {

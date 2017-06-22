@@ -314,6 +314,7 @@ $(function() {
 	
 	$(document).on('click','#task',function() {
 		$('a[href="#tab1"]').click();
+		$("#fileUpload").fileinput('destroy');
 		
 		taskCode=$(this).find('span').attr('id');
 		
@@ -488,7 +489,7 @@ $(function() {
 	})
 	
 	$(document).on("click",".taskFile",function() {
-		fileDownload();
+		fileDownload($(this).attr('id'),$(this).find("#fileName"));
 	})
 	
 	function selectTaskFile() {
@@ -504,7 +505,7 @@ $(function() {
 					str+="<tr id='"+item.path+"' class='taskFile'>";
 					str+="<td>"+(index+1)+"</td>";
 					str+="<td>"+item.name+"</td>";
-					str+="<td>"+item.fileName+"</td>";
+					str+="<td id='fileName'>"+item.fileName+"</td>";
 					str+="<td>"+item.fileSize+"</td>";
 					str+="<td>"+item.writeDate+"</td>";
 					str+="</tr>";
@@ -516,11 +517,7 @@ $(function() {
 		})
 	}
 	
-	function fileDownload() {
-		$.ajax({
-			type: "post",
-			url: "task/fileDownload",
-			data: "fullPath="+taskCode,
-		})
+	function fileDownload(fullPath,fileName) {
+		location.href=contextPath+"/member/study/task/fileDownload?fullPath="+fullPath+"&fileName="+fileName;
 	}
 });
