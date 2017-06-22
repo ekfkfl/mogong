@@ -6,7 +6,7 @@
 
 
 <h1>스터디 검색페이지 입니다.</h1><br>
-<a href="${pageContext.request.contextPath}/search/detail">a</a>
+<a href="${pageContext.request.contextPath}/search/detail?studyCode=54">a</a>
 
 <jsp:include page="/WEB-INF/views/main/footer.jsp" />
 

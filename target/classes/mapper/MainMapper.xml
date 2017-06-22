@@ -19,6 +19,8 @@
 		<result column="DESCRIPTION" property="description" />
 		<result column="READ" property="read" />
 		<result column="STUDY_STATUS" property="studyStatus" />
+		<result column="addr" property="addr1"/>
+		<result column="addr2" property="addr2"/>
 		
 	</resultMap>
 	
@@ -36,14 +38,14 @@
 		#{detailArea},#{name},sysdate, #{startDate},
 		#{endDate}, #{day},#{startTime},#{endTime},
 		#{people},#{area},#{description},1,
-		'0043',#{addr1})
+		'0043',#{addr1},#{addr2})
 	</insert>
 
 	<!-- 스터디 상세보기 -->
-	<select id="studyDetailView" parameterType="StudyDTO">
-		select studyCode, category, cityCode, name, writeDate, startDate,
-		endDate, startTime, endTime, people, area, description, read, studyStatus
-		from study where studyCode=#{value}
+	<select id="studyDetailView" parameterType="string" resultMap="studyMap">
+		select user_tb.id,study.name,study.start_date,study.end_date,study.day,study.start_time,study.end_time,study.people,comm_code.code_name as area,study.description,study.addr,study.addr2,user_tb.name as userName,user_tb.path as userProfile,user_tb.email as userEmail,user_tb.intro as userIntro 
+		from study,user_tb,comm_code
+		where study.id=user_tb.id and study.area=comm_code.comm_code and study_code=#{_parameter}
 	</select>
 	
 	<!-- 스터디 조회수 업데이트  -->

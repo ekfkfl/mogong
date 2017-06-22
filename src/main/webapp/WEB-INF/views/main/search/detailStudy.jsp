@@ -12,8 +12,7 @@
 
 <!-- jQuery 3.1.1 -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.0.min.js"></script>
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f93121500121a54094b1f2b7bddeb160"></script>
-<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f93121500121a54094b1f2b7bddeb160&libraries=services,clusterer"></script>
+
 
 
 <jsp:include page="/WEB-INF/views/main/header.jsp" />
@@ -36,12 +35,12 @@
                </div>
               <div class="user-block">
                 <img class="img-circle" src="${pageContext.request.contextPath}/resources/dist/img/user1-128x128.jpg" alt="User Image">
-                <span class="username"><a href="#">광준</a></span>
-                <span class="description">ID : 다라리</span><br>
+                <span class="username"><a href="#">${studyDTO.userName}</a></span>
+                <span class="description">ID : ${studyDTO.id}</span><br>
                 <label>Email</label><br>
-	               	<p>ekfkfl@ekfkfl</p>
+	               	<p>${studyDTO.userEmail}</p>
 	            <label>Intro</label><br>
-	               	<p>감자는 묵어봤나?</p>
+	               	<p>${studyDTO.userIntro}</p>
               </div>
               
               <!-- /.box-tools -->
@@ -60,38 +59,69 @@
                <div class="box-body">
 	               <div class="form-group">
 	               <label>스터디 제목</label><br>
-	               		<p>asdjasd</p>
+	               		<p>${studyDTO.name}</p>
 	               </div>
 	              <div class="form-group">
 	               <label>시작일 / 마감일</label><br>
-	              		<p>asdasdasd</p>
+	              		<p>${studyDTO.startDate}&nbsp;/&nbsp;${studyDTO.endDate}</p>
 	              </div>
 	            	<div class="form-group">
 	            		  <label>스터디 요일</label><br>
-	            		  <p>월,수,금</p>	
+	            		  <p>${studyDTO.day}</p>	
 					</div>
 					<div class="form-group">
 	            		  <label>스터디 시간</label><br>
-	            		  <p>8시 ~ 10시</p>
+	            		  <p>${studyDTO.startTime} ~ ${studyDTO.endTime}</p>
 					</div>
 					<div class="form-group">
             		  <label>인원수</label><br>
-            		  	<p>6명</p>	
+            		  	<p>${studyDTO.people}</p>	
 					</div>
 					<div class="form-group">
             		  <label>지역</label><br>
-            		  	<p>서울/경기 - 수원시</p>
-					</div>
+            		  	<p>${studyDTO.area}</p>
+					</div><br>
+					<button type="button" id="joinBtn" class="btn btn-info pull-right">신청하기</button>
 					<div id="map" style="width:300px;height:350px;position:absolute;top:45px;left:250px"></div>
-               		    
+               		<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f93121500121a54094b1f2b7bddeb160&libraries=services"></script>
 					<script>
-					var container = document.getElementById('map');
-					var options = {
-						center: new daum.maps.LatLng(33.450701, 126.570667),
-						level: 3
-					};
-					
-					var map = new daum.maps.Map(container, options);
+					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				    mapOption = {
+				        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+				        level: 3 // 지도의 확대 레벨
+				    };  
+
+				// 지도를 생성합니다    
+				var map = new daum.maps.Map(mapContainer, mapOption); 
+
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new daum.maps.services.Geocoder();
+
+				// 주소로 좌표를 검색합니다
+				geocoder.addr2coord('${studyDTO.addr1}', function(status, result) {
+
+				    // 정상적으로 검색이 완료됐으면 
+				     if (status === daum.maps.services.Status.OK) {
+
+				        var coords = new daum.maps.LatLng(result.addr[0].lat, result.addr[0].lng);
+
+				        // 결과값으로 받은 위치를 마커로 표시합니다
+				        var marker = new daum.maps.Marker({
+				            map: map,
+				            text: 'aa',
+				            position: coords
+				        });
+
+				        // 인포윈도우로 장소에 대한 설명을 표시합니다
+				         var infowindow = new daum.maps.InfoWindow({
+				            content: '<div style="width:150px;text-align:center;padding:6px 0;">${studyDTO.addr2}</div>'
+				        });
+				        infowindow.open(map, marker);
+
+				        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+				        map.setCenter(coords);
+				    } 
+				});    
 					</script>
 				</div>
             </div>
@@ -110,7 +140,7 @@
                   <!-- textarea -->
                   <div class="form-group">
                      <textarea class="form-control" id="description" readonly="readonly"
-                        name="description" rows="5" placeholder="스터디에 대한 설명이 없습니다."></textarea>
+                        name="description" rows="5" placeholder="${studyDTO.description}"></textarea>
                   </div>
                </div>
             </div>

@@ -224,8 +224,12 @@ public class MainController {
 	}
 	
 	@RequestMapping("/search/detail")
-	public String detail(String studyCode){
-		
-		return "main/search/detailStudy";
+	public ModelAndView detail(String studyCode){
+		StudyDTO dto = service.selectByStudyCode(studyCode, false);
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("main/search/detailStudy");
+		mv.addObject("studyCode", studyCode);
+		mv.addObject("studyDTO", dto);
+		return mv;
 	}
 }

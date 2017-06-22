@@ -32,7 +32,29 @@ public class MainServiceImpl implements MainService {
 		if(state){
 			mainDAO.readNumUpdate(studyCode);
 		}
-		return  mainDAO.selectByStudyCode(studyCode);
+		
+		StudyDTO dto =mainDAO.selectByStudyCode(studyCode);
+		
+		if(dto != null){
+			String addr = dto.getAddr1();
+			String[] str = addr.split(" ");
+			String str2 = "";
+			for(int i=0;i<str.length;i++){
+				if(i !=0){
+					str2 += str[i]+" ";
+				}
+			}
+			dto.setAddr1(str2);
+			
+			String startDate = dto.getStartDate();
+			str = startDate.split(" ");
+			dto.setStartDate(str[0]);
+			
+			String endDate = dto.getEndDate();
+			str = endDate.split(" ");
+			dto.setEndDate(str[0]);
+		}
+		return  dto;
 	}
 
 	@Override
