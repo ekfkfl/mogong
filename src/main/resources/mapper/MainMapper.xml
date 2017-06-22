@@ -60,5 +60,9 @@
 	<select id="selectAreaCode" parameterType="string" resultMap="commMap">
 		select comm_code,code_name from comm_code where parent_code=#{_parameter}
 	</select>
+	
+	<select id="selectRecentStudy" resultMap="studyMap">
+		select study_code, name from study order by write_date
+	</select>
 
 </mapper>

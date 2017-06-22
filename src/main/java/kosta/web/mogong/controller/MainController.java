@@ -55,6 +55,8 @@ public class MainController {
 			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
 		}
 		
+		model.addAttribute("studyList",service.selectRecentStudy());
+		
 		return "main/index";
 	}
 	
@@ -92,6 +94,12 @@ public class MainController {
 	public String signUp(HttpServletRequest request, UserDTO userDTO) throws Exception{
 		String path = request.getSession().getServletContext().getRealPath("/data/user/");
 		
+		File dir = new File(path);
+		
+		if(!dir.exists()) {
+			dir.mkdirs();
+		}
+		
 		MultipartFile file=userDTO.getFile();
 
 		//파일이름 구성
@@ -100,14 +108,13 @@ public class MainController {
 		String fileExtName=fileName.substring(lastIdx+1);
 		fileName=userDTO.getId() + "." + fileExtName;
 		
-		
 		if(file.getSize()>0){
 			//파일저장
 			try{
 				file.transferTo(new File(path+fileName));
 				userDTO.setPath("/data/user/"+fileName);
 			}catch(Exception e){
-				throw new Exception("파일 저정에 실패했습니다.");
+				throw new Exception("파일 저장에 실패했습니다.");
 			}
 		}
 		

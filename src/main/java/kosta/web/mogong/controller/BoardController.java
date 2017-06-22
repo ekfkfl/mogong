@@ -54,7 +54,7 @@ public class BoardController {
 			
 		dto.setFileName(fileName);
 		dto.setFileSize(fileSize);
-		String path = request.getRealPath("/")+"save";
+		String path = request.getServletContext().getRealPath("/data/save/");
 		
 		File file = new File(path);
 		if(!file.exists()){
@@ -112,8 +112,6 @@ public class BoardController {
 	
 	@RequestMapping("/board/download")
 	public ModelAndView down(HttpServletRequest request,String fname){
-		return new ModelAndView("downLoadView","fname",new File(request.getRealPath("/")+"save/"+fname));
+		return new ModelAndView("downLoadView","fname",new File(request.getServletContext().getRealPath("/data/save/")+fname));
 	}
-	
-	
 }
