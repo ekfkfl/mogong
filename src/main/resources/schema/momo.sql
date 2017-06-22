@@ -220,6 +220,7 @@ CREATE TABLE SEND_MESSAGE(
   CONTENT VARCHAR2(500) NOT NULL,  -- 내용
   RECV_ID VARCHAR2(30) NOT NULL, -- 받는 회원 ID
   WRITE_DATE DATE NOT NULL -- 작성일
+  STUDY_CODE NUMBER
 )
 
 select SEND_MESSAGE_CODE, id, title, content, recv_id, write_date
@@ -243,13 +244,14 @@ CREATE TABLE RECV_MESSAGE(
   SEND_ID VARCHAR2(30) NOT NULL, -- 보낸 회원 ID
   WRITE_DATE DATE NOT NULL,
   CONFIRM VARCHAR2(10) REFERENCES COMM_CODE(COMM_CODE) -- 받은 쪽지 확인 유무
+  STUDY_CODE NUMBER
 )
 
 insert into recv_message values()
 
-select RECV_MESSAGE_CODE, id, title, content, SEND_ID, write_date, CONFIRM
+select RECV_MESSAGE_CODE, id, title, content, SEND_ID, write_date, CONFIRM, STUDY_CODE
 from RECV_MESSAGE 
-where ID='gwang12'
+where ID='crw12'
 order by RECV_MESSAGE_CODE desc
 
 select RECV_MESSAGE_CODE, id, title, content, SEND_ID, write_date, CONFIRM

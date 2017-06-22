@@ -34,4 +34,10 @@ public class MemberAdminServiceImpl implements MemberAdminService {
 		return memberAdminDAOImpl.searchID(keyWord);
 	}
 
+	@Override
+	public int inviteMember(String id, String recvId, String studyCode) {
+	
+		return memberAdminDAOImpl.inviteMember(id, recvId, studyCode);
+	}
+
 }

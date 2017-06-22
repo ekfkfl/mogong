@@ -26,4 +26,9 @@ public interface MemberAdminService {
 	 * */
 	List<String> searchID(String keyWord);
 	
+	/**
+	 * 초대하기 메세지 보내기
+	 * */
+	int inviteMember(String id, String recvId, String studyCode);
+	
 }
