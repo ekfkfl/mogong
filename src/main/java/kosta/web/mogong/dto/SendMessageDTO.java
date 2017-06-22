@@ -7,11 +7,12 @@ public class SendMessageDTO {
 	private String content;//내용
 	private String recvId; //받은 회원 ID
 	private String writeDate; //작성일
+	private int studyCode; //멤버 초대 하기 위해서
 	
 	public SendMessageDTO() {}
 	
 	public SendMessageDTO(int sendMessageCode, String id, String title, String content, String recvId,
-			String writeDate) {
+			String writeDate, int studyCode) {
 		super();
 		this.sendMessageCode = sendMessageCode;
 		this.id = id;
@@ -19,6 +20,7 @@ public class SendMessageDTO {
 		this.content = content;
 		this.recvId = recvId;
 		this.writeDate = writeDate;
+		this.studyCode = studyCode;
 	}
 	public int getSendMessageCode() {
 		return sendMessageCode;
@@ -55,6 +57,14 @@ public class SendMessageDTO {
 	}
 	public void setWriteDate(String writeDate) {
 		this.writeDate = writeDate;
+	}
+
+	public int getStudyCode() {
+		return studyCode;
+	}
+
+	public void setStudyCode(int studyCode) {
+		this.studyCode = studyCode;
 	}
 	
 }

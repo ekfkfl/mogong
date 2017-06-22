@@ -29,7 +29,6 @@ public class SocketController {
 	public ModelAndView viewChattingPage(HttpSession session, HttpServletRequest request){
 		
 		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
-
 		request.setAttribute("sessionId", userDTO.getId());
 		request.setAttribute("sessionPhoto", userDTO.getPath());
 		

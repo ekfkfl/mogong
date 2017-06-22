@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kosta.web.mogong.dto.StudyDTO;
 import kosta.web.mogong.dto.UserDTO;
 
 @Repository
@@ -49,6 +50,25 @@ public class MemberAdminDAOImpl implements MemberAdminDAO {
 	@Override
 	public List<String> searchID(String keyWord) {
 		return sqlSession.selectList("studyMemberAdminMapper.searchID", keyWord+"%");
+	}
+
+	@Override
+	public int inviteMember(String id, String recvId, String studyCode) {
+		
+		map = new HashMap<>();
+		
+		map.put("id", id);
+		map.put("studyCode", studyCode);
+		
+		StudyDTO studyDTO = sqlSession.selectOne("studyMemberAdminMapper.inviteStudyInfo", map);
+		
+		map.put("recvId", recvId);
+		map.put("studyName", studyDTO.getName()+" 당신을 초대합니다!");
+		map.put("studyContent", studyDTO.getDescription());
+		if(sqlSession.insert("studyMemberAdminMapper.inviteMember", map)!=0){
+			return sqlSession.insert("studyMemberAdminMapper.inviteRecvInsert", map);
+		}
+		return 0;
 	}
 
 }

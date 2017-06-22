@@ -106,6 +106,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			
 			$("#idSearch").click(function(){
 				var id = $("#keyWord").val()
+				var studyCode = 12
+				$.ajax({
+					  url: "${pageContext.request.contextPath}/member/study/inviteMember" , //서버 요청 이름(주소)
+					  type: "post" ,//method방식(get, post)
+					  dataType: "json",//요청결과타입(text, html, xml, json)
+					  data: "recvId="+id+"&studyCode="+studyCode ,//서버에게 보낼 parameter 정보
+					  success: function(result){
+						 $("#keyWord").val("")
+					  }
+				})
 			})
 			  
 		})

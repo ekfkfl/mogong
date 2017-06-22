@@ -46,5 +46,18 @@
 		select id from user_tb where lower(id) like lower(#{keyWord})
 	</select>
 	
+	<select id="inviteStudyInfo" parameterType="map" resultType="studyDTO">
+		select NAME, DESCRIPTION
+		from study
+		where STUDY_CODE = #{studyCode} and id=#{id}
+	</select>
+	
+	<insert id="inviteMember" parameterType="map">
+		insert into send_message values(SEND_MESSAGE_SEQ.nextval,#{id}, #{studyName}, #{studyContent}, #{recvId}, sysdate, #{studyCode})
+	</insert>
+	
+	<insert id="inviteRecvInsert" parameterType="map">
+		insert into recv_message values(RECV_MESSAGE_SEQ.nextval,#{recvId}, #{studyName}, #{studyContent}, #{id}, sysdate,'0051', #{studyCode})
+	</insert>
 	
 </mapper>

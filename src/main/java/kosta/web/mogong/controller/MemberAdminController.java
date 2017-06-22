@@ -63,4 +63,15 @@ public class MemberAdminController {
 		return list;
 	}
 	
+	@RequestMapping("/member/study/inviteMember")
+	@ResponseBody
+	public int inviteMember(HttpSession session,String recvId, String studyCode){
+		
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
+		
+		String id = userDTO.getId();
+			
+		return memberAdminServiceImpl.inviteMember(id, recvId, studyCode);
+	}
+	
 }
