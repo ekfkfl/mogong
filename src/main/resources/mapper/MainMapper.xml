@@ -64,5 +64,15 @@
 	<select id="selectRecentStudy" resultMap="studyMap">
 		select study_code, name from study order by write_date
 	</select>
+	
+	
+	<!-- 스터디 검색 -->
+	<select id="selectSearchStudy" parameterType="StudyDTO" resultMap="studyMap">
+		select study_code, id, category_code, city_code, name, write_date, to_char(start_date, 'YYYY-MM-DD') start_date,
+		to_char(end_date, 'YYYY-MM-DD') end_date, day, start_time, end_time, people, area, description, read, study_status
+		from study 
+		where name like '%'||#{name}||'%'
+		and study_status='0043'
+	</select>
 
 </mapper>

@@ -16,4 +16,6 @@ public interface MainService {
 	List<CommCodeDTO> getAreaCode(String areaCode);
 	
 	List<StudyDTO> selectRecentStudy();
+	
+	List<StudyDTO> selectSearchStudy(StudyDTO studyDTO, int page);
 }
