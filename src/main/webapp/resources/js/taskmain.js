@@ -2,6 +2,7 @@ $(function() {
 	jQuery.ajaxSettings.traditional = true;
 	var taskCode;
 	var csrf_token = $("#csrf").val();
+	var csrf_name = $("#csrf").attr("name");
 	
 	$(document).bind("ajaxSend", function(elm, xhr, s){
 		  if (s.type == "POST") {
@@ -274,10 +275,8 @@ $(function() {
 			url: "task/updateTask",
 			data: taskDTO,
 			success: function() {
-//				$("#modal-default").modal("hide");
+				$("#modal-default").modal("hide");
 				$("#"+taskDTO.taskCode).text(taskDTO.title);
-				selectOneTask(taskCode);
-				alert('저장 완료');
 			}
 		})
 	}
@@ -518,6 +517,8 @@ $(function() {
 	}
 	
 	function fileDownload(fullPath,fileName) {
-		location.href=contextPath+"/member/study/task/fileDownload?fullPath="+fullPath+"&fileName="+fileName;
+		console.log(fullPath);
+		console.log(fileName);
+//		location.href="task/fileDownload?fullPath="+fullPath+"&fileName="+fileName+"&"+csrf_name+"="+csrf_token;
 	}
 });

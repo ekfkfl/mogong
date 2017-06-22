@@ -286,11 +286,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								</div>
 								<!-- /.input group -->
 								<hr>
-								<label>배정된 멤버</label> <select id="member"
+								<label>배정된 멤버</label><div><select id="member"
 									class="form-control select2" multiple="multiple"
-									data-placeholder="멤버 할당하기" style="width: 100%;">
+									data-placeholder="멤버 할당하기" style="width:540px;">
 									<option></option>
-								</select>
+								</select></div>
 								<p>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default pull-left"
