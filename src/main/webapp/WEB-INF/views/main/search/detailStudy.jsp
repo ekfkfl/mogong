@@ -194,7 +194,7 @@
 <script>
 	$(function() {
 		$("#updateBtn").click(function() {
-			alert('수정하는페이지로이동');
+			location.href="${pageContext.request.contextPath}/loginForm";
 		})
 		
 		$("#joinBtn").click(function() {

@@ -35,224 +35,240 @@ import kosta.web.mogong.service.TaskService;
  */
 @Controller
 public class MainController {
-	
-	
+
 	@Autowired
 	private MainService service;
-	
+
 	@Autowired
 	private TaskService taskService;
-	
+
 	@Autowired
 	private AuthService authService;
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpSession session, HttpServletRequest request) {
-		
-		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
-		
-		if(userDTO != null) {
+
+		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
+
+		if (userDTO != null) {
 			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
 		}
-		
-		model.addAttribute("studyList",service.selectRecentStudy());
-		
+
+		model.addAttribute("studyList", service.selectRecentStudy());
+
 		return "main/index";
 	}
-	
+
 	@RequestMapping("/main/mypage")
-	public String myPage(HttpSession session, Model model){
-		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
-		
-		if(userDTO != null) {
+	public String myPage(HttpSession session, Model model) {
+		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
+
+		if (userDTO != null) {
 			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
 		}
-		
+
 		return "/mypage/mypageMain";
 	}
-	
+
 	@RequestMapping("/loginForm")
-	public String loginForm(){
+	public String loginForm() {
 		return "main/login/loginForm";
 	}
-	
+
 	@RequestMapping("/search/study")
-	public String search(HttpServletRequest request,Model model){
+	public String search(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
-		
-		if(userDTO != null) {
+		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
+
+		if (userDTO != null) {
 			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
 		}
-		
+
 		return "main/search/searchStudy";
-		
+
 	}
-	
-	//회원가입 입력 폼
+
+	// 회원가입 입력 폼
 	@RequestMapping("/login/signupForm")
-	public String signUpForm(){
+	public String signUpForm() {
 		return "main/login/signUpForm";
 	}
-	
-	//아이디, 패스워드를 받아서 로그인처리할때 사용됨.
-	
+
+	// 아이디, 패스워드를 받아서 로그인처리할때 사용됨.
+
 	@RequestMapping("/login/signup")
-	public String signUp(HttpServletRequest request, UserDTO userDTO) throws Exception{
+	public String signUp(HttpServletRequest request, UserDTO userDTO) throws Exception {
 		String path = request.getSession().getServletContext().getRealPath("/data/user/");
-		
+
 		File dir = new File(path);
-		
-		if(!dir.exists()) {
+
+		if (!dir.exists()) {
 			dir.mkdirs();
 		}
-		
-		MultipartFile file=userDTO.getFile();
 
-		//파일이름 구성
-		String fileName=file.getOriginalFilename();
-		int lastIdx=fileName.lastIndexOf(".");
-		String fileExtName=fileName.substring(lastIdx+1);
-		fileName=userDTO.getId() + "." + fileExtName;
-		
-		if(file.getSize()>0){
-			//파일저장
-			try{
-				file.transferTo(new File(path+fileName));
-				userDTO.setPath("/data/user/"+fileName);
-			}catch(Exception e){
+		MultipartFile file = userDTO.getFile();
+
+		// 파일이름 구성
+		String fileName = file.getOriginalFilename();
+		int lastIdx = fileName.lastIndexOf(".");
+		String fileExtName = fileName.substring(lastIdx + 1);
+		fileName = userDTO.getId() + "." + fileExtName;
+
+		if (file.getSize() > 0) {
+			// 파일저장
+			try {
+				file.transferTo(new File(path + fileName));
+				userDTO.setPath("/data/user/" + fileName);
+			} catch (Exception e) {
 				throw new Exception("파일 저장에 실패했습니다.");
 			}
 		}
-		
-		
+
 		authService.insertUser(userDTO);
-		
-		return "main/index";//로그인 처리를 하고 메인으로 간다.
+
+		return "main/index";// 로그인 처리를 하고 메인으로 간다.
 	}
-	
-	//로그인 처리
+
+	// 로그인 처리
 	@RequestMapping("/loginPro")
-	public String loginPro(HttpServletRequest request, Model model){
-		HttpSession session=request.getSession();
-		Authentication auth=(Authentication)request.getUserPrincipal();
-		Object userObj=auth.getPrincipal();
-		
-		UserDTO userDTO=null;
-		if(userObj!=null && userObj instanceof UserDTO){
-			userDTO=((UserDTO)userObj);
+	public String loginPro(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		Authentication auth = (Authentication) request.getUserPrincipal();
+		Object userObj = auth.getPrincipal();
+
+		UserDTO userDTO = null;
+		if (userObj != null && userObj instanceof UserDTO) {
+			userDTO = ((UserDTO) userObj);
 		}
 		session.setAttribute("userDTO", userDTO);
-		
-		List<MemberDTO> memberDTOList=authService.selectMemberById(userDTO.getId());
-		
+
+		List<MemberDTO> memberDTOList = authService.selectMemberById(userDTO.getId());
+
 		model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
-		
-		Map<String, String>memberMap=new HashMap<>();
-		if(memberDTOList!=null){
-			for(MemberDTO memberDTO: memberDTOList){
-				memberMap.put(memberDTO.getStudyCode()+"", memberDTO.getMemberCode()+"");
+
+		Map<String, String> memberMap = new HashMap<>();
+		if (memberDTOList != null) {
+			for (MemberDTO memberDTO : memberDTOList) {
+				memberMap.put(memberDTO.getStudyCode() + "", memberDTO.getMemberCode() + "");
 			}
 		}
 		session.setAttribute("memberMap", memberMap);
 		request.setAttribute("session", session);
-		model.addAttribute("studyList",service.selectRecentStudy());
-		
+		model.addAttribute("studyList", service.selectRecentStudy());
+
 		return "main/index";
 	}
-	
-	
+
 	@RequestMapping("/study/info")
-	public ModelAndView studyInfo(HttpServletRequest request, String studyCode){
+	public ModelAndView studyInfo(HttpServletRequest request, String studyCode) {
 		ModelAndView mv = new ModelAndView();
 		StudyDTO studyDTO = service.selectByStudyCode(studyCode, true);
 		mv.addObject("studyDTO", studyCode);
 		mv.setViewName("main/study/info");
-		
+
 		return mv;
 	}
 
-	//스터디 모집 폼 화면
+	// 스터디 모집 폼 화면
 	@RequestMapping("/study/enrollForm")
-	public String enrollForm(HttpServletRequest request,Model model ,StudyDTO studyDTO) {
+	public String enrollForm(HttpServletRequest request, Model model, StudyDTO studyDTO) {
 		HttpSession session = request.getSession();
-		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
-		if(userDTO != null) {
+		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
+		if (userDTO != null) {
 			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
 		}
-			
+
 		return "main/study/enroll";
 	}
-	
-	//스터디 모집
-	//스터디 등록을 했을 때 뜨는 화면-->메인
+
+	// 스터디 모집
+	// 스터디 등록을 했을 때 뜨는 화면-->메인
 	@RequestMapping("/enroll")
-	public String insertEnroll(HttpServletRequest request, StudyDTO studyDTO,String datePicker) {
+	public String insertEnroll(HttpServletRequest request, StudyDTO studyDTO, String datePicker) {
 		HttpSession session = request.getSession();
-		UserDTO dto =(UserDTO)session.getAttribute("userDTO");	
+		UserDTO dto = (UserDTO) session.getAttribute("userDTO");
 		studyDTO.setId(dto.getId());
-		
+
 		String[] str = datePicker.split("~");
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 M월 d일 a HH:mm");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			Date date = sdf.parse(str[0]);
 			String s = sdf2.format(date);
 			studyDTO.setStartDate(s);
-			
+
 			date = sdf.parse(str[1]);
 			s = sdf2.format(date);
 			studyDTO.setEndDate(s);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		service.insertStudy(studyDTO);
 
 		return "main/index";
 	}
 
-	@RequestMapping("/study/main")
-	public String studyMain(HttpServletRequest request,HttpSession session, Model model) {
-		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
+	// 스터디 수정 폼 화면
+	@RequestMapping("/study/updateForm")
+	public ModelAndView updateForm(HttpSession session, String studyCode) {
+		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
+
+		StudyDTO dto = service.selectByStudyCode(studyCode, false);
+		ModelAndView mv = new ModelAndView();
 		
-		if(userDTO != null) {
+		if (userDTO != null) {
+			mv.addObject("messageCount", service.messageCount(userDTO.getId()));
+		}
+		mv.setViewName("main/study/update");
+		mv.addObject("studyCode", studyCode);
+		mv.addObject("studyDTO", dto);
+		
+		return mv;
+	}
+
+	@RequestMapping("/study/main")
+	public String studyMain(HttpServletRequest request, HttpSession session, Model model) {
+		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
+
+		if (userDTO != null) {
 			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
 		}
-		
+
 		return "member/studyMain";
 	}
-	
+
 	@RequestMapping("/study/location")
 	@ResponseBody
-	public List<CommCodeDTO> selectCode(String areaCode){
-		List<CommCodeDTO> list =  service.getAreaCode(areaCode);
+	public List<CommCodeDTO> selectCode(String areaCode) {
+		List<CommCodeDTO> list = service.getAreaCode(areaCode);
 		return list;
 	}
-	
+
 	@RequestMapping("/search/detail")
-	public ModelAndView detail(HttpSession session, String studyCode){
-		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
-		
-		String memberId=null;
-		
-		if(userDTO != null) {
-			memberId=userDTO.getId();
+	public ModelAndView detail(HttpSession session, String studyCode) {
+		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
+
+		String memberId = null;
+
+		if (userDTO != null) {
+			memberId = userDTO.getId();
 		}
-		
+
 		StudyDTO dto = service.selectByStudyCode(studyCode, false);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("main/search/detailStudy");
 		mv.addObject("studyCode", studyCode);
 		mv.addObject("studyDTO", dto);
-		mv.addObject("selectStudyMember", service.selectStudyMember(new MemberDTO(Integer.parseInt(studyCode), memberId)));
+		mv.addObject("selectStudyMember",
+				service.selectStudyMember(new MemberDTO(Integer.parseInt(studyCode), memberId)));
 		return mv;
 	}
-	
+
 	@RequestMapping("/search")
 	@ResponseBody
-	public List<StudyDTO> keywordSearch(StudyDTO studyDTO, int page){
+	public List<StudyDTO> keywordSearch(StudyDTO studyDTO, int page) {
 		return service.selectSearchStudy(studyDTO, page);
 	}
 }
