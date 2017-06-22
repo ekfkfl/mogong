@@ -77,7 +77,14 @@ public class MainController {
 	}
 	
 	@RequestMapping("/search/study")
-	public String search(){
+	public String search(HttpServletRequest request,Model model){
+		HttpSession session = request.getSession();
+		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
+		
+		if(userDTO != null) {
+			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
+		}
+		
 		return "main/search/searchStudy";
 		
 	}
@@ -166,8 +173,13 @@ public class MainController {
 
 	//스터디 모집 폼 화면
 	@RequestMapping("/study/enrollForm")
-	public String enrollForm(HttpServletRequest request, StudyDTO studyDTO) {
-		//System.out.println(studyDTO);
+	public String enrollForm(HttpServletRequest request,Model model ,StudyDTO studyDTO) {
+		HttpSession session = request.getSession();
+		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
+		if(userDTO != null) {
+			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
+		}
+			
 		return "main/study/enroll";
 	}
 	
@@ -216,5 +228,11 @@ public class MainController {
 	public List<CommCodeDTO> selectCode(String areaCode){
 		List<CommCodeDTO> list =  service.getAreaCode(areaCode);
 		return list;
+	}
+	
+	@RequestMapping("/search/detail")
+	public String detail(String studyCode){
+		
+		return "main/search/detailStudy";
 	}
 }
