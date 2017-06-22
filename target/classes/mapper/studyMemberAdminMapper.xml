@@ -25,12 +25,19 @@
 			<result column="JOIN_STATUS" property="joinStatus"/>
 			<result column="GRADE" property="grade"/>
 		</association>
+		<association property="commCodeDTO" javaType="commCodeDTO">
+			<id column="COMM_CODE" property="commCode"/>
+			<result column="CODE_NAME" property="codeName"/>
+		</association>
 	</resultMap>
 	
 	<select id="memberSelectAll" parameterType="String" resultMap="userDTOMap">
-		select <include refid="memberAdminColum"/>
-		from User_TB, member, study
-		where study.STUDY_CODE = member.STUDY_CODE and study.id = user_tb.id and study.id = #{_parameter}
+		select <include refid="memberAdminColum"/>, CODE_NAME
+		from User_TB, member, study, comm_code
+		where study.STUDY_CODE = member.STUDY_CODE
+		and member.grade= comm_code.COMM_CODE
+		and study.id = user_tb.id 
+		and study.id = #{_parameter}
 		and member.JOIN_STATUS='0004' and grade='0147' 
 	</select>
 	

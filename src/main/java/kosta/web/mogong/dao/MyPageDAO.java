@@ -76,4 +76,9 @@ public interface MyPageDAO {
 	 * 검색하기(받은메세지)
 	 * */
 	List<RecvMessageDTO> searchRecvMail(String id, String word);
+	
+	/**
+	 * 스터디 초대 수락
+	 * */
+	 int inviteAgree(String id, String studyCode);
 }

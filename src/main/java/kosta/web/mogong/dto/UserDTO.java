@@ -19,6 +19,8 @@ public class UserDTO {
 	
 	private MemberDTO memberDTO;// 멤버 등급때문에!!
 	
+	private CommCodeDTO commCodeDTO;
+	
 	public UserDTO() {}
 	
 
@@ -160,6 +162,15 @@ public class UserDTO {
 
 	public void setMemberDTO(MemberDTO memberDTO) {
 		this.memberDTO = memberDTO;
+	}
+	
+	public CommCodeDTO getCommCodeDTO() {
+		return commCodeDTO;
+	}
+
+
+	public void setCommCodeDTO(CommCodeDTO commCodeDTO) {
+		this.commCodeDTO = commCodeDTO;
 	}
 
 

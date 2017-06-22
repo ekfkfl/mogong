@@ -52,6 +52,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			  }); 
 		})
 		
+		$(document).on("click","#agree",function(){
+			var studyCode = $(this).attr("name");
+			$.ajax({
+					url : "${pageContext.request.contextPath}/member/mypage/inviteAgree" ,
+					type: "post",
+					dataType: "json",
+					data: "studyCode="+studyCode ,
+					success: function(result){
+						$("#rejection").remove()
+						$("#agree").val("수락완료")
+						$("#agree").disabled()
+					}
+				}) 
+		})
+		
 	})
 	
 	function checkedValuesGet() {
@@ -109,14 +124,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- /.btn-group -->
                 <a href="${pageContext.request.contextPath}/member/mypage/recvMail">
                 <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button></a>
-                <div class="pull-right">
-                  1-50/200
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                  </div>
-                  <!-- /.btn-group -->
-                </div>
                 <!-- /.pull-right -->
               </div>
             </div>
@@ -142,18 +149,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				   	 <c:otherwise>
 			              <c:forEach items="${list}" var="recvDTO" varStatus="status">
 			                  <tbody>
-			                  <tr>
-			                    <td><input type="checkbox" name="messageCode" value="${recvDTO.recvMessageCode}"></td>
-			                    <td class="mailbox-star">${status.count}</td>
-			                    <td class="mailbox-subject">
-			                    <a href="${pageContext.request.contextPath}/member/mypage/readMail?recvMessageCode=${recvDTO.recvMessageCode}">
-			                    <b>${recvDTO.title}</b></a>
-			                    </td>
-			                    <td class="mailbox-subject"><b>${recvDTO.content}</b></td>
-			                    <td class="mailbox-name">${recvDTO.sendId}</td>
-			                    <td class="mailbox-attachment">${recvDTO.writeDate}</td>
-			                    <td class="mailbox-date">${CodeUtil.getCodeName(recvDTO.confirm)}</td>
-			                  </tr>
+			                  <c:choose>
+			                  	<c:when test="${!empty recvDTO.studyCode}">
+		                  			<tr>
+					                    <td><input type="checkbox" name="messageCode" value="${recvDTO.recvMessageCode}"></td>
+					                    <td class="mailbox-star">${status.count}</td>
+					                    <td class="mailbox-subject">
+					                    <a href="${pageContext.request.contextPath}/member/mypage/readMail?recvMessageCode=${recvDTO.recvMessageCode}">
+					                    <b>${recvDTO.title}</b></a>
+					                    </td>
+					                    <td class="mailbox-subject"><b>${recvDTO.content}</b></td>
+					                    <td class="mailbox-name">${recvDTO.sendId}</td>
+					                    <td class="mailbox-attachment">${recvDTO.writeDate}</td>
+					                    <td class="mailbox-date">
+					                    	<input type="button" name="${recvDTO.studyCode}" id="agree" value="수락" class='btn btn-primary btn-xs'>
+					                    	<input type="button" id="rejection" value="거절" class='btn btn-primary btn-xs'>
+					                    </td>
+				                    </tr>
+			                  	</c:when>
+			                  	<c:otherwise>
+			                  		  <tr>
+					                    <td><input type="checkbox" name="messageCode" value="${recvDTO.recvMessageCode}"></td>
+					                    <td class="mailbox-star">${status.count}</td>
+					                    <td class="mailbox-subject">
+					                    <a href="${pageContext.request.contextPath}/member/mypage/readMail?recvMessageCode=${recvDTO.recvMessageCode}">
+					                    <b>${recvDTO.title}</b></a>
+					                    </td>
+					                    <td class="mailbox-subject"><b>${recvDTO.content}</b></td>
+					                    <td class="mailbox-name">${recvDTO.sendId}</td>
+					                    <td class="mailbox-attachment">${recvDTO.writeDate}</td>
+					                    <td class="mailbox-date">${CodeUtil.getCodeName(recvDTO.confirm)}</td>
+					                  </tr>
+			                  	</c:otherwise>
+			                  </c:choose>
 			                  </tbody>
 			                <!-- /.table -->
 			              </c:forEach>

@@ -77,4 +77,9 @@ public interface MyPageService {
 	 * */
 	List<RecvMessageDTO> searchRecvMail(String id, String word);
 	
+	/**
+	 * 스터디 초대 수락
+	 * */
+	 int inviteAgree(String id, String studyCode);
+	
 }

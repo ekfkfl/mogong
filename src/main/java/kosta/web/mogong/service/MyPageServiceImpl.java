@@ -86,6 +86,11 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDAOImpl.searchRecvMail(id, word);
 	}
 
+	@Override
+	public int inviteAgree(String id, String studyCode) {
+		return myPageDAOImpl.inviteAgree(id, studyCode);
+	}
+
 	
 
 
