@@ -63,7 +63,7 @@ public class MemberAdminDAOImpl implements MemberAdminDAO {
 		StudyDTO studyDTO = sqlSession.selectOne("studyMemberAdminMapper.inviteStudyInfo", map);
 		
 		map.put("recvId", recvId);
-		map.put("studyName", studyDTO.getName()+"당신을 초대합니다!");
+		map.put("studyName", studyDTO.getName()+" 당신을 초대합니다!");
 		map.put("studyContent", studyDTO.getDescription());
 		if(sqlSession.insert("studyMemberAdminMapper.inviteMember", map)!=0){
 			return sqlSession.insert("studyMemberAdminMapper.inviteRecvInsert", map);
