@@ -605,11 +605,6 @@ $(function(){
 		<td class="studyAreaTime">경기 성남시 분당구 | 월,화 | 19:00~21:00</td>
 		<td class="studyPeriod">6개월</td>
 	</tr>
-
-<<<<<<< HEAD
-<h1>스터디 검색페이지 입니다.</h1><br>
-<a href="${pageContext.request.contextPath}/search/detail?studyCode=54">a</a>
-=======
 	<tr>
 		<td rowspan="2" class="col-xs-1 studyCategory">[일본어]사진</td>
 		<td class="studyName"> 일본어 스터디 입니다.</td>

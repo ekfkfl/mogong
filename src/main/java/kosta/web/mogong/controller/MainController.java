@@ -156,6 +156,7 @@ public class MainController {
 		}
 		session.setAttribute("memberMap", memberMap);
 		request.setAttribute("session", session);
+		model.addAttribute("studyList",service.selectRecentStudy());
 		
 		return "main/index";
 	}

@@ -64,7 +64,7 @@
 	</select>
 	
 	<select id="selectRecentStudy" resultMap="studyMap">
-		select study_code, name from study order by write_date
+		select study_code, name from study order by study_code desc
 	</select>
 	
 	
