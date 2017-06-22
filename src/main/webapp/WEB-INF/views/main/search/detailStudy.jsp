@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     
      <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
@@ -81,7 +82,15 @@
             		  <label>지역</label><br>
             		  	<p>${studyDTO.area}</p>
 					</div><br>
-					<button type="button" id="joinBtn" class="btn btn-info pull-right">신청하기</button>
+					<c:choose>
+						<c:when test="${studyDTO.id != sessionScope.userDTO.id}">
+							<button type="button" id="joinBtn" class="btn btn-info pull-right">신청하기</button>
+						</c:when>
+						<c:when test="${studyDTO.id == sessionScope.userDTO.id}">
+							<button type="button" id="joinBtn" class="btn btn-info pull-right">수정하기</button>
+						</c:when>
+						<c:otherwise></c:otherwise>
+					</c:choose>
 					<div id="map" style="width:300px;height:350px;position:absolute;top:45px;left:250px"></div>
                		<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f93121500121a54094b1f2b7bddeb160&libraries=services"></script>
 					<script>
