@@ -28,6 +28,7 @@
 		password-parameter="password"
 		default-target-url="/loginPro"
 		authentication-failure-handler-ref="memberAuthenticationFailureHandler"
+		always-use-default-target="true"
 	/>
 	
 	<security:logout
