@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kosta.web.mogong.dto.CommCodeDTO;
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.StudyDTO;
 
 @Repository
@@ -63,5 +64,9 @@ public class MainDAOImpl implements MainDAO {
 		int offset=limit*(page-1);
 		
 		return sqlSession.selectList("mainMapper.selectSearchStudy", studyDTO);
+	}
+	@Override
+	public String selectStudyMember(MemberDTO memberDTO) {
+		return sqlSession.selectOne("mainMapper.selectStudyMember", memberDTO);
 	}
 }

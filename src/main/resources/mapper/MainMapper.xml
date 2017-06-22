@@ -40,6 +40,11 @@
 		#{people},#{area},#{description},1,
 		'0043',#{addr1},#{addr2})
 	</insert>
+	
+	<!-- 스터디 멤버인지 아닌지 -->
+	<select id="selectStudyMember" parameterType="MemberDTO" resultType="string">
+		select id from member where id=#{memberId,jdbcType=VARCHAR} and study_code=#{studyCode} 
+	</select>
 
 	<!-- 스터디 상세보기 -->
 	<select id="studyDetailView" parameterType="string" resultMap="studyMap">

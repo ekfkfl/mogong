@@ -83,11 +83,11 @@
             		  	<p>${studyDTO.area}</p>
 					</div><br>
 					<c:choose>
-						<c:when test="${studyDTO.id != sessionScope.userDTO.id}">
-							<button type="button" id="joinBtn" class="btn btn-info pull-right">신청하기</button>
+						<c:when test="${sessionScope.userDTO.id==studyDTO.id}">
+							<button type="button" id="updateBtn" class="btn btn-info pull-right">수정하기</button>
 						</c:when>
-						<c:when test="${studyDTO.id == sessionScope.userDTO.id}">
-							<button type="button" id="joinBtn" class="btn btn-info pull-right">수정하기</button>
+						<c:when test="${empty selectStudyMember}">
+							<button type="button" id="joinBtn" class="btn btn-info pull-right">신청하기</button>
 						</c:when>
 						<c:otherwise></c:otherwise>
 					</c:choose>
@@ -191,3 +191,19 @@
 			</div>
 		</div>
 	</div>
+<script>
+	$(function() {
+		$("#updateBtn").click(function() {
+			alert('수정하는페이지로이동');
+		})
+		
+		$("#joinBtn").click(function() {
+			var sessionId="${sessionScope.userDTO.id}";
+			if(sessionId == "") {
+				location.href="${pageContext.request.contextPath}/loginForm";
+			} else {
+				alert('신청하는로직으로이동')
+			}
+		})
+	})
+</script>

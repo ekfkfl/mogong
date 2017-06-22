@@ -232,12 +232,21 @@ public class MainController {
 	}
 	
 	@RequestMapping("/search/detail")
-	public ModelAndView detail(String studyCode){
+	public ModelAndView detail(HttpSession session, String studyCode){
+		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
+		
+		String memberId=null;
+		
+		if(userDTO != null) {
+			memberId=userDTO.getId();
+		}
+		
 		StudyDTO dto = service.selectByStudyCode(studyCode, false);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("main/search/detailStudy");
 		mv.addObject("studyCode", studyCode);
 		mv.addObject("studyDTO", dto);
+		mv.addObject("selectStudyMember", service.selectStudyMember(new MemberDTO(Integer.parseInt(studyCode), memberId)));
 		return mv;
 	}
 	

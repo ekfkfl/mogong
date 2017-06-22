@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kosta.web.mogong.dao.MainDAO;
 import kosta.web.mogong.dto.BoardDTO;
 import kosta.web.mogong.dto.CommCodeDTO;
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.StudyDTO;
 
 @Service
@@ -75,5 +76,10 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<StudyDTO> selectSearchStudy(StudyDTO studyDTO, int page) {
 		return mainDAO.selectSearchStudy(studyDTO, page);
+	}
+
+	@Override
+	public String selectStudyMember(MemberDTO memberDTO) {
+		return mainDAO.selectStudyMember(memberDTO);
 	}
 }
