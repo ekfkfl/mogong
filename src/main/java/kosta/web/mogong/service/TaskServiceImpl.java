@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kosta.web.mogong.dao.TaskDAO;
 import kosta.web.mogong.dto.AllTaskCodeDTO;
+import kosta.web.mogong.dto.StudyDTO;
 import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskFileDTO;
@@ -212,5 +213,10 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public TaskFileDTO selectOneTaskFile(int taskFileCode) {
 		return taskDAO.selectOneTaskFile(taskFileCode);
+	}
+
+	@Override
+	public String selectTaskGroupJang(StudyDTO studyDTO) {
+		return taskDAO.selectTaskGroupJang(studyDTO);
 	}
 }

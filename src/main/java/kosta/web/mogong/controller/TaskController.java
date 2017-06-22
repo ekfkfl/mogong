@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.web.mogong.dto.AllTaskCodeDTO;
+import kosta.web.mogong.dto.StudyDTO;
 import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskFileDTO;
@@ -37,7 +38,7 @@ public class TaskController {
 	private TaskService taskService;
 
 	@RequestMapping("")
-	public String task(String studyCode, Model model) {
+	public String task(HttpSession session, String studyCode, Model model) {
 		studyCode = "6";
 
 		List<TaskDTO> taskList = taskService.selectAllTask(studyCode);
@@ -54,10 +55,13 @@ public class TaskController {
 				doneList.add(dto);
 			}
 		}
+		
+		UserDTO userDTO=(UserDTO)session.getAttribute("userDTO");
 
 		model.addAttribute("todoList", todoList);
 		model.addAttribute("doingList", doingList);
 		model.addAttribute("doneList", doneList);
+		model.addAttribute("groupJang", taskService.selectTaskGroupJang(new StudyDTO(Integer.parseInt(studyCode),userDTO.getId())));
 
 		return "task/taskMain";
 	}

@@ -605,7 +605,6 @@ $(function(){
 		<td class="studyAreaTime">경기 성남시 분당구 | 월,화 | 19:00~21:00</td>
 		<td class="studyPeriod">6개월</td>
 	</tr>
-
 	<tr>
 		<td rowspan="2" class="col-xs-1 studyCategory">[일본어]사진</td>
 		<td class="studyName"> 일본어 스터디 입니다.</td>
@@ -631,6 +630,7 @@ $(function(){
 </ul>
 </div>
 </div>
+>>>>>>> b9b8115f87491d7f8f7eb0cee281f7cabf817b5f
 
 <jsp:include page="/WEB-INF/views/main/footer.jsp" />
 

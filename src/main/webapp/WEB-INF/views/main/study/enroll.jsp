@@ -219,6 +219,7 @@
 								</script>
 								<input type="hidden" name="addr" />
 								<input type="text" class="form-control" id="addr1" name="addr1" placeholder="주소를 입력하세요">
+								<input type="text" class="form-control" id="addr2" name="addr2" placeholder="상세 주소를 입력해주세요.">
             </div>
          </div>
       </div>

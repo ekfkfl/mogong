@@ -114,10 +114,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="box-header">
 					<i class="ion ion-clipboard"></i>
 					<h3 class="box-title">To Do</h3>
+					<c:if test="${!empty groupJang}">
 					<button id="todoInsert" type="button"
 						class="btn btn-default pull-right">
 						<i class="fa fa-plus"></i> Task 등록
 					</button>
+					</c:if>
 				</div>
 				<!-- 등록 -->
 				<div id="todoInsertBox" class="box box-info" style="display: none">
@@ -161,10 +163,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="box-header">
 					<i class="ion ion-clipboard"></i>
 					<h3 class="box-title">Doing</h3>
+					<c:if test="${!empty groupJang}">
 					<button id="doingInsert" type="button"
 						class="btn btn-default pull-right">
 						<i class="fa fa-plus"></i> Task 등록
 					</button>
+					</c:if>
 				</div>
 				<!-- 등록 -->
 				<div id="doingInsertBox" class="box box-info" style="display: none">
@@ -208,10 +212,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				<div class="box-header">
 					<i class="ion ion-clipboard"></i>
 					<h3 class="box-title">Done</h3>
+					<c:if test="${!empty groupJang}">
 					<button id="doneInsert" type="button"
 						class="btn btn-default pull-right">
 						<i class="fa fa-plus"></i> Task 등록
 					</button>
+					</c:if>
 				</div>
 				<!-- 등록 -->
 				<div id="doneInsertBox" class="box box-info" style="display: none">

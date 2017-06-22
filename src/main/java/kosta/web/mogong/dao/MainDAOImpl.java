@@ -29,8 +29,7 @@ public class MainDAOImpl implements MainDAO {
 	 * */
 	@Override
 	public StudyDTO selectByStudyCode(String studyCode) {
-		
-		StudyDTO studyDTO = sqlSession.selectOne("mainMapper", studyCode);
+		StudyDTO studyDTO = sqlSession.selectOne("mainMapper.studyDetailView", studyCode);
 		return studyDTO;
 	}
 

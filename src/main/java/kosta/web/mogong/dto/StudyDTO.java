@@ -18,8 +18,13 @@ public class StudyDTO {
 	private String area; //지역
 	private String detailArea; //상세지역
 	private String addr1; //스터디 장소 -> 다음api 주소
+	private String addr2; //스터디 상세 주소
 	private String description; //스터디 설명
 	private int read; //조회수
+	private String userName;
+	private String userProfile;
+	private String userEmail;
+	private String userIntro;
 
 	private String studyStatus;//스터디 상태(모집중, 진행중...)
 	
@@ -28,6 +33,11 @@ public class StudyDTO {
 	private CommCodeDTO commDTO; //공통 코드 DTO
 
 	public StudyDTO() {}
+	
+	public StudyDTO(int studyCode, String id) {
+		this.studyCode=studyCode;
+		this.id=id;
+	}
 
 	public StudyDTO(int studyCode, String id, String category, String cityCode, String name, String writeDate,
 			String startDate, String endDate, String day, String startTime, String endTime, int people, String area,
@@ -212,6 +222,47 @@ public class StudyDTO {
 	public void setAddr1(String addr1) {
 		this.addr1 = addr1;
 	}
+
+	public String getAddr2() {
+		return addr2;
+	}
+
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserProfile() {
+		return userProfile;
+	}
+
+	public void setUserProfile(String userProfile) {
+		this.userProfile = userProfile;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public String getUserIntro() {
+		return userIntro;
+	}
+
+	public void setUserIntro(String userIntro) {
+		this.userIntro = userIntro;
+	}
+	
 	
 	
 }
