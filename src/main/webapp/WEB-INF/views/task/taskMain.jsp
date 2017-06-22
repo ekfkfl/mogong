@@ -56,6 +56,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	var sessionID="${sessionScope.userDTO.id}";
 	var sessionPath="${sessionScope.userDTO.path}"
 	var sessionName="${sessionScope.userDTO.name}"
+	var contextPath="${pageContext.request.contextPath}"
 
 	$(function() {
 		$("#logo").hover(function() {
@@ -80,6 +81,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 .tab-content {
 	margin: 20px;
+}
+.modal-dialog{
+    position: relative;
+    display: table; /* This is important */ 
+    overflow-y: auto;    
+    overflow-x: auto;
+    width: auto;
+    min-width: 600px;   
 }
 </style>
 </head>
@@ -273,15 +282,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<i class="fa fa-clock-o"></i>
 									</div>
 									<input type="text" class="form-control pull-right"
-										id=dateChooser>
+										id=dateChooser style="width:500px;">
 								</div>
 								<!-- /.input group -->
 								<hr>
-								<label>배정된 멤버</label> <select id="member"
+								<label>배정된 멤버</label><div><select id="member"
 									class="form-control select2" multiple="multiple"
-									data-placeholder="멤버 할당하기" style="width: 100%;">
+									data-placeholder="멤버 할당하기" style="width:540px;">
 									<option></option>
-								</select>
+								</select></div>
 								<p>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default pull-left"
@@ -297,7 +306,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								<div class="box-footer">
 									<div class="input-group">
 										<input type="text" id="message" name="message"
-											placeholder="메시지를 입력하세요..." class="form-control"> <span
+											placeholder="메시지를 입력하세요..." class="form-control" style="width:450px;"> <span
 											class="input-group-btn">
 											<button id="sendComment" type="button"
 												class="btn btn-primary btn-flat">보내기</button>
@@ -310,7 +319,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 								</div>
 							</div>
 							<div class="tab-pane" id="tab3">
-								<input id="fileUpload" name="file" type="file" multiple=false
+								<input id="fileUpload" name="file" type="file"
 									class="file-loading">
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default pull-left"
@@ -319,20 +328,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							</div>
 							<div class="tab-pane" id="tab4">
 								<div class="box-body table-responsive no-padding">
-									<table class="table table-hover">
+									<table id="taskFileTable" class="table table-hover"" style="width:800px">
 										<tr>
 											<th width="10%">번호</th>
-											<th width="20%">이름</th>
-											<th width="30%">파일명</th>
+											<th width="10%">이름</th>
+											<th width="40%">파일명</th>
 											<th width="20%">파일크기</th>
 											<th width="20%">등록일</th>
-										</tr>
-										<tr>
-											<td>1</td>
-											<td>광준</td>
-											<td>피카츄</td>
-											<td>621byte</td>
-											<td>2017-06-21 17:04</td>
 										</tr>
 									</table>
 								</div>

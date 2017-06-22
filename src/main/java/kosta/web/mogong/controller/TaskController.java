@@ -1,18 +1,23 @@
 package kosta.web.mogong.controller;
 
 import java.io.File;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -107,37 +112,55 @@ public class TaskController {
 	@ResponseBody
 	public TaskFileDTO fileUpload(MultipartHttpServletRequest mr, HttpServletRequest request, HttpSession session) {
 		MultipartFile file = mr.getFile("file");
-		
+
 		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
-		
-		String path=request.getServletContext().getRealPath("/")+"taskFile";
-		
-		File dir=new File(path);
-		
+
+		String path = request.getServletContext().getRealPath("/") + "taskFile\\";
+
+		File dir = new File(path);
+
 		if (userDTO != null) {
-			if(!dir.exists()) {
+			if (!dir.exists()) {
 				dir.mkdirs();
 			}
-			
-			String fileName=file.getOriginalFilename();
-			String fullPath=path+"/"+fileName+"_"+System.currentTimeMillis();
-			
+
+			String fileName = file.getOriginalFilename();
+			String fullPath = path + System.currentTimeMillis() + "_" + fileName;
+
 			try {
 				file.transferTo(new File(fullPath));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
-			taskService.insertTaskFile(new TaskFileDTO(Integer.parseInt(mr.getParameter("taskCode")), userDTO.getId(), userDTO.getName(), fileName, fullPath, (int)file.getSize()));
+
+			taskService.insertTaskFile(new TaskFileDTO(Integer.parseInt(mr.getParameter("taskCode")), userDTO.getId(),
+					userDTO.getName(), fileName, fullPath, (int) file.getSize()));
 		}
 
 		return new TaskFileDTO();
 	}
-	
+
 	@RequestMapping("/selectTaskFile")
 	@ResponseBody
 	public List<TaskFileDTO> selectTaskFile(String taskCode) {
 		return taskService.selectTaskFile(Integer.parseInt(taskCode));
+	}
+
+	@RequestMapping("/fileDownload")
+	public void fileDownload(HttpServletResponse response, String taskFileCode) throws Exception {
+		TaskFileDTO taskFileDTO = taskService.selectOneTaskFile(Integer.parseInt(taskFileCode));
+		
+		byte fileByte[] = FileUtils.readFileToByteArray(new File(taskFileDTO.getPath()));
+
+		response.setContentType("application/octet-stream");
+		response.setContentLength(fileByte.length);
+		response.setHeader("Content-Disposition",
+				"attachment; fileName=\"" + URLEncoder.encode(taskFileDTO.getFileName(), "UTF-8") + "\";");
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		response.getOutputStream().write(fileByte);
+
+		response.getOutputStream().flush();
+		response.getOutputStream().close();
 	}
 
 	/**

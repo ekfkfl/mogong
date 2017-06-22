@@ -208,4 +208,9 @@ public class TaskServiceImpl implements TaskService {
 	public List<TaskFileDTO> selectTaskFile(int taskCode) {
 		return taskDAO.selectTaskFile(taskCode);
 	}
+
+	@Override
+	public TaskFileDTO selectOneTaskFile(int taskFileCode) {
+		return taskDAO.selectOneTaskFile(taskFileCode);
+	}
 }

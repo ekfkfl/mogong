@@ -114,4 +114,9 @@ public class TaskDAOImpl implements TaskDAO {
 	public List<TaskFileDTO> selectTaskFile(int taskCode) {
 		return sqlSession.selectList("taskMapper.selectTaskFile", taskCode);
 	}
+
+	@Override
+	public TaskFileDTO selectOneTaskFile(int taskFileCode) {
+		return sqlSession.selectOne("taskMapper.selectOneTaskFile", taskFileCode);
+	}
 }

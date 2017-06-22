@@ -47,7 +47,7 @@ public class MainController {
 	private AuthService authService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, HttpSession session) {
+	public String home(Locale locale, Model model, HttpSession session, HttpServletRequest request) {
 		
 		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
 		
@@ -141,6 +141,7 @@ public class MainController {
 			}
 		}
 		session.setAttribute("memberMap", memberMap);
+		request.setAttribute("session", session);
 		
 		return "main/index";
 	}

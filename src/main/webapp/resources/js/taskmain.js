@@ -2,6 +2,7 @@ $(function() {
 	jQuery.ajaxSettings.traditional = true;
 	var taskCode;
 	var csrf_token = $("#csrf").val();
+	var csrf_name = $("#csrf").attr("name");
 	
 	$(document).bind("ajaxSend", function(elm, xhr, s){
 		  if (s.type == "POST") {
@@ -274,10 +275,8 @@ $(function() {
 			url: "task/updateTask",
 			data: taskDTO,
 			success: function() {
-//				$("#modal-default").modal("hide");
+				$("#modal-default").modal("hide");
 				$("#"+taskDTO.taskCode).text(taskDTO.title);
-				selectOneTask(taskCode);
-				alert('저장 완료');
 			}
 		})
 	}
@@ -314,6 +313,7 @@ $(function() {
 	
 	$(document).on('click','#task',function() {
 		$('a[href="#tab1"]').click();
+		$("#fileUpload").fileinput('destroy');
 		
 		taskCode=$(this).find('span').attr('id');
 		
@@ -480,9 +480,12 @@ $(function() {
 	})
 	
 	$("a[href='#tab4'").click(function() {
-//		$("#modal-default").modal("hide");
 		selectTaskFile();
 	})
+	
+	/*$(document).on("click",".taskFile",function() {
+		fileDownload($(this).attr('id'),$(this).find("#fileName").text());
+	})*/
 	
 	function selectTaskFile() {
 		$.ajax({
@@ -491,8 +494,27 @@ $(function() {
 			data: "taskCode="+taskCode,
 			dataType: "json",
 			success: function(data) {
+				var str="";
 				
+				$.each(data,function(index,item){
+					var size=item.fileSize/1024;
+					
+					str+="<tr id='"+item.path+"' class='taskFile'>";
+					str+="<td>"+(index+1)+"</td>";
+					str+="<td>"+item.name+"</td>";
+					str+="<td id='fileName'><a href='task/fileDownload?taskFileCode="+item.taskFileCode+"'>"+item.fileName+"</a></td>";
+					str+="<td>"+size.toFixed(2)+" kb</td>";
+					str+="<td>"+item.writeDate+"</td>";
+					str+="</tr>";
+				})
+				
+				$("#taskFileTable tr:gt(0)").remove();
+				$("#taskFileTable").append(str);
 			}
 		})
 	}
+	
+	/*function fileDownload(fullPath,fileName) {
+		location.href="task/fileDownload?fullPath="+fullPath+"&fileName="+fileName+"&"+csrf_name+"="+csrf_token;
+	}*/
 });
