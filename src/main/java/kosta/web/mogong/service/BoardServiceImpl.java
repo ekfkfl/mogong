@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kosta.web.mogong.dao.BoardDAO;
 import kosta.web.mogong.dto.BoardCommentDTO;
 import kosta.web.mogong.dto.BoardDTO;
+import kosta.web.mogong.dto.MemberDTO;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.DEFAULT)
@@ -51,6 +52,11 @@ public class BoardServiceImpl implements BoardService {
 	public int getCount(String field) {
 
 		return boardDAO.getCount(field);
+	}
+
+	@Override
+	public int selectMemberCode(MemberDTO memberDTO) {
+		return boardDAO.selectMemberCode(memberDTO);
 	}
 
 }

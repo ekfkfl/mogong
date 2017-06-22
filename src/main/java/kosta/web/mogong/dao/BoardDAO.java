@@ -4,6 +4,7 @@ import java.util.List;
 
 import kosta.web.mogong.dto.BoardCommentDTO;
 import kosta.web.mogong.dto.BoardDTO;
+import kosta.web.mogong.dto.MemberDTO;
 
 public interface BoardDAO {
 	
@@ -18,4 +19,6 @@ public interface BoardDAO {
 	List<BoardCommentDTO> commentSelectAll(String boardCode);
 	
 	int getCount(String field);
+	
+	int selectMemberCode(MemberDTO memberDTO);
 }

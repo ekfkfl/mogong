@@ -10,6 +10,12 @@ public class MemberDTO {
 	
 	public MemberDTO() {}
 	
+	public MemberDTO(int studyCode, String memberId) {
+		super();
+		this.studyCode = studyCode;
+		this.memberId = memberId;
+	}
+	
 	public MemberDTO(int memberCode, int studyCode, String memberId, int joinStatus, String grade) {
 		super();
 		this.memberCode = memberCode;
