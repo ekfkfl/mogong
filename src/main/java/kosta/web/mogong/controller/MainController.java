@@ -47,7 +47,7 @@ public class MainController {
 	private AuthService authService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, HttpSession session) {
+	public String home(Locale locale, Model model, HttpSession session, HttpServletRequest request) {
 		
 		UserDTO userDTO=(UserDTO) session.getAttribute("userDTO");
 		
@@ -120,6 +120,7 @@ public class MainController {
 	//로그인 처리
 	@RequestMapping("/loginPro")
 	public String loginPro(HttpServletRequest request, Model model){
+		System.out.println("loginPro");
 		HttpSession session=request.getSession();
 		Authentication auth=(Authentication)request.getUserPrincipal();
 		Object userObj=auth.getPrincipal();
@@ -141,6 +142,7 @@ public class MainController {
 			}
 		}
 		session.setAttribute("memberMap", memberMap);
+		request.setAttribute("session", session);
 		
 		return "main/index";
 	}
