@@ -154,7 +154,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <small>멤버들과 이야기를 나눌 수 있습니다.</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>task</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Study</a></li>
         <li class="active">Chatting</li>
       </ol>
     </section>
