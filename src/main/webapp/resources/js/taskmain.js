@@ -497,11 +497,13 @@ $(function() {
 				var str="";
 				
 				$.each(data,function(index,item){
+					var size=item.fileSize/1024;
+					
 					str+="<tr id='"+item.path+"' class='taskFile'>";
 					str+="<td>"+(index+1)+"</td>";
 					str+="<td>"+item.name+"</td>";
 					str+="<td id='fileName'><a href='task/fileDownload?taskFileCode="+item.taskFileCode+"'>"+item.fileName+"</a></td>";
-					str+="<td>"+item.fileSize+"</td>";
+					str+="<td>"+size.toFixed(2)+" kb</td>";
 					str+="<td>"+item.writeDate+"</td>";
 					str+="</tr>";
 				})

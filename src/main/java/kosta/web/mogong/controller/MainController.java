@@ -120,7 +120,6 @@ public class MainController {
 	//로그인 처리
 	@RequestMapping("/loginPro")
 	public String loginPro(HttpServletRequest request, Model model){
-		System.out.println("loginPro");
 		HttpSession session=request.getSession();
 		Authentication auth=(Authentication)request.getUserPrincipal();
 		Object userObj=auth.getPrincipal();
