@@ -31,6 +31,10 @@ insert into user_tb values('jun12', '1234', '광준', 'asdasf', 0, '19920302', '
  
 select * from USER_TB
 
+select member.id, user_tb.name, birth, gender, phone, grade from User_TB, member, study
+where study.STUDY_CODE = member.STUDY_CODE and study.id = user_tb.id and study.id = 'gwang12'
+and member.JOIN_STATUS='0004' and grade='0147'and study.STUDY_CODE = 12
+
 CREATE TABLE COMM_CODE(
   COMM_CODE VARCHAR2(10) PRIMARY KEY, -- 공통코드번호
   CODE_NAME VARCHAR2(40) NOT NULL, -- 코드이름
@@ -102,6 +106,9 @@ CREATE TABLE MEMBER(
   GRADE VARCHAR2(10) REFERENCES COMM_CODE(COMM_CODE) -- 등급
 )
 
+
+select * from study
+
 insert into member values(MEMBER_SEQ.nextval, 6,'gwang12','0002', null)
 insert into member values(MEMBER_SEQ.nextval, 7,'gwang12','0002', null)
 insert into member values(MEMBER_SEQ.nextval, 10,'jun12','0002', null)
@@ -112,6 +119,13 @@ insert into member values(MEMBER_SEQ.nextval, 6,'crw12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 7,'crw12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 11,'crw12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 12,'gwang12','0004', null)
+insert into member values(MEMBER_SEQ.nextval, 12,'crw12','0004', '0147')
+commit
+update member set GRADE='0146' where id='gwang12' and STUDY_CODE= 12
+update member set JOIN_STATUS='0004' where id='crw12' and STUDY_CODE= 12
+select * from member where id='gwang12' and STUDY_CODE= 12
+insert into member values(MEMBER_SEQ.nextval, 12,'jun12','0004', '0147')
+select * from member where study_code =12
 insert into member values(MEMBER_SEQ.nextval, 10,'crw12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 13,'jun12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 14,'crw12','0004', null)
@@ -132,6 +146,8 @@ select SEND_MESSAGE_CODE, ID, title, content, RECV_ID, write_date
 	from SEND_MESSAGE 
 	where ID='gwang12' and title||content||id like '%1%'
 	order by SEND_MESSAGE_CODE desc --sendMail 검색 쿼리
+	
+	select id from user_tb where lower(id) like lower('g%') --id 검색
  
 CREATE SEQUENCE MEMBER_SEQ
 START WITH 1

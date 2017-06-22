@@ -6,11 +6,11 @@ public class MemberDTO {
 	private int studyCode;
 	private String memberId; 
 	private int joinStatus; //가입상태
-	private int grade; //등급
+	private String grade; //등급
 	
 	public MemberDTO() {}
 	
-	public MemberDTO(int memberCode, int studyCode, String memberId, int joinStatus, int grade) {
+	public MemberDTO(int memberCode, int studyCode, String memberId, int joinStatus, String grade) {
 		super();
 		this.memberCode = memberCode;
 		this.studyCode = studyCode;
@@ -42,10 +42,10 @@ public class MemberDTO {
 	public void setJoinStatus(int joinStatus) {
 		this.joinStatus = joinStatus;
 	}
-	public int getGrade() {
+	public String getGrade() {
 		return grade;
 	}
-	public void setGrade(int grade) {
+	public void setGrade(String grade) {
 		this.grade = grade;
 	}
 	
