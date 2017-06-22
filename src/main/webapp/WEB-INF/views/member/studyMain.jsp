@@ -313,7 +313,7 @@ desired effect
         <li id="sideTask"><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
         <li id="sideChatting"><a href="#" id="chatting"><i class="fa fa-link"></i> <span>채팅</span></a></li>
         <li id="sideBoard"><a href="#" id="board"><i class="fa fa-link"></i> <span>게시판</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
+        <li id="sideMemberAdmin"><a href="#" id="memberAdmin"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -684,6 +684,7 @@ desired effect
          $("#sideSchedule").attr('class','');
          $("#sideBoard").attr('class','');
          $("#sideChatting").attr('class','');
+         $("#sideMemberAdmin").attr('class','');
       })
       $("#main").click(function() {
          $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
@@ -692,6 +693,7 @@ desired effect
          $("#sideSchedule").attr('class','');
          $("#sideBoard").attr('class','');
          $("#sideChatting").attr('class','');
+         $("#sideMemberAdmin").attr('class','');
       })
       $("#schedule").click(function () {
 		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/schedule');
@@ -700,14 +702,16 @@ desired effect
 		$("#sideMain").attr('class','');
 		$("#sideBoard").attr('class','');
 		$("#sideChatting").attr('class','');
+		$("#sideMemberAdmin").attr('class','');
 	  })
 	  $("#chatting").click(function() {
-			$("#iframe").attr('src','${pageContext.request.contextPath}/member/task/chatting');
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/chatting');
 			$("#sideTask").attr('class','');
 			$("#sideMain").attr('class','');
 			$("#sideSchedule").attr('class','');
 			$("#sideBoard").attr('class','');
 			$("#sideChatting").attr('class','active');
+			$("#sideMemberAdmin").attr('class','');
 		})
 	  $("#board").click(function () {
 		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/board/selectAll');
@@ -716,6 +720,16 @@ desired effect
 		$("#sideTask").attr('class','');
 		$("#sideMain").attr('class','');
 		$("#sideChatting").attr('class','');
+		$("#sideMemberAdmin").attr('class','');
+	  })
+	  $("#memberAdmin").click(function () {
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/memberAdmin');
+		$("#sideBoard").attr('class','');
+		$("#sideSchedule").attr('class','');
+		$("#sideTask").attr('class','');
+		$("#sideMain").attr('class','');
+		$("#sideChatting").attr('class','');
+		$("#sideMemberAdmin").attr('class','active');
 	  })
    })
 
