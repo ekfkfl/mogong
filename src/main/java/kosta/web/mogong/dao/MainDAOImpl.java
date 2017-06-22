@@ -52,4 +52,16 @@ public class MainDAOImpl implements MainDAO {
 	public List<CommCodeDTO> getAreaCode(String areaCode) {
 		return sqlSession.selectList("mainMapper.selectAreaCode", areaCode);
 	}
+	@Override
+	public List<StudyDTO> selectRecentStudy() {
+		return sqlSession.selectList("mainMapper.selectRecentStudy");
+	}
+	
+	@Override
+	public List<StudyDTO> selectSearchStudy(StudyDTO studyDTO, int page) {
+		int limit=3;
+		int offset=limit*(page-1);
+		
+		return sqlSession.selectList("mainMapper.selectSearchStudy", studyDTO);
+	}
 }

@@ -26,7 +26,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.web.mogong.dto.BoardCommentDTO;
 import kosta.web.mogong.dto.BoardDTO;
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.PagingDTO;
+import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.service.BoardService;
 
 @Controller
@@ -54,9 +56,10 @@ public class BoardController {
 			
 		dto.setFileName(fileName);
 		dto.setFileSize(fileSize);
-		String path = request.getRealPath("/")+"save";
+		String path = request.getServletContext().getRealPath("/data/save/");
 		
 		File file = new File(path);
+		
 		if(!file.exists()){
 			file.mkdirs();
 		}
@@ -64,7 +67,10 @@ public class BoardController {
 		if(!uploadFile.exists()){
 			multiFile.transferTo(uploadFile);
 		}
-		dto.setMemberCode(2);
+		
+		UserDTO userDTO=(UserDTO)request.getSession().getAttribute("userDTO");
+
+		dto.setMemberCode(boardService.selectMemberCode(new MemberDTO(6,userDTO.getId())));
 		dto.setStudyCode(6);
 		
 		int result = boardService.boardInsert(dto);
@@ -94,10 +100,11 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/selectById")
-	public ModelAndView boardSelectById(String boardCode,String content,String flag){
+	public ModelAndView boardSelectById(HttpSession session, String boardCode,String content,String flag){
+		UserDTO userDTO=(UserDTO)session.getAttribute("userDTO");
 		
 		if("true".equals(flag)){
-			boardService.commentInsert(new BoardCommentDTO(Integer.parseInt(boardCode), 2, 6, content));
+			boardService.commentInsert(new BoardCommentDTO(Integer.parseInt(boardCode), boardService.selectMemberCode(new MemberDTO(6,userDTO.getId())), 6, content));
 		}
 		
 		BoardDTO dto = boardService.boardSelectById(boardCode);
@@ -112,8 +119,6 @@ public class BoardController {
 	
 	@RequestMapping("/board/download")
 	public ModelAndView down(HttpServletRequest request,String fname){
-		return new ModelAndView("downLoadView","fname",new File(request.getRealPath("/")+"save/"+fname));
+		return new ModelAndView("downLoadView","fname",new File(request.getServletContext().getRealPath("/data/save/")+fname));
 	}
-	
-	
 }

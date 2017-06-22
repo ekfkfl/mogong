@@ -67,4 +67,13 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.getAreaCode(areaCode);
 	}
 
+	@Override
+	public List<StudyDTO> selectRecentStudy() {
+		return mainDAO.selectRecentStudy();
+	}
+	
+	@Override
+	public List<StudyDTO> selectSearchStudy(StudyDTO studyDTO, int page) {
+		return mainDAO.selectSearchStudy(studyDTO, page);
+	}
 }

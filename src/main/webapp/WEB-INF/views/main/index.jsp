@@ -74,97 +74,97 @@
 			<div class="row">
 
 				<div class="col-xs-6 col-sm-3 col-md-3">
-					<div class="item">
+					<div class="item" id="${studyList[0].studyCode}">
 						<img
 							src="${pageContext.request.contextPath}/resources/images/portfolio/portfolio1.jpg"
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>lorem ipsum amet</p>
+							<p>${studyList[0].name}</p>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-xs-6 col-sm-3 col-md-3">
-					<div class="item">
+					<div class="item" id="${studyList[1].studyCode}">
 						<img
 							src="${pageContext.request.contextPath}/resources/images/portfolio/portfolio2.jpg"
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>lorem ipsum amet</p>
+							<p>${studyList[1].name}</p>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-xs-6 col-sm-3 col-md-3">
-					<div class="item">
+					<div class="item" id="${studyList[2].studyCode}">
 						<img
 							src="${pageContext.request.contextPath}/resources/images/portfolio/portfolio3.jpg"
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>lorem ipsum amet</p>
+							<p>${studyList[2].name}</p>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-xs-6 col-sm-3 col-md-3">
-					<div class="item">
+					<div class="item" id="${studyList[3].studyCode}">
 						<img
 							src="${pageContext.request.contextPath}/resources/images/portfolio/portfolio4.jpg"
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>lorem ipsum amet</p>
+							<p>${studyList[3].name}</p>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-xs-6 col-sm-3 col-md-3">
-					<div class="item">
+					<div class="item" id="${studyList[4].studyCode}">
 						<img
 							src="${pageContext.request.contextPath}/resources/images/portfolio/portfolio5.jpg"
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>what you see</p>
+							<p>${studyList[4].name}</p>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-xs-6 col-sm-3 col-md-3">
-					<div class="item">
+					<div class="item" id="${studyList[5].studyCode}">
 						<img
 							src="${pageContext.request.contextPath}/resources/images/portfolio/portfolio6.jpg"
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>lorem ipsum amet</p>
+							<p>${studyList[5].name}</p>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-xs-6 col-sm-3 col-md-3">
-					<div class="item">
+					<div class="item" id="${studyList[6].studyCode}">
 						<img
 							src="${pageContext.request.contextPath}/resources/images/portfolio/portfolio7.jpg"
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>lorem ipsum amet</p>
+							<p>${studyList[6].name}</p>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-xs-6 col-sm-3 col-md-3">
-					<div class="item">
+					<div class="item" id="${studyList[7].studyCode}">
 						<img
 							src="${pageContext.request.contextPath}/resources/images/portfolio/portfolio8.jpg"
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>lorem ipsum amet</p>
+							<p>${studyList[7].name}</p>
 						</div>
 					</div>
 				</div>
@@ -359,5 +359,13 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	$(function() {
+		$(".item").click(function() {
+			location.href="${pageContext.request.contextPath}/search/detail?studyCode="+$(this).attr("id");
+		})
+	})
+</script>
 
 <jsp:include page="/WEB-INF/views/main/footer.jsp" />

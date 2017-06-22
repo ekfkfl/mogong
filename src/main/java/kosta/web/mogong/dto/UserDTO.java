@@ -17,6 +17,8 @@ public class UserDTO {
 	
 	private MultipartFile file; //프로필 사진
 	
+	private MemberDTO memberDTO;// 멤버 등급때문에!!
+	
 	public UserDTO() {}
 	
 
@@ -148,6 +150,16 @@ public class UserDTO {
 
 	public void setUserType(String userType) {
 		this.userType = userType;
+	}
+	
+	
+	public MemberDTO getMemberDTO() {
+		return memberDTO;
+	}
+
+
+	public void setMemberDTO(MemberDTO memberDTO) {
+		this.memberDTO = memberDTO;
 	}
 
 

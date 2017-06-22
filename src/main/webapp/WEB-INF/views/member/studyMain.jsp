@@ -236,47 +236,10 @@ desired effect
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <!-- The user image in the navbar-->
-              <img src="${pageContext.request.contextPath}/resources/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+            <a>
+              <img src='${pageContext.request.contextPath}${sessionScope.userDTO.path}' class="user-image" alt="User Image">
+              <span class="hidden-xs">${sessionScope.userDTO.name}</span>
             </a>
-            <ul class="dropdown-menu">
-              <!-- The user image in the menu -->
-              <li class="user-header">
-                <img src="${pageContext.request.contextPath}/resources/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-
-                <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
-                </p>
-              </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                </div>
-              </li>
-            </ul>
           </li>
          <!-- Control Sidebar Toggle Button -->
           <li>
@@ -295,10 +258,10 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="${pageContext.request.contextPath}/resources/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="${pageContext.request.contextPath}${sessionScope.userDTO.path}" class="img-circle" alt="User Image" style="height:50px">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>${sessionScope.userDTO.name}</p>
           <!-- Status -->
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
@@ -313,7 +276,7 @@ desired effect
         <li id="sideTask"><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
         <li id="sideChatting"><a href="#" id="chatting"><i class="fa fa-link"></i> <span>채팅</span></a></li>
         <li id="sideBoard"><a href="#" id="board"><i class="fa fa-link"></i> <span>게시판</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
+        <li id="sideMemberAdmin"><a href="#" id="memberAdmin"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -684,6 +647,7 @@ desired effect
          $("#sideSchedule").attr('class','');
          $("#sideBoard").attr('class','');
          $("#sideChatting").attr('class','');
+         $("#sideMemberAdmin").attr('class','');
       })
       $("#main").click(function() {
          $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
@@ -692,6 +656,7 @@ desired effect
          $("#sideSchedule").attr('class','');
          $("#sideBoard").attr('class','');
          $("#sideChatting").attr('class','');
+         $("#sideMemberAdmin").attr('class','');
       })
       $("#schedule").click(function () {
 		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/schedule');
@@ -700,14 +665,16 @@ desired effect
 		$("#sideMain").attr('class','');
 		$("#sideBoard").attr('class','');
 		$("#sideChatting").attr('class','');
+		$("#sideMemberAdmin").attr('class','');
 	  })
 	  $("#chatting").click(function() {
-			$("#iframe").attr('src','${pageContext.request.contextPath}/member/task/chatting');
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/chatting');
 			$("#sideTask").attr('class','');
 			$("#sideMain").attr('class','');
 			$("#sideSchedule").attr('class','');
 			$("#sideBoard").attr('class','');
 			$("#sideChatting").attr('class','active');
+			$("#sideMemberAdmin").attr('class','');
 		})
 	  $("#board").click(function () {
 		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/board/selectAll');
@@ -716,6 +683,16 @@ desired effect
 		$("#sideTask").attr('class','');
 		$("#sideMain").attr('class','');
 		$("#sideChatting").attr('class','');
+		$("#sideMemberAdmin").attr('class','');
+	  })
+	  $("#memberAdmin").click(function () {
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/memberAdmin');
+		$("#sideBoard").attr('class','');
+		$("#sideSchedule").attr('class','');
+		$("#sideTask").attr('class','');
+		$("#sideMain").attr('class','');
+		$("#sideChatting").attr('class','');
+		$("#sideMemberAdmin").attr('class','active');
 	  })
    })
 

@@ -25,7 +25,7 @@ import kosta.web.mogong.dto.UserDTO;
 @Controller
 public class SocketController {
 	
-	@RequestMapping("/member/task/chatting")
+	@RequestMapping("/member/study/chatting")
 	public ModelAndView viewChattingPage(HttpSession session, HttpServletRequest request){
 		
 		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
@@ -69,12 +69,12 @@ public class SocketController {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("chatList", chatList);
-		mv.setViewName("/task/chatting");
+		mv.setViewName("/member/chatting");
 		
 		return mv;
 	}
 	
-	@RequestMapping("/member/task/fileSave")
+	@RequestMapping("/member/study/fileSave")
 	@ResponseBody
 	public void fileSave(String sessionId, String message, String date, String photo){
 		

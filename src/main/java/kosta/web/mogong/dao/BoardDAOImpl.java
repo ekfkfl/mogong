@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import kosta.web.mogong.dto.BoardCommentDTO;
 import kosta.web.mogong.dto.BoardDTO;
+import kosta.web.mogong.dto.MemberDTO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO{
@@ -49,8 +50,9 @@ public class BoardDAOImpl implements BoardDAO{
 
 		return sqlSession.selectOne("boardMapper.boardGetCount", field);
 	}
-	
 
-	
-	
+	@Override
+	public int selectMemberCode(MemberDTO memberDTO) {
+		return sqlSession.selectOne("boardMapper.selectMemberCode", memberDTO);
+	}
 }

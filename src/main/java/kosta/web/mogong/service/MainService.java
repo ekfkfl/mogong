@@ -14,4 +14,8 @@ public interface MainService {
 	String messageCount(String id);
 	
 	List<CommCodeDTO> getAreaCode(String areaCode);
+	
+	List<StudyDTO> selectRecentStudy();
+	
+	List<StudyDTO> selectSearchStudy(StudyDTO studyDTO, int page);
 }

@@ -115,7 +115,7 @@ public class TaskController {
 
 		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
 
-		String path = request.getServletContext().getRealPath("/") + "taskFile\\";
+		String path = request.getServletContext().getRealPath("/data/taskFile/");
 
 		File dir = new File(path);
 

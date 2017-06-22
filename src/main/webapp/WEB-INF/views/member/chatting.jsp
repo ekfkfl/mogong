@@ -92,7 +92,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         $("#message").val("");
         $("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
         $.ajax({
-  			  url: "${pageContext.request.contextPath}/member/task/fileSave" , //서버 요청 이름(주소)
+  			  url: "${pageContext.request.contextPath}/member/study/fileSave" , //서버 요청 이름(주소)
   			  type: "get" ,//method방식(get, post)
   			  data: "sessionId=${requestScope.sessionId}&message="+message+"&date="+presentDate+"&photo=${requestScope.sessionPhoto}" ,//서버에게 보낼 parameter 정보
   			  success: function(result){
@@ -148,15 +148,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	</script>
 </head>
 <body onload="scroll()">
-<input type="hidden" name="studyCode" id="studyCode" value="6"/>
     <section class="content-header">
       <h1>
         Chatting
         <small>멤버들과 이야기를 나눌 수 있습니다.</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Study</a></li>
-        <li class="active">Task</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Study</a></li>
+        <li class="active">Chatting</li>
       </ol>
     </section>
 

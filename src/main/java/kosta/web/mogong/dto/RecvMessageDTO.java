@@ -8,11 +8,12 @@ public class RecvMessageDTO {
 	private String sendId; //보낸 회원 ID
 	private String writeDate; //작성일
 	private String confirm; //받은 쪽지 확인 유무
+	private int studyCode; //멤버초대에 있어서 필요함
 	
 	public RecvMessageDTO() {}
 	
 	public RecvMessageDTO(int recvMessageCode, String id, String title, String content, String sendId, String writeDate,
-			String confirm) {
+			String confirm, int studyCode) {
 		super();
 		this.recvMessageCode = recvMessageCode;
 		this.id = id;
@@ -21,6 +22,7 @@ public class RecvMessageDTO {
 		this.sendId = sendId;
 		this.writeDate = writeDate;
 		this.confirm = confirm;
+		this.studyCode = studyCode;
 	}
 	public int getRecvMessageCode() {
 		return recvMessageCode;
@@ -64,5 +66,14 @@ public class RecvMessageDTO {
 	public void setConfirm(String confirm) {
 		this.confirm = confirm;
 	}
+
+	public int getStudyCode() {
+		return studyCode;
+	}
+
+	public void setStudyCode(int studyCode) {
+		this.studyCode = studyCode;
+	}
+	
 	
 }
