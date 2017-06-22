@@ -52,7 +52,7 @@
           <div class="box box-widget">
             <div class="box-header with-border">
               <div class="user-block">
-                <img class="img-circle" src="${pageContext.request.contextPath}/resources/dist/img/user1-128x128.jpg" alt="User Image">
+                <img class="img-circle" src="${pageContext.request.contextPath}${boardDTO.path}" alt="User Image">
                 <span class="username"><a href="#">${boardDTO.name }</a></span>
                 <span class="description">${boardDTO.title} - ${boardDTO.writeDate}</span>
               </div>
@@ -78,7 +78,7 @@
             <c:forEach items="${list}" var="dto">
               <div class="box-comment">
                 <!-- User image -->
-                <img class="img-circle img-sm" src="${pageContext.request.contextPath}/resources/dist/img/user3-128x128.jpg" alt="User Image">
+                <img class="img-circle img-sm" src="${pageContext.request.contextPath}${dto.path}" alt="User Image">
 
                 <div class="comment-text">
                       <span class="username">
@@ -98,7 +98,7 @@
 				<input type="hidden" name="boardCode" value="${boardDTO.boardCode}">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <input type="hidden" name="flag" value="true">
-                <img class="img-responsive img-circle img-sm" src="${pageContext.request.contextPath}/resources/dist/img/user4-128x128.jpg" alt="Alt Text">
+                <img class="img-responsive img-circle img-sm" src="${pageContext.request.contextPath}${sessionScope.userDTO.path}" alt="Alt Text">
                 <div class="img-push">
                   <input type="text" id="textbox" name="content" class="form-control input-sm" placeholder="댓글을 입력해주세요">
                 </div>
