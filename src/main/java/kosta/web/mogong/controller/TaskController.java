@@ -13,9 +13,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -113,7 +115,7 @@ public class TaskController {
 
 		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
 
-		String path = request.getServletContext().getRealPath("/") + "taskFile/";
+		String path = request.getServletContext().getRealPath("/") + "taskFile\\";
 
 		File dir = new File(path);
 
@@ -145,13 +147,15 @@ public class TaskController {
 	}
 
 	@RequestMapping("/fileDownload")
-	public void fileDownload(HttpServletResponse response, String fullPath, String fileName) throws Exception {
-		System.out.println(fullPath);
-		byte fileByte[] = FileUtils.readFileToByteArray(new File(fullPath));
+	public void fileDownload(HttpServletResponse response, String taskFileCode) throws Exception {
+		TaskFileDTO taskFileDTO = taskService.selectOneTaskFile(Integer.parseInt(taskFileCode));
 		
+		byte fileByte[] = FileUtils.readFileToByteArray(new File(taskFileDTO.getPath()));
+
 		response.setContentType("application/octet-stream");
 		response.setContentLength(fileByte.length);
-		response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(fileName, "UTF-8") + "\";");
+		response.setHeader("Content-Disposition",
+				"attachment; fileName=\"" + URLEncoder.encode(taskFileDTO.getFileName(), "UTF-8") + "\";");
 		response.setHeader("Content-Transfer-Encoding", "binary");
 		response.getOutputStream().write(fileByte);
 

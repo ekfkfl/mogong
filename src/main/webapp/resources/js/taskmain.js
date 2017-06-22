@@ -483,13 +483,9 @@ $(function() {
 		selectTaskFile();
 	})
 	
-	$(".taskFile").click(function() {
-		alert();
-	})
-	
-	$(document).on("click",".taskFile",function() {
-		fileDownload($(this).attr('id'),$(this).find("#fileName"));
-	})
+	/*$(document).on("click",".taskFile",function() {
+		fileDownload($(this).attr('id'),$(this).find("#fileName").text());
+	})*/
 	
 	function selectTaskFile() {
 		$.ajax({
@@ -504,7 +500,7 @@ $(function() {
 					str+="<tr id='"+item.path+"' class='taskFile'>";
 					str+="<td>"+(index+1)+"</td>";
 					str+="<td>"+item.name+"</td>";
-					str+="<td id='fileName'>"+item.fileName+"</td>";
+					str+="<td id='fileName'><a href='task/fileDownload?taskFileCode="+item.taskFileCode+"'>"+item.fileName+"</a></td>";
 					str+="<td>"+item.fileSize+"</td>";
 					str+="<td>"+item.writeDate+"</td>";
 					str+="</tr>";
@@ -516,9 +512,7 @@ $(function() {
 		})
 	}
 	
-	function fileDownload(fullPath,fileName) {
-		console.log(fullPath);
-		console.log(fileName);
-//		location.href="task/fileDownload?fullPath="+fullPath+"&fileName="+fileName+"&"+csrf_name+"="+csrf_token;
-	}
+	/*function fileDownload(fullPath,fileName) {
+		location.href="task/fileDownload?fullPath="+fullPath+"&fileName="+fileName+"&"+csrf_name+"="+csrf_token;
+	}*/
 });

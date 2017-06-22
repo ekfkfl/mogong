@@ -31,4 +31,6 @@ public interface TaskService {
 	void insertTaskFile(TaskFileDTO taskFileDTO);
 	
 	List<TaskFileDTO> selectTaskFile(int taskCode);
+	
+	TaskFileDTO selectOneTaskFile(int taskFileCode);
 }

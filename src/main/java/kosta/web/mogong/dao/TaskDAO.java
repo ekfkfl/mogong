@@ -43,4 +43,6 @@ public interface TaskDAO {
 	int insertTaskFile(TaskFileDTO taskFileDTO);
 	
 	List<TaskFileDTO> selectTaskFile(int taskCode);
+	
+	TaskFileDTO selectOneTaskFile(int taskFileCode);
 }

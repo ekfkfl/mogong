@@ -126,4 +126,8 @@
 	select * from task_file where task_code=#{taskCode}
 </select>
 
+<select id="selectOneTaskFile" parameterType="int" resultMap="taskFileMap">
+	select * from task_file where task_file_code=#{taskFileCode}
+</select>
+
 </mapper>
