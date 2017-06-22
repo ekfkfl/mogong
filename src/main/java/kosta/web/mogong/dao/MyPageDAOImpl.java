@@ -98,4 +98,14 @@ public class MyPageDAOImpl implements MyPageDAO {
 		
 		return sqlSession.selectList("mypageMapper.searchRecvMail", map);
 	}
+
+	@Override
+	public int inviteAgree(String id, String studyCode) {
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("id", id);
+		map.put("studyCode", studyCode);
+		
+		return sqlSession.insert("mypageMapper.inviteAgree", map);
+	}
 }

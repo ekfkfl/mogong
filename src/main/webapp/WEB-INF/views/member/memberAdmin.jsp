@@ -138,7 +138,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							  str+="<td class='mailbox-name'>"+item.birth+"</td>"
 							  str+="<td class='mailbox-name'>"+item.gender+"</td>"
 							  str+="<td class='mailbox-name'>"+item.phone+"</td>"
-							  str+="<td class='mailbox-name'>"+"${CodeUtil.getCodeName("+item.memberDTO.grade+")}</td>"
+							  str+="<td class='mailbox-name'>"+item.commCodeDTO.codeName+"</td>"
 							  str+="<td><input type='button' name='"+item.id+"' value='수정' id='update' class='btn btn-primary btn-xs'></td>"
 							  str+="<td><input type='button' name='"+item.id+"' value='탈퇴' id='delete' class='btn btn-primary btn-xs'></td></tr>"
 						  })
@@ -166,6 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				  },
 				  error: function(err){
 					  alert("오류발생 : "+ err);
+					  printMemberAll()
 				  }
 			 });
 		}

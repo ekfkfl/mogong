@@ -186,4 +186,13 @@ public class MyPageController {
 		return new ModelAndView("/mypage/recvMail", "list", list);
 	}
 	
+	@RequestMapping("/member/mypage/inviteAgree")
+	@ResponseBody
+	public int inviteAgree(HttpSession session,String studyCode){
+		
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
+		
+		return myPageServiceImpl.inviteAgree(userDTO.getId(), studyCode);
+	}
+	
 }

@@ -60,7 +60,7 @@
 			        <div class="col-md-3">
 			          <div class="box box-default collapsed-box">
 			            <div class="box-header with-border">
-			              <h3 class="box-title">${studyDTO.name}</h3>
+			              <h5 class="box-title">${studyDTO.name}</h5>
 			              
 			              <div class="box-tools pull-right">
 			                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>

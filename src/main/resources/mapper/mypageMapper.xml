@@ -59,6 +59,7 @@ member.id as memberId, JOIN_STATUS
 	<result column="SEND_ID" property="sendId"/>
 	<result column="WRITE_DATE" property="writeDate"/>
 	<result column="CONFIRM" property="confirm"/>
+	<result column="STUDY_CODE" property="studyCode"/>
 </resultMap>
 
 
@@ -96,7 +97,7 @@ where STUDY_STATUS='0043' and id=#{_parameter}
 </insert>
 
 <select id="recvMail" parameterType="string" resultMap="recvMessageDTO">
-select RECV_MESSAGE_CODE, ID, title, content, SEND_ID, write_date, CONFIRM
+select RECV_MESSAGE_CODE, ID, title, content, SEND_ID, write_date, CONFIRM, study_Code
 from RECV_MESSAGE 
 where ID=#{_parameter}
 order by RECV_MESSAGE_CODE desc
@@ -145,5 +146,9 @@ order by SEND_MESSAGE_CODE desc
 	where ID=#{id} and title||content||id like '%'||#{word}||'%'
 	order by RECV_MESSAGE_CODE desc
 </select>
+
+<insert id="inviteAgree" parameterType="map">
+	insert into member values(MEMBER_SEQ.nextval, #{studyCode}, #{id},'0004', '0147')
+</insert>
 
 </mapper>

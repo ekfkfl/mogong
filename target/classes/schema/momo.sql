@@ -121,7 +121,7 @@ insert into member values(MEMBER_SEQ.nextval, 11,'crw12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 12,'gwang12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 12,'crw12','0004', '0147')
 commit
-update member set GRADE='0146' where id='gwang12' and STUDY_CODE= 12
+update member set GRADE='0147' where id='jun12' and STUDY_CODE= 12
 update member set JOIN_STATUS='0004' where id='crw12' and STUDY_CODE= 12
 select * from member where id='gwang12' and STUDY_CODE= 12
 insert into member values(MEMBER_SEQ.nextval, 12,'jun12','0004', '0147')
@@ -130,7 +130,7 @@ insert into member values(MEMBER_SEQ.nextval, 10,'crw12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 13,'jun12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 14,'crw12','0004', null)
 
-select * from MEMBER;
+select * from MEMBER where STUDY_CODE= 12 ;
 
 select
 study.STUDY_CODE, study.ID, CATEGORY_CODE, CITY_CODE, NAME, WRITE_DATE,
