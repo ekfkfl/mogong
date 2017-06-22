@@ -8,6 +8,6 @@
 	
 	<insert id="scheduleInsert" parameterType="taskDTO">
 	insert into task
-	values(task_seq.nextval,#{studyCode},#{title},null,'0001',to_date(#{startDate},'yyyy-mm-dd hh24:mi:ss'),to_date(#{endDate},'yyyy-mm-dd hh24:mi:ss'),null,null,null,null)
+	values(task_seq.nextval,#{studyCode},#{title},null,'0142',to_date(#{startDate},'yyyy-mm-dd hh24:mi:ss'),to_date(#{endDate},'yyyy-mm-dd hh24:mi:ss'),null,null,null,null)
 </insert>
 </mapper>

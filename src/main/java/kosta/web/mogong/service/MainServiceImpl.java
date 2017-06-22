@@ -1,11 +1,14 @@
 package kosta.web.mogong.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kosta.web.mogong.dao.MainDAO;
 import kosta.web.mogong.dto.BoardDTO;
+import kosta.web.mogong.dto.CommCodeDTO;
 import kosta.web.mogong.dto.StudyDTO;
 
 @Service
@@ -37,4 +40,13 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.messageCount(id);
 	}
 
+	@Override
+	public List<CommCodeDTO> getAreaCode(String areaCode) {
+		return mainDAO.getAreaCode(areaCode);
+	}
+
+	@Override
+	public List<StudyDTO> selectRecentStudy() {
+		return mainDAO.selectRecentStudy();
+	}
 }

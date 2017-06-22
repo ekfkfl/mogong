@@ -2,6 +2,7 @@ $(function() {
 	jQuery.ajaxSettings.traditional = true;
 	var taskCode;
 	var csrf_token = $("#csrf").val();
+	var csrf_name = $("#csrf").attr("name");
 	
 	$(document).bind("ajaxSend", function(elm, xhr, s){
 		  if (s.type == "POST") {
@@ -127,6 +128,42 @@ $(function() {
 		insertTask($("#doneTitle").val(),'0144');
 	})
 	
+	$("#message").keyup(function(e) {
+		if(e.keyCode == 13) {
+			if($("#message").val().trim() == "") {
+				return
+			}
+			
+			taskCommentDTO = new Object();
+		
+			taskCommentDTO.taskCode=taskCode;
+			taskCommentDTO.id=sessionID;
+			taskCommentDTO.name=sessionName;
+			taskCommentDTO.path=sessionPath;
+			taskCommentDTO.content=$("#message").val();
+		
+			insertTaskComment(taskCommentDTO);
+		}
+	})
+	
+	$("#sendComment").click(function() {
+		if($("#message").val().trim() != "") {
+			taskCommentDTO = new Object();
+			
+			taskCommentDTO.taskCode=taskCode;
+			taskCommentDTO.id=sessionID;
+			taskCommentDTO.name=sessionName;
+			taskCommentDTO.path=sessionPath;
+			taskCommentDTO.content=$("#message").val();
+			insertTaskComment(taskCommentDTO);
+		}
+	})
+	
+	$("a[href='#tab2']").click(function() {
+		$("#message").val("");
+		selectTaskComment();
+	})
+	
 	function insertTask(title,progressStatus) {
 		var progress;
 		
@@ -238,10 +275,8 @@ $(function() {
 			url: "task/updateTask",
 			data: taskDTO,
 			success: function() {
-//				$("#modal-default").modal("hide");
+				$("#modal-default").modal("hide");
 				$("#"+taskDTO.taskCode).text(taskDTO.title);
-				selectOneTask(taskCode);
-				alert('저장 완료');
 			}
 		})
 	}
@@ -277,6 +312,9 @@ $(function() {
 	}
 	
 	$(document).on('click','#task',function() {
+		$('a[href="#tab1"]').click();
+		$("#fileUpload").fileinput('destroy');
+		
 		taskCode=$(this).find('span').attr('id');
 		
 		selectOneTask(taskCode);
@@ -357,4 +395,126 @@ $(function() {
 			data: allTaskCodeDTO
 		})
 	}
+	
+	function insertTaskComment(taskCommentDTO) {
+		$.ajax({
+			type: "post",
+			url: "task/insertTaskComment",
+			data: taskCommentDTO,
+			success: function(data) {
+				$("#chatMessage").append(
+			    		"<div class='direct-chat-msg right'>"+
+		                "<div class='direct-chat-info clearfix'>"+
+		                 "<span class='direct-chat-name pull-right'>"+data.name+"</span>"+
+		                 "<span class='direct-chat-timestamp pull-left'>"+data.writeDate+"</span>"+
+		                "</div>"+
+		                "<img class='direct-chat-img' src='"+data.path+"' alt='message user image'>"+
+		                "<div class='direct-chat-text'>"+
+		                data.content+
+		                "</div>"+
+		         		"</div>"
+			    		);
+		        $("#message").val("");
+		        
+		        scroll();
+			}
+		})
+	}
+	
+	function selectTaskComment() {
+		$.ajax({
+			type: "post",
+			url: "task/selectTaskComment",
+			data: "taskCode="+taskCode,
+			success: function(data) {
+				$("#chatMessage").children().remove();
+				
+				$.each(data,function(index,item) {
+					if(sessionID == item.id) {
+						$("#chatMessage").append(
+					    		"<div class='direct-chat-msg right'>"+
+				                "<div class='direct-chat-info clearfix'>"+
+				                 "<span class='direct-chat-name pull-right'>"+item.name+"</span>"+
+				                 "<span class='direct-chat-timestamp pull-left'>"+item.writeDate+"</span>"+
+				                "</div>"+
+				                "<img class='direct-chat-img' src='"+item.path+"' alt='message user image'>"+
+				                "<div class='direct-chat-text'>"+
+				                item.content+
+				                "</div>"+
+				         		"</div>"
+					    		);
+					} else {
+						$("#chatMessage").append(
+					    		"<div class='direct-chat-msg'>"+
+				                "<div class='direct-chat-info clearfix'>"+
+				                 "<span class='direct-chat-name pull-left'>"+item.name+"</span>"+
+				                 "<span class='direct-chat-timestamp pull-right'>"+item.writeDate+"</span>"+
+				                "</div>"+
+				                "<img class='direct-chat-img' src='"+item.path+"' alt='message user image'>"+
+				                "<div class='direct-chat-text'>"+
+				                item.content+
+				                "</div>"+
+				         		"</div>"
+					    		);
+					}
+				})
+				
+				scroll();
+			}
+		})
+	}
+	
+	function scroll(){
+		$("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
+	}
+	
+	$("a[href='#tab3'").click(function() {
+		$('#fileUpload').fileinput({
+		    language: 'kr',
+			uploadUrl: "task/fileUpload",
+			uploadAsync: true,
+			uploadExtraData: {
+				taskCode: taskCode
+		    }
+		});
+	})
+	
+	$("a[href='#tab4'").click(function() {
+		selectTaskFile();
+	})
+	
+	/*$(document).on("click",".taskFile",function() {
+		fileDownload($(this).attr('id'),$(this).find("#fileName").text());
+	})*/
+	
+	function selectTaskFile() {
+		$.ajax({
+			type: "post",
+			url: "task/selectTaskFile",
+			data: "taskCode="+taskCode,
+			dataType: "json",
+			success: function(data) {
+				var str="";
+				
+				$.each(data,function(index,item){
+					var size=item.fileSize/1024;
+					
+					str+="<tr id='"+item.path+"' class='taskFile'>";
+					str+="<td>"+(index+1)+"</td>";
+					str+="<td>"+item.name+"</td>";
+					str+="<td id='fileName'><a href='task/fileDownload?taskFileCode="+item.taskFileCode+"'>"+item.fileName+"</a></td>";
+					str+="<td>"+size.toFixed(2)+" kb</td>";
+					str+="<td>"+item.writeDate+"</td>";
+					str+="</tr>";
+				})
+				
+				$("#taskFileTable tr:gt(0)").remove();
+				$("#taskFileTable").append(str);
+			}
+		})
+	}
+	
+	/*function fileDownload(fullPath,fileName) {
+		location.href="task/fileDownload?fullPath="+fullPath+"&fileName="+fileName+"&"+csrf_name+"="+csrf_token;
+	}*/
 });

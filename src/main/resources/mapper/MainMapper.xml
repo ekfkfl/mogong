@@ -19,16 +19,24 @@
 		<result column="DESCRIPTION" property="description" />
 		<result column="READ" property="read" />
 		<result column="STUDY_STATUS" property="studyStatus" />
+		
+	</resultMap>
+	
+	<resultMap type="commCodeDTO" id="commMap">
+		<id column="comm_code" property="commCode"/>
+		<result column="code_name" property="codeName"/>
+		<result column="code_desc" property="codeDesc"/>
+		<result column="parent_code" property="parentCode"/>
 	</resultMap>
 
 	<!-- 스터디 등록 -->
 	<insert id="enrollStudy" parameterType="StudyDTO">
 		insert into study
-		values(study_seq.nextval,#{id},#{category},
-		#{cityCode},#{name},sysdate, sysdate,
-		sysdate, #{day},#{startTime},#{endTime},
-		#{people},#{area},#{description},#{read},
-		#{studyStatus})
+		values(study_seq.nextval,#{id},'0001',
+		#{detailArea},#{name},sysdate, #{startDate},
+		#{endDate}, #{day},#{startTime},#{endTime},
+		#{people},#{area},#{description},1,
+		'0043',#{addr1})
 	</insert>
 
 	<!-- 스터디 상세보기 -->
@@ -46,6 +54,15 @@
 	<!-- 읽지 않은 메시지 개수 가져오기 -->
 	<select id="messageCount" parameterType="string" resultType="string">
 		select COUNT(id) from recv_message where id=#{_parameter} and confirm='0051'
+	</select>
+	
+	<!-- 지역 상세 코드 가져오기 -->
+	<select id="selectAreaCode" parameterType="string" resultMap="commMap">
+		select comm_code,code_name from comm_code where parent_code=#{_parameter}
+	</select>
+	
+	<select id="selectRecentStudy" resultMap="studyMap">
+		select study_code, name from study order by write_date
 	</select>
 
 </mapper>

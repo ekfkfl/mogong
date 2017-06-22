@@ -1,451 +1,353 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
+
+
+ <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/daterangepicker.css">
+  <!-- Bootstrap time Picker -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-timepicker.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/select2.min.css">
+
+<!-- jQuery 3.1.1 -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.0.min.js"></script>
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <jsp:include page="/WEB-INF/views/main/header.jsp" />
 
+<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/enroll" name="insert">
+	
+	<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" >
+   <div class="container">
+      <div class="row">
+         <div
+            class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <div class="box box-info">
+               <div class="box-header with-border">
+                  <h3 class="box-title">스터디 등록하기</h3>
+               </div>
+               <div class="box-body">
+                  <div class="form-group">
+                     <div class="col-sm-12">
+                        <input type="text" class="form-control" id="name" name="name"
+                           placeholder="스터디 제목을 입력하세요">
+                     </div>
+                  </div>
+                   <div class="form-group">
+               <label>시작일 / 마감일</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="datePicker" class="form-control pull-right" id=dateChooser readonly="readonly">
+                </div>
+                <!-- /.input group -->
+              </div>
+                  
 
-<style>
-table {
-	width: 500px;
-	border-top: 1px solid #444444;
-	border-collapse: collapse;
-}
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+  <br>
+   <div class="container">
+      <div class="row">
+         <div
+            class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <div class="box box-info">
+               <div class="box-header with-border">
+                  <h3 class="box-title">스케줄 선택하기</h3>
+               </div>
+               <br>
+               <label>스터디 요일</label>
+               <div class="checkbox">
+                  <label> <input type="checkbox" name="day" value="일">일
+                  </label> <label> <input type="checkbox" name="day" value="월">월
+                  </label> <label> <input type="checkbox" name="day" value="화">화
+                  </label> <label> <input type="checkbox" name="day" value="수">수
+                  </label> <label> <input type="checkbox" name="day" value="목">목
+                  </label> <label> <input type="checkbox" name="day" value="금">금
+                  </label> <label> <input type="checkbox" name="day" value="토">토
+                  </label>
+               </div>
+               <br>
+                <div class="form-group">
+                  <div class="bootstrap-timepicker" style="float:left;width:50%">
+                  <label>스터디 시작 시간</label>
+                  <div class="input-group" style="width:80%">
+                    <input type="text" name="startTime" class="form-control timepicker" readonly="readonly">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                  </div>
+               	 </div>
+               	 <div class="bootstrap-timepicker" style="float:left;width:50%">
+                  <label>스터디 종료 시간</label>
+                  <div class="input-group" style="width:80%">
+                    <input type="text" name="endTime" class="form-control timepicker" readonly="readonly">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                  </div>
+                 <!-- /.input group -->
+               	 </div>
+               	 <!-- /.form group -->
+                </div>
+                <!-- /.form group -->
+              </div>
 
-th, td {
-	border-bottom: 1px solid #444444;
-	padding: 10px;
-	text-align: center;
-}
-</style>
+            </div>
+         </div>
+      </div>
+      <br><br><br><br><br>
+   <div class="container">
+      <div class="row">
+         <div class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <div class="box box-info">
+               <div class="box-header with-border">
+                  <h3 class="box-title">스터디 구성 선택하기</h3>
+               </div>
+               <label>인원 수</label><br>
+               <input type="radio" name="people" value="3">3명&nbsp;&nbsp;&nbsp;
+               <input type="radio" name="people" value="4">4명&nbsp;&nbsp;&nbsp;
+               <input type="radio" name="people" value="5">5명&nbsp;&nbsp;&nbsp;
+               <input type="radio" name="people" value="6">6명&nbsp;&nbsp;&nbsp;
+               <input type="radio" name="people" value="7">7명&nbsp;&nbsp;&nbsp;
+               <input type="radio" name="people" value="8">8명&nbsp;&nbsp;&nbsp;
+               <br><br>
+               <label>지역 선택</label><br>
+               <select class="form-control" id="area" name="area" style="float:left;width:50%;">
+                  <option value="지역">지역</option>
+                  <option value="0070">서울/경기</option>
+                  <option value="0063">강원</option>
+                  <option value="0078">경남</option>
+                  <option value="0086">경북</option>
+                  <option value="0108">전북</option>
+                  <option value="0102">전남</option>
+                  <option value="0124">충북</option>
+                  <option value="0117">충남</option>
+                  <option value="0114">제주</option>
+               </select>
+               <select class="form-control" id="detailArea" name="detailArea" style="float:left;width:50%;">
+                  <option value="지역">지역을 먼저 선택해주세요</option>
+               </select><br><br>
+               <div id="wrap"
+									style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
+									<img
+										src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png"
+										id="btnFoldWrap"
+										style="cursor: pointer; position: absolute; right: 0px; top: -1px; z-index: 1"
+										onclick="foldDaumPostcode()" alt="접기 버튼">
+								</div>
+								<!-- <input type="text" id="sample3_address" class="d_form large"
+									placeholder="주소"> -->
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/daterangepicker.css">
+								<script>
+									// 우편번호 찾기 찾기 화면을 넣을 element
+									var element_wrap = document
+											.getElementById('wrap');
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/all.css">
+									function foldDaumPostcode() {
+										// iframe을 넣은 element를 안보이게 한다.
+										element_wrap.style.display = 'none';
+									}
 
+									function sample3_execDaumPostcode() {
+										// 현재 scroll 위치를 저장해놓는다.
+										var currentScroll = Math
+												.max(
+														document.body.scrollTop,
+														document.documentElement.scrollTop);
+										new daum.Postcode(
+												{
+													oncomplete : function(data) {
+														// 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
+														// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+														// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+														var fullAddr = data.address; // 최종 주소 변수
+														var extraAddr = ''; // 조합형 주소 변수
 
-<form name="insert" action="${pageContext.request.contextPath}/enroll"
-	method="post">
+														// 기본 주소가 도로명 타입일때 조합한다.
+														if (data.addressType === 'R') {
+															//법정동명이 있을 경우 추가한다.
+															if (data.bname !== '') {
+																extraAddr += data.bname;
+															}
+															// 건물명이 있을 경우 추가한다.
+															if (data.buildingName !== '') {
+																extraAddr += (extraAddr !== '' ? ', '
+																		+ data.buildingName
+																		: data.buildingName);
+															}
+															// 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+															fullAddr += (extraAddr !== '' ? ' ('
+																	+ extraAddr
+																	+ ')'
+																	: '');
+														}
 
-	<table align="center" border="1">
+														// 우편번호와 주소 정보를 해당 필드에 넣는다.
+														
+													/* 	document
+																.getElementById('sample3_postcode').value = data.zonecode; //5자리 새우편번호 사용 */
+														document.getElementById('addr1').value = "(우편번호:" + data.zonecode + ") " + fullAddr;
 
-		<tr>
-			<td colspan="2"><b> 스터디 등록하기</b></td>
-		</tr>
+														// iframe을 넣은 element를 안보이게 한다.
+														// (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
+														element_wrap.style.display = 'none';
 
-		<tr>
-			<td>스터디 이름</td>
-			<td><input type="text" name="name"></td>
-		</tr>
+														// 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
+														document.body.scrollTop = currentScroll;
+													},
+													// 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
+													onresize : function(size) {
+														element_wrap.style.height = size.height
+																+ 'px';
+													},
+													width : '100%',
+													height : '100%'
+												}).embed(element_wrap);
 
+										// iframe을 넣은 element를 보이게 한다.
+										element_wrap.style.display = 'block';
+									}
+								</script>
+								<input type="hidden" name="addr" />
+								<input type="text" class="form-control" id="addr1" name="addr1" placeholder="주소를 입력하세요">
+            </div>
+         </div>
+      </div>
+   </div>
+	<br><br>
+   <div class="container">
+      <div class="row">
+         <div
+            class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <div class="box box-warning col-xs-12">
+               <div class="box-header with-border">
+                  <h3 class="box-title">스터디 상세정보 입력</h3>
+               </div>
+               <div class="box-body">
+                  <!-- textarea -->
+                  <div class="form-group">
+                     <textarea class="form-control" id="description"
+                        name="description" rows="5" placeholder="스터디에 대한 상세정보를 알려주세요"></textarea>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 
-
-
-		<tr>
-			<td>종료일</td>
-			<td>
-				<div class="form-group">
-					<label>Date range:</label>
-
-					<div class="input-group">
-						<div class="input-group-addon">
-							<i class="fa fa-calendar"></i>
-						</div>
-						<input type="text" class="form-control pull-right"
-							id="reservation">
-					</div>
-					<!-- /.input group -->
-				</div>
-			</td>
-		</tr>
-
-		<tr>
-			<td>요일</td>
-			<td><input type="checkbox" name="day" value="일">일
-				<input type="checkbox" name="day" value="월" >월
-				<input type="checkbox" name="day" value="화">화
-				<input type="checkbox" name="day" value="수">수
-				<input type="checkbox" name="day" value="목">목
-				<input type="checkbox" name="day" value="금">금
-				<input type="checkbox" name="day" value="토">토
-				</td>
-		</tr>
-
-		<tr>
-			<td>시작시간</td>
-			<td> </td>
-		</tr>
-
-		<tr>
-			<td>종료시간</td>
-			<td><input type="text" name="endTime"></td>
-		</tr>
-
-		<tr>
-			<td>인원</td>
-			<td><select name="people">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-			</select></td>
-
-		</tr>
-
-		<tr>
-			<td>지역</td>
-			<td><select name="area">
-					<option value="지역">지역</option>
-					<option value="서울/경기">서울/경기</option>
-					<option value="인천/부천">인천/부천</option>
-					<option value="춘천/강원">춘천/강원</option>
-					<option value="부산/울산/경남">부산/울산/경남</option>
-					<option value="대구/경북">대구/경북</option>
-					<option value="전주/전북">전주/전북</option>
-					<option value="광주/전남">광주/전남</option>
-					<option value="청주/충북">청주/충북</option>
-					<option value="청주/충북">청주/충북</option>
-					<option value="대전/충남">대전/충남</option>
-					<option value="제주">제주</option>
-			</select></td>
-		</tr>
-
-		<tr>
-			<td>스터디 설명</td>
-			<td><textarea rows="8" cols="40" name="description">상세정보  입력하세용 </textarea></td>
-		</tr>
-
-		<tr>
-			<td colspan="2"><input type=submit value=스터디등록하기> <input
-				type=reset value=다시쓰기></td>
-		</tr>
-
-
-	</table>
-
+   <div class="container">
+      <div class="row">
+         <div
+            class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3"
+            style="text-align: center">
+            <div class="box-body">
+               <input type="reset" value="재입력" class="btn">&nbsp;&nbsp;&nbsp;&nbsp;
+               <input type="submit" value="모집 등록" class="btn">
+            </div>
+         </div>
+      </div>
+   </div>
 </form>
 
-
-
-
-<div class="daterangepicker dropdown-menu show-calendar opensleft"
-	style="top: 1530px; right: 25px; left: auto; display: none;">
-	<div class="calendar left">
-		<div class="daterangepicker_input">
-			<input class="input-mini active" type="text"
-				name="daterangepicker_start" value=""><i
-				class="fa fa-calendar glyphicon glyphicon-calendar"></i>
-			<div class="calendar-time" style="display: none;">
-				<div></div>
-				<i class="fa fa-clock-o glyphicon glyphicon-time"></i>
-			</div>
-		</div>
-		<div class="calendar-table">
-			<table class="table-condensed">
-				<thead>
-					<tr>
-						<th class="prev available"><i
-							class="fa fa-chevron-left glyphicon glyphicon-chevron-left"></i></th>
-						<th colspan="5" class="month">Jun 2017</th>
-						<th></th>
-					</tr>
-					<tr>
-						<th>Su</th>
-						<th>Mo</th>
-						<th>Tu</th>
-						<th>We</th>
-						<th>Th</th>
-						<th>Fr</th>
-						<th>Sa</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="weekend off available" data-title="r0c0">28</td>
-						<td class="off available" data-title="r0c1">29</td>
-						<td class="off available" data-title="r0c2">30</td>
-						<td class="off available" data-title="r0c3">31</td>
-						<td class="active start-date available" data-title="r0c4">1</td>
-						<td class="in-range available" data-title="r0c5">2</td>
-						<td class="weekend in-range available" data-title="r0c6">3</td>
-					</tr>
-					<tr>
-						<td class="weekend in-range available" data-title="r1c0">4</td>
-						<td class="in-range available" data-title="r1c1">5</td>
-						<td class="in-range available" data-title="r1c2">6</td>
-						<td class="in-range available" data-title="r1c3">7</td>
-						<td class="in-range available" data-title="r1c4">8</td>
-						<td class="in-range available" data-title="r1c5">9</td>
-						<td class="weekend in-range available" data-title="r1c6">10</td>
-					</tr>
-					<tr>
-						<td class="weekend in-range available" data-title="r2c0">11</td>
-						<td class="in-range available" data-title="r2c1">12</td>
-						<td class="in-range available" data-title="r2c2">13</td>
-						<td class="today in-range available" data-title="r2c3">14</td>
-						<td class="in-range available" data-title="r2c4">15</td>
-						<td class="in-range available" data-title="r2c5">16</td>
-						<td class="weekend in-range available" data-title="r2c6">17</td>
-					</tr>
-					<tr>
-						<td class="weekend in-range available" data-title="r3c0">18</td>
-						<td class="in-range available" data-title="r3c1">19</td>
-						<td class="in-range available" data-title="r3c2">20</td>
-						<td class="in-range available" data-title="r3c3">21</td>
-						<td class="in-range available" data-title="r3c4">22</td>
-						<td class="in-range available" data-title="r3c5">23</td>
-						<td class="weekend in-range available" data-title="r3c6">24</td>
-					</tr>
-					<tr>
-						<td class="weekend in-range available" data-title="r4c0">25</td>
-						<td class="in-range available" data-title="r4c1">26</td>
-						<td class="in-range available" data-title="r4c2">27</td>
-						<td class="in-range available" data-title="r4c3">28</td>
-						<td class="in-range available" data-title="r4c4">29</td>
-						<td class="in-range available" data-title="r4c5">30</td>
-						<td class="weekend off in-range available" data-title="r4c6">1</td>
-					</tr>
-					<tr>
-						<td class="weekend off in-range available" data-title="r5c0">2</td>
-						<td class="off in-range available" data-title="r5c1">3</td>
-						<td class="off in-range available" data-title="r5c2">4</td>
-						<td class="off in-range available" data-title="r5c3">5</td>
-						<td class="off in-range available" data-title="r5c4">6</td>
-						<td class="off in-range available" data-title="r5c5">7</td>
-						<td class="weekend off in-range available" data-title="r5c6">8</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<div class="calendar right">
-		<div class="daterangepicker_input">
-			<input class="input-mini" type="text" name="daterangepicker_end"
-				value=""><i
-				class="fa fa-calendar glyphicon glyphicon-calendar"></i>
-			<div class="calendar-time" style="display: none;">
-				<div></div>
-				<i class="fa fa-clock-o glyphicon glyphicon-time"></i>
-			</div>
-		</div>
-		<div class="calendar-table">
-			<table class="table-condensed">
-				<thead>
-					<tr>
-						<th></th>
-						<th colspan="5" class="month">Jul 2017</th>
-						<th class="next available"><i
-							class="fa fa-chevron-right glyphicon glyphicon-chevron-right"></i></th>
-					</tr>
-					<tr>
-						<th>Su</th>
-						<th>Mo</th>
-						<th>Tu</th>
-						<th>We</th>
-						<th>Th</th>
-						<th>Fr</th>
-						<th>Sa</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td class="weekend off in-range available" data-title="r0c0">25</td>
-						<td class="off in-range available" data-title="r0c1">26</td>
-						<td class="off in-range available" data-title="r0c2">27</td>
-						<td class="off in-range available" data-title="r0c3">28</td>
-						<td class="off in-range available" data-title="r0c4">29</td>
-						<td class="off in-range available" data-title="r0c5">30</td>
-						<td class="weekend in-range available" data-title="r0c6">1</td>
-					</tr>
-					<tr>
-						<td class="weekend in-range available" data-title="r1c0">2</td>
-						<td class="in-range available" data-title="r1c1">3</td>
-						<td class="in-range available" data-title="r1c2">4</td>
-						<td class="in-range available" data-title="r1c3">5</td>
-						<td class="in-range available" data-title="r1c4">6</td>
-						<td class="in-range available" data-title="r1c5">7</td>
-						<td class="weekend in-range available" data-title="r1c6">8</td>
-					</tr>
-					<tr>
-						<td class="weekend in-range available" data-title="r2c0">9</td>
-						<td class="in-range available" data-title="r2c1">10</td>
-						<td class="in-range available" data-title="r2c2">11</td>
-						<td class="in-range available" data-title="r2c3">12</td>
-						<td class="in-range available" data-title="r2c4">13</td>
-						<td class="in-range available" data-title="r2c5">14</td>
-						<td class="weekend active end-date in-range available"
-							data-title="r2c6">15</td>
-					</tr>
-					<tr>
-						<td class="weekend available" data-title="r3c0">16</td>
-						<td class="available" data-title="r3c1">17</td>
-						<td class="available" data-title="r3c2">18</td>
-						<td class="available" data-title="r3c3">19</td>
-						<td class="available" data-title="r3c4">20</td>
-						<td class="available" data-title="r3c5">21</td>
-						<td class="weekend available" data-title="r3c6">22</td>
-					</tr>
-					<tr>
-						<td class="weekend available" data-title="r4c0">23</td>
-						<td class="available" data-title="r4c1">24</td>
-						<td class="available" data-title="r4c2">25</td>
-						<td class="available" data-title="r4c3">26</td>
-						<td class="available" data-title="r4c4">27</td>
-						<td class="available" data-title="r4c5">28</td>
-						<td class="weekend available" data-title="r4c6">29</td>
-					</tr>
-					<tr>
-						<td class="weekend available" data-title="r5c0">30</td>
-						<td class="available" data-title="r5c1">31</td>
-						<td class="off available" data-title="r5c2">1</td>
-						<td class="off available" data-title="r5c3">2</td>
-						<td class="off available" data-title="r5c4">3</td>
-						<td class="off available" data-title="r5c5">4</td>
-						<td class="weekend off available" data-title="r5c6">5</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<div class="ranges">
-		<div class="range_inputs">
-			<button class="applyBtn btn btn-sm btn-success" type="button">Apply</button>
-			<button class="cancelBtn btn btn-sm btn-default" type="button">Cancel</button>
-		</div>
-	</div>
-</div>
-<div class="daterangepicker dropdown-menu show-calendar opensleft">
-	<div class="calendar left">
-		<div class="daterangepicker_input">
-			<input class="input-mini" type="text" name="daterangepicker_start"
-				value=""><i
-				class="fa fa-calendar glyphicon glyphicon-calendar"></i>
-			<div class="calendar-time">
-				<div></div>
-				<i class="fa fa-clock-o glyphicon glyphicon-time"></i>
-			</div>
-		</div>
-		<div class="calendar-table"></div>
-	</div>
-	<div class="calendar right">
-		<div class="daterangepicker_input">
-			<input class="input-mini" type="text" name="daterangepicker_end"
-				value=""><i
-				class="fa fa-calendar glyphicon glyphicon-calendar"></i>
-			<div class="calendar-time">
-				<div></div>
-				<i class="fa fa-clock-o glyphicon glyphicon-time"></i>
-			</div>
-		</div>
-		<div class="calendar-table"></div>
-	</div>
-	<div class="ranges">
-		<div class="range_inputs">
-			<button class="applyBtn btn btn-sm btn-success" disabled="disabled"
-				type="button">Apply</button>
-			<button class="cancelBtn btn btn-sm btn-default" type="button">Cancel</button>
-		</div>
-	</div>
-</div>
-<div class="daterangepicker dropdown-menu opensleft">
-	<div class="calendar left">
-		<div class="daterangepicker_input">
-			<input class="input-mini" type="text" name="daterangepicker_start"
-				value=""><i
-				class="fa fa-calendar glyphicon glyphicon-calendar"></i>
-			<div class="calendar-time" style="display: none;">
-				<div></div>
-				<i class="fa fa-clock-o glyphicon glyphicon-time"></i>
-			</div>
-		</div>
-		<div class="calendar-table"></div>
-	</div>
-	<div class="calendar right">
-		<div class="daterangepicker_input">
-			<input class="input-mini" type="text" name="daterangepicker_end"
-				value=""><i
-				class="fa fa-calendar glyphicon glyphicon-calendar"></i>
-			<div class="calendar-time" style="display: none;">
-				<div></div>
-				<i class="fa fa-clock-o glyphicon glyphicon-time"></i>
-			</div>
-		</div>
-		<div class="calendar-table"></div>
-	</div>
-	<div class="ranges">
-		<ul>
-			<li>Today</li>
-			<li>Yesterday</li>
-			<li>Last 7 Days</li>
-			<li>Last 30 Days</li>
-			<li>This Month</li>
-			<li>Last Month</li>
-			<li>Custom Range</li>
-		</ul>
-		<div class="range_inputs">
-			<button class="applyBtn btn btn-sm btn-success" disabled="disabled"
-				type="button">Apply</button>
-			<button class="cancelBtn btn btn-sm btn-default" type="button">Cancel</button>
-		</div>
-	</div>
-</div>
-
-
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery-3.2.0.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
-
-<script src="${pageContext.request.contextPath}/resources/js/moment.js"></script>
-
-<script
-	src="${pageContext.request.contextPath}/resources/js/icheck.min.js"></script>
-
-
-
+<!-- jQuery 3.1.1 -->
+ <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+ <!-- jQuery UI 1.11.4 -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
+ <!-- Bootstrap 3.3.7 -->
+ <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="${pageContext.request.contextPath}/resources/js/select2.full.min.js"></script>
+<!-- date-range-picker -->
+<script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
+<!-- AdminLTE App -->
+<script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap-timepicker.min.js"></script>
 
 <script>
-	$(function() {
 
-		$('#reservation').daterangepicker();
-		//Date range picker with time picker
-		$('#reservationtime').daterangepicker({
-			timePicker : true,
-			timePickerIncrement : 30,
-			format : 'MM/DD/YYYY h:mm A'
-		});
-		//Date range as a button
-		$('#daterange-btn').daterangepicker(
-				{
-					ranges : {
-						'Today' : [ moment(), moment() ],
-						'Yesterday' : [ moment().subtract(1, 'days'),
-								moment().subtract(1, 'days') ],
-						'Last 7 Days' : [ moment().subtract(6, 'days'),
-								moment() ],
-						'Last 30 Days' : [ moment().subtract(29, 'days'),
-								moment() ],
-						'This Month' : [ moment().startOf('month'),
-								moment().endOf('month') ],
-						'Last Month' : [
-								moment().subtract(1, 'month').startOf('month'),
-								moment().subtract(1, 'month').endOf('month') ]
-					},
-					startDate : moment().subtract(29, 'days'),
-					endDate : moment()
-				},
-				function(start, end) {
-					$('#daterange-btn span').html(
-							start.format('MMMM D, YYYY') + ' - '
-									+ end.format('MMMM D, YYYY'));
-				});
-
+$(function () {
+	//주소 텍스트 박스 클릭스 주소 입력 레이어 띄우기
+	$("#addr1").click(function(){
+		sample3_execDaumPostcode();
 	});
+	
+	$("#area").change(function () {
+		$.ajax({
+			url: "${pageContext.request.contextPath}/study/location",
+			data: "areaCode="+$("#area option:selected").val()+"&${_csrf.parameterName}=${_csrf.token}",
+			type: "post",
+			dataType: "json",
+			success: function (result) {
+				$("#detailArea").empty();
+				var str = "";
+				$.each(result, function (index,item) {
+					//alert(item.codeName);
+					str += "<option value='"+item.commCode+"'>"+item.codeName+"</option>"
+				})
+				$("#detailArea").append(str);
+			},
+			error : function (request,status,error) {
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});//ajax 끝 
+	})
+})
+
+moment.locale('ko');
+
+$('#dateChooser').daterangepicker({
+    "timePicker": true,
+    "locale": {
+        "format": "LL LT",
+        "separator": " ~ ",
+        "applyLabel": "확인",
+        "cancelLabel": "취소",
+        "daysOfWeek": [
+            "일",
+            "월",
+            "화",
+            "수",
+            "목",
+            "금",
+            "토"
+        ],
+        "monthNames": [
+            "1월",
+            "2월",
+            "3월",
+            "4월",
+            "5월",
+            "6월",
+            "7월",
+            "8월",
+            "9월",
+            "10월",
+            "11월",
+            "12월"
+        ],
+        "firstDay": 1
+    },
+    "startDate": moment(),
+    "endDate": moment()
+}, function(start, end, label) {
+});
+
+//Timepicker
+$(".timepicker").timepicker({
+  showInputs: false
+});
+
 </script>
-<jsp:include page="/WEB-INF/views/main/footer.jsp" />
+
+

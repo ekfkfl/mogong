@@ -27,10 +27,28 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 
 <script>
+	$(function () {
+		$("#logo").hover(
+	            function () {
+	               $(this).css('background-color','white');
+	               $("#logoText").css('color','#349fda');
+	            },      
+	            function () {
+	               $("#logoText").css('color','#367fa9');
+	            }
+	         )
+	})
+
 	function logout() {
 		document.getElementById("logoutForm").submit();
 	}
 </script>
+<style type="text/css">
+	#logo{
+		text-decoration:none;
+	}
+	
+</style>
 
 
 </head>
@@ -42,8 +60,8 @@
 		<section class="main-header">
 
 			<!-- Logo -->
-			<a href="${pageContext.request.contextPath}/" class="logo"> <!-- logo for regular state and mobile devices -->
-				<span class="logo-lg"><b style="font-size: 35px">모</b>여서 <b
+			<a href="${pageContext.request.contextPath}/" class="logo" id="logo"> <!-- logo for regular state and mobile devices -->
+				<span class="logo-lg" id="logoText"><b style="font-size: 35px">모</b>여서 <b
 					style="font-size: 30px">공</b>부하자</span>
 			</a>
 
@@ -265,7 +283,7 @@
 
 						<ul class="nav navbar-nav navbar-right">
 							<li><a href="${pageContext.request.contextPath}/">home</a></li>
-							<li><a href="${pageContext.request.contextPath}/enrollForm">스터디 모집</a></li>
+							<li><a href="${pageContext.request.contextPath}/study/enrollForm">스터디 모집</a></li>
 							<li><a href="${pageContext.request.contextPath}/search/study">스터디 검색</a></li>
 							<li><a href="${pageContext.request.contextPath}/study/main">공지사항</a></li>
 							<li class="hidden-sm hidden-xs"><a href="#" id="ss"><i

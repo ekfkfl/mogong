@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kosta.web.mogong.dto.CommCodeDTO;
 import kosta.web.mogong.dto.StudyDTO;
 
 @Repository
@@ -47,5 +48,13 @@ public class MainDAOImpl implements MainDAO {
 	@Override
 	public String messageCount(String id) {
 		return sqlSession.selectOne("mainMapper.messageCount", id);
+	}
+	@Override
+	public List<CommCodeDTO> getAreaCode(String areaCode) {
+		return sqlSession.selectList("mainMapper.selectAreaCode", areaCode);
+	}
+	@Override
+	public List<StudyDTO> selectRecentStudy() {
+		return sqlSession.selectList("mainMapper.selectRecentStudy");
 	}
 }
