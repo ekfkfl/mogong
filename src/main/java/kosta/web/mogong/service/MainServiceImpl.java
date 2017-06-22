@@ -49,4 +49,9 @@ public class MainServiceImpl implements MainService {
 	public List<StudyDTO> selectRecentStudy() {
 		return mainDAO.selectRecentStudy();
 	}
+	
+	@Override
+	public List<StudyDTO> selectSearchStudy(StudyDTO studyDTO, int page) {
+		return mainDAO.selectSearchStudy(studyDTO, page);
+	}
 }

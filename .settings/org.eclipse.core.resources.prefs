@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/views/main/footer.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/main/index.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/mypage/mypageMain.jsp=UTF-8
 encoding//src/main/webapp/resources/css/calendar.css=UTF-8

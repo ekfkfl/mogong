@@ -65,9 +65,8 @@
 		where member.member_code=board_comment.member_code and user_tb.id=member.id and board_comment.board_code=#{value}
 	</select>
 	
-	
-	
-	
-
+	<select id="selectMemberCode" parameterType="MemberDTO" resultType="int">
+		select member_code from member where study_code=#{studyCode} and id=#{memberId}
+	</select>
 
 </mapper>

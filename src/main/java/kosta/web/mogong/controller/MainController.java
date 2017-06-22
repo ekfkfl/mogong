@@ -235,4 +235,10 @@ public class MainController {
 		
 		return "main/search/detailStudy";
 	}
+	
+	@RequestMapping("/search")
+	@ResponseBody
+	public List<StudyDTO> keywordSearch(StudyDTO studyDTO, int page){
+		return service.selectSearchStudy(studyDTO, page);
+	}
 }

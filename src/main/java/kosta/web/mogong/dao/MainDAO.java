@@ -35,4 +35,9 @@ public interface MainDAO {
 	 * 등록순 상위 8개 스터디 이름 가져오기
 	 */
 	List<StudyDTO> selectRecentStudy();
+	
+	/**
+	 * 스터디 검색
+	 */
+	List<StudyDTO> selectSearchStudy(StudyDTO studyDTO, int page);
 }
