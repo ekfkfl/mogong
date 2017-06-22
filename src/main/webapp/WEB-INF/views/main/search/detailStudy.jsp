@@ -194,7 +194,7 @@
 <script>
 	$(function() {
 		$("#updateBtn").click(function() {
-			location.href="${pageContext.request.contextPath}/loginForm";
+			location.href="${pageContext.request.contextPath}/study/updateForm?studyCode=${studyDTO.studyCode}";
 		})
 		
 		$("#joinBtn").click(function() {

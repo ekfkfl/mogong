@@ -48,7 +48,7 @@
 
 	<!-- 스터디 상세보기 -->
 	<select id="studyDetailView" parameterType="string" resultMap="studyMap">
-		select user_tb.id,study.name,study.start_date,study.end_date,study.day,study.start_time,study.end_time,study.people,comm_code.code_name as area,study.description,study.addr,study.addr2,user_tb.name as userName,user_tb.path as userProfile,user_tb.email as userEmail,user_tb.intro as userIntro 
+		select study.study_code,user_tb.id,study.name,study.start_date,study.end_date,study.day,study.start_time,study.end_time,study.people,comm_code.code_name as area,study.description,study.addr,study.addr2,user_tb.name as userName,user_tb.path as userProfile,user_tb.email as userEmail,user_tb.intro as userIntro 
 		from study,user_tb,comm_code
 		where study.id=user_tb.id and study.area=comm_code.comm_code and study_code=#{_parameter}
 	</select>
