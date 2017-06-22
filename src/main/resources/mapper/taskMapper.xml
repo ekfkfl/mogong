@@ -130,4 +130,8 @@
 	select * from task_file where task_file_code=#{taskFileCode}
 </select>
 
+<select id="selectTaskGroupJang" parameterType="StudyDTO" resultType="string">
+	select id from study where study_code=#{studyCode} and id=#{id}
+</select>
+
 </mapper>

@@ -3,6 +3,7 @@ package kosta.web.mogong.service;
 import java.util.List;
 
 import kosta.web.mogong.dto.AllTaskCodeDTO;
+import kosta.web.mogong.dto.StudyDTO;
 import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskFileDTO;
@@ -33,4 +34,6 @@ public interface TaskService {
 	List<TaskFileDTO> selectTaskFile(int taskCode);
 	
 	TaskFileDTO selectOneTaskFile(int taskFileCode);
+	
+	String selectTaskGroupJang(StudyDTO studyDTO);
 }
