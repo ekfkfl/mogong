@@ -33,6 +33,11 @@ public class StudyDTO {
 	private CommCodeDTO commDTO; //공통 코드 DTO
 
 	public StudyDTO() {}
+	
+	public StudyDTO(int studyCode, String id) {
+		this.studyCode=studyCode;
+		this.id=id;
+	}
 
 	public StudyDTO(int studyCode, String id, String category, String cityCode, String name, String writeDate,
 			String startDate, String endDate, String day, String startTime, String endTime, int people, String area,

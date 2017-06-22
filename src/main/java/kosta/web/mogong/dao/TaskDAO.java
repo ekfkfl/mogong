@@ -2,6 +2,7 @@ package kosta.web.mogong.dao;
 
 import java.util.List;
 
+import kosta.web.mogong.dto.StudyDTO;
 import kosta.web.mogong.dto.TaskCommentDTO;
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.dto.TaskFileDTO;
@@ -45,4 +46,6 @@ public interface TaskDAO {
 	List<TaskFileDTO> selectTaskFile(int taskCode);
 	
 	TaskFileDTO selectOneTaskFile(int taskFileCode);
+	
+	String selectTaskGroupJang(StudyDTO studyDTO);
 }

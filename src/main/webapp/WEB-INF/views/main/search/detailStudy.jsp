@@ -34,9 +34,15 @@
                   <h3 class="box-title">그룹장 정보</h3>
                </div>
               <div class="user-block">
+<<<<<<< HEAD
                 <img class="img-circle" src="${pageContext.request.contextPath}/resources/dist/img/user1-128x128.jpg" alt="User Image">
                 <span class="username"><a href="#">${studyDTO.userName}</a></span>
                 <span class="description">ID : ${studyDTO.id}</span><br>
+=======
+                <img class="img-circle" src="${pageContext.request.contextPath}${studyDTO.userProfile}" alt="User Image">
+                <span class="username"><a href="#">광준</a></span>
+                <span class="description">ID : 다라리</span><br>
+>>>>>>> 08c91e5d3d31d2b8524b5eb3851a8a1c0c0aea2b
                 <label>Email</label><br>
 	               	<p>${studyDTO.userEmail}</p>
 	            <label>Intro</label><br>
