@@ -106,7 +106,10 @@ CREATE TABLE MEMBER(
   GRADE VARCHAR2(10) REFERENCES COMM_CODE(COMM_CODE) -- 등급
 )
 
-select * from member
+select MEMBER_CODE, member.STUDY_CODE, member.id, join_status, grade, name
+from member, study 
+where  member.STUDY_CODE = study.STUDY_CODE
+and join_status='0004' and member.id='gwang12'
 
 select * from study
 

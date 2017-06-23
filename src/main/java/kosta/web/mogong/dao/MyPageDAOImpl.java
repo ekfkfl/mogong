@@ -121,7 +121,7 @@ public class MyPageDAOImpl implements MyPageDAO {
 		  MemberDTO memberDTO = sqlSession.selectOne("memberMapper.sendIdValue", Integer.parseInt(memberCode));
 		  map.put("recvId", memberDTO.getMemberId());
 		  map.put("title", "초대 거부");
-		  map.put("content", sendId+"님 "+memberDTO.getMemberId()+"님이 초대 받지 않으셨습니다.");
+		  map.put("content", sendId+"님 "+memberDTO.getMemberId()+"님이 거부하셨습니다.");
 		  if(sqlSession.insert("memberMapper.sendMessageRefuse", map)==1){
 			  return sqlSession.insert("memberMapper.recvMessageRefuse", map);
 		  }

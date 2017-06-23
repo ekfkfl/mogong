@@ -56,15 +56,11 @@
 			    	  <!--------------------------
 				        | Your Page Content Here |
 				        -------------------------->
-			       <div class="row">
 			        <div class="col-md-3">
-			          <div class="box box-default collapsed-box">
+			          <div class="box box-default">
 			            <div class="box-header with-border">
 			              <h5 class="box-title">${studyDTO.name}</h5>
 			              
-			              <div class="box-tools pull-right">
-			                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-			                </button>
 			              </div>
 			              <!-- /.box-tools -->
 			            </div>
