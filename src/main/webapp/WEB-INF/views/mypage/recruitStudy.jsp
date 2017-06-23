@@ -61,7 +61,6 @@
 			    	  <!--------------------------
 				        | Your Page Content Here |
 				        -------------------------->
-			       <div class="row">
 			        <div class="col-md-3">
 			          <div class="box box-default collapsed-box">
 			            <div class="box-header with-border">

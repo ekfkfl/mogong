@@ -88,7 +88,7 @@ public interface MyPageDAO {
 	/**
 	 * 거절시 업데이트
 	 */
-	int refuse(String memberCode,String studyCode);
+	int refuse(String sendId, String memberCode,String studyCode);
 	
 	/**
 	 * 수락시 업데이트

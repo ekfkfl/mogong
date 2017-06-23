@@ -44,7 +44,6 @@ public class CodeUtil implements ServletContextAware{
 		String codeName=null;
 		
 		CommCodeDTO commCodeDTO=codeMap.get(commCode);
-		System.out.println(commCodeDTO);
 		if(commCodeDTO==null){
 			codeName="알수없는 코드";
 		}else{

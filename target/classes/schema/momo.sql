@@ -106,8 +106,12 @@ CREATE TABLE MEMBER(
   GRADE VARCHAR2(10) REFERENCES COMM_CODE(COMM_CODE) -- 등급
 )
 
+select * from member
 
 select * from study
+
+update member set join_status='0004', grade='0146' where member_code=5 and study_code=13
+
 
 insert into member values(MEMBER_SEQ.nextval, 6,'gwang12','0002', null)
 insert into member values(MEMBER_SEQ.nextval, 7,'gwang12','0002', null)
