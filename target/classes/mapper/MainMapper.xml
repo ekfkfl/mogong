@@ -91,7 +91,7 @@
 	
 	<!-- 스터디 정원 검사 -->
 	<select id="studyJoinCheckMember" parameterType="int" resultType="int">
-		select count(member_code) from member where study_code=#{_parameter}
+		select count(member_code) from member where study_code=#{_parameter} and join_status='0004'
 	</select>
 	
 	<select id="studyJoinCheckPeople" parameterType="int" resultType="int">
