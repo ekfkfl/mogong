@@ -7,6 +7,12 @@ public class MemberDTO {
 	private String memberId; 
 	private int joinStatus; //가입상태
 	private String grade; //등급
+	private String name;
+	private String path;
+	private String phone;
+	private String email;
+	private String gender;
+	private String intro;
 	
 	public MemberDTO() {}
 	
@@ -53,6 +59,54 @@ public class MemberDTO {
 	}
 	public void setGrade(String grade) {
 		this.grade = grade;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
 	}
 	
 }

@@ -15,7 +15,12 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/dist/css/AdminLTE.css">
 
-<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+   <!-- jQuery 3.1.1 -->
+ <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+ <!-- Bootstrap 3.3.7 -->
+  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script> 
+<!-- AdminLTE App -->
+ <script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$("#detailBtn").click(function(){
@@ -75,6 +80,32 @@
 			              모집인원 : ${studyDTO.people}<p>
 			              모집인원 : ${studyDTO.description}<p>
 			              <input type="button" value="상세보기" id="detailBtn">
+			              <button type="button" id="checkBtn" value="${studyDTO.studyCode}" data-toggle="modal" data-target="#myModal">신청 확인</button>
+			            	<div id="myModal" class="modal fade" role="dialog">
+							  <div class="modal-dialog">
+							
+							    <!-- Modal content-->
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal">&times;</button>
+							        <h4 class="modal-title">신청 확인</h4>
+							      </div>
+							      <div class="modal-body">
+								            <div id="modalBody" class="box box-warning col-xs-12">
+								               <div class="box-header with-border">
+								                  <h3 class="box-title">
+								                  <label>신청자 정보</label></h3>
+								               </div>
+								              <!-- /.box-tools -->
+								            </div>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							      </div>
+							    </div>
+							
+							  </div>
+							</div>
 			            </div>
 			            <!-- /.box-body -->
 			          </div>
@@ -86,12 +117,113 @@
 		</c:choose>
     </section>
     
-    <!-- jQuery 3.1.1 -->
- <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
- <!-- Bootstrap 3.3.7 -->
- <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
+ 
+
+<script type="text/javascript">
+$(function () {
+	var studyCode="";
+	
+	$("button[id=checkBtn]").on("click", function () {
+		studyCode = $(this).val();
+		$.ajax({
+			url: "${pageContext.request.contextPath}/member/mypage/confirm",
+			data: "studyCode="+$(this).val()+"&${_csrf.parameterName}=${_csrf.token}",
+			type: "post",
+			dataType: "json",
+			success: function (result) {
+				var str = "";
+				var gender ="";
+				$.each(result, function (index, item) {
+					if(item.gender == "0009"){gender="남"}
+					else {gender="여"}
+					str += "<div class='user-block'>";
+					str += "<img class='img-circle' src='${pageContext.request.contextPath}"+item.path+"' alt='User Image'>";
+					str += "<span class='username'><a href='#'>"+item.name+"</a></span>";
+					str += "<span class='description'>";
+					str += "ID : "+item.memberId+"&nbsp;/&nbsp;Email : "+item.email+"&nbsp;/&nbsp;Phone : "+item.phone+"<br>"
+					str += "Gender : "+gender+"&nbsp;/&nbsp;Intro : "+item.intro
+					str += "<button type='button' id='refuse' value='"+item.memberCode+"' class='btn btn-danger pull-right'>거절</button>"
+					str += "<button type='button' id='allow' value='"+item.memberCode+"' class='btn btn-info pull-right'>수락</button>"
+					str += "</span></div>"
+				})
+				$("#modalBody").find("div:gt(0)").empty();
+				$("#modalBody").append(str);
+				
+			},
+			error: function (err) {
+				alert("ajax 에러");
+			}
+		}) //ajax 끝
+	})
+	
+	$(document).on("click","#refuse",function () {
+		 $.ajax({
+			url: "${pageContext.request.contextPath}/member/mypage/refuse",
+			data: "memberCode="+$(this).val()+"&studyCode="+studyCode+"&${_csrf.parameterName}=${_csrf.token}",
+			type: "post",
+			dataType: "text",
+			success: function (result) {
+				
+					alert("성공")
+					printAll();
+			},
+			error: function (err) {
+				
+			}
+		})
+	}) //refuse click 끝
+	$(document).on("click","#allow", function () {
+		 $.ajax({
+				url: "${pageContext.request.contextPath}/member/mypage/allow",
+				data: "memberCode="+$(this).val()+"&studyCode="+studyCode+"&${_csrf.parameterName}=${_csrf.token}",
+				type: "post",
+				dataType: "text",
+				success: function (result) {
+					
+						alert("성공")
+						printAll();
+				},
+				error: function (err) {
+					
+				}
+			})
+	})
+	
+	function printAll() {
+		$.ajax({
+			url: "${pageContext.request.contextPath}/member/mypage/confirm",
+			data: "studyCode="+studyCode+"&${_csrf.parameterName}=${_csrf.token}",
+			type: "post",
+			dataType: "json",
+			success: function (result) {
+				var str = "";
+				var gender ="";
+				$.each(result, function (index, item) {
+					if(item.gender == "0009"){gender="남"}
+					else {gender="여"}
+					str += "<div class='user-block'>";
+					str += "<img class='img-circle' src='${pageContext.request.contextPath}"+item.path+"' alt='User Image'>";
+					str += "<span class='username'><a href='#'>"+item.name+"</a></span>";
+					str += "<span class='description'>";
+					str += "ID : "+item.memberId+"&nbsp;/&nbsp;Email : "+item.email+"&nbsp;/&nbsp;Phone : "+item.phone+"<br>"
+					str += "Gender : "+gender+"&nbsp;/&nbsp;Intro : "+item.intro
+					str += "<button type='button' id='refuse' value='"+item.memberCode+"' class='btn btn-danger pull-right'>거절</button>"
+					str += "<button type='button' id='allow' value='"+item.memberCode+"' class='btn btn-info pull-right'>수락</button>"
+					str += "</span></div>"
+				})
+				$("#modalBody").find("div:gt(0)").empty();
+				$("#modalBody").append(str);
+	
+			},
+			error: function (err) {
+				alert("ajax 에러");
+			}
+		}) //ajax 끝
+	}
+})
+
+
+</script>
 
 </body>
 </html>

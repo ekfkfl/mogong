@@ -186,4 +186,25 @@ public class MyPageController {
 		return new ModelAndView("/mypage/recvMail", "list", list);
 	}
 	
+	@RequestMapping("/member/mypage/confirm")
+	@ResponseBody
+	public List<MemberDTO> confirm(HttpServletRequest request, String studyCode){
+		
+		List<MemberDTO> list = myPageServiceImpl.selectJoinMember(studyCode);
+		return list;
+	}
+	@RequestMapping("/member/mypage/refuse")
+	@ResponseBody
+	public int refuse(HttpServletRequest request, String memberCode,String studyCode){
+		int re = myPageServiceImpl.refuse(memberCode, studyCode);
+		
+		return re;
+	}
+	@RequestMapping("/member/mypage/allow")
+	@ResponseBody
+	public int allow(HttpServletRequest request,String memberCode, String studyCode){
+		int re = myPageServiceImpl.allow(memberCode, studyCode);
+		
+		return re;
+	}
 }

@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.RecvMessageDTO;
 import kosta.web.mogong.dto.SendMessageDTO;
 import kosta.web.mogong.dto.StudyDTO;
@@ -97,5 +98,29 @@ public class MyPageDAOImpl implements MyPageDAO {
 		map.put("word", word);
 		
 		return sqlSession.selectList("mypageMapper.searchRecvMail", map);
+	}
+
+	@Override
+	public List<MemberDTO> selectJoinMember(String studyCode) {
+		
+		return sqlSession.selectList("memberMapper.joinStatusSelect", studyCode);
+	}
+
+	@Override
+	public int refuse(String memberCode, String studyCode) {
+		Map<String, String> map = new HashMap<>();
+		map.put("memberCode", memberCode);
+		map.put("studyCode", studyCode);
+		
+		return sqlSession.update("memberMapper.refuse", map);
+	}
+
+	@Override
+	public int allow(String memberCode, String studyCode) {
+		Map<String, String> map = new HashMap<>();
+		map.put("memberCode", memberCode);
+		map.put("studyCode", studyCode);
+		
+		return sqlSession.update("memberMapper.allow", map);
 	}
 }

@@ -258,7 +258,7 @@
 
 					<div class="about-right-boot">
 						<div class="about-right-wrapper">
-							<a href="${pageContext.request.contextPath}/enrollForm"><h3>스터디 모집하기</h3></a>
+							<a href="${pageContext.request.contextPath}/study/enrollForm"><h3>스터디 모집하기</h3></a>
 							<p>스터디의 조장이 되어보세요. 카테고리로 스터디를 만들고 스터디를 찾고 있는 다른 스터디원들을 모집하세요.
 								그들이 당신의 조원이 될 것입니다.</p>
 						</div>

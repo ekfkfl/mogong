@@ -2,6 +2,7 @@ package kosta.web.mogong.dao;
 
 import java.util.List;
 
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.RecvMessageDTO;
 import kosta.web.mogong.dto.SendMessageDTO;
 import kosta.web.mogong.dto.StudyDTO;
@@ -76,4 +77,19 @@ public interface MyPageDAO {
 	 * 검색하기(받은메세지)
 	 * */
 	List<RecvMessageDTO> searchRecvMail(String id, String word);
+	
+	/**
+	 * 신청중인 맴버 불러오기
+	 */
+	List<MemberDTO> selectJoinMember(String studyCode);
+	
+	/**
+	 * 거절시 업데이트
+	 */
+	int refuse(String memberCode,String studyCode);
+	
+	/**
+	 * 수락시 업데이트
+	 */
+	int allow(String memberCode, String studyCode);
 }

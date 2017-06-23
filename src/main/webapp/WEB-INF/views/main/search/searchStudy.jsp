@@ -606,10 +606,6 @@ $(function(){
 		<td class="studyPeriod">6개월</td>
 	</tr>
 
-<<<<<<< HEAD
-<h1>스터디 검색페이지 입니다.</h1><br>
-<a href="${pageContext.request.contextPath}/search/detail?studyCode=54">a</a>
-=======
 	<tr>
 		<td rowspan="2" class="col-xs-1 studyCategory">[일본어]사진</td>
 		<td class="studyName"> 일본어 스터디 입니다.</td>
@@ -635,8 +631,6 @@ $(function(){
 </ul>
 </div>
 </div>
->>>>>>> b9b8115f87491d7f8f7eb0cee281f7cabf817b5f
-
 <jsp:include page="/WEB-INF/views/main/footer.jsp" />
 
 
