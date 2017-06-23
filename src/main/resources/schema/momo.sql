@@ -277,7 +277,7 @@ select NAME, DESCRIPTION
 from study
 where STUDY_CODE = 13 and id='jun12'
  
-select *from study where id= 'jun12'
+select id from user_tb where id= '1234'
 
 CREATE SEQUENCE RECV_MESSAGE_SEQ
 START WITH 1

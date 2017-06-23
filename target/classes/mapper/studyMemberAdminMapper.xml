@@ -67,4 +67,8 @@
 		insert into recv_message values(RECV_MESSAGE_SEQ.nextval,#{recvId}, #{studyName}, #{studyContent}, #{id}, sysdate,'0051', #{studyCode}, #{joinStatus})
 	</insert>
 	
+	<select id="idCheck" parameterType="string" resultMap="userDTOMap">
+		select id from user_tb where id=#{_parameter}
+	</select>
+	
 </mapper>
