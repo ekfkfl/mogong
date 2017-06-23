@@ -96,9 +96,9 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public int refuse(String memberCode, String studyCode) {
+	public int refuse(String sendId, String memberCode, String studyCode) {
 
-		return myPageDAOImpl.refuse(memberCode, studyCode);
+		return myPageDAOImpl.refuse(sendId, memberCode, studyCode);
 	}
 
 	@Override

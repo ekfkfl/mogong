@@ -1,6 +1,7 @@
 package kosta.web.mogong.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import kosta.web.mogong.dao.MainDAO;
 import kosta.web.mogong.dto.BoardDTO;
 import kosta.web.mogong.dto.CommCodeDTO;
 import kosta.web.mogong.dto.MemberDTO;
+import kosta.web.mogong.dto.PageDTO;
 import kosta.web.mogong.dto.StudyDTO;
 
 @Service
@@ -74,8 +76,11 @@ public class MainServiceImpl implements MainService {
 	}
 	
 	@Override
-	public List<StudyDTO> selectSearchStudy(StudyDTO studyDTO, int page) {
-		return mainDAO.selectSearchStudy(studyDTO, page);
+	public PageDTO selectSearchStudy(StudyDTO studyDTO, int page) {
+		PageDTO pageDTO=new PageDTO(10, 3, page);
+		Map<String, Object> resultMap=pageDTO.getResultMap();
+		resultMap.put("studyDTO", studyDTO);
+		return mainDAO.selectSearchStudy(pageDTO);
 	}
 
 	@Override
@@ -86,5 +91,20 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int studyUpdate(StudyDTO studyDTO) {
 		return mainDAO.studyUpdate(studyDTO);
+	}
+
+	@Override
+	public String studyJoin(MemberDTO memberDTO) {
+		String result="정원이 초과되었습니다.";
+		
+		int member=mainDAO.studyJoinCheckMember(memberDTO.getStudyCode());
+		int people=mainDAO.studyJoinCheckPeople(memberDTO.getStudyCode());
+		
+		if(member < people) {
+			result="가입신청 완료 되었습니다.";
+			mainDAO.studyJoin(memberDTO);
+		}
+		
+		return result;
 	}
 }

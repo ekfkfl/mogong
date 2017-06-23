@@ -3,6 +3,7 @@ package kosta.web.mogong.controller;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kosta.web.mogong.dto.CommCodeDTO;
 import kosta.web.mogong.dto.MemberDTO;
+import kosta.web.mogong.dto.PageDTO;
 import kosta.web.mogong.dto.StudyDTO;
 import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.service.AuthService;
@@ -91,11 +94,11 @@ public class MainController {
 		studyDTO.setName("");
 		int page=1;
 		
-		List<StudyDTO> studyDTOList=service.selectSearchStudy(studyDTO, page);
+		PageDTO pageDTO=service.selectSearchStudy(studyDTO, page);
 		Map<String, CommCodeDTO> categoryMap=CodeUtil.getChildCodeDTO("0157");
 		Map<String, CommCodeDTO> cityCodeMap=CodeUtil.getChildCodeDTO("0061");
 
-		mv.addObject("studyDTOList", studyDTOList);
+		mv.addObject("pageDTO", pageDTO);
 		mv.addObject("categoryMap", categoryMap);
 		mv.addObject("cityCodeMap", cityCodeMap);
 		mv.setViewName("main/search/searchStudy");
@@ -274,6 +277,19 @@ public class MainController {
 		
 		return "redirect: "+request.getContextPath()+"/search/detail?studyCode="+studyDTO.getStudyCode();
 	}
+	
+	// 스터디 가입 신청
+	@RequestMapping("/joinStudy")
+	@ResponseBody
+	public List<String> joinStudy(HttpSession session, HttpServletResponse response, String studyCode) {
+		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		List<String> list=new ArrayList<>();
+		
+		list.add(service.studyJoin(new MemberDTO(Integer.parseInt(studyCode), userDTO.getId())));
+		return list;
+	}
 
 	@RequestMapping("/study/main")
 	public String studyMain(HttpServletRequest request, HttpSession session, Model model) {
@@ -316,7 +332,7 @@ public class MainController {
 
 	@RequestMapping("/search")
 	@ResponseBody
-	public List<StudyDTO> keywordSearch(StudyDTO studyDTO, int page){
+	public PageDTO keywordSearch(StudyDTO studyDTO, int page){
 		return service.selectSearchStudy(studyDTO, page);
 	}
 }

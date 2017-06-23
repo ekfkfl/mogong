@@ -109,19 +109,31 @@ public class MyPageDAOImpl implements MyPageDAO {
 	}
 
 	@Override
-	public int refuse(String memberCode, String studyCode) {
-		Map<String, String> map = new HashMap<>();
-		map.put("memberCode", memberCode);
-		map.put("studyCode", studyCode);
+	public int refuse(String sendId, String memberCode, String studyCode) {
 		
-		return sqlSession.update("memberMapper.refuse", map);
+		Map<String, String> map = new HashMap<>();
+		Map<String, Integer> map2 = new HashMap<>();
+		
+		map.put("sendId", sendId);
+		map2.put("memberCode", Integer.parseInt(memberCode));
+		map2.put("studyCode", Integer.parseInt(studyCode));
+		if(sqlSession.update("memberMapper.refuse", map2)==1){
+		  MemberDTO memberDTO = sqlSession.selectOne("memberMapper.sendIdValue", Integer.parseInt(memberCode));
+		  map.put("recvId", memberDTO.getMemberId());
+		  map.put("title", "초대 거부");
+		  map.put("content", sendId+"님 "+memberDTO.getMemberId()+"님이 거부하셨습니다.");
+		  if(sqlSession.insert("memberMapper.sendMessageRefuse", map)==1){
+			  return sqlSession.insert("memberMapper.recvMessageRefuse", map);
+		  }
+		}
+		return 0;
 	}
 
 	@Override
 	public int allow(String memberCode, String studyCode) {
-		Map<String, String> map = new HashMap<>();
-		map.put("memberCode", memberCode);
-		map.put("studyCode", studyCode);
+		Map<String, Integer> map = new HashMap<>();
+		map.put("memberCode", Integer.parseInt(memberCode));
+		map.put("studyCode", Integer.parseInt(studyCode));
 		
 		return sqlSession.update("memberMapper.allow", map);
 	}

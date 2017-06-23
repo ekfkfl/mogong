@@ -213,36 +213,8 @@
 		
 
 						<li class="dropdown user user-menu">
-							<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle"
-							data-toggle="dropdown"> <span class="hidden-xs">Login</span>
+							<!-- Menu Toggle Button --> <a href="${pageContext.request.contextPath}/loginForm" > <span class="hidden-xs">Login</span>
 						</a>
-
-							<ul class="dropdown-menu" style="width:200px;">
-								<!-- The user image in the menu -->
-								<form action="${pageContext.request.contextPath}/login" method="post">
-								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
-									<li class="user-header">
-										<div class="form-group input-group" style="margin:5px;">
-											<span class="input-group-addon"><i class="fa fa-user"></i></span>
-											<input type="text"
-												class="form-control input-sm" id="id" name="id">
-										</div>
-										<div class="form-group input-group" style="margin:5px;">
-											<span class="input-group-addon"><i class="fa  fa-unlock-alt"></i></span><input
-												type="password" class="form-control input-sm" id="password" name="password">
-										</div> <!-- Menu Footer-->
-									<li class="user-footer">
-										<div class="pull-left" style="margin-left:15px; margin-bottom:5px; float:left;">
-											<input class="btn btn-flat btn-default" type="submit"
-												name="login" value="login" style="padding:0px;margin:0px;width:80px;height:30px;">
-											<!--  <a href="#" class="btn btn-default btn-flat">Profile</a> -->
-										</div>
-										<div class="pull-right" style="margin-left:0px; margin-bottom:10px; padding-right:15px;">
-											<a href="${pageContext.request.contextPath}/login/signupForm" class="btn btn-flat btn-default" style="width:80px;height:30px; padding:5px;">SignUp</a>
-										</div>
-									</li>
-								</form>
-							</ul>
 						</li>
 
 						<!-- 헤더에서 Sign up 버튼 -->

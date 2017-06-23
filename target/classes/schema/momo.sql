@@ -106,8 +106,15 @@ CREATE TABLE MEMBER(
   GRADE VARCHAR2(10) REFERENCES COMM_CODE(COMM_CODE) -- 등급
 )
 
+select MEMBER_CODE, member.STUDY_CODE, member.id, join_status, grade, name
+from member, study 
+where  member.STUDY_CODE = study.STUDY_CODE
+and join_status='0002'
 
 select * from study
+
+update member set join_status='0004', grade='0146' where member_code=5 and study_code=13
+
 
 insert into member values(MEMBER_SEQ.nextval, 6,'gwang12','0002', null)
 insert into member values(MEMBER_SEQ.nextval, 7,'gwang12','0002', null)
@@ -277,7 +284,7 @@ select NAME, DESCRIPTION
 from study
 where STUDY_CODE = 13 and id='jun12'
  
-select *from study where id= 'jun12'
+select id from user_tb where id= '1234'
 
 CREATE SEQUENCE RECV_MESSAGE_SEQ
 START WITH 1

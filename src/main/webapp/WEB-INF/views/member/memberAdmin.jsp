@@ -113,10 +113,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					  dataType: "json",//요청결과타입(text, html, xml, json)
 					  data: "recvId="+id+"&studyCode="+studyCode ,//서버에게 보낼 parameter 정보
 					  success: function(result){
-						 $("#keyWord").val("")
+						  	 alert(id+"에게 초대메세지가 보내졌습니다")
+							 $("#keyWord").val("")
 					  },
 					  error: function(err){
-						  alert("오류발생 : "+ err);
+						  alert("id가 존재하지 않습니다.");
+						  $("#keyWord").val("")
 					  }
 				})
 			})

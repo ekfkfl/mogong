@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@page import="kosta.web.mogong.util.CodeUtil" %>
 <jsp:include page="/WEB-INF/views/main/header.jsp" />
 
 <!-- daterange picker -->
@@ -27,7 +27,7 @@
 
 <style>
 #searchContent{
-	width:80%;
+	width:75%;
 	height:auto;
 	margin:auto;
 }
@@ -157,7 +157,7 @@
 .studyName a{color:black;}
 	
 /*스터디 정보 - 시작일자~종료일자*/
-.studyDate{background-color:#f9f9f9;}
+.studyDate{background-color:#f9f9f9;	width:200px;}
 
 /*스터디 정보 - 작성자 */
 .studyId{
@@ -179,6 +179,7 @@
 	
 /*스터디 정보 - 기간*/
 .studyPeriod{
+
 	border:1px #00acd6 solid;
 	border-width:0px 1px 1px 1px;
 }
@@ -266,11 +267,7 @@
 		width:250px;
 	}
 
-
-	
-
 }
-
 </style>
 
 <script>
@@ -303,6 +300,62 @@ function getCodeName(code){
 	}
 }
 
+//데이터 검색
+function search(page){
+	
+	//검색 파라메타 생성
+	var name=$("#searchKeyword").val();
+	
+	if(name==""){ name="";}
+	if(page=="" || page==undefined){page=1;}
+	
+	
+	//카테고리 파라미터 생성
+	var categoryNode=$("#optGrpCategory .optionGroupBody").children();
+	var categoryParam="";
+	for(i=0; i<categoryNode.length; i++){
+		if(categoryNode[i].checked){
+			categoryParam+="&category="+categoryNode[i].value;
+		}
+	}
+	console.log(categoryParam);
+	
+	
+	//지역 파라미터 생성
+	var areaNode=$("#optGrpArea .optionGroupBody").children();
+	var areaParam="";
+	for(i=0; i<areaNode.length; i++){
+		if(areaNode[i].checked){
+			areaParam+="&cityCode="+areaNode[i].value;
+		}
+	}
+	console.log(areaParam);
+	
+	//요일 파라미터 생성
+	var dayNode=$("#optGrpDay .optionGroupBody").children();
+	var dayParam="";
+	for(i=0; i<dayNode.length; i++){
+		if(dayNode[i].checked){
+			dayParam+="&day="+dayNode[i].value;
+		}
+	}
+	console.log(dayParam);
+	
+	
+	//시간대 파라미터 생성
+	
+	
+	//기간 파라미터 생성
+	
+	
+	var params="name="+name+"&page="+page;
+
+
+	//데이터 검색후 출력
+	getStudyList(params);
+	
+	return false;
+}
 
 //스터디 검색
 function getStudyList(params){
@@ -312,7 +365,18 @@ function getStudyList(params){
 		dataType : "json",
 		data : params+"&${_csrf.parameterName}=${_csrf.token}",
 		success : function(result) {
-			printStudy(result);
+			printStudy(result.resultMap.studyDTOList);
+			
+			$("#pagination ul").empty();
+			var liTag="";
+			if(result.prevBlockPageNum>0) liTag+="<li><a href='#'>Prev</a></li>";
+			for(i=0; i<result.pageNumList.length; i++){
+				liTag+="<li"; 
+				if(result.pageNumList[i]==result.nowPage) liTag+=" class='active'";
+				liTag+="><a href='#'>"+result.pageNumList[i]+"</a></li>";
+			} 
+			if(result.nextBlockPageNum>0) liTag+= "<li><a href='#'>Next</a></li>";
+			$("#pagination ul").append(liTag);
 		},
 		error : function(err) {
 			alert(err);
@@ -320,58 +384,34 @@ function getStudyList(params){
 	});
 }
 
-
-//데이터 검색
-function search(page){
-	
-	//검색 파라메타 생성
-	var name=$("#searchKeyword").val();
-	
-	if(name==""){
-		name="";
-	}
-	if(page=="" || page==undefined){
-		page=1;
-	}
-	
-	var params="name="+name+"&page="+page;
-
-	//alert(params);
-	//데이터 검색후 출력
-	getStudyList(params);
-	
-	return false;
-}
-
 //데이터 출력
 function printStudy(study){
 	$("#searchResult table tr:gt(0)").remove();
 
 	if(study.length<=0){
-		var table="<table class='.table-striped studyInfoTable'>";
-		table+="<tr><td class='studyCategory'>검색된 데이터가 존재하지 않습니다.</td></tr></table>";
-		$("#searchResult").append(table);
+		var table="";
+		table+="<tr><td class='studyPeriod' colspan='5'>검색된 데이터가 존재하지 않습니다.</td></tr>";
+		$("#searchResult table").append(table);
 		return;
 	}
 	
 	var table="";
+
 	for(i=0; i<study.length; i++){
 		table+="<tr>";
-		table+="<td rowspan='2' class='col-xs-1 studyCategory'>" + study[i].category +" </td>";
+		table+="<td rowspan='2' class='col-xs-1 studyCategory'>" + getCodeName(study[i].category) +" </td>";
 		table+="<td class='studyName'><a href='${pageContext.request.contextPath}/search/detail?studyCode=" +study[i].studyCode+ "'>"+study[i].name+"</a></td>";
 		table+="<td class='col-xs-2 studyDate'>" + study[i].startDate+"~"+study[i].endDate + "</td>";
 		table+="<td rowspan='2' class='col-xs-1 studyId'>"+study[i].id+"</td>";
 		table+="<td rowspan='2' class='col-xs-1 studyRead'>" + study[i].read + "</td></tr>";
 		
-		table+="<tr><td class='studyAreaTime'>" + study[i].area + " | " + study[i].day + " | " + study[i].startTime + "~" + study[i].endTime + "</td>";
+		table+="<tr><td class='studyAreaTime'>" + getCodeName(study[i].area) + " | " + study[i].day + " | " + study[i].startTime + "~" + study[i].endTime + "</td>";
 		table+="<td class='studyPeriod'>"+"기간...."+"</td></tr>";
-		
-	}
 	
+	}
+
 	$("#searchResult table tbody").append(table);
-
 }
-
 
 
 $(function(){
@@ -456,8 +496,7 @@ $(function(){
 		
 		if($(this).val()=="전체"){
 			return;
-		}
-		
+		}	
 
 		$.ajax({
 			url : "${pageContext.request.contextPath}/getCommCodeList",
@@ -483,8 +522,7 @@ $(function(){
 		});
 	});
 	
-	
-	
+
 	//지역 체크박스
 	$("#optGrpArea .optionGroupBody").on("change", "input:checkbox", function(){
 		if($(this).val()!="전체"){
@@ -526,7 +564,6 @@ $(function(){
 		if($(this).val()!="전체"){
 			$("#optGrpDay .optionGroupBody input:eq(0)").attr("checked", false);
 			
-			//var optionValue=$("#categoryOption ul span").text();
 			var optionValue="";
 			$("#weekOption ul").empty();
 			
@@ -554,13 +591,29 @@ $(function(){
 			$("#weekOption ul").append(tag);
 		}
 	})	
+	
+	
+	$("#pagination ul").on("click", "a", function(){
+		var page=$(this).text();
+		
+		if(page=="Prev"){
+			page=$("#pagination ul li:eq(1)").text()-1;
+		}
+		if(page=="Next"){
+			page=parseInt($("#pagination ul li").last().prev().text())+1;
+		}
+		
+		search(page);
+	})
+
 });
 
 </script>
 
 
-<form action="#" method="post" id="f" name="f" onsubmit="return search()">
+
 <div id="searchContent">
+<form action="#" method="post" id="f" name="f" onsubmit="return search()">
 	<!-- 검색 필드 -->
 	<div class="input-group input-group-sm" id="searchStudyBox">
 		<!-- 카테고리 버튼 -->
@@ -658,8 +711,8 @@ $(function(){
 						</div>
 					</div>
 					<div class="optionGroupBody" style="clear:both;">
-						<input type="checkbox" value="전체" checked>전체</input>
-						<c:forEach items="${cityCodeMap}" var="map"><input type="checkbox" value="${map.value.commCode}" name="cityCode">${map.value.codeName}</input></c:forEach>
+						<input type="checkbox" value="전체" checked>전체
+						<c:forEach items="${cityCodeMap}" var="map"><input type="checkbox" value="${map.value.commCode}" name="cityCode">${map.value.codeName}</c:forEach>
 					</div>
 				</div><!--지역 옵션 그룹 끝-->
 				
@@ -729,7 +782,6 @@ $(function(){
           </div>
           <!-- /.box -->
 </div>
-
 </form>
 
 <br>
@@ -742,65 +794,15 @@ $(function(){
 		<td class="col-xs-1 studyId">모집자</td>
 		<td class="col-xs-1 studyRead">조회수</td>
 	</tr>
-	<tr>
-		<td rowspan="2" class="col-xs-1 studyCategory">[일본어]사진</td>
-		<td class="studyName"> 일본어 스터디 입니다.</td>
-		<td class="col-xs-2 studyDate">2017.05.23~2017.12.31</td>
-		<td rowspan="2" class="col-xs-1 studyId">최윤아</td>
-		<td rowspan="2" class="col-xs-1 studyRead">54</td>
-	</tr>
-	<tr>
-		<td class="studyAreaTime">경기 성남시 분당구 | 월,화 | 19:00~21:00</td>
-		<td class="studyPeriod">6개월</td>
-	</tr>
-
-
-	<tr>
-		<td rowspan="2" class="col-xs-1 studyCategory">[일본어]사진</td>
-		<td class="studyName"> 일본어 스터디 입니다.</td>
-		<td class="col-xs-2 studyDate">2017.05.23~2017.12.31</td>
-		<td rowspan="2" class="col-xs-1 studyId">최윤아</td>
-		<td rowspan="2" class="col-xs-1 studyRead">54</td>
-	</tr>
-	<tr>
-		<td class="studyAreaTime">경기 성남시 분당구 | 월,화 | 19:00~21:00</td>
-		<td class="studyPeriod">6개월</td>
-	</tr>
-
-	<tr>
-		<td rowspan="2" class="col-xs-1 studyCategory">[일본어]사진</td>
-		<td class="studyName"> 일본어 스터디 입니다.</td>
-		<td class="col-xs-2 studyDate">2017.05.23~2017.12.31</td>
-		<td rowspan="2" class="col-xs-1 studyId">최윤아</td>
-		<td rowspan="2" class="col-xs-1 studyRead">54</td>
-	</tr>
-	<tr>
-		<td class="studyAreaTime">경기 성남시 분당구 | 월,화 | 19:00~21:00</td>
-		<td class="studyPeriod">6개월</td>
-	</tr>
-
-	<tr>
-		<td rowspan="2" class="col-xs-1 studyCategory">[일본어]사진</td>
-		<td class="studyName"> 일본어 스터디 입니다.</td>
-		<td class="col-xs-2 studyDate">2017.05.23~2017.12.31</td>
-		<td rowspan="2" class="col-xs-1 studyId">최윤아</td>
-		<td rowspan="2" class="col-xs-1 studyRead">54</td>
-	</tr>
-	<tr>
-		<td class="studyAreaTime">경기 성남시 분당구 | 월,화 | 19:00~21:00</td>
-		<td class="studyPeriod">6개월</td>
-	</tr>
-</table>	
-	
- <c:forEach items="${studyDTOList}" var="studyDTO">
+ <c:forEach items="${pageDTO.getResultMap().get('studyDTOList')}" var="studyDTO">
 		<tr>
- 	 	<td rowspan='2' class='col-xs-1 studyCategory'>${studyDTO.category}</td>
+ 	 	<td rowspan='2' class='col-xs-1 studyCategory'>${CodeUtil.getCodeName(studyDTO.category)}</td>
 		
 		<td class='studyName'><a href="${pageContext.request.contextPath}/search/detail?studyCode=${studyDTO.studyCode}">${studyDTO.name}</a></td>
 		<td class='col-xs-2 studyDate'> ${studyDTO.startDate}~${studyDTO.endDate}</td>
 		<td rowspan='2' class='col-xs-1 studyId'>${studyDTO.id}</td>
 		<td rowspan='2' class='col-xs-1 studyRead'>${studyDTO.read}</td></tr>
-		<tr><td class='studyAreaTime'> ${studyDTO.area} | ${studyDTO.day} | ${studyDTO.startTime} ~ ${startDTO.endTime} </td>
+		<tr><td class='studyAreaTime'> ${CodeUtil.getCodeName(studyDTO.area)} | ${studyDTO.day} | ${studyDTO.startTime} ~ ${studyDTO.endTime} </td>
 		<td class='studyPeriod'>기간....</td> 
 		</tr> 
 </c:forEach> 
@@ -808,11 +810,13 @@ $(function(){
 </div>
 <div class="row" id="pagination">
 <ul class="pagination">
-	<li><a href="#">1</a></li>
-	<li><a href="#">2</a></li>
-	<li><a href="#">3</a></li>
-	<li><a href="#">4</a></li>			
+<c:if test="${pageDTO.prevBlockPageNum!=0}"><li class="previous"><a href="#">Prev</a></li></c:if>
+<c:forEach items="${pageDTO.pageNumList}" var="page">
+	<li <c:if test="${pageDTO.nowPage==page}">class="active" </c:if>><a href="#">${page}</a></li>
+</c:forEach>
+<c:if test="${pageDTO.nextBlockPageNum!=0}"><li class="next"><a href="#">Next</a></li></c:if>
 </ul>
+</div>
 </div>
 <jsp:include page="/WEB-INF/views/main/footer.jsp" />
 

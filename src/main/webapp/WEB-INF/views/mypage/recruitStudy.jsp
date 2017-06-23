@@ -66,7 +66,10 @@
 		    </tr>
 		    </c:when>
 		    <c:otherwise>
-				<c:forEach items="${list}" var="studyDTO" varStatus="status">
+				<c:forEach items="${list}" var="studyDTO">
+			    	  <!--------------------------
+				        | Your Page Content Here |
+				        -------------------------->
 			        <div class="col-md-3">
 			          <div class="box box-default">
 			            <div class="box-header with-border" style="background-color:#f0f8ff">

@@ -23,11 +23,22 @@
 	
 	<update id="refuse" parameterType="map">
 		update member set join_status='0003' where member_code=#{memberCode} and study_code=#{studyCode}
-	
 	</update>
 	
+	<select id="sendIdValue" parameterType="int" resultMap="memberMap">
+		select id from member where member_code=#{_parameter}
+	</select>
+	
+	<insert id="sendMessageRefuse" parameterType="map">
+		insert into send_message values(SEND_MESSAGE_SEQ.nextval,#{sendId}, #{title}, #{content}, #{recvId}, sysdate, null, null)
+	</insert>
+	
+	<insert id="recvMessageRefuse">
+		insert into recv_message values(RECV_MESSAGE_SEQ.nextval,#{recvId}, #{title}, #{content}, #{sendId}, sysdate,'0051',null, '0001')
+	</insert>
+	
 	<update id="allow" parameterType="map">
-		update member set join_status='0004' where member_code=#{memberCode} and study_code=#{studyCode}
+		update member set join_status='0004', grade='0146' where member_code=#{memberCode} and study_code=#{studyCode}
 	</update>
 	
 </mapper>

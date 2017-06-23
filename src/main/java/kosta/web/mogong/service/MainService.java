@@ -4,6 +4,7 @@ import java.util.List;
 
 import kosta.web.mogong.dto.CommCodeDTO;
 import kosta.web.mogong.dto.MemberDTO;
+import kosta.web.mogong.dto.PageDTO;
 import kosta.web.mogong.dto.StudyDTO;
 
 public interface MainService {
@@ -18,9 +19,11 @@ public interface MainService {
 	
 	List<StudyDTO> selectRecentStudy();
 	
-	List<StudyDTO> selectSearchStudy(StudyDTO studyDTO, int page);
+	PageDTO selectSearchStudy(StudyDTO studyDTO, int page);
 	
 	String selectStudyMember(MemberDTO memberDTO);
 	
 	int studyUpdate(StudyDTO studyDTO);
+	
+	String studyJoin(MemberDTO memberDTO);
 }
