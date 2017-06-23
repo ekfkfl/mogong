@@ -6,7 +6,7 @@ public class StudyDTO {
 	private int studyCode; //스터디 코드
 	private String id; //회원 아이디
 	private String category; //카테고리 코드(공통코드에서 가져옴)
-	private String cityCode; //도시 코드(공통코드에서 가져옴)
+	private String cityCode; //도시 코드(공통코드에서 가져옴)(2차분류)
 	private String name; //스터디 이름
 	private String writeDate; //등록일
 	private String startDate; //시작일
@@ -15,7 +15,7 @@ public class StudyDTO {
 	private String startTime; //시작시간
 	private String endTime; //종료시간
 	private int people; //인원
-	private String area; //지역
+	private String area; //지역(1차분류)
 	private String detailArea; //상세지역
 	private String addr1; //스터디 장소 -> 다음api 주소
 	private String addr2; //스터디 상세 주소

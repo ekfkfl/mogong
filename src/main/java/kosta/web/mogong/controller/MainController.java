@@ -246,6 +246,34 @@ public class MainController {
 		
 		return mv;
 	}
+	
+	// 스터디 수정폼에서 수정하기 클릭했을때
+	@RequestMapping("/studyUpdate")
+	public String studyUpdate(HttpServletRequest request, StudyDTO studyDTO, String datePicker) {
+		HttpSession session = request.getSession();
+		UserDTO dto = (UserDTO) session.getAttribute("userDTO");
+		studyDTO.setId(dto.getId());
+
+		String[] str = datePicker.split("~");
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 M월 d일 a HH:mm");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date date = sdf.parse(str[0]);
+			String s = sdf2.format(date);
+			studyDTO.setStartDate(s);
+
+			date = sdf.parse(str[1]);
+			s = sdf2.format(date);
+			studyDTO.setEndDate(s);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		service.studyUpdate(studyDTO);
+		
+		return "redirect: "+request.getContextPath()+"/search/detail?studyCode="+studyDTO.getStudyCode();
+	}
 
 	@RequestMapping("/study/main")
 	public String studyMain(HttpServletRequest request, HttpSession session, Model model) {

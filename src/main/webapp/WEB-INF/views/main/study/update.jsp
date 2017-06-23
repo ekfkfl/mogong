@@ -18,7 +18,7 @@
 
 <jsp:include page="/WEB-INF/views/main/header.jsp" />
 
-<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/enroll" name="insert">
+<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/studyUpdate?studyCode=${studyDTO.studyCode}" name="update">
 	
 	<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" >
    <div class="container">
@@ -33,7 +33,7 @@
                   <div class="form-group">
                      <div class="col-sm-12">
                         <input type="text" class="form-control" id="name" name="name"
-                           placeholder="스터디 제목을 입력하세요">
+                           placeholder="스터디 제목을 입력하세요" value="${studyDTO.name}">
                      </div>
                   </div>
                    <div class="form-group">
@@ -79,7 +79,7 @@
                   <div class="bootstrap-timepicker" style="float:left;width:50%">
                   <label>스터디 시작 시간</label>
                   <div class="input-group" style="width:80%">
-                    <input type="text" name="startTime" class="form-control timepicker" readonly="readonly">
+                    <input type="text" name="startTime" class="form-control timepicker" readonly="readonly"  value="${studyDTO.startTime}">
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
                     </div>
@@ -88,7 +88,7 @@
                	 <div class="bootstrap-timepicker" style="float:left;width:50%">
                   <label>스터디 종료 시간</label>
                   <div class="input-group" style="width:80%">
-                    <input type="text" name="endTime" class="form-control timepicker" readonly="readonly">
+                    <input type="text" name="endTime" class="form-control timepicker" readonly="readonly" value="${studyDTO.endTime}">
                     <div class="input-group-addon">
                       <i class="fa fa-clock-o"></i>
                     </div>
@@ -218,8 +218,8 @@
 									}
 								</script>
 								<input type="hidden" name="addr" />
-								<input type="text" class="form-control" id="addr1" name="addr1" placeholder="주소를 입력하세요">
-								<input type="text" class="form-control" id="addr2" name="addr2" placeholder="상세 주소를 입력해주세요.">
+								<input type="text" class="form-control" id="addr1" name="addr1" placeholder="주소를 입력하세요" value="${studyDTO.addr1}">
+								<input type="text" class="form-control" id="addr2" name="addr2" placeholder="상세 주소를 입력해주세요." value="${studyDTO.addr2}">
             </div>
          </div>
       </div>
@@ -237,7 +237,7 @@
                   <!-- textarea -->
                   <div class="form-group">
                      <textarea class="form-control" id="description"
-                        name="description" rows="5" placeholder="스터디에 대한 상세정보를 알려주세요"></textarea>
+                        name="description" rows="5" placeholder="스터디에 대한 상세정보를 알려주세요">${studyDTO.description}</textarea>
                   </div>
                </div>
             </div>
@@ -252,7 +252,7 @@
             style="text-align: center">
             <div class="box-body">
                <input type="reset" value="재입력" class="btn">&nbsp;&nbsp;&nbsp;&nbsp;
-               <input type="submit" value="모집 등록" class="btn">
+               <input type="submit" value="스터디 수정" class="btn">
             </div>
          </div>
       </div>
@@ -284,6 +284,40 @@ $(function () {
 	});
 	
 	$("#area").change(function () {
+		printDetailArea();
+	})
+	
+	var selectedDay="${studyDTO.day}".split(",");
+	
+	$("input:checkbox[name='day']").each(function() {
+		for(var i=0;i<selectedDay.length; i++) {
+			if(this.value==selectedDay[i]) {
+				this.checked=true;
+			}
+		}
+	})
+
+	$("input:radio[name='people']").each(function() {
+		if(this.value=="${studyDTO.people}") {
+			this.checked=true;
+		}
+	})
+	
+	$("#area option").each(function() {
+		if(this.innerText=="${studyDTO.area}") {
+			$(this).attr("selected","selected");
+		}
+	})
+	
+	printDetailArea();
+	
+	$("#detailArea option").each(function() {
+		if(this.innerText=="${studyDTO.cityCode}") {
+			$(this).attr("selected","selected");
+		}
+	})
+	
+	function printDetailArea() {
 		$.ajax({
 			url: "${pageContext.request.contextPath}/study/location",
 			data: "areaCode="+$("#area option:selected").val()+"&${_csrf.parameterName}=${_csrf.token}",
@@ -301,8 +335,8 @@ $(function () {
 			error : function (request,status,error) {
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
-		});//ajax 끝 
-	})
+		});
+	}
 })
 
 moment.locale('ko');
@@ -339,8 +373,8 @@ $('#dateChooser').daterangepicker({
         ],
         "firstDay": 1
     },
-    "startDate": moment(),
-    "endDate": moment()
+    "startDate": "${studyDTO.startDate}",
+    "endDate": "${studyDTO.endDate}"
 }, function(start, end, label) {
 });
 

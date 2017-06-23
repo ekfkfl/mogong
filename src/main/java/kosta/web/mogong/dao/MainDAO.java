@@ -46,4 +46,9 @@ public interface MainDAO {
 	 * 스터디 멤버인지 아닌지
 	 */
 	String selectStudyMember(MemberDTO memberDTO);
+	
+	/**
+	 * 스터디 수정
+	 */
+	int studyUpdate(StudyDTO studyDTO);
 }

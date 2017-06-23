@@ -48,7 +48,7 @@
 
 	<!-- 스터디 상세보기 -->
 	<select id="studyDetailView" parameterType="string" resultMap="studyMap">
-		select study.study_code,user_tb.id,study.name,study.start_date,study.end_date,study.day,study.start_time,study.end_time,study.people,comm_code.code_name as area,study.description,study.addr,study.addr2,user_tb.name as userName,user_tb.path as userProfile,user_tb.email as userEmail,user_tb.intro as userIntro 
+		select study.study_code,study.city_code,user_tb.id,study.name,study.start_date,study.end_date,study.day,study.start_time,study.end_time,study.people,comm_code.code_name as area,study.description,study.addr,study.addr2,user_tb.name as userName,user_tb.path as userProfile,user_tb.email as userEmail,user_tb.intro as userIntro 
 		from study,user_tb,comm_code
 		where study.id=user_tb.id and study.area=comm_code.comm_code and study_code=#{_parameter}
 	</select>
@@ -60,7 +60,7 @@
 	
 	<!-- 읽지 않은 메시지 개수 가져오기 -->
 	<select id="messageCount" parameterType="string" resultType="string">
-		select COUNT(id) from recv_message where id=#{_parameter} and confirm='0051'
+		select COUNT(id) from recv_message where id=#{_parameter,jdbcType=VARCHAR} and confirm='0051'
 	</select>
 	
 	<!-- 지역 상세 코드 가져오기 -->
@@ -81,5 +81,12 @@
 		where name like '%'||#{name}||'%'
 		and study_status='0043'
 	</select>
-
+	
+	<!-- 스터디 수정하기 -->
+	<update id="studyUpdate" parameterType="StudyDTO">
+		update study set city_code=#{detailArea},name=#{name},start_date=#{startDate},end_date=#{endDate},
+		day=#{day},start_time=#{startTime},end_time=#{endTime},people=#{people},area=#{area},description=#{description},
+		addr=#{addr1},addr2=#{addr2} where id=#{id} and study_code=#{studyCode}
+	</update>
+	
 </mapper>

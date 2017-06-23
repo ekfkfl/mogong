@@ -21,4 +21,6 @@ public interface MainService {
 	List<StudyDTO> selectSearchStudy(StudyDTO studyDTO, int page);
 	
 	String selectStudyMember(MemberDTO memberDTO);
+	
+	int studyUpdate(StudyDTO studyDTO);
 }

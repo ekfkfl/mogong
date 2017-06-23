@@ -82,4 +82,9 @@ public class MainServiceImpl implements MainService {
 	public String selectStudyMember(MemberDTO memberDTO) {
 		return mainDAO.selectStudyMember(memberDTO);
 	}
+
+	@Override
+	public int studyUpdate(StudyDTO studyDTO) {
+		return mainDAO.studyUpdate(studyDTO);
+	}
 }

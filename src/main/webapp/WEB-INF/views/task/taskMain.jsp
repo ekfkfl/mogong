@@ -291,7 +291,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 										<i class="fa fa-clock-o"></i>
 									</div>
 									<input type="text" class="form-control pull-right"
-										id=dateChooser style="width:500px;">
+										id=dateChooser readonly="readonly" style="width:500px;">
 								</div>
 								<!-- /.input group -->
 								<hr>

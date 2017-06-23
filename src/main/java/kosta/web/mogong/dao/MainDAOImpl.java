@@ -69,4 +69,8 @@ public class MainDAOImpl implements MainDAO {
 	public String selectStudyMember(MemberDTO memberDTO) {
 		return sqlSession.selectOne("mainMapper.selectStudyMember", memberDTO);
 	}
+	@Override
+	public int studyUpdate(StudyDTO studyDTO) {
+		return sqlSession.update("mainMapper.studyUpdate", studyDTO);
+	}
 }
