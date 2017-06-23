@@ -91,7 +91,7 @@
 						</c:when>
 						<c:otherwise></c:otherwise>
 					</c:choose>
-					<div id="map" style="width:300px;height:350px;position:absolute;top:45px;left:250px"></div>
+					<div id="map" style="background-color:yellow;width:300px;height:350px;position:absolute;top:45px;left:250px"></div>
                		<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f93121500121a54094b1f2b7bddeb160&libraries=services"></script>
 					<script>
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 

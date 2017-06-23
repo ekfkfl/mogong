@@ -23,12 +23,21 @@
  <script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$("#detailBtn").click(function(){
-			
-			top.location.href="${pageContext.request.contextPath}/"
-		})	
+		$(document).on("click","#detailBtn", function () {
+			top.location.href="${pageContext.request.contextPath}/search/detail?studyCode="+$(this).val();
+		})
+		
 	})
 </script>
+<style type="text/css">
+	th{
+		width:40%;
+	}
+	td{
+		width:60%;
+	}
+
+</style>
 
 </head>
 <body>
@@ -44,7 +53,7 @@
         <li class="active">Here</li>
       </ol>
     </section>
-    
+    <br><br>
     <!-- Main content -->
     <section class="content container-fluid">
 	
@@ -57,30 +66,39 @@
 		    </tr>
 		    </c:when>
 		    <c:otherwise>
-				<c:forEach items="${list}" var="studyDTO">
-			    	  <!--------------------------
-				        | Your Page Content Here |
-				        -------------------------->
-			       <div class="row">
+				<c:forEach items="${list}" var="studyDTO" varStatus="status">
 			        <div class="col-md-3">
-			          <div class="box box-default collapsed-box">
-			            <div class="box-header with-border">
+			          <div class="box box-default">
+			            <div class="box-header with-border" style="background-color:#f0f8ff">
 			              <h5 class="box-title">${studyDTO.name}</h5>
-			              
-			              <div class="box-tools pull-right">
-			                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-			                </button>
-			              </div>
-			              <!-- /.box-tools -->
 			            </div>
 			            <!-- /.box-header -->
 			            <div class="box-body">
-			              날짜 : ${studyDTO.day}<p>
+			            <table width="100%">
+			            	<tr>
+			            		<th>날짜</th>
+			            		<td>${studyDTO.day}</td>
+			            	</tr>
+			            	<tr>
+			            		<th>장소</th>
+			            		<td>${studyDTO.area}</td>
+			            	</tr>
+			            	<tr>
+			            		<th>모집인원</th>
+			            		<td>${studyDTO.people}</td>
+			            	</tr>
+			            	<tr>
+			            		<th>설명</th>
+			            		<td>${studyDTO.description}</td>
+			            	</tr>
+			            </table>
+			            <br>
+			             <%--  날짜 : ${studyDTO.day}<p>
 			              장소 : ${studyDTO.area}<p>
 			              모집인원 : ${studyDTO.people}<p>
-			              모집인원 : ${studyDTO.description}<p>
-			              <input type="button" value="상세보기" id="detailBtn">
-			              <button type="button" id="checkBtn" value="${studyDTO.studyCode}" data-toggle="modal" data-target="#myModal">신청 확인</button>
+			              설명 : ${studyDTO.description}<p> --%>
+			              <button type="button"  class='btn btn-primary btn-xs' id="detailBtn" value="${studyDTO.studyCode}">상세보기</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			              <button type="button"  class='btn btn-primary btn-xs' id="checkBtn" value="${studyDTO.studyCode}" data-toggle="modal" data-target="#myModal">신청 확인</button>
 			            	<div id="myModal" class="modal fade" role="dialog">
 							  <div class="modal-dialog">
 							
@@ -88,7 +106,7 @@
 							    <div class="modal-content">
 							      <div class="modal-header">
 							        <button type="button" class="close" data-dismiss="modal">&times;</button>
-							        <h4 class="modal-title">신청 확인</h4>
+							        <h4 class="modal-title">신청 확	인</h4>
 							      </div>
 							      <div class="modal-body">
 								            <div id="modalBody" class="box box-warning col-xs-12">
@@ -111,7 +129,6 @@
 			          </div>
 			          <!-- /.box -->
 			        </div>
-			        <!-- /.col -->
 			    </c:forEach>
 			</c:otherwise>
 		</c:choose>
@@ -123,7 +140,7 @@
 $(function () {
 	var studyCode="";
 	
-	$("button[id=checkBtn]").on("click", function () {
+	$(document).on("click","#checkBtn",function () {
 		studyCode = $(this).val();
 		$.ajax({
 			url: "${pageContext.request.contextPath}/member/mypage/confirm",
