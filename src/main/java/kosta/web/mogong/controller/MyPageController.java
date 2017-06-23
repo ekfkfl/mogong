@@ -207,8 +207,11 @@ public class MyPageController {
 	}
 	@RequestMapping("/member/mypage/refuse")
 	@ResponseBody
-	public int refuse(HttpServletRequest request, String memberCode,String studyCode){
-		int re = myPageServiceImpl.refuse(memberCode, studyCode);
+	public int refuse(HttpServletRequest request, HttpSession session, String memberCode,String studyCode){
+		
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
+		
+		int re = myPageServiceImpl.refuse(userDTO.getId(), memberCode, studyCode);
 		
 		return re;
 	}
