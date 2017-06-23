@@ -9,6 +9,9 @@ public class RecvMessageDTO {
 	private String writeDate; //작성일
 	private String confirm; //받은 쪽지 확인 유무
 	private int studyCode; //멤버초대에 있어서 필요함
+	private String joinStatus;//멤버 초대 수락 및 거부 판단을 위해서
+	
+	private CommCodeDTO commCodeDTO;
 	
 	public RecvMessageDTO() {}
 	
@@ -74,6 +77,21 @@ public class RecvMessageDTO {
 	public void setStudyCode(int studyCode) {
 		this.studyCode = studyCode;
 	}
-	
+
+	public String getJoinStatus() {
+		return joinStatus;
+	}
+
+	public void setJoinStatus(String joinStatus) {
+		this.joinStatus = joinStatus;
+	}
+
+	public CommCodeDTO getCommCodeDTO() {
+		return commCodeDTO;
+	}
+
+	public void setCommCodeDTO(CommCodeDTO commCodeDTO) {
+		this.commCodeDTO = commCodeDTO;
+	}
 	
 }

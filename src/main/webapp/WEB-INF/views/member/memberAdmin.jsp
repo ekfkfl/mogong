@@ -106,7 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			
 			$("#idSearch").click(function(){
 				var id = $("#keyWord").val()
-				var studyCode = 12
+				var studyCode = 13
 				$.ajax({
 					  url: "${pageContext.request.contextPath}/member/study/inviteMember" , //서버 요청 이름(주소)
 					  type: "post" ,//method방식(get, post)
@@ -114,6 +114,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					  data: "recvId="+id+"&studyCode="+studyCode ,//서버에게 보낼 parameter 정보
 					  success: function(result){
 						 $("#keyWord").val("")
+					  },
+					  error: function(err){
+						  alert("오류발생 : "+ err);
 					  }
 				})
 			})
@@ -138,7 +141,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							  str+="<td class='mailbox-name'>"+item.birth+"</td>"
 							  str+="<td class='mailbox-name'>"+item.gender+"</td>"
 							  str+="<td class='mailbox-name'>"+item.phone+"</td>"
-							  str+="<td class='mailbox-name'>"+"${CodeUtil.getCodeName("+item.memberDTO.grade+")}</td>"
+							  str+="<td class='mailbox-name'>"+item.commCodeDTO.codeName+"</td>"
 							  str+="<td><input type='button' name='"+item.id+"' value='수정' id='update' class='btn btn-primary btn-xs'></td>"
 							  str+="<td><input type='button' name='"+item.id+"' value='탈퇴' id='delete' class='btn btn-primary btn-xs'></td></tr>"
 						  })
@@ -166,6 +169,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				  },
 				  error: function(err){
 					  alert("오류발생 : "+ err);
+					  printMemberAll()
 				  }
 			 });
 		}

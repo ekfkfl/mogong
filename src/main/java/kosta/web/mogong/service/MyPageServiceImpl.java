@@ -2,6 +2,8 @@ package kosta.web.mogong.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -103,6 +105,15 @@ public class MyPageServiceImpl implements MyPageService {
 	public int allow(String memberCode, String studyCode) {
 
 		return myPageDAOImpl.allow(memberCode, studyCode);
+	}
+	
+	public int inviteAgree(String id, String studyCode) {
+		return myPageDAOImpl.inviteAgree(id, studyCode);
+	}
+
+	@Override
+	public int inviteRejection(String id, String idAndStudyCode) {
+		return myPageDAOImpl.inviteRejection(id, idAndStudyCode);
 	}
 
 	

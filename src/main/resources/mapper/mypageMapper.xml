@@ -59,6 +59,12 @@ member.id as memberId, JOIN_STATUS
 	<result column="SEND_ID" property="sendId"/>
 	<result column="WRITE_DATE" property="writeDate"/>
 	<result column="CONFIRM" property="confirm"/>
+	<result column="STUDY_CODE" property="studyCode"/>
+	<result column="JOIN_STATUS" property="joinStatus"/>
+	<association property="commCodeDTO" javaType="commCodeDTO">
+		<id column="COMM_CODE" property="commCode"/>
+		<result column="CODE_NAME" property="codeName"/>
+	</association>
 </resultMap>
 
 
@@ -88,16 +94,16 @@ where STUDY_STATUS='0043' and id=#{_parameter}
 </select>
 
 <insert id="sendMessageInsert" parameterType="sendMessageDTO">
-	insert into send_message values(SEND_MESSAGE_SEQ.nextval,#{id}, #{title}, #{content}, #{recvId}, sysdate)
+	insert into send_message values(SEND_MESSAGE_SEQ.nextval,#{id}, #{title}, #{content}, #{recvId}, sysdate, null, null)
 </insert>
 
 <insert id="recvMessageInsert" parameterType="sendMessageDTO">
-	insert into recv_message values(RECV_MESSAGE_SEQ.nextval,#{recvId}, #{title}, #{content}, #{id}, sysdate,'0051')
+	insert into recv_message values(RECV_MESSAGE_SEQ.nextval,#{recvId}, #{title}, #{content}, #{id}, sysdate,'0051', null, '0001')
 </insert>
 
 <select id="recvMail" parameterType="string" resultMap="recvMessageDTO">
-select RECV_MESSAGE_CODE, ID, title, content, SEND_ID, write_date, CONFIRM
-from RECV_MESSAGE 
+select RECV_MESSAGE_CODE, ID, title, content, SEND_ID, write_date, CONFIRM, study_Code, join_status
+from RECV_MESSAGE
 where ID=#{_parameter}
 order by RECV_MESSAGE_CODE desc
 </select>
@@ -145,5 +151,25 @@ order by SEND_MESSAGE_CODE desc
 	where ID=#{id} and title||content||id like '%'||#{word}||'%'
 	order by RECV_MESSAGE_CODE desc
 </select>
+
+<insert id="inviteAgree" parameterType="map">
+	insert into member values(MEMBER_SEQ.nextval, #{studyCode}, #{id},'0004', '0147')
+</insert>
+
+<update id="inviteRecvUpdate" parameterType="map">
+	update RECV_MESSAGE set join_status='0004' where STUDY_CODE=#{studyCode} and id=#{id}
+</update>
+
+<insert id="inviteRejection" parameterType="map">
+	insert into send_message values(SEND_MESSAGE_SEQ.nextval,#{id}, #{title}, #{content}, #{sendId}, sysdate, null, null)
+</insert>
+
+<insert id="inviteRecvRejection" parameterType="map">
+	insert into recv_message values(RECV_MESSAGE_SEQ.nextval,#{sendId}, #{title}, #{content}, #{id}, sysdate,'0051',null, '0001')
+</insert>
+
+<update id="inviteRecvRejectionUpdate" parameterType="map">
+	update RECV_MESSAGE set join_status='0003' where STUDY_CODE=#{studyCode} and id=#{id}
+</update>
 
 </mapper>

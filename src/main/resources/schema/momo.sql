@@ -121,7 +121,7 @@ insert into member values(MEMBER_SEQ.nextval, 11,'crw12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 12,'gwang12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 12,'crw12','0004', '0147')
 commit
-update member set GRADE='0146' where id='gwang12' and STUDY_CODE= 12
+update member set GRADE='0147' where id='jun12' and STUDY_CODE= 12
 update member set JOIN_STATUS='0004' where id='crw12' and STUDY_CODE= 12
 select * from member where id='gwang12' and STUDY_CODE= 12
 insert into member values(MEMBER_SEQ.nextval, 12,'jun12','0004', '0147')
@@ -130,7 +130,7 @@ insert into member values(MEMBER_SEQ.nextval, 10,'crw12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 13,'jun12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 14,'crw12','0004', null)
 
-select * from MEMBER;
+select * from MEMBER where STUDY_CODE= 12 ;
 
 select
 study.STUDY_CODE, study.ID, CATEGORY_CODE, CITY_CODE, NAME, WRITE_DATE,
@@ -223,12 +223,14 @@ CREATE TABLE SEND_MESSAGE(
   STUDY_CODE NUMBER
 )
 
-select SEND_MESSAGE_CODE, id, title, content, recv_id, write_date
+select SEND_MESSAGE_CODE, id, title, content, recv_id, write_date, STUDY_CODE, join_status
 from SEND_MESSAGE 
 where id='crw12' 
 order by SEND_MESSAGE_CODE desc
 
-insert into send_message values()
+
+
+insert into send_message values(SEND_MESSAGE_SEQ.nextval, 'crw12', '야야야', '헤헤', 'gwang12', sysdate, null, null)
  
 CREATE SEQUENCE SEND_MESSAGE_SEQ
 START WITH 1
@@ -247,17 +249,36 @@ CREATE TABLE RECV_MESSAGE(
   STUDY_CODE NUMBER
 )
 
-insert into recv_message values()
+insert into recv_message values(RECV_MESSAGE_SEQ.nextval, 'crw12', '야야야', '헤헤', 'gwang12', sysdate,'0051', null, '0001')
 
 select RECV_MESSAGE_CODE, id, title, content, SEND_ID, write_date, CONFIRM, STUDY_CODE
 from RECV_MESSAGE 
 where ID='crw12'
 order by RECV_MESSAGE_CODE desc
 
+select RECV_MESSAGE_CODE, ID, title, content, SEND_ID, write_date, CONFIRM, study_Code, join_status, CODE_NAME
+from RECV_MESSAGE, comm_code
+where ID='crw12'
+and RECV_MESSAGE.JOIN_STATUS= comm_code.COMM_CODE
+order by RECV_MESSAGE_CODE desc
+
 select RECV_MESSAGE_CODE, id, title, content, SEND_ID, write_date, CONFIRM
 from RECV_MESSAGE 
 where RECV_MESSAGE_CODE=1
+
+select RECV_MESSAGE_CODE, ID, title, content, SEND_ID, write_date, CONFIRM, study_Code, join_status
+from RECV_MESSAGE
+where ID='crw12'
+order by RECV_MESSAGE_CODE desc
+
+delete from RECV_MESSAGE where id='jun12'
+
+select NAME, DESCRIPTION
+from study
+where STUDY_CODE = 13 and id='jun12'
  
+select *from study where id= 'jun12'
+
 CREATE SEQUENCE RECV_MESSAGE_SEQ
 START WITH 1
 INCREMENT BY 1

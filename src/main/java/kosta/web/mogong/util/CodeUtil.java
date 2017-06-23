@@ -1,6 +1,7 @@
 package kosta.web.mogong.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -21,12 +22,14 @@ public class CodeUtil implements ServletContextAware{
 	@Autowired
 	private SqlSession sqlSession;
 	public static Map<String, CommCodeDTO> codeMap=new TreeMap<>();
+	private static ServletContext application;
 
 	public CodeUtil(){}
 
 
 	@Override
 	public void setServletContext(ServletContext application) {
+		this.application=application;
 		List<CommCodeDTO> commCodeDTOList=sqlSession.selectList("adminCodeMapper.selectCodeAll");
 		
 		for(CommCodeDTO commCode : commCodeDTOList){
@@ -68,5 +71,26 @@ public class CodeUtil implements ServletContextAware{
 		}
 
 		return childCodeNames;
+	}
+	
+	public static Map<String, CommCodeDTO> getChildCodeDTO(String commCode){
+		if(commCode==null || commCode.equals("")){ return null; }
+		
+		
+		Map<String, CommCodeDTO> resultMap=new HashMap<>();
+		
+		//공통코드에서 필요한 코드만 추출
+		Map<String, CommCodeDTO> codeMap=(Map<String, CommCodeDTO>)application.getAttribute("codeMap");
+		
+		Iterator<String> it = codeMap.keySet().iterator();
+		while(it.hasNext()){
+			String key=it.next();
+			CommCodeDTO commCodeDTO=codeMap.get(key);
+			if(commCode.equals(commCodeDTO.getParentCode())){
+				resultMap.put(commCodeDTO.getCommCode(), commCodeDTO);
+			}
+		}
+		
+		return resultMap;
 	}
 }

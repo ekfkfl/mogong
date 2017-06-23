@@ -3,6 +3,7 @@ package kosta.web.mogong.dao;
 import java.util.List;
 
 import kosta.web.mogong.dto.CommCodeDTO;
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.StudyDTO;
 
 public interface MainDAO {
@@ -40,4 +41,14 @@ public interface MainDAO {
 	 * 스터디 검색
 	 */
 	List<StudyDTO> selectSearchStudy(StudyDTO studyDTO, int page);
+	
+	/**
+	 * 스터디 멤버인지 아닌지
+	 */
+	String selectStudyMember(MemberDTO memberDTO);
+	
+	/**
+	 * 스터디 수정
+	 */
+	int studyUpdate(StudyDTO studyDTO);
 }

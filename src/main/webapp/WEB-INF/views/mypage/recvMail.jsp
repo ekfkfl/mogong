@@ -32,6 +32,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
  <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		
+		recvMailsList()
+		
 		$("#check_all").click(function() {
 			  $("input[name=messageCode]:checkbox").prop("checked", "checked");
 			});
@@ -52,6 +55,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			  }); 
 		})
 		
+		$(document).on("click","#agree",function(){
+			var studyCode = $(this).attr("name");
+			$.ajax({
+					url : "${pageContext.request.contextPath}/member/mypage/inviteAgree" ,
+					type: "post",
+					dataType: "json",
+					data: "studyCode="+studyCode ,
+					success: function(result){
+						recvMailsList()
+					}
+				}) 
+		})
+		
+		$(document).on("click","#rejection", function(){
+			var idAndStudyCode = $(this).attr("name");
+			$.ajax({
+				url : "${pageContext.request.contextPath}/member/mypage/inviteRejection" ,
+				type: "post",
+				dataType: "json",
+				data: "idAndStudyCode="+idAndStudyCode ,
+				success: function(result){
+					recvMailsList()
+				}
+			}) 
+		})
+		
 	})
 	
 	function checkedValuesGet() {
@@ -62,6 +91,54 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		  if(chked_val!="")chked_val = chked_val.substring(1);
 		  return chked_val;
 	}
+	
+	
+	function recvMailsList(){
+		$.ajax({
+			  url: "${pageContext.request.contextPath}/member/mypage/recvMailsList" , //서버 요청 이름(주소)
+			  type: "post" ,//method방식(get, post)
+			  dataType:"json",//요청결과타입(text, html, xml, json)
+			  //data:  ,//서버에게 보낼 parameter 정보
+			  success: function(result){
+				  var str="";
+				  if(result == ""){
+					  str+="<tr><td colspan='6'>"+"<p align='center'><b><span style='font-size:20pt;'>받은 쪽지가 없습니다</span></b></p>"+"</td></tr>"
+				  }else{
+					  $.each(result, function(index, item){
+							  str+="<tr>"
+			                  str+="<td><input type='checkbox' name='messageCode' value="+item.recvMessageCode+"></td>"
+			                  str+="<td class='mailbox-star'>"+(index+1)+"</td>"
+			                  str+="<td class='mailbox-subject'>"
+			                  str+="<a href='${pageContext.request.contextPath}/member/mypage/readMail?recvMessageCode="+item.recvMessageCode+"'>"
+			                  str+="<b>"+item.title+"</b></a>"
+			                  str+="</td>"
+			                  str+="<td class='mailbox-subject'><b>"+item.content+"</b></td>"
+			                  str+="<td class='mailbox-name'>"+item.sendId+"</td>"
+			                  str+="<td class='mailbox-attachment'>"+item.writeDate+"</td>"
+			                  str+="<td class='mailbox-date'>"
+			                  if(item.studyCode!=""){
+			                	  if(item.joinStatus=='신청중'){
+				                	  str+="<input type='button' name='"+item.studyCode+"' id='agree' value='수락' class='btn btn-primary btn-xs'>"
+					                  str+="<input type='button' name='"+item.sendId+","+item.studyCode+"' id='rejection' value='거절' class='btn btn-primary btn-xs'>"
+				                  }else{
+				                	  str+="<b>"+item.joinStatus+"</b>"
+				                  }
+			                  }else{
+			                	  str+=item.confirm
+			                  }
+			                  str+="</td>"
+			                  str+="</tr>"
+					  })
+				  }
+				  $("#recvList").find("tr:gt(0)").remove();
+				  $("#recvList").append(str);
+			  },
+			  error: function(err){
+				  alert("오류발생 : "+ err);
+			  }
+		 });
+	}
+	
 </script>
 <style type="text/css">
 	a{
@@ -109,19 +186,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- /.btn-group -->
                 <a href="${pageContext.request.contextPath}/member/mypage/recvMail">
                 <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button></a>
-                <div class="pull-right">
-                  1-50/200
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                  </div>
-                  <!-- /.btn-group -->
-                </div>
                 <!-- /.pull-right -->
               </div>
             </div>
               <div class="mailbox-controls">
-	              <table class="table table-hover table-striped">
+	              <table class="table table-hover table-striped" id="recvList">
 	              <tr>
 	              	<td>선택</td>
 	              	<td>번호</td>
@@ -131,34 +200,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	              	<td>받은날짜</td>
 	              	<td>확인여부</td>
 	              </tr>
-	              <c:choose>
-				    <c:when test="${empty requestScope.list}">
-					<tr>
-				        <td colspan="6">
-				            <p align="center"><b><span style="font-size:20pt;">받은 쪽지가 없습니다</span></b></p>
-				        </td>
-				    </tr>
-				    </c:when>
-				   	 <c:otherwise>
-			              <c:forEach items="${list}" var="recvDTO" varStatus="status">
-			                  <tbody>
-			                  <tr>
-			                    <td><input type="checkbox" name="messageCode" value="${recvDTO.recvMessageCode}"></td>
-			                    <td class="mailbox-star">${status.count}</td>
-			                    <td class="mailbox-subject">
-			                    <a href="${pageContext.request.contextPath}/member/mypage/readMail?recvMessageCode=${recvDTO.recvMessageCode}">
-			                    <b>${recvDTO.title}</b></a>
-			                    </td>
-			                    <td class="mailbox-subject"><b>${recvDTO.content}</b></td>
-			                    <td class="mailbox-name">${recvDTO.sendId}</td>
-			                    <td class="mailbox-attachment">${recvDTO.writeDate}</td>
-			                    <td class="mailbox-date">${CodeUtil.getCodeName(recvDTO.confirm)}</td>
-			                  </tr>
-			                  </tbody>
-			                <!-- /.table -->
-			              </c:forEach>
-		              </c:otherwise>
-	              </c:choose>
+	             
               </table>
               <!-- /.mail-box-messages -->
             </div>

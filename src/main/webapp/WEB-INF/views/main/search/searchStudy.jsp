@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <jsp:include page="/WEB-INF/views/main/header.jsp" />
 
@@ -273,18 +274,20 @@
 </style>
 
 <script>
-var codeDTOArr=new Array();
+var codeDTO=new Array();
 
-function getCodes(){
-$.ajax({
-		url : "/mogong/commCodeList",
+function getCodeDTO(){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/getCommCodeAll",
 		type : "post",
 		dataType : "json",
 		data : "${_csrf.parameterName}=${_csrf.token}",
-		success : function(result) {
-			$.each(result, function(index, item) {
-				codeDTOArr.push(item);
-			})
+		success : function(result){			
+				codeDTO.length=0;	
+				$.each(result, function(index, item) {
+					codeDTO.push(item);
+				});
+				
 		},
 		error : function(err) {
 			alert(err);
@@ -292,11 +295,19 @@ $.ajax({
 	});
 }
 
+function getCodeName(code){
+	for(var i=0; i<codeDTO.length; i++){
+		if(codeDTO[i].commCode==code){
+			return codeDTO[i].codeName;
+		}
+	}
+}
+
 
 //스터디 검색
 function getStudyList(params){
 	$.ajax({
-		url : "/mogong/search",
+		url : "${pageContext.request.contextPath}/search",
 		type : "post",
 		dataType : "json",
 		data : params+"&${_csrf.parameterName}=${_csrf.token}",
@@ -306,8 +317,9 @@ function getStudyList(params){
 		error : function(err) {
 			alert(err);
 		}
-	});	
+	});
 }
+
 
 //데이터 검색
 function search(page){
@@ -323,8 +335,7 @@ function search(page){
 	}
 	
 	var params="name="+name+"&page="+page;
-	
-	console.log("params : " + params);
+
 	//alert(params);
 	//데이터 검색후 출력
 	getStudyList(params);
@@ -345,9 +356,8 @@ function printStudy(study){
 	
 	var table="";
 	for(i=0; i<study.length; i++){
-		console.log(study[i].startDate)
 		table+="<tr>";
-		table+="<td rowspan='2' class='col-xs-1 studyCategory'>" + study[i].category + "</td>";
+		table+="<td rowspan='2' class='col-xs-1 studyCategory'>" + study[i].category +" </td>";
 		table+="<td class='studyName'><a href='${pageContext.request.contextPath}/search/detail?studyCode=" +study[i].studyCode+ "'>"+study[i].name+"</a></td>";
 		table+="<td class='col-xs-2 studyDate'>" + study[i].startDate+"~"+study[i].endDate + "</td>";
 		table+="<td rowspan='2' class='col-xs-1 studyId'>"+study[i].id+"</td>";
@@ -358,15 +368,194 @@ function printStudy(study){
 		
 	}
 	
-	console.log(table);
 	$("#searchResult table tbody").append(table);
 
 }
 
 
+
 $(function(){
-	search(1);
+	getCodeDTO();
+	//search(1);
+	
+	//카테고리 수정
+	$("#optGrpCategory select:eq(0)").change(function(){
+		var categoryCode;
+		if($(this).val()=="전체"){
+			categoryCode="0157";
+		}else{
+			categoryCode=$(this).val();
+		}
+		
+		$("#optGrpCategory select:gt(0)").remove();
+
+		$.ajax({
+			url : "${pageContext.request.contextPath}/getCommCodeList",
+			type : "post",
+			dataType : "json",
+			data : "commCode="+categoryCode+"&${_csrf.parameterName}=${_csrf.token}",
+			success : function(result) {
+				if(result==null) return;
+			
+				$("#optGrpCategory .optionGroupBody").empty();
+				var checkboxTag="<input type='checkbox' value='전체' checked>전체";
+				$.each(result, function(index, item) {
+					
+					checkboxTag+="<input type='checkbox' value='"+ item.commCode + "'>" + item.codeName;
+				})
+				$("#optGrpCategory .optionGroupBody").append(checkboxTag);
+				
+				$("#categoryOption ul").empty();
+				var tag="<li><span class='optionValue'>"+ $("#optGrpCategory :selected").text() + "</span></li>";
+				$("#categoryOption ul").append(tag);
+			},
+			error : function(err) {
+				alert(err);
+			}
+		});
+	});
+	
+	//카테고리 체크박스
+	$("#optGrpCategory .optionGroupBody").on("change", "input:checkbox", function(){
+		if($(this).val()!="전체"){
+			$("#optGrpCategory .optionGroupBody input:eq(0)").attr("checked", false);
+			
+			//var optionValue=$("#categoryOption ul span").text();
+			var optionValue=$("#optGrpCategory :selected").text();
+			$("#categoryOption ul").empty();
+			
+			optionValue+="("
+					
+			var inputNode=$("#optGrpCategory .optionGroupBody").children();
+			
+			for(i=0; i<inputNode.length; i++){
+				if(inputNode[i].checked){
+					optionValue+=getCodeName(inputNode[i].value);
+					optionValue+=", "
+				}
+			}
+			 optionValue=optionValue.substr(0, optionValue.length-2);
+			 optionValue+=")";
+			 
+			var tag="<li><span class='optionValue'>"+ optionValue + "</span></li>";
+			$("#categoryOption ul").append(tag);
+			
+		}else{
+			$("#optGrpCategory .optionGroupBody input:gt(0)").attr("checked", false);
+			var optionValue=$("#optGrpCategory :selected").text();
+			$("#categoryOption ul").empty();
+			var tag="<li><span class='optionValue'>"+ optionValue + "</span></li>";
+			$("#categoryOption ul").append(tag);
+		}
+	})	
+	
+	
+	//지역코드 수정
+	$("#optGrpArea select:eq(0)").change(function(){
+		$("#optGrpCategory select:gt(0)").remove();
+		
+		if($(this).val()=="전체"){
+			return;
+		}
+		
+
+		$.ajax({
+			url : "${pageContext.request.contextPath}/getCommCodeList",
+			type : "post",
+			dataType : "json",
+			data : "commCode="+$(this).val()+"&${_csrf.parameterName}=${_csrf.token}",
+			success : function(result) {
+				if(result==null) return;
+				console.log($("#optGrpArea .optionGroupBody").empty());
+				var checkboxTag="<input type='checkbox' value='전체' checked>전체";
+				$.each(result, function(index, item) {
+					checkboxTag+="<input type='checkbox' value='"+ item.commCode + "'>" + item.codeName;
+				})
+				$("#optGrpArea .optionGroupBody").append(checkboxTag);
+				
+				$("#areaOption ul").empty();
+				var tag="<li><span class='optionValue'>"+ $("#optGrpArea :selected").text() + "</span></li>";
+				$("#areaOption ul").append(tag);
+			},
+			error : function(err) {
+				alert(err);
+			}
+		});
+	});
+	
+	
+	
+	//지역 체크박스
+	$("#optGrpArea .optionGroupBody").on("change", "input:checkbox", function(){
+		if($(this).val()!="전체"){
+			$("#optGrpArea .optionGroupBody input:eq(0)").attr("checked", false);
+			
+			//var optionValue=$("#categoryOption ul span").text();
+			var optionValue=$("#optGrpArea :selected").text();
+			$("#areaOption ul").empty();
+			
+			optionValue+="("
+					
+			var inputNode=$("#optGrpArea .optionGroupBody").children();
+			
+			for(i=0; i<inputNode.length; i++){
+				if(inputNode[i].checked){
+					optionValue+=getCodeName(inputNode[i].value);
+					optionValue+=", "
+				}
+			}
+			 optionValue=optionValue.substr(0, optionValue.length-2);
+			 optionValue+=")";
+			 
+			var tag="<li><span class='optionValue'>"+ optionValue + "</span></li>";
+			$("#areaOption ul").append(tag);
+			
+		}else{
+			$("#optGrpArea .optionGroupBody input:gt(0)").attr("checked", false);
+			var optionValue=$("#optGrpArea :selected").text();
+			$("#areaOption ul").empty();
+			var tag="<li><span class='optionValue'>"+ optionValue + "</span></li>";
+			$("#areaOption ul").append(tag);
+		}
+	})
+	
+
+
+	//요일 체크박스
+	$("#optGrpDay .optionGroupBody").on("change", "input:checkbox", function(){
+		if($(this).val()!="전체"){
+			$("#optGrpDay .optionGroupBody input:eq(0)").attr("checked", false);
+			
+			//var optionValue=$("#categoryOption ul span").text();
+			var optionValue="";
+			$("#weekOption ul").empty();
+			
+			optionValue+="("
+					
+			var inputNode=$("#optGrpDay .optionGroupBody").children();
+			
+			for(i=0; i<inputNode.length; i++){
+				if(inputNode[i].checked){
+					optionValue+=inputNode[i].value;
+					optionValue+=", "
+				}
+			}
+			 optionValue=optionValue.substr(0, optionValue.length-2);
+			 optionValue+=")";
+			 
+			var tag="<li><span class='optionValue'>"+ optionValue + "</span></li>";
+			$("#weekOption ul").append(tag);
+			
+		}else{
+			$("#optGrpDay .optionGroupBody input:gt(0)").attr("checked", false);
+			var optionValue="";
+			$("#weekOption ul").empty();
+			var tag="<li><span class='optionValue'>"+ this.value + "</span></li>";
+			$("#weekOption ul").append(tag);
+		}
+	})	
 });
+
 </script>
 
 
@@ -376,21 +565,18 @@ $(function(){
 	<div class="input-group input-group-sm" id="searchStudyBox">
 		<!-- 카테고리 버튼 -->
     	<div class="input-group-btn" >
-        	<button id="categoryBtn" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Action
+        	<button id="categoryBtn" type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">스터디명
         		<span class="fa fa-caret-down"></span></button>
                   	<ul class="dropdown-menu">
-	                    <li><a href="#">Action</a></li>
-	                    <li><a href="#">Another action</a></li>
-	                    <li><a href="#">Something else here</a></li>
-	                    <li class="divider"></li>
-	                    <li><a href="#">Separated link</a></li>
+	                    <li><a href="#">스터디명</a></li>
+	                    <li><a href="#">모집자</a></li>
                   </ul>
        </div>
        <!-- 검색어 입력란 -->
        <input id="searchKeyword"  name="name" type="text" class="form-control">
        <!-- 검색 버튼 -->
        <span class="input-group-btn">
-	      <button id="searchBtn" type="submit" class="btn btn-info btn-flat">Go!</button>
+	      <button id="searchBtn" type="submit" class="btn btn-info btn-flat">검색</button>
        </span>
 	</div>
 <br>
@@ -405,28 +591,28 @@ $(function(){
 						<ul style="float:left">
 							<li><span class="optionValue">전체</span></li>
 						</ul>
-						<div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></div>
+						<div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button></div>
 					</div><!--검색 옵셥 : 분류끝-->
 					<!--검색 옵션 : 장소시작-->
 					<div  id="areaOption"><b class="optionName" style="float:left">장소 :</b>
 						<ul style="float:left">
 							<li><span class="optionValue">전체</span></li>
 						</ul>
-						<div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></div>
+						<div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button></div>
 					</div><!--검색 옵셥 : 장소끝-->
 					<!--검색 옵션 : 요일시작-->
 					<div  id="weekOption"><b class="optionName" style="float:left">요일 :</b>
 						<ul style="float:left">
 							<li><span class="optionValue">전체</span></li>
 						</ul>
-						<div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></div>
+						<div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button></div>
 					</div><!--검색 옵셥 : 요일끝-->
 					<!--검색 옵션 : 시간시작-->
 					<div  id="timeOption"><b class="optionName" style="float:left">시간 :</b>
 						<ul style="float:left">
 							<li><span class="optionValue">전체</span></li>
 						</ul>
-						<div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></div>
+						<div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button></div>
 					</div><!--검색 옵셥 : 기간끝-->
 
 					<!--검색 옵션 : 기간시작-->
@@ -434,7 +620,7 @@ $(function(){
 						<ul style="float:left">
 							<li><span class="optionValue">전체</span></li>
 						</ul>
-						<div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></div>
+						<div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button></div>
 					</div><!--검색 옵셥 : 기간끝-->
               <!-- /.box-tools -->
             </div>
@@ -443,63 +629,50 @@ $(function(){
             <div class="box-body">
 				<div class="optionGroupList">
 				<!--분류 옵션 그룹 시작-->
-				<div class="optionGroup">
+				<div class="optionGroup" id="optGrpCategory">
 					<div class="optionGroupHead">
 						<div class="optionGroupTitle">분류</div>
 						<div class="optionGroupDepth">
-							<select>
-								<option value="">전체</option>
-								<option value="">어학</option>
-							</select>
-							<select>
-								<option value="">전체</option>
-								<option value="">어학</option>
+							<select name="category">
+								<option value="전체">전체</option>
+								<c:forEach items="${categoryMap}" var="map"><option value="${map.value.commCode}">${map.value.codeName}</option></c:forEach>
 							</select>
 						</div>
 					</div>
 					<div class="optionGroupBody" style="clear:both;">
-						<input type="checkbox" value="">전체
-						<input type="checkbox" value="">어학
-						<input type="checkbox" value="">프로그래밍
-						<input type="checkbox" value="">고시
+						<input type="checkbox" value="전체" checked>전체
+						<c:forEach items="${categoryMap}" var="map"><input type="checkbox" value="${map.value.commCode}" name="category">${map.value.codeName}</c:forEach>
 					</div>
 				</div><!--분류 옵션 그룹 끝-->
 
 
 				<!--지역 옵션 그룹 시작-->
-				<div class="optionGroup">
+				<div class="optionGroup" id="optGrpArea">
 					<div class="optionGroupHead">
 						<div class="optionGroupTitle">지역</div>
 						<div class="optionGroupDepth">
-							<select>
-								<option value="">전체</option>
-								<option value="">서울</option>
-								<option value="">경기</option>
-							</select>
-							<select>
-								<option value="">전체</option>
-								<option value="">강남</option>
+							<select name="cityCode">
+								<option value="전체">전체
+								<c:forEach items="${cityCodeMap}" var="map"><option value="${map.value.commCode}">${map.value.codeName}</c:forEach>
 							</select>
 						</div>
 					</div>
 					<div class="optionGroupBody" style="clear:both;">
-						<input type="checkbox" value="">전체
-						<input type="checkbox" value="">어학
-						<input type="checkbox" value="">프로그래밍
-						<input type="checkbox" value="">고시
+						<input type="checkbox" value="전체" checked>전체</input>
+						<c:forEach items="${cityCodeMap}" var="map"><input type="checkbox" value="${map.value.commCode}" name="cityCode">${map.value.codeName}</input></c:forEach>
 					</div>
 				</div><!--지역 옵션 그룹 끝-->
 				
 
 				<!--요일 옵션 그룹 시작-->
-				<div class="optionGroup">
+				<div class="optionGroup" id="optGrpDay">
 					<div class="optionGroupHead">
 						<div class="optionGroupTitle">요일</div>
 						<div class="optionGroupDepth">
 						</div>
 					</div>
 					<div class="optionGroupBody" style="clear:both;">
-						<input type="checkbox" name="day" value="전체">전체
+						<input type="checkbox" name="day" value="전체" checked>전체
 						<input type="checkbox" name="day" value="월">월
 						<input type="checkbox" name="day" value="화">화
 						<input type="checkbox" name="day" value="수">수
@@ -511,10 +684,11 @@ $(function(){
 				</div><!--요일 옵션 그룹 끝-->
 
 				<!--시간 옵션 그룹 시작-->
-				<div class="optionGroup">
+				<div class="optionGroup" id="optGrpTime">
 					<div class="optionGroupHead">
 						<div class="optionGroupTitle">시간대</div>
 						<div class="optionGroupDepth">
+							<input type="button" value="전체">
 							<input type="button" value="오전시간대">
 							<input type="button" value="오후시간대">
 							<input type="button" value="저녁시간대">
@@ -522,18 +696,17 @@ $(function(){
 					</div>
 					<div class="optionGroupBody" style="clear:both;">
                  <input type="text" value="" class="slider form-control" data-slider-min="0" data-slider-max="24"
-                         data-slider-step="1" data-slider-value="[8,19]" data-slider-orientation="horizontal"
+                         data-slider-step="1" data-slider-value="[0,24]" data-slider-orientation="horizontal"
                          data-slider-selection="before" data-slider-tooltip="show" data-slider-id="aqua">
 					</div>
 				</div><!--시간 옵션 그룹 끝-->
 
 				<!--기간 옵션 그룹 시작-->
-				<div class="optionGroup">
+				<div class="optionGroup" id="optGrpPeriod">
 					<div class="optionGroupHead">
 						<div class="optionGroupTitle">기간</div>
 						<div class="optionGroupDepth">
-							<input type="button" value="일주일이상">
-							<input type="button" value="한달이상">
+							<input type="button" value="1달">
 							<input type="button" value="3달">
 							<input type="button" value="6달">
 							<input type="button" value="1년">
@@ -619,7 +792,18 @@ $(function(){
 	</tr>
 </table>	
 	
-	
+ <c:forEach items="${studyDTOList}" var="studyDTO">
+		<tr>
+ 	 	<td rowspan='2' class='col-xs-1 studyCategory'>${studyDTO.category}</td>
+		
+		<td class='studyName'><a href="${pageContext.request.contextPath}/search/detail?studyCode=${studyDTO.studyCode}">${studyDTO.name}</a></td>
+		<td class='col-xs-2 studyDate'> ${studyDTO.startDate}~${studyDTO.endDate}</td>
+		<td rowspan='2' class='col-xs-1 studyId'>${studyDTO.id}</td>
+		<td rowspan='2' class='col-xs-1 studyRead'>${studyDTO.read}</td></tr>
+		<tr><td class='studyAreaTime'> ${studyDTO.area} | ${studyDTO.day} | ${studyDTO.startTime} ~ ${startDTO.endTime} </td>
+		<td class='studyPeriod'>기간....</td> 
+		</tr> 
+</c:forEach> 
 </table>
 </div>
 <div class="row" id="pagination">
@@ -630,10 +814,5 @@ $(function(){
 	<li><a href="#">4</a></li>			
 </ul>
 </div>
-</div>
 <jsp:include page="/WEB-INF/views/main/footer.jsp" />
-
-
-
-
 
