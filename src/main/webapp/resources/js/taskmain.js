@@ -187,7 +187,7 @@ $(function() {
 			success: function(data) {
 				var str="";
 				
-				str="<li id='task'><span data-toggle='modal' data-target='#modal-default' class='text' id='"+data.taskCode+"'>"+data.title+"</span><i id='deleteTask' class='fa fa-fw fa-trash-o pull-right'></i></li>";
+				str="<li id='task' data-toggle='modal' data-target='#modal-default'><span class='text' id='"+data.taskCode+"'>"+data.title+"</span><i id='deleteTask' class='fa fa-fw fa-trash-o pull-right'></i></li>";
 				
 				$(progress).append(str);
 			}

@@ -184,12 +184,16 @@ public class MainController {
 	// 스터디 모집
 	// 스터디 등록을 했을 때 뜨는 화면-->메인
 	@RequestMapping("/enroll")
-	public String insertEnroll(HttpServletRequest request, StudyDTO studyDTO, String datePicker) {
+	public String insertEnroll(HttpServletRequest request, StudyDTO studyDTO, String datePicker, Model model) {
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userDTO");
 		studyDTO.setId(dto.getId());
 
 		String[] str = datePicker.split("~");
+		
+		if (dto != null) {
+			model.addAttribute("messageCount", service.messageCount(dto.getId()));
+		}
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 M월 d일 a HH:mm");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
@@ -259,6 +263,7 @@ public class MainController {
 		StudyDTO dto = service.selectByStudyCode(studyCode, false);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("main/search/detailStudy");
+		mv.addObject("messageCount", service.messageCount(memberId));
 		mv.addObject("studyCode", studyCode);
 		mv.addObject("studyDTO", dto);
 		mv.addObject("selectStudyMember",

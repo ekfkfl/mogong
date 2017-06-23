@@ -79,6 +79,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	min-height: 40px;
 }
 
+.hover {
+    border: 1px solid blue;
+}
+
 .tab-content {
 	margin: 20px;
 }
@@ -142,10 +146,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<ul id="todo" class="todo-list">
 						<c:if test="${todoList != null}">
 							<c:forEach items="${todoList}" var="todoTask" varStatus="status">
-								<li id='task'><span data-toggle="modal"
-									data-target="#modal-default" class='text'
-									id='${todoTask.taskCode}'>${todoTask.title}</span> <i
-									id='deleteTask' class="fa fa-fw fa-trash-o pull-right"></i></li>
+								<li id='task' data-toggle="modal"data-target="#modal-default">
+								<span class='text' id='${todoTask.taskCode}'>${todoTask.title}</span> 
+								<i id='deleteTask' class="fa fa-fw fa-trash-o pull-right"></i></li>
 							</c:forEach>
 						</c:if>
 					</ul>
@@ -191,8 +194,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<ul id="doing" class="todo-list">
 						<c:if test="${doingList != null}">
 							<c:forEach items="${doingList}" var="doingTask">
-								<li id='task'><span data-toggle="modal"
-									data-target="#modal-default" class='text'
+								<li id='task' data-toggle="modal"
+									data-target="#modal-default"><span  class='text'
 									id='${doingTask.taskCode}'>${doingTask.title}</span> <i
 									id='deleteTask' class="fa fa-fw fa-trash-o pull-right"></i></li>
 							</c:forEach>
@@ -240,8 +243,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					<ul id="done" class="todo-list">
 						<c:if test="${doneList != null}">
 							<c:forEach items="${doneList}" var="doneTask">
-								<li id='task'><span data-toggle="modal"
-									data-target="#modal-default" class='text'
+								<li id='task' data-toggle="modal"
+									data-target="#modal-default"><span class='text'
 									id='${doneTask.taskCode}'>${doneTask.title}</span> <i
 									id='deleteTask' class="fa fa-fw fa-trash-o pull-right"></i></li>
 							</c:forEach>
