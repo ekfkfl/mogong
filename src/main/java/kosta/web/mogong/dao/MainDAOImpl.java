@@ -73,4 +73,16 @@ public class MainDAOImpl implements MainDAO {
 	public int studyUpdate(StudyDTO studyDTO) {
 		return sqlSession.update("mainMapper.studyUpdate", studyDTO);
 	}
+	@Override
+	public int studyJoin(MemberDTO memberDTO) {
+		return sqlSession.insert("mainMapper.studyJoin", memberDTO);
+	}
+	@Override
+	public int studyJoinCheckMember(int studyCode) {
+		return sqlSession.selectOne("mainMapper.studyJoinCheckMember", studyCode);
+	}
+	@Override
+	public int studyJoinCheckPeople(int studyCode) {
+		return sqlSession.selectOne("mainMapper.studyJoinCheckPeople", studyCode);
+	}
 }

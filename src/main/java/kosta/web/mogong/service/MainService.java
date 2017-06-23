@@ -23,4 +23,6 @@ public interface MainService {
 	String selectStudyMember(MemberDTO memberDTO);
 	
 	int studyUpdate(StudyDTO studyDTO);
+	
+	String studyJoin(MemberDTO memberDTO);
 }
