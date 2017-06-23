@@ -60,11 +60,15 @@
 	</select>
 	
 	<insert id="inviteMember" parameterType="map">
-		insert into send_message values(SEND_MESSAGE_SEQ.nextval,#{id}, #{studyName}, #{studyContent}, #{recvId}, sysdate, #{studyCode})
+		insert into send_message values(SEND_MESSAGE_SEQ.nextval,#{id}, #{studyName}, #{studyContent}, #{recvId}, sysdate, #{studyCode}, #{joinStatus})
 	</insert>
 	
 	<insert id="inviteRecvInsert" parameterType="map">
-		insert into recv_message values(RECV_MESSAGE_SEQ.nextval,#{recvId}, #{studyName}, #{studyContent}, #{id}, sysdate,'0051', #{studyCode})
+		insert into recv_message values(RECV_MESSAGE_SEQ.nextval,#{recvId}, #{studyName}, #{studyContent}, #{id}, sysdate,'0051', #{studyCode}, #{joinStatus})
 	</insert>
+	
+	<select id="idCheck" parameterType="string" resultMap="userDTOMap">
+		select id from user_tb where id=#{_parameter}
+	</select>
 	
 </mapper>

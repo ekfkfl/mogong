@@ -742,6 +742,56 @@ $(function(){
 		<td class="col-xs-1 studyId">모집자</td>
 		<td class="col-xs-1 studyRead">조회수</td>
 	</tr>
+	<tr>
+		<td rowspan="2" class="col-xs-1 studyCategory">[일본어]사진</td>
+		<td class="studyName"> 일본어 스터디 입니다.</td>
+		<td class="col-xs-2 studyDate">2017.05.23~2017.12.31</td>
+		<td rowspan="2" class="col-xs-1 studyId">최윤아</td>
+		<td rowspan="2" class="col-xs-1 studyRead">54</td>
+	</tr>
+	<tr>
+		<td class="studyAreaTime">경기 성남시 분당구 | 월,화 | 19:00~21:00</td>
+		<td class="studyPeriod">6개월</td>
+	</tr>
+
+
+	<tr>
+		<td rowspan="2" class="col-xs-1 studyCategory">[일본어]사진</td>
+		<td class="studyName"> 일본어 스터디 입니다.</td>
+		<td class="col-xs-2 studyDate">2017.05.23~2017.12.31</td>
+		<td rowspan="2" class="col-xs-1 studyId">최윤아</td>
+		<td rowspan="2" class="col-xs-1 studyRead">54</td>
+	</tr>
+	<tr>
+		<td class="studyAreaTime">경기 성남시 분당구 | 월,화 | 19:00~21:00</td>
+		<td class="studyPeriod">6개월</td>
+	</tr>
+
+	<tr>
+		<td rowspan="2" class="col-xs-1 studyCategory">[일본어]사진</td>
+		<td class="studyName"> 일본어 스터디 입니다.</td>
+		<td class="col-xs-2 studyDate">2017.05.23~2017.12.31</td>
+		<td rowspan="2" class="col-xs-1 studyId">최윤아</td>
+		<td rowspan="2" class="col-xs-1 studyRead">54</td>
+	</tr>
+	<tr>
+		<td class="studyAreaTime">경기 성남시 분당구 | 월,화 | 19:00~21:00</td>
+		<td class="studyPeriod">6개월</td>
+	</tr>
+
+	<tr>
+		<td rowspan="2" class="col-xs-1 studyCategory">[일본어]사진</td>
+		<td class="studyName"> 일본어 스터디 입니다.</td>
+		<td class="col-xs-2 studyDate">2017.05.23~2017.12.31</td>
+		<td rowspan="2" class="col-xs-1 studyId">최윤아</td>
+		<td rowspan="2" class="col-xs-1 studyRead">54</td>
+	</tr>
+	<tr>
+		<td class="studyAreaTime">경기 성남시 분당구 | 월,화 | 19:00~21:00</td>
+		<td class="studyPeriod">6개월</td>
+	</tr>
+</table>	
+	
  <c:forEach items="${studyDTOList}" var="studyDTO">
 		<tr>
  	 	<td rowspan='2' class='col-xs-1 studyCategory'>${studyDTO.category}</td>
@@ -764,7 +814,5 @@ $(function(){
 	<li><a href="#">4</a></li>			
 </ul>
 </div>
-</div>
-
 <jsp:include page="/WEB-INF/views/main/footer.jsp" />
 

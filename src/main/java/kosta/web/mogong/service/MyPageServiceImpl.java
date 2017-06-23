@@ -2,10 +2,13 @@ package kosta.web.mogong.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kosta.web.mogong.dao.MyPageDAO;
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.RecvMessageDTO;
 import kosta.web.mogong.dto.SendMessageDTO;
 import kosta.web.mogong.dto.StudyDTO;
@@ -87,8 +90,30 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
+	public List<MemberDTO> selectJoinMember(String studyCode) {
+
+		return myPageDAOImpl.selectJoinMember(studyCode);
+	}
+
+	@Override
+	public int refuse(String memberCode, String studyCode) {
+
+		return myPageDAOImpl.refuse(memberCode, studyCode);
+	}
+
+	@Override
+	public int allow(String memberCode, String studyCode) {
+
+		return myPageDAOImpl.allow(memberCode, studyCode);
+	}
+	
 	public int inviteAgree(String id, String studyCode) {
 		return myPageDAOImpl.inviteAgree(id, studyCode);
+	}
+
+	@Override
+	public int inviteRejection(String id, String idAndStudyCode) {
+		return myPageDAOImpl.inviteRejection(id, idAndStudyCode);
 	}
 
 	

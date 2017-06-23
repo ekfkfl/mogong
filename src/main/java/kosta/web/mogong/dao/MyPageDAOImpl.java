@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.RecvMessageDTO;
 import kosta.web.mogong.dto.SendMessageDTO;
 import kosta.web.mogong.dto.StudyDTO;
@@ -100,12 +103,56 @@ public class MyPageDAOImpl implements MyPageDAO {
 	}
 
 	@Override
+	public List<MemberDTO> selectJoinMember(String studyCode) {
+		
+		return sqlSession.selectList("memberMapper.joinStatusSelect", studyCode);
+	}
+
+	@Override
+	public int refuse(String memberCode, String studyCode) {
+		Map<String, String> map = new HashMap<>();
+		map.put("memberCode", memberCode);
+		map.put("studyCode", studyCode);
+		
+		return sqlSession.update("memberMapper.refuse", map);
+	}
+
+	@Override
+	public int allow(String memberCode, String studyCode) {
+		Map<String, String> map = new HashMap<>();
+		map.put("memberCode", memberCode);
+		map.put("studyCode", studyCode);
+		
+		return sqlSession.update("memberMapper.allow", map);
+	}
 	public int inviteAgree(String id, String studyCode) {
 		Map<String, String> map = new HashMap<>();
 		
 		map.put("id", id);
 		map.put("studyCode", studyCode);
+		if(sqlSession.insert("mypageMapper.inviteAgree", map)==1){
+			return sqlSession.update("mypageMapper.inviteRecvUpdate", map);
+		}
+		return 0;
+	}
+
+	@Override
+	public int inviteRejection(String id, String idAndStudyCode) {
+		Map<String, String> map = new HashMap<>();
 		
-		return sqlSession.insert("mypageMapper.inviteAgree", map);
+		String idAndStudyCodes[] = idAndStudyCode.split(",");
+		String sendId = idAndStudyCodes[0];
+		String studyCode = idAndStudyCodes[1];
+		
+		map.put("id", id);
+		map.put("sendId", sendId);
+		map.put("title", "초대 거부");
+		map.put("content", sendId+"님 "+id+"님이 초대 받지 않으셨습니다.");
+		map.put("studyCode", studyCode);
+		if(sqlSession.insert("mypageMapper.inviteRejection", map)==1){
+			sqlSession.insert("mypageMapper.inviteRecvRejection", map);
+			return sqlSession.update("mypageMapper.inviteRecvRejectionUpdate", map);
+		}
+		return 0;
 	}
 }

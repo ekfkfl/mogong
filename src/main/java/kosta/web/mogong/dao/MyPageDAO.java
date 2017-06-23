@@ -2,6 +2,9 @@ package kosta.web.mogong.dao;
 
 import java.util.List;
 
+import kosta.web.mogong.dto.MemberDTO;
+import javax.servlet.http.HttpSession;
+
 import kosta.web.mogong.dto.RecvMessageDTO;
 import kosta.web.mogong.dto.SendMessageDTO;
 import kosta.web.mogong.dto.StudyDTO;
@@ -78,7 +81,27 @@ public interface MyPageDAO {
 	List<RecvMessageDTO> searchRecvMail(String id, String word);
 	
 	/**
+	 * 신청중인 맴버 불러오기
+	 */
+	List<MemberDTO> selectJoinMember(String studyCode);
+	
+	/**
+	 * 거절시 업데이트
+	 */
+	int refuse(String memberCode,String studyCode);
+	
+	/**
+	 * 수락시 업데이트
+	 */
+	int allow(String memberCode, String studyCode);
+	
+	/**
 	 * 스터디 초대 수락
 	 * */
 	 int inviteAgree(String id, String studyCode);
+	 
+	 /**
+	  * 스터디 초대 거부
+	  * */
+	 int inviteRejection(String id, String idAndStudyCode);
 }
