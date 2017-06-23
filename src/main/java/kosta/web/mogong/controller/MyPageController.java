@@ -17,6 +17,7 @@ import kosta.web.mogong.dto.SendMessageDTO;
 import kosta.web.mogong.dto.StudyDTO;
 import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.service.MyPageService;
+import kosta.web.mogong.util.CodeUtil;
 
 @Controller
 public class MyPageController {
@@ -68,18 +69,29 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/member/mypage/recvMail")
-	public ModelAndView recvMail(HttpSession session){
+	public String recvMail(HttpSession session){
+		return "/mypage/recvMail";
+	}
+	
+	@RequestMapping("/member/mypage/recvMailsList")
+	@ResponseBody
+	public List<RecvMessageDTO> recvMailsList(HttpSession session){
 		
 		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
 		
 		List<RecvMessageDTO> list = myPageServiceImpl.recvMail(userDTO.getId());
 		
-		ModelAndView mv = new ModelAndView();
+		String confirm = null;
+		String joinStatus = null;
 		
-		mv.addObject("list", list);
-		mv.setViewName("/mypage/recvMail");
+		for(RecvMessageDTO dto:list){
+			confirm =CodeUtil.getCodeName(dto.getConfirm());
+			joinStatus = CodeUtil.getCodeName(dto.getJoinStatus());
+			dto.setConfirm(confirm);
+			dto.setJoinStatus(joinStatus);
+		}
 		
-		return mv;
+		return list;
 	}
 	
 	@RequestMapping("/member/mypage/sendMail")
@@ -193,6 +205,15 @@ public class MyPageController {
 		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
 		
 		return myPageServiceImpl.inviteAgree(userDTO.getId(), studyCode);
+	}
+	
+	@RequestMapping("/member/mypage/inviteRejection")
+	@ResponseBody
+	public int inviteRejection(HttpSession session, String idAndStudyCode){
+		
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
+		
+		return myPageServiceImpl.inviteRejection(userDTO.getId(), idAndStudyCode);
 	}
 	
 }

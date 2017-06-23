@@ -2,6 +2,8 @@ package kosta.web.mogong.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import kosta.web.mogong.dto.RecvMessageDTO;
 import kosta.web.mogong.dto.SendMessageDTO;
 import kosta.web.mogong.dto.StudyDTO;
@@ -81,5 +83,10 @@ public interface MyPageService {
 	 * 스터디 초대 수락
 	 * */
 	 int inviteAgree(String id, String studyCode);
+	 
+	 /**
+	  * 스터디 초대 거부
+	  * */
+	 int inviteRejection(String id, String idAndStudyCode);
 	
 }

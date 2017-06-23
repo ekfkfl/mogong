@@ -8,6 +8,7 @@ public class SendMessageDTO {
 	private String recvId; //받은 회원 ID
 	private String writeDate; //작성일
 	private int studyCode; //멤버 초대 하기 위해서
+	private String joinStatus;//멤버 초대 수락 및 거부 판단을 위해서
 	
 	public SendMessageDTO() {}
 	
@@ -66,5 +67,12 @@ public class SendMessageDTO {
 	public void setStudyCode(int studyCode) {
 		this.studyCode = studyCode;
 	}
-	
+
+	public String getJoinStatus() {
+		return joinStatus;
+	}
+
+	public void setJoinStatus(String joinStatus) {
+		this.joinStatus = joinStatus;
+	}
 }
