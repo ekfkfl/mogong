@@ -244,6 +244,7 @@
 			dataType: "json",
 			success: function(data) {
 				$("#joinResult").text(data[0]);
+				$("#joinBtn").attr('disabled','disabled');
 				$("#modal-default").modal('show');
 			}
 		})
