@@ -51,4 +51,16 @@ public interface MainDAO {
 	 * 스터디 수정
 	 */
 	int studyUpdate(StudyDTO studyDTO);
+	
+	/**
+	 * 스터디 멤버 추가
+	 */
+	int studyJoin(MemberDTO memberDTO);
+	
+	/**
+	* 스터디 정원 검사
+	*/
+	int studyJoinCheckMember(int studyCode);
+	
+	int studyJoinCheckPeople(int studyCode);
 }

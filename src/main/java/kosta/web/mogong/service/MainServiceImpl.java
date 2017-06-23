@@ -87,4 +87,19 @@ public class MainServiceImpl implements MainService {
 	public int studyUpdate(StudyDTO studyDTO) {
 		return mainDAO.studyUpdate(studyDTO);
 	}
+
+	@Override
+	public String studyJoin(MemberDTO memberDTO) {
+		String result="정원이 초과되었습니다.";
+		
+		int member=mainDAO.studyJoinCheckMember(memberDTO.getStudyCode());
+		int people=mainDAO.studyJoinCheckPeople(memberDTO.getStudyCode());
+		
+		if(member < people) {
+			result="가입신청 완료 되었습니다.";
+			mainDAO.studyJoin(memberDTO);
+		}
+		
+		return result;
+	}
 }

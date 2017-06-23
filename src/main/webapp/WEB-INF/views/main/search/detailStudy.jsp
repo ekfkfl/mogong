@@ -10,11 +10,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-timepicker.min.css">
   <!-- Select2 -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/select2.min.css">
-
-<!-- jQuery 3.1.1 -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.0.min.js"></script>
-
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 
 <jsp:include page="/WEB-INF/views/main/header.jsp" />
 <style>
@@ -23,6 +19,15 @@
 	#body{min-height:100%}
 	#content{padding-bottom:2.0em}
 	#bottom-footer{margin-top:2.0em;height:2.0em}	
+
+	.modal-dialog{
+    position: relative;
+    display: table; /* This is important */ 
+    overflow-y: auto;    
+    overflow-x: auto;
+    width: auto;
+    min-width: 600px;   
+	}
 </style>
 
 <div id="body">
@@ -191,6 +196,30 @@
 			</div>
 		</div>
 	</div>
+	<!-- modal -->
+	<div class="modal fade" id="modal-default">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<!-- small box -->
+         			<div class="small-box bg-yellow">
+        			    <div class="inner">
+        			     <p>
+         			     <h4 align="middle">${studyDTO.name}</h4>
+         			     <p>
+          			  </div>
+        			    <a href="" class="small-box-footer" id="joinResult"></a>
+        			</div>
+        			<div align="middle">
+        			<button type="button" class="btn btn-block btn-warning btn-lg" data-dismiss="modal">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.modal -->
+<!-- Bootstrap 3.3.7 -->
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <script>
 	$(function() {
 		$("#updateBtn").click(function() {
@@ -202,8 +231,21 @@
 			if(sessionId == "") {
 				location.href="${pageContext.request.contextPath}/loginForm";
 			} else {
-				alert('신청하는로직으로이동')
+				joinStudy();
+			}
+		}) 
+	})
+	
+	function joinStudy() {
+		$.ajax({
+			url: "${pageContext.request.contextPath}/joinStudy",
+			type: "post",
+			data: "studyCode=${studyDTO.studyCode}",
+			dataType: "json",
+			success: function(data) {
+				$("#joinResult").text(data[0]);
+				$("#modal-default").modal('show');
 			}
 		})
-	})
+	}
 </script>
