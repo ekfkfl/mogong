@@ -68,7 +68,7 @@ public class MemberAdminDAOImpl implements MemberAdminDAO {
 		
 		StudyDTO studyDTO = sqlSession.selectOne("studyMemberAdminMapper.inviteStudyInfo", map);
 		System.out.println(studyDTO);
-		if(sqlSession.selectOne("studyMemberAdminMapper.idCheck", recvId)==""){
+		if(sqlSession.selectOne("studyMemberAdminMapper.idCheck", recvId).equals("")){
 			return 0;
 		}
 		map.put("recvId", recvId);
