@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="scheduleMapper">
 
-	<select id="scheduleData" resultType="taskDTO">
-		select title,progress_status as progressStatus,to_char(start_date,'YYYY-MM-DD HH:MM') as startDate,to_char(end_date,'YYYY-MM-DD HH:MM') as endDate from task
+	<select id="scheduleData" parameterType="string" resultType="taskDTO">
+		select title,progress_status as progressStatus,to_char(start_date,'YYYY-MM-DD HH:MM') as startDate,to_char(end_date,'YYYY-MM-DD HH:MM') as endDate from task where study_code=#{value}
 	</select>
 	
 	<insert id="scheduleInsert" parameterType="taskDTO">
