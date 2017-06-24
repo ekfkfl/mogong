@@ -232,7 +232,7 @@ public class MainController {
 
 		service.insertStudy(studyDTO);
 
-		return "main/index";
+		return "redirect: " + request.getContextPath();
 	}
 
 	// 스터디 수정 폼 화면
