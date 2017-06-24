@@ -18,12 +18,21 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$("#detailBtn").click(function(){
-			
-			top.location.href="${pageContext.request.contextPath}/"
-		})	
+		$(document).on("click","#detailBtn", function () {
+			top.location.href="${pageContext.request.contextPath}/search/detail?studyCode="+$(this).val();
+		})
 	})
 </script>
+
+<style type="text/css">
+	th{
+		width:40%;
+	}
+	td{
+		width:60%;
+	}
+
+</style>
 
 </head>
 <body>
@@ -39,10 +48,9 @@
         <li class="active">Here</li>
       </ol>
     </section>
-    
+    <br><br>
     <!-- Main content -->
     <section class="content container-fluid">
-	
 		<c:choose>
 		    <c:when test="${empty requestScope.list}">
 			<tr>
@@ -58,23 +66,49 @@
 				        -------------------------->
 			        <div class="col-md-3">
 			          <div class="box box-default">
-			            <div class="box-header with-border">
+			            <div class="box-header with-border" style="background-color:#f0f8ff">
 			              <h5 class="box-title">${studyDTO.name}</h5>
-			              
 			              </div>
 			              <!-- /.box-tools -->
 			            </div>
 			            <!-- /.box-header -->
-			            <div class="box-body"><b>
-			              시작일   : ${studyDTO.startDate}<p>
-			              종료일   : ${studyDTO.endDate}<p>
-			              그룹장   : ${studyDTO.id}<p>
-			              지역     : ${studyDTO.area}<p>
-			              진행날   : ${studyDTO.day}<p>
-			              인원     : ${studyDTO.people}<p>
-			              시작시간 : ${studyDTO.startTime}<p>
-			              종료시간 : ${studyDTO.endTime}<p></b>
-			              <input type="button" value="스터디진행하기" id="detailBtn">
+			            <div class="box-body">
+			              <table width="100%">
+			              	<tr>
+			              		<th>시작일</th>
+			              		<td>${studyDTO.startDate}</td>
+			              	</tr>
+			              	<tr>
+			              		<th>종료일</th>
+			              		<td>${studyDTO.endDate}</td>
+			              	</tr>
+			              	<tr>
+			              		<th>그룹장</th>
+			              		<td>${studyDTO.id}</td>
+			              	</tr>
+			              	<tr>
+			              		<th>장소</th>
+			              		<td>${studyDTO.area}</td>
+			              	</tr>
+			              	<tr>
+			              		<th>스케줄</th>
+			              		<td>${studyDTO.day}</td>
+			              	</tr>
+			              	<tr>
+			              		<th>인원</th>
+			              		<td>${studyDTO.people}</td>
+			              	</tr>
+			              	<tr>
+			              		<th>시작시간</th>
+			              		<td>${studyDTO.startTime}</td>
+			              	</tr>
+			              	<tr>
+			              		<th>종료시간</th>
+			              		<td>${studyDTO.endTime}</td>
+			              	</tr>
+			              </table>
+			              <br>
+			              <button type="button"  class='btn btn-primary btn-xs' id="detailBtn" value="${studyDTO.studyCode}">스터디가기</button>
 			            </div>
 			            <!-- /.box-body -->
 			          </div>
