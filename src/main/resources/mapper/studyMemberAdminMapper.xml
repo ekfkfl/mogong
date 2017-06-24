@@ -31,14 +31,14 @@
 		</association>
 	</resultMap>
 	
-	<select id="memberSelectAll" parameterType="String" resultMap="userDTOMap">
+	<select id="memberSelectAll" parameterType="map" resultMap="userDTOMap">
 		select <include refid="memberAdminColum"/>, CODE_NAME
 		from User_TB, member, study, comm_code
 		where study.STUDY_CODE = member.STUDY_CODE
 		and member.grade= comm_code.COMM_CODE
 		and study.id = user_tb.id 
-		and study.id = #{_parameter}
-		and member.JOIN_STATUS='0004' and grade='0147' 
+		and study.id = #{id}
+		and member.JOIN_STATUS='0004' and grade='0147' and study.STUDY_CODE = #{studyCode}
 	</select>
 	
 	<update id="updateGrade" parameterType="map">

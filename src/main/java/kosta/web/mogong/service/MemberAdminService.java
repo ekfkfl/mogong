@@ -9,7 +9,7 @@ public interface MemberAdminService {
 	/**
 	 * 전체 멤버 가져오기
 	 * */
-	List<UserDTO> selectAll(String id);
+	List<UserDTO> selectAll(String id, int studyCode);
 	
 	/**
 	 * 선택한 멤버 등급 수정

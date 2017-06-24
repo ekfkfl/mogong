@@ -17,11 +17,17 @@ public class MemberAdminDAOImpl implements MemberAdminDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	private Map<String, String> map;
+	private Map<String, Object> map;
 	
 	@Override
-	public List<UserDTO> selectAll(String id) {
-		return sqlSession.selectList("studyMemberAdminMapper.memberSelectAll", id);
+	public List<UserDTO> selectAll(String id, int studyCode) {
+		
+		map = new HashMap<>();
+		
+		map.put("id", id);
+		map.put("studyCode", studyCode);
+		
+		return sqlSession.selectList("studyMemberAdminMapper.memberSelectAll", map);
 	}
 
 	@Override
@@ -42,7 +48,7 @@ public class MemberAdminDAOImpl implements MemberAdminDAO {
 		map = new HashMap<>();
 		
 		map.put("id", id);
-		map.put("studyCode", studyCode);
+		map.put("studyCode", Integer.parseInt(studyCode));
 		
 		return sqlSession.delete("studyMemberAdminMapper.memberDelete", map);
 	}
@@ -58,9 +64,10 @@ public class MemberAdminDAOImpl implements MemberAdminDAO {
 		map = new HashMap<>();
 		
 		map.put("id", id);
-		map.put("studyCode", studyCode);
+		map.put("studyCode", Integer.parseInt(studyCode));
 		
 		StudyDTO studyDTO = sqlSession.selectOne("studyMemberAdminMapper.inviteStudyInfo", map);
+		System.out.println(studyDTO);
 		if(sqlSession.selectOne("studyMemberAdminMapper.idCheck", recvId)==""){
 			return 0;
 		}

@@ -59,7 +59,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 					$.ajax({
 						url:"${pageContext.request.contextPath}/member/study/memberDelete",
 						type: "post",
-						data: "id="+id+"&studyCode="+12 ,
+						data: "id="+id+"&studyCode=${requestScope.studyCode}" ,
 						success: function(result){
 							$("tr[name="+id+"]").remove();
 							printMemberAll()
@@ -130,10 +130,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				  url: "${pageContext.request.contextPath}/member/study/memberListAll" , //서버 요청 이름(주소)
 				  type: "post" ,//method방식(get, post)
 				  dataType: "json",//요청결과타입(text, html, xml, json)
-				  //data:  ,//서버에게 보낼 parameter 정보
+				  data: "studyCode=${requestScope.studyCode}",//서버에게 보낼 parameter 정보
 				  success: function(result){
 					  var str="";
-					  if(result == ""){
+					  if(result==null){
 						  str+="<tr><td colspan='9'>"+"<p align='center'><b><span style='font-size:20pt;'>멤버가 없습니다</span></b></p>"+"</td></tr>"
 					  }else{
 						  $.each(result, function(index, item){
@@ -165,7 +165,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 				  url: "${pageContext.request.contextPath}/member/study/updateGrade" , //서버 요청 이름(주소)
 				  type: "post" ,//method방식(get, post)
 				  dataType: "text",//요청결과타입(text, html, xml, json)
-				  data: "grade="+grade+"&id="+id+"&studyCode="+12 ,//서버에게 보낼 parameter 정보
+				  data: "grade="+grade+"&id="+id+"&studyCode=${requestScope.studyCode}" ,//서버에게 보낼 parameter 정보
 				  success: function(result){
 					 
 				  },
