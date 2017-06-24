@@ -26,6 +26,11 @@ public class MyPageDAOImpl implements MyPageDAO {
 	public List<StudyDTO> studyRequestList(String id) {
 		return sqlSession.selectList("mypageMapper.studyRequestList", id);
 	}
+	
+	@Override
+	public int studyRequsetDateUpdate(int studyCode) {
+		return sqlSession.update("mypageMapper.studyRequsetDateUpdate", studyCode);
+	}
 
 	@Override
 	public List<StudyDTO> ongoingStudyList(String id) {
@@ -167,4 +172,5 @@ public class MyPageDAOImpl implements MyPageDAO {
 		}
 		return 0;
 	}
+
 }

@@ -49,8 +49,8 @@
         <small>Optional description</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-        <li class="active">Here</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> 스터디관리</a></li>
+        <li class="active">모집중</li>
       </ol>
     </section>
     <br><br>
