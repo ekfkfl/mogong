@@ -87,9 +87,11 @@ and study.STUDY_STATUS='0044' and member.id='crw12' or study.id='crw12' --진행
 select STUDY_CODE, ID, CATEGORY_CODE, CITY_CODE, NAME, WRITE_DATE,
 START_DATE, END_DATE, DAY, START_TIME, END_TIME, PEOPLE, AREA, DESCRIPTION, STUDY_STATUS
 from study 
-where STUDY_STATUS='0043' and id='crw12' --모집중 쿼리
+where STUDY_STATUS='0043' and id='jun12' --모집중 쿼리
 
-select * from study where id='crw12'
+select * from study where id='jun12'
+
+delete from study where STUDY_CODE=13
 
 CREATE SEQUENCE STUDY_SEQ
 START WITH 1
