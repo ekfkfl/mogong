@@ -232,7 +232,7 @@ public class MainController {
 
 		service.insertStudy(studyDTO);
 
-		return "main/index";
+		return "redirect: " + request.getContextPath();
 	}
 
 	// 스터디 수정 폼 화면
@@ -249,6 +249,10 @@ public class MainController {
 		mv.setViewName("main/study/update");
 		mv.addObject("studyCode", studyCode);
 		mv.addObject("studyDTO", dto);
+		
+		String parentCategory=CodeUtil.getParentCode(dto.getCategory());
+		
+		mv.addObject("parentCategory", parentCategory);
 
 		return mv;
 	}
@@ -304,6 +308,29 @@ public class MainController {
 		}
 
 		return "member/studyMain";
+	}
+	
+	@RequestMapping("/study/category")
+	@ResponseBody
+	public Map<String, List<String>> selectCategory(String category) {
+		List<String> categoryCodeList=CodeUtil.getChildCode(category);
+		List<String> categoryNameList=CodeUtil.getChildCodeName(category);
+		
+		Map<String, List<String>> map = new HashMap<>();
+		
+		map.put("categoryCodeList", categoryCodeList);
+		map.put("categoryNameList", categoryNameList);
+		
+		return map;
+	}
+	
+	@RequestMapping("/study/getCategory")
+	@ResponseBody
+	public String getCategory(String category) {
+		System.out.println(category);
+		String parentCategory=CodeUtil.getParentCode(category);
+		System.out.println(parentCategory);
+		return parentCategory;
 	}
 
 	@RequestMapping("/study/location")

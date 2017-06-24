@@ -75,14 +75,29 @@
     $(".select2").select2();
 
     //Datemask dd/mm/yyyy
-    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+   $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "YYYY/MM/DD"});
     //Datemask2 mm/dd/yyyy
-    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+   $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "YYYY/MM/DD"});
     //Money Euro
     $("[data-mask]").inputmask();
 
     //Date range picker
-    $('#reservation').daterangepicker();
+   	//$('#reservation').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'YYYY/MM/DD h:mm A'});
+    
+     
+    $('#reservation').daterangepicker(
+{
+    locale: {
+      format: 'YYYY/MM/DD'
+    },
+    startDate: moment(),
+    endDate: moment()
+}, 
+function(start, end, label) {
+   // alert("다음 기간동안의 스터디를 검색합니다.: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+});
+    //$('#reservation')*/
+    
     //Date range picker with time picker
     $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
     //Date range as a button
@@ -104,6 +119,7 @@
         }
     );
 
+    
     //Date picker
     $('#datepicker').datepicker({
       autoclose: true
