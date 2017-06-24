@@ -27,6 +27,10 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		List<StudyDTO> list = myPageDAOImpl.studyRequestList(id);
 		
+		if(list.size()==0){
+			return null;
+		}
+		
 		Date date = new Date();
 		Date presentTime = null;
 		Date startTime=null;
@@ -62,7 +66,10 @@ public class MyPageServiceImpl implements MyPageService {
 	@Override
 	public List<StudyDTO> recruitStudyList(String id) {
 		List<StudyDTO> list = myPageDAOImpl.recruitStudyList(id);
-		
+
+		if(list.size()==0){
+			return null;
+		}
 		Date date = new Date();
 		Date presentTime = null;
 		Date startTime=null;
