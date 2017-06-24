@@ -76,14 +76,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
      
         var message = $('#message').val()
         
-        sock.send("${requestScope.sessionId}"+","+$("#message").val()+","+presentDate+","+"${requestScope.sessionPhoto}");
+        sock.send("${requestScope.sessionId}"+","+$("#message").val()+","+presentDate+","+"${pageContext.request.contextPath}${requestScope.sessionPhoto}");
         $("#chatMessage").append(
 	    		"<div class='direct-chat-msg right'>"+
                 "<div class='direct-chat-info clearfix'>"+
                  "<span class='direct-chat-name pull-right'>"+"${requestScope.sessionId}"+"</span>"+
                  "<span class='direct-chat-timestamp pull-left'>"+presentDate+"</span>"+
                 "</div>"+
-                "<img class='direct-chat-img' src='${requestScope.sessionPhoto}' alt='message user image'>"+
+                "<img class='direct-chat-img' src='${pageContext.request.contextPath}${requestScope.sessionPhoto}' alt='message user image'>"+
                 "<div class='direct-chat-text'>"+
                 $("#message").val()+
                 "</div>"+
@@ -112,7 +112,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                  "<span class='direct-chat-name pull-left'>"+dataContent[0]+"</span>"+
                  "<span class='direct-chat-timestamp pull-right'>"+dataContent[2]+"</span>"+
                 "</div>"+
-                "<img class='direct-chat-img' src='"+dataContent[3]+"' alt='message user image'>"+
+                "<img class='direct-chat-img' src='${pageContext.request.contextPath}"+dataContent[3]+"' alt='message user image'>"+
                 "<div class='direct-chat-text'>"+
                  dataContent[1]+
                 "</div>"+
@@ -183,7 +183,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							                <span class='direct-chat-name pull-right'>${chatList.sessionId}</span>
 							                <span class='direct-chat-timestamp pull-left'>${chatList.date}</span>
 						                </div>
-						                <img class='direct-chat-img' src='${chatList.path}' alt='message user image'>
+						                <img class='direct-chat-img' src='${pageContext.request.contextPath}${chatList.path}' alt='message user image'>
 						                <div class='direct-chat-text'>${chatList.content}</div>
 					         		</div>
                 				</c:when>
@@ -193,7 +193,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 							                <span class='direct-chat-name pull-left'>${chatList.sessionId}</span>
 							                <span class='direct-chat-timestamp pull-right'>${chatList.date}</span>
 						                </div>
-						                <img class='direct-chat-img' src='${chatList.path}' alt='message user image'>
+						                <img class='direct-chat-img' src='${pageContext.request.contextPath}${chatList.path}' alt='message user image'>
 						                <div class='direct-chat-text'>${chatList.content}</div>
 					         		</div>
                 				</c:otherwise>

@@ -641,7 +641,7 @@ desired effect
      
       
        $("#task").click(function() {
-         $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task');
+         $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task?studyCode=${studyCode}');
          $("#sideTask").attr('class','active');
          $("#sideMain").attr('class','');
          $("#sideSchedule").attr('class','');
@@ -650,7 +650,7 @@ desired effect
          $("#sideMemberAdmin").attr('class','');
       })
       $("#main").click(function() {
-         $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
+         $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main?studyCode=${studyCode}');
          $("#sideTask").attr('class','');
          $("#sideMain").attr('class','active');
          $("#sideSchedule").attr('class','');
@@ -659,7 +659,7 @@ desired effect
          $("#sideMemberAdmin").attr('class','');
       })
       $("#schedule").click(function () {
-		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/schedule');
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/schedule?studyCode=${studyCode}');
 		$("#sideSchedule").attr('class','active');
 		$("#sideTask").attr('class','');
 		$("#sideMain").attr('class','');
@@ -668,7 +668,7 @@ desired effect
 		$("#sideMemberAdmin").attr('class','');
 	  })
 	  $("#chatting").click(function() {
-			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/chatting');
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/chatting?studyCode=${studyCode}');
 			$("#sideTask").attr('class','');
 			$("#sideMain").attr('class','');
 			$("#sideSchedule").attr('class','');
@@ -677,7 +677,7 @@ desired effect
 			$("#sideMemberAdmin").attr('class','');
 		})
 	  $("#board").click(function () {
-		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/board/selectAll');
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/board/selectAll?studyCode=${studyCode}');
 		$("#sideBoard").attr('class','active');
 		$("#sideSchedule").attr('class','');
 		$("#sideTask").attr('class','');
@@ -686,7 +686,7 @@ desired effect
 		$("#sideMemberAdmin").attr('class','');
 	  })
 	  $("#memberAdmin").click(function () {
-		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/memberAdmin');
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/memberAdmin?studyCode=${studyCode}');
 		$("#sideBoard").attr('class','');
 		$("#sideSchedule").attr('class','');
 		$("#sideTask").attr('class','');

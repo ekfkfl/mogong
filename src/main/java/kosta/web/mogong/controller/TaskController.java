@@ -39,8 +39,6 @@ public class TaskController {
 
 	@RequestMapping("")
 	public String task(HttpSession session, String studyCode, Model model) {
-		studyCode = "6";
-
 		List<TaskDTO> taskList = taskService.selectAllTask(studyCode);
 		List<TaskDTO> todoList = new ArrayList<>();
 		List<TaskDTO> doingList = new ArrayList<>();
@@ -62,7 +60,8 @@ public class TaskController {
 		model.addAttribute("doingList", doingList);
 		model.addAttribute("doneList", doneList);
 		model.addAttribute("groupJang", taskService.selectTaskGroupJang(new StudyDTO(Integer.parseInt(studyCode),userDTO.getId())));
-
+		model.addAttribute("studyCode",studyCode);
+		
 		return "task/taskMain";
 	}
 
