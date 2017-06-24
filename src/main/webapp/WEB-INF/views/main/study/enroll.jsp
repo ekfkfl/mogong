@@ -119,6 +119,20 @@
                <input type="radio" name="people" value="7">7명&nbsp;&nbsp;&nbsp;
                <input type="radio" name="people" value="8">8명&nbsp;&nbsp;&nbsp;
                <br><br>
+               <label>카테고리</label><br>
+               <select class="form-control" id="category2" name="category2" style="float:left;width:50%;">
+                  <option value="1차">1차 분류</option>
+                  <option value="0158">취업</option>
+                  <option value="0169">금융</option>
+                  <option value="0167">어학</option>
+                  <option value="0172">취미</option>
+                  <option value="0173">고시</option>
+                  <option value="0170">프로그래밍</option>
+                  <option value="0171">자기계발</option>
+               </select>
+               <select class="form-control" id="category" name="category" style="float:left;width:50%;">
+                  <option value="2차">1차 분류를 먼저 선택해주세요</option>
+               </select><br><br>
                <label>지역 선택</label><br>
                <select class="form-control" id="area" name="area" style="float:left;width:50%;">
                   <option value="지역">지역</option>
@@ -135,6 +149,7 @@
                <select class="form-control" id="detailArea" name="detailArea" style="float:left;width:50%;">
                   <option value="지역">지역을 먼저 선택해주세요</option>
                </select><br><br>
+               
                <div id="wrap"
 									style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
 									<img
@@ -294,9 +309,35 @@ $(function () {
 				var str = "";
 				$.each(result, function (index,item) {
 					//alert(item.codeName);
-					str += "<option value='"+item.commCode+"'>"+item.codeName+"</option>"
+					str += "<option value='"+item.commCode+"'>"+item.codeName+"</option>";
 				})
 				$("#detailArea").append(str);
+			},
+			error : function (request,status,error) {
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});//ajax 끝 
+	})
+	
+	$("#category2").change(function () {
+		$.ajax({
+			url: "${pageContext.request.contextPath}/study/category",
+			data: "category="+$("#category2 option:selected").val()+"&${_csrf.parameterName}=${_csrf.token}",
+			type: "post",
+			dataType: "json",
+			success: function (result) {
+				$("#category").empty();
+				var str = "";
+				
+				$.each(result.categoryCodeList, function (index,item) {
+					str += "<option value='"+item+"'></option>";
+				})
+				
+				$("#category").append(str);
+				
+				$.each($("#category option"), function (index,item) {
+					$(this).text(result.categoryNameList[index]);
+				})
 			},
 			error : function (request,status,error) {
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
