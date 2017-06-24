@@ -364,8 +364,8 @@ desired effect
         <br>
         <h3 class="control-sidebar-heading">해야할 일</h3>
         
-        	<!-- 차트 2 -->
-        	<div id="container2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+           <!-- 차트 2 -->
+           <div id="container2" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
       </div>
      </div>
     </div>
@@ -391,253 +391,253 @@ desired effect
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 <script type="text/javascript">
-	$(function () {
-		// Build the chart
-	    Highcharts.chart('container', {
-	        chart: {
-	            plotBackgroundColor: null,
-	            plotBorderWidth: null,
-	            plotShadow: false,
-	            type: 'pie'
-	        },
-	        credits:{
-	        	enabled: false
-	        },
-	        exporting:{
-	        	enabled: false
-	        },
-	        title: {
-	            text: ''
-	        },
-	        tooltip: {
-	            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-	        },
-	        plotOptions: {
-	            pie: {
-	                allowPointSelect: true,
-	                cursor: 'pointer',
-	                dataLabels: {
-	                    enabled: false
-	                },
-	                showInLegend: true
-	            }
-	        },
-	        series: [{
-	            name: '진행률',
-	            colorByPoint: true,
-	            data: [{
-	                name: '완료',
-	                color:'#51a8ff',
-	                y: 25
-	            }, {
-	                name: '마감일 지남',
-	                color:'#fd6a6a',
-	                y: 25,
-	                sliced: true,
-	                selected: true
-	            }, {
-	                name: '계획됨',
-	                color:'#f9c62d',
-	                y: 25
-	            }, {
-	                name: '마감일 없음',
-	                color:'#c0c0c0',
-	                y: 25
-	            }]
-	        }]
-	    });
-		
-	   
-	})
+   $(function () {
+      // Build the chart
+       Highcharts.chart('container', {
+           chart: {
+               plotBackgroundColor: null,
+               plotBorderWidth: null,
+               plotShadow: false,
+               type: 'pie'
+           },
+           credits:{
+              enabled: false
+           },
+           exporting:{
+              enabled: false
+           },
+           title: {
+               text: ''
+           },
+           tooltip: {
+               pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+           },
+           plotOptions: {
+               pie: {
+                   allowPointSelect: true,
+                   cursor: 'pointer',
+                   dataLabels: {
+                       enabled: false
+                   },
+                   showInLegend: true
+               }
+           },
+           series: [{
+               name: '진행률',
+               colorByPoint: true,
+               data: [{
+                   name: '완료',
+                   color:'#51a8ff',
+                   y: 25
+               }, {
+                   name: '마감일 지남',
+                   color:'#fd6a6a',
+                   y: 25,
+                   sliced: true,
+                   selected: true
+               }, {
+                   name: '계획됨',
+                   color:'#f9c62d',
+                   y: 25
+               }, {
+                   name: '마감일 없음',
+                   color:'#c0c0c0',
+                   y: 25
+               }]
+           }]
+       });
+      
+      
+   })
 
    $(function () {
       
-   		$("#rightSide").click(function () {
-			$.ajax({
-				url: "${pageContext.request.contextPath}/member/study/task/chartResult",
-				type:"post",
-				dataType:"json",
-				success: function (result) {
-					
-					var done = parseInt(result.done)/(parseInt(result.done)+parseInt(result.todo)+parseInt(result.doing))*100;
-				    var doing = parseInt(result.doing)/(parseInt(result.done)+parseInt(result.todo)+parseInt(result.doing))*100;
-				    var todo = parseInt(result.todo)/(parseInt(result.done)+parseInt(result.todo)+parseInt(result.doing))*100;
-					
-					var colors = Highcharts.getOptions().colors,
-					categories = ['To Do', 'Doing', 'Done'],
-					data = [{
-					   
-					    color: "#f39c12",
-					    drilldown: {
-					        name: '계획됨(To Do)',
-					        categories: ['계획됨(To Do)'],
-					        data: [todo/(done+todo+doing)*100],
-					        color: "#f39c12"
-					    }
-					}, {
-					 
-					    color: "#ff00ff",
-					    drilldown: {
-					        name: '진행중(Doing)',
-					        categories: ['진행중(Doing)'],
-					        data: [doing/(done+todo+doing)*100],
-					        color: colors[1]
-					    }
-					}, {
-					    
-					    color: colors[1],
-					    drilldown: {
-					        name: '완료(Done)',
-					        categories: ['완료(Done)'],
-					        data: [done/(done+todo+doing)*100],
-					        color: colors[2]
-					    }
-					}],
-					browserData = [],
-					versionsData = [],
-					i,
-					j,
-					dataLen = data.length,
-					drillDataLen,
-					brightness; //var 선언 끝
+         $("#rightSide").click(function () {
+         $.ajax({
+            url: "${pageContext.request.contextPath}/member/study/task/chartResult",
+            type:"post",
+            dataType:"json",
+            success: function (result) {
+               
+               var done = parseInt(result.done)/(parseInt(result.done)+parseInt(result.todo)+parseInt(result.doing))*100;
+                var doing = parseInt(result.doing)/(parseInt(result.done)+parseInt(result.todo)+parseInt(result.doing))*100;
+                var todo = parseInt(result.todo)/(parseInt(result.done)+parseInt(result.todo)+parseInt(result.doing))*100;
+               
+               var colors = Highcharts.getOptions().colors,
+               categories = ['To Do', 'Doing', 'Done'],
+               data = [{
+                  
+                   color: "#f39c12",
+                   drilldown: {
+                       name: '계획됨(To Do)',
+                       categories: ['계획됨(To Do)'],
+                       data: [todo/(done+todo+doing)*100],
+                       color: "#f39c12"
+                   }
+               }, {
+                
+                   color: "#ff00ff",
+                   drilldown: {
+                       name: '진행중(Doing)',
+                       categories: ['진행중(Doing)'],
+                       data: [doing/(done+todo+doing)*100],
+                       color: colors[1]
+                   }
+               }, {
+                   
+                   color: colors[1],
+                   drilldown: {
+                       name: '완료(Done)',
+                       categories: ['완료(Done)'],
+                       data: [done/(done+todo+doing)*100],
+                       color: colors[2]
+                   }
+               }],
+               browserData = [],
+               versionsData = [],
+               i,
+               j,
+               dataLen = data.length,
+               drillDataLen,
+               brightness; //var 선언 끝
 
 
-					//Build the data arrays
-					for (i = 0; i < dataLen; i += 1) {
-					// add version data
-					drillDataLen = data[i].drilldown.data.length;
-					for (j = 0; j < drillDataLen; j += 1) {
-					    brightness = 0.2 - (j / drillDataLen) / 5;
-					    versionsData.push({
-					        name: data[i].drilldown.categories[j],
-					        y: data[i].drilldown.data[j],
-					        color: Highcharts.Color(data[i].color).brighten(brightness).get()
-					    });
-					}
-					}
-					// Create the chart
-					Highcharts.chart('container', {
-					    chart: {
-					        type: 'pie'
-					    },
-						credits:{
-						    enabled: false
-						},
-						exporting:{
-							enabled: false
-						},
-					    title: {
-					        text: ''
-					    },
-					    plotOptions: {
-					        pie: {
-					            shadow: false,
-					            center: ['50%', '50%']
-					        }
-					    },
-					    tooltip: {
-					        valueSuffix: '%'
-					    },
-					    series: [{
-					        name: '진행률',
-					        data: versionsData,
-					        size: '60%',
-					        innerSize: '70%',
-					       
-					    }]
-					}); //하이차트 끝
-				       
-				       $("#doneSpan").text(done.toFixed(1)+"%");
-				       $("#doneSp").text(result.done);
-				       $("#doneProgress").css('width',done+'%');
-				       $("#doingSpan").text(doing.toFixed(1)+"%");
-				       $("#doingSp").text(result.doing);
-				       $("#doingProgress").css('width',doing+'%');
-				       $("#todoSpan").text(todo.toFixed(1)+"%");
-				       $("#todoSp").text(result.todo);
-				       $("#todoProgress").css('width',todo+'%');
-				     
-				    //막대차트 시작
-				       Highcharts.chart('container2', {
+               //Build the data arrays
+               for (i = 0; i < dataLen; i += 1) {
+               // add version data
+               drillDataLen = data[i].drilldown.data.length;
+               for (j = 0; j < drillDataLen; j += 1) {
+                   brightness = 0.2 - (j / drillDataLen) / 5;
+                   versionsData.push({
+                       name: data[i].drilldown.categories[j],
+                       y: data[i].drilldown.data[j],
+                       color: Highcharts.Color(data[i].color).brighten(brightness).get()
+                   });
+               }
+               }
+               // Create the chart
+               Highcharts.chart('container', {
+                   chart: {
+                       type: 'pie'
+                   },
+                  credits:{
+                      enabled: false
+                  },
+                  exporting:{
+                     enabled: false
+                  },
+                   title: {
+                       text: ''
+                   },
+                   plotOptions: {
+                       pie: {
+                           shadow: false,
+                           center: ['50%', '50%']
+                       }
+                   },
+                   tooltip: {
+                       valueSuffix: '%'
+                   },
+                   series: [{
+                       name: '진행률',
+                       data: versionsData,
+                       size: '60%',
+                       innerSize: '70%',
+                      
+                   }]
+               }); //하이차트 끝
+                   
+                   $("#doneSpan").text(done.toFixed(1)+"%");
+                   $("#doneSp").text(result.done);
+                   $("#doneProgress").css('width',done+'%');
+                   $("#doingSpan").text(doing.toFixed(1)+"%");
+                   $("#doingSp").text(result.doing);
+                   $("#doingProgress").css('width',doing+'%');
+                   $("#todoSpan").text(todo.toFixed(1)+"%");
+                   $("#todoSp").text(result.todo);
+                   $("#todoProgress").css('width',todo+'%');
+                 
+                //막대차트 시작
+                   Highcharts.chart('container2', {
 
-				    	    chart: {
-				    	        type: 'column'
-				    	    },
+                       chart: {
+                           type: 'column'
+                       },
 
-				    	    title: {
-				    	        text: ''
-				    	    },
-				    	    exporting:{
-								enabled: false
-							},
-				    	    legend: {
-				    	        align: 'right',
-				    	        verticalAlign: 'middle',
-				    	        layout: 'vertical'
-				    	    },
+                       title: {
+                           text: ''
+                       },
+                       exporting:{
+                        enabled: false
+                     },
+                       legend: {
+                           align: 'right',
+                           verticalAlign: 'middle',
+                           layout: 'vertical'
+                       },
 
-				    	    xAxis: {
-				    	        categories: ['오늘까지', '이번 주까지', '이번 달까지','마감일 없음','마감일 지남','이번 달 이후'],
-				    	        labels: {
-				    	            x: -10
-				    	        }
-				    	    },
+                       xAxis: {
+                           categories: ['오늘까지', '이번 주까지', '이번 달까지','마감일 없음','마감일 지남','이번 달 이후'],
+                           labels: {
+                               x: -10
+                           }
+                       },
 
-				    	    yAxis: {
-				    	        allowDecimals: false,
-				    	        title: {
-				    	            text: 'Amount'
-				    	        }
-				    	    },
+                       yAxis: {
+                           allowDecimals: false,
+                           title: {
+                               text: 'Amount'
+                           }
+                       },
 
-				    	    series: [{
-				    	        name: '계획됨(To Do)',
-				    	        data: [result.todaytodo,result.weektodo,result.monthtodo,result.noendtodo,result.endtodo,result.aftertodo]
-				    	    }, {
-				    	        name: '진행중(Doing)',
-				    	        data: [result.todaydoing, result.weekdoing, result.monthdoing,result.noenddoing,result.enddoing,result.afterdoing]
-				    	    }],
+                       series: [{
+                           name: '계획됨(To Do)',
+                           data: [result.todaytodo,result.weektodo,result.monthtodo,result.noendtodo,result.endtodo,result.aftertodo]
+                       }, {
+                           name: '진행중(Doing)',
+                           data: [result.todaydoing, result.weekdoing, result.monthdoing,result.noenddoing,result.enddoing,result.afterdoing]
+                       }],
 
-				    	    responsive: {
-				    	        rules: [{
-				    	            condition: {
-				    	                maxWidth: 500
-				    	            },
-				    	            chartOptions: {
-				    	                legend: {
-				    	                    align: 'center',
-				    	                    verticalAlign: 'bottom',
-				    	                    layout: 'horizontal'
-				    	                },
-				    	                yAxis: {
-				    	                    labels: {
-				    	                        align: 'left',
-				    	                        x: 0,
-				    	                        y: -5
-				    	                    },
-				    	                    title: {
-				    	                        text: null
-				    	                    }
-				    	                },
-				    	                subtitle: {
-				    	                    text: null
-				    	                },
-				    	                credits: {
-				    	                    enabled: false
-				    	                }
-				    	            }
-				    	        }]
-				    	    }
-				    	});
-				   
-				       
-				},//success 끝
-				error: function (err) {
-					alert("chart Ajax Error");
-				}
-			}); //ajax 끝
-		});
-	   
+                       responsive: {
+                           rules: [{
+                               condition: {
+                                   maxWidth: 500
+                               },
+                               chartOptions: {
+                                   legend: {
+                                       align: 'center',
+                                       verticalAlign: 'bottom',
+                                       layout: 'horizontal'
+                                   },
+                                   yAxis: {
+                                       labels: {
+                                           align: 'left',
+                                           x: 0,
+                                           y: -5
+                                       },
+                                       title: {
+                                           text: null
+                                       }
+                                   },
+                                   subtitle: {
+                                       text: null
+                                   },
+                                   credits: {
+                                       enabled: false
+                                   }
+                               }
+                           }]
+                       }
+                   });
+               
+                   
+            },//success 끝
+            error: function (err) {
+               alert("chart Ajax Error");
+            }
+         }); //ajax 끝
+      });
+      
      
       
        $("#task").click(function() {
@@ -659,41 +659,41 @@ desired effect
          $("#sideMemberAdmin").attr('class','');
       })
       $("#schedule").click(function () {
-		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/schedule');
-		$("#sideSchedule").attr('class','active');
-		$("#sideTask").attr('class','');
-		$("#sideMain").attr('class','');
-		$("#sideBoard").attr('class','');
-		$("#sideChatting").attr('class','');
-		$("#sideMemberAdmin").attr('class','');
-	  })
-	  $("#chatting").click(function() {
-			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/chatting');
-			$("#sideTask").attr('class','');
-			$("#sideMain").attr('class','');
-			$("#sideSchedule").attr('class','');
-			$("#sideBoard").attr('class','');
-			$("#sideChatting").attr('class','active');
-			$("#sideMemberAdmin").attr('class','');
-		})
-	  $("#board").click(function () {
-		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/board/selectAll');
-		$("#sideBoard").attr('class','active');
-		$("#sideSchedule").attr('class','');
-		$("#sideTask").attr('class','');
-		$("#sideMain").attr('class','');
-		$("#sideChatting").attr('class','');
-		$("#sideMemberAdmin").attr('class','');
-	  })
-	  $("#memberAdmin").click(function () {
-		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/memberAdmin');
-		$("#sideBoard").attr('class','');
-		$("#sideSchedule").attr('class','');
-		$("#sideTask").attr('class','');
-		$("#sideMain").attr('class','');
-		$("#sideChatting").attr('class','');
-		$("#sideMemberAdmin").attr('class','active');
-	  })
+      $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/schedule');
+      $("#sideSchedule").attr('class','active');
+      $("#sideTask").attr('class','');
+      $("#sideMain").attr('class','');
+      $("#sideBoard").attr('class','');
+      $("#sideChatting").attr('class','');
+      $("#sideMemberAdmin").attr('class','');
+     })
+     $("#chatting").click(function() {
+         $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/chatting');
+         $("#sideTask").attr('class','');
+         $("#sideMain").attr('class','');
+         $("#sideSchedule").attr('class','');
+         $("#sideBoard").attr('class','');
+         $("#sideChatting").attr('class','active');
+         $("#sideMemberAdmin").attr('class','');
+      })
+     $("#board").click(function () {
+      $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/board/selectAll');
+      $("#sideBoard").attr('class','active');
+      $("#sideSchedule").attr('class','');
+      $("#sideTask").attr('class','');
+      $("#sideMain").attr('class','');
+      $("#sideChatting").attr('class','');
+      $("#sideMemberAdmin").attr('class','');
+     })
+     $("#memberAdmin").click(function () {
+      $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/memberAdmin');
+      $("#sideBoard").attr('class','');
+      $("#sideSchedule").attr('class','');
+      $("#sideTask").attr('class','');
+      $("#sideMain").attr('class','');
+      $("#sideChatting").attr('class','');
+      $("#sideMemberAdmin").attr('class','active');
+     })
    })
 
 </script>
