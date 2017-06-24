@@ -315,6 +315,10 @@ function search(page){
 	var categoryParam="";
 	for(i=0; i<categoryNode.length; i++){
 		if(categoryNode[i].checked){
+			if(categoryNode[i].value=="전체"){
+				categoryParam+="&category=";
+				break;
+			}
 			categoryParam+="&category="+categoryNode[i].value;
 		}
 	}
@@ -326,6 +330,10 @@ function search(page){
 	var areaParam="";
 	for(i=0; i<areaNode.length; i++){
 		if(areaNode[i].checked){
+			if(areaNode[i].value=="전체"){
+				areaParam+="&cityCode=";
+				break;
+			}
 			areaParam+="&cityCode="+areaNode[i].value;
 		}
 	}
@@ -336,6 +344,10 @@ function search(page){
 	var dayParam="";
 	for(i=0; i<dayNode.length; i++){
 		if(dayNode[i].checked){
+			if(dayNode[i].value=="전체"){
+				dayParam+="&day=";
+				break;
+			}
 			dayParam+="&day="+dayNode[i].value;
 		}
 	}
@@ -343,13 +355,37 @@ function search(page){
 	
 	
 	//시간대 파라미터 생성
-	
+	var timeValue=$("#optGrpTime .optionGroupBody input").val().split(",");
+	var timeParam="";
+	if(timeValue[0]=="0" && timeValue[1]=="24") timeParam="&startTime=&endTime=";
+	else  timeParam="&startTime="+timeValue[0]+"&endTime="+timeValue[1];
+	console.log(timeParam);
 	
 	//기간 파라미터 생성
+	var dt = new Date();
+	var month = dt.getMonth()+1;
+	var day = dt.getDate();
+	var year = dt.getFullYear();
 	
+	if(month<10) month="0"+month;
+	var nowDate=year+"/"+month+"/"+day;
 	
-	var params="name="+name+"&page="+page;
+	var period=$("#reservation").val().split(" - ");
+	var startDate=period[0];
+	var endDate=period[1];
+	var periodParam="";
+	if(startDate==nowDate && endDate==nowDate){
+		periodParam="&startDate=&endDate=";
+	}else{
+		periodParam="&startDate="+startDate+"&endDate="+endDate;
+	}
+	
+	console.log("periodParam : " + periodParam);
+	
 
+	
+	var params="name="+name+"&page="+page+categoryParam+areaParam+dayParam+timeParam+periodParam;
+	console.log(params);
 
 	//데이터 검색후 출력
 	getStudyList(params);

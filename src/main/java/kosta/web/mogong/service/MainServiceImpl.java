@@ -2,6 +2,7 @@ package kosta.web.mogong.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,10 +76,35 @@ public class MainServiceImpl implements MainService {
 		return mainDAO.selectRecentStudy();
 	}
 	
+	private String makeParam(String param){
+
+		if(param==null) param="";
+		StringTokenizer strToken=new StringTokenizer(param, ",");
+		
+		int strTokenSize=0;
+		String tempStr=null;
+		String resultParam="";
+		while(strToken.hasMoreElements()){
+			tempStr=strToken.nextToken();
+			resultParam+="'"+tempStr+"',";
+			strTokenSize=tempStr.length();
+		}
+
+		if(resultParam.length()>strTokenSize)resultParam=resultParam.substring(0, resultParam.length()-1);
+		else resultParam=null;
+		return resultParam;
+	}
+	
+	
 	@Override
 	public PageDTO selectSearchStudy(StudyDTO studyDTO, int page) {
 		PageDTO pageDTO=new PageDTO(10, 3, page);
 		Map<String, Object> resultMap=pageDTO.getResultMap();
+		
+		studyDTO.setCategory(makeParam(studyDTO.getCategory()));
+		studyDTO.setCityCode(makeParam(studyDTO.getCityCode()));
+		studyDTO.setDay(makeParam(studyDTO.getDay()));
+		
 		resultMap.put("studyDTO", studyDTO);
 		return mainDAO.selectSearchStudy(pageDTO);
 	}
