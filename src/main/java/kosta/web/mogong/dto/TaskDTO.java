@@ -20,6 +20,7 @@ public class TaskDTO {
 	private Date startSchedule; //시작일 달력표시
 	private Date endSchedule; //마감일 달력표시
 	private int taskIndex;
+	private int count; //성훈 차트 필드
 
 	private List<TaskMemberDTO> taskMemberList;
 	
@@ -201,4 +202,13 @@ public class TaskDTO {
 	public void setTaskIndex(int taskIndex) {
 		this.taskIndex = taskIndex;
 	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+	
 }

@@ -33,8 +33,8 @@ public class TaskDAOImpl implements TaskDAO {
 	/**
 	 * 성훈 chartResult
 	 */
-	public List<Integer> chartResult(){
-		return sqlSession.selectList("taskMapper.chartResult");
+	public List<TaskDTO> chartResult(String studyCode){
+		return sqlSession.selectList("taskMapper.chartResult",studyCode);
 	}
 
 	@Override

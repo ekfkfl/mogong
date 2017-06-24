@@ -23,7 +23,7 @@ public interface TaskService {
 
 	void deleteTask(String taskCode);
 	
-	List<Integer> chartResult();
+	List<TaskDTO> chartResult(String studyCode);
 	
 	TaskCommentDTO insertTaskComment(TaskCommentDTO taskCommentDTO);
 	

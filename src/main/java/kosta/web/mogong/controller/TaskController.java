@@ -170,8 +170,8 @@ public class TaskController {
 	 * 성훈 스터디 메인 페이지
 	 */
 	@RequestMapping("/main")
-	public ModelAndView taskMain() {
-		List<TaskDTO> list = taskService.selectMainTask("6");
+	public ModelAndView taskMain(String studyCode) {
+		List<TaskDTO> list = taskService.selectMainTask(studyCode);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("member/studyMainContent");
 		List<String> stateList = new ArrayList<>();
@@ -206,10 +206,10 @@ public class TaskController {
 
 	@RequestMapping("/chartResult")
 	@ResponseBody
-	public Map<String, Object> chartResult() {
+	public Map<String, Object> chartResult(String studyCode) {
 		Map<String, Object> map = new HashMap<>();
-		List<Integer> list = taskService.chartResult();
-		List<TaskDTO> taskList = taskService.selectMainTask("6");
+		List<TaskDTO> list = taskService.chartResult(studyCode);
+		List<TaskDTO> taskList = taskService.selectMainTask(studyCode); //스터디 코드
 		int todoArr[] = { 0, 0, 0, 0, 0, 0 };
 		int doingArr[] = { 0, 0, 0, 0, 0, 0 };
 
@@ -256,13 +256,15 @@ public class TaskController {
 		map.put("todo", "0");
 		map.put("doing", "0");
 		map.put("done", "0");
-		for (int i = 0; i < list.size(); i++) {
-			if (i == 0)
-				map.put("todo", list.get(i));
-			if (i == 1)
-				map.put("doing", list.get(i));
-			if (i == 2)
-				map.put("done", list.get(i));
+		
+		for(TaskDTO dto : list){
+			if("0142".equals(dto.getProgressStatus())){
+				map.put("todo", dto.getCount());
+			} else if("0143".equals(dto.getProgressStatus())){
+				map.put("doing", dto.getCount());
+			} else if("0144".equals(dto.getProgressStatus())){
+				map.put("done", dto.getCount());
+			}
 		}
 
 		map.put("todaytodo", todoArr[0]);

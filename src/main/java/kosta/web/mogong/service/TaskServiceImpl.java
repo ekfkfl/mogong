@@ -105,8 +105,8 @@ public class TaskServiceImpl implements TaskService {
 	/**
 	 * 성훈
 	 */
-	public List<Integer> chartResult() {
-		List<Integer> list = taskDAO.chartResult();
+	public List<TaskDTO> chartResult(String studyCode) {
+		List<TaskDTO> list = taskDAO.chartResult(studyCode);
 		return list;
 	}
 
