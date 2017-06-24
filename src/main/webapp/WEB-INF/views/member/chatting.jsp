@@ -90,11 +90,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
          		"</div>"
 	    		);
         $("#message").val("");
+        
         $("#chatMessage").scrollTop($("#chatMessage")[0].scrollHeight);
         $.ajax({
   			  url: "${pageContext.request.contextPath}/member/study/fileSave" , //서버 요청 이름(주소)
   			  type: "get" ,//method방식(get, post)
-  			  data: "sessionId=${requestScope.sessionId}&message="+message+"&date="+presentDate+"&photo=${requestScope.sessionPhoto}" ,//서버에게 보낼 parameter 정보
+  			  data: "sessionId=${requestScope.sessionId}&message="+message+"&date="+presentDate+"&photo=${requestScope.sessionPhoto}&studyCode=${requestScope.studyCode}" ,//서버에게 보낼 parameter 정보
   			  success: function(result){
   				 
   			  }
@@ -165,7 +166,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- DIRECT CHAT PRIMARY -->
             <div class="box box-primary direct-chat direct-chat-primary">
               <div class="box-header with-border">
-                <h3 class="box-title">Direct Chat</h3>
+                <h3 class="box-title">Chatting</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
                 <!-- Conversations are loaded here -->
