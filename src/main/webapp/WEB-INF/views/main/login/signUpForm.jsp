@@ -172,7 +172,7 @@ function checkAddr(){
 </script>
 
 
-<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/login/signup" name="userInfoForm" id="userInfoForm" onSubmit='return checkValid()'  enctype="multipart/form-data">
+<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/login/signup?${_csrf.parameterName}=${_csrf.token}" name="userInfoForm" id="userInfoForm" onSubmit='return checkValid()'  enctype="multipart/form-data">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
 <!-- 사용자 계정 정보  - user-->
 <div class="container">

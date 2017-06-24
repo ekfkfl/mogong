@@ -21,9 +21,9 @@
 		where member.id=user_tb.id and study_code=#{value} and join_status='0002'
 	</select>
 	
-	<update id="refuse" parameterType="map">
-		update member set join_status='0003' where member_code=#{memberCode} and study_code=#{studyCode}
-	</update>
+	<delete id="refuse" parameterType="map">
+		delete from member where member_code=#{memberCode} and study_code=#{studyCode}
+	</delete>
 	
 	<select id="sendIdValue" parameterType="int" resultMap="memberMap">
 		select id from member where member_code=#{_parameter}

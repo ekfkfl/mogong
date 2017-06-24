@@ -122,8 +122,8 @@ public class MyPageDAOImpl implements MyPageDAO {
 		map.put("sendId", sendId);
 		map2.put("memberCode", Integer.parseInt(memberCode));
 		map2.put("studyCode", Integer.parseInt(studyCode));
-		if(sqlSession.update("memberMapper.refuse", map2)==1){
-		  MemberDTO memberDTO = sqlSession.selectOne("memberMapper.sendIdValue", Integer.parseInt(memberCode));
+		MemberDTO memberDTO = sqlSession.selectOne("memberMapper.sendIdValue", Integer.parseInt(memberCode));
+		if(sqlSession.delete("memberMapper.refuse", map2)==1){
 		  map.put("recvId", memberDTO.getMemberId());
 		  map.put("title", "초대 거부");
 		  map.put("content", sendId+"님 "+memberDTO.getMemberId()+"님이 거부하셨습니다.");

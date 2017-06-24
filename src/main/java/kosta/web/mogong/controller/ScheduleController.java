@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kosta.web.mogong.dto.TaskDTO;
 import kosta.web.mogong.service.ScheduleService;
@@ -23,15 +24,18 @@ public class ScheduleController {
 	ScheduleService scheduleService;
 	
 	@RequestMapping("")
-	public String schedule(){
+	public ModelAndView schedule(String studyCode){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("member/studySchedule");
+		mv.addObject("studyCode", studyCode);
 		
-		return "member/studySchedule";
+		return mv;
 	}
 	
 	@RequestMapping("/data")
 	@ResponseBody
-	public List<TaskDTO> data(){
-		List<TaskDTO> list = scheduleService.getScheduleData();
+	public List<TaskDTO> data(String studyCode){
+		List<TaskDTO> list = scheduleService.getScheduleData(studyCode);
 		
 		return list;
 	}
