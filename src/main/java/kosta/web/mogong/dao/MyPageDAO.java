@@ -16,6 +16,11 @@ public interface MyPageDAO {
 	List<StudyDTO> studyRequestList(String id);
 	
 	/**
+	 * 날짜가 진행날짜로 되면 업데이트
+	 * */
+	int studyRequsetDateUpdate(int studyCode);
+	
+	/**
 	 * 진행중인 목록 가져오기
 	 * */
 	List<StudyDTO> ongoingStudyList(String id);

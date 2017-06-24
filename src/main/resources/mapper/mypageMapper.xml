@@ -74,16 +74,21 @@ select
 from STUDY, member, comm_code 
 where study.STUDY_CODE = member.STUDY_CODE 
 and member.JOIN_STATUS= comm_code.COMM_CODE
-and comm_code.COMM_CODE = '0002'
+and STUDY_STATUS='0043'
 and member.id=#{_parameter}
 </select>
+
+<update id="studyRequsetDateUpdate" parameterType="int">
+	update study set  STUDY_STATUS='0044'
+	where STUDY_CODE=${_parameter}
+</update>
 
 <select id="ongoingStudyList" parameterType="string" resultMap="studyDTOJoinMap">
 select
 <include refid="studyColum"/>
 from study, member 
 where study.STUDY_CODE = member.STUDY_CODE
-and study.STUDY_STATUS='0044' and member.id=#{_parameter}
+and study.STUDY_STATUS='0044' and member.id=#{_parameter} or study.id=#{_parameter}
 </select>
 
 <select id="recruitStudyList" parameterType="string" resultMap="studyDTOMap">

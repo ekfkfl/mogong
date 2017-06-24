@@ -1,5 +1,8 @@
 package kosta.web.mogong.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -21,7 +24,34 @@ public class MyPageServiceImpl implements MyPageService {
 	
 	@Override
 	public List<StudyDTO> studyRequestList(String id) {
-		return myPageDAOImpl.studyRequestList(id);
+		
+		List<StudyDTO> list = myPageDAOImpl.studyRequestList(id);
+		
+		Date date = new Date();
+		Date presentTime = null;
+		Date startTime=null;
+		int studyCode=0;
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		for(StudyDTO dto:list){
+			try {
+				presentTime = format.parse(format.format(date));
+				startTime = format.parse(dto.getStartDate());
+				studyCode = dto.getStudyCode();
+				
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		int result = presentTime.compareTo(startTime);
+		if(result>0){
+			return list;
+		}else{
+			if(myPageDAOImpl.studyRequsetDateUpdate(studyCode)>0){
+				return myPageDAOImpl.studyRequestList(id);
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -31,7 +61,34 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Override
 	public List<StudyDTO> recruitStudyList(String id) {
-		return myPageDAOImpl.recruitStudyList(id);
+		List<StudyDTO> list = myPageDAOImpl.recruitStudyList(id);
+		
+		Date date = new Date();
+		Date presentTime = null;
+		Date startTime=null;
+		int studyCode=0;
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		
+		for(StudyDTO dto:list){
+			try {
+				presentTime = format.parse(format.format(date));
+				startTime = format.parse(dto.getStartDate());
+				studyCode = dto.getStudyCode();
+				
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		int result = presentTime.compareTo(startTime);
+		if(result>0){
+			return list;
+		}else{
+			if(myPageDAOImpl.studyRequsetDateUpdate(studyCode)>0){
+				return myPageDAOImpl.recruitStudyList(id);
+			}
+		}
+		return null;
 	}
 
 	@Override
