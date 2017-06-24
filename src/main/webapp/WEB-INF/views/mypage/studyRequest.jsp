@@ -18,12 +18,20 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$("#detailBtn").click(function(){
-			
-			top.location.href="${pageContext.request.contextPath}/"
+		$(document).on("click","#detailBtn", function () {
+			top.location.href="${pageContext.request.contextPath}/search/detail?studyCode="+$(this).val();
 		})	
 	})
 </script>
+<style type="text/css">
+	th{
+		width:40%;
+	}
+	td{
+		width:60%;
+	}
+
+</style>
 
 </head>
 <body>
@@ -39,7 +47,7 @@
         <li class="active">Here</li>
       </ol>
     </section>
-    
+    <br><br>
     <!-- Main content -->
     <section class="content container-fluid">
 	
@@ -58,20 +66,37 @@
 				        -------------------------->
 			        <div class="col-md-3">
 			          <div class="box box-default">
-			            <div class="box-header with-border">
+			            <div class="box-header with-border" style="background-color:#f0f8ff">
 			              <h5 class="box-title">${studyDTO.name}</h5>
-			              
 			              </div>
 			              <!-- /.box-tools -->
 			            </div>
 			            <!-- /.box-header -->
-			            <div class="box-body"><b>
-			              날짜 : ${studyDTO.day}<p>
-			              장소 : ${studyDTO.area}<p>
-			              인원 : ${studyDTO.people}<p>
-			              신청인 : ${studyDTO.memberDTO.memberId}<p>
-			              신청상태 : ${studyDTO.commDTO.codeName}<p></b>
-			              <input type="button" value="상세보기" id="detailBtn">
+			            <div class="box-body">
+			            	<table width="100%">
+			            		<tr>
+			            			<th>날짜</th>
+			            			<td>${studyDTO.day}</td>
+			            		</tr>
+			            		<tr>
+			            			<th>장소</th>
+			            			<td>${studyDTO.area}</td>
+			            		</tr>
+			            		<tr>
+			            			<th>모집인원</th>
+			            			<td>${studyDTO.people}</td>
+			            		</tr>
+			            		<tr>
+			            			<th>신청인</th>
+			            			<td>${studyDTO.memberDTO.memberId}</td>
+			            		</tr>
+			            		<tr>
+			            			<th>신청상태</th>
+			            			<td>${studyDTO.commDTO.codeName}</td>
+			            		</tr>
+			            	</table>
+			            	<br>
+			            	<button type="button"  class='btn btn-primary btn-xs' id="detailBtn" value="${studyDTO.studyCode}">상세보기</button>
 			            </div>
 			            <!-- /.box-body -->
 			          </div>
