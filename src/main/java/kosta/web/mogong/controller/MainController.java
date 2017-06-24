@@ -205,7 +205,8 @@ public class MainController {
 	public String insertEnroll(HttpServletRequest request, StudyDTO studyDTO, String datePicker, Model model) {
 		HttpSession session = request.getSession();
 		UserDTO dto = (UserDTO) session.getAttribute("userDTO");
-		studyDTO.setId(dto.getId());
+		if(studyDTO != null)
+			studyDTO.setId(dto.getId());
 
 		String[] str = datePicker.split("~");
 		
@@ -216,13 +217,15 @@ public class MainController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 M월 d일 a HH:mm");
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			Date date = sdf.parse(str[0]);
-			String s = sdf2.format(date);
-			studyDTO.setStartDate(s);
-
-			date = sdf.parse(str[1]);
-			s = sdf2.format(date);
-			studyDTO.setEndDate(s);
+			if(studyDTO != null){
+				Date date = sdf.parse(str[0]);
+				String s = sdf2.format(date);
+				studyDTO.setStartDate(s);
+	
+				date = sdf.parse(str[1]);
+				s = sdf2.format(date);
+				studyDTO.setEndDate(s);
+			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
