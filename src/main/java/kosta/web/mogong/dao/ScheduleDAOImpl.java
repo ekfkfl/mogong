@@ -15,9 +15,9 @@ public class ScheduleDAOImpl implements ScheduleDAO {
 	SqlSession session;
 	
 	@Override
-	public List<TaskDTO> getSchedule() {
+	public List<TaskDTO> getSchedule(String studyCode) {
 		
-		return session.selectList("scheduleMapper.scheduleData");
+		return session.selectList("scheduleMapper.scheduleData",studyCode);
 	}
 	
 	public int scheduleInsert(TaskDTO taskDTO){

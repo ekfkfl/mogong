@@ -35,6 +35,7 @@
 <script>
 
 	$(document).ready(function() {
+		
 	    var date = new Date();
 		var d = date.getDate(); //15
 		var m = date.getMonth(); //5
@@ -100,7 +101,7 @@
 						if (title) {
 							$.ajax({
 								url: "${pageContext.request.contextPath}/member/study/schedule/insert",
-								data: "studyCode=6&title="+title+"&start="+startDateStr+"&end="+endDateStr+"&${_csrf.parameterName}=${_csrf.token}",
+								data: "studyCode=${studyCode}&title="+title+"&start="+startDateStr+"&end="+endDateStr+"&${_csrf.parameterName}=${_csrf.token}",
 								type: "post",
 								dataType: "text",
 								success: function (result) {
@@ -151,7 +152,7 @@
 					  events: function (start,end,callback) {
 						$.ajax({
 							url: "${pageContext.request.contextPath}/member/study/schedule/data",
-							data: "${_csrf.parameterName}=${_csrf.token}",
+							data: "${_csrf.parameterName}=${_csrf.token}&studyCode=${studyCode}",
 							type: "post",
 							dataType: "json",
 							success: function (result) {
