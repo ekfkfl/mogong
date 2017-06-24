@@ -12,6 +12,7 @@
 	<result column="create_date" property="createDate"/>
 	<result column="update_date" property="updateDate"/>
 	<result column="task_index" property="taskIndex"/>
+	
 </resultMap>	
 
 <resultMap type="TaskFileDTO" id="taskFileMap">
@@ -31,8 +32,8 @@
 </select>
 
 <!-- 성훈 chart result -->
-<select id="chartResult" resultType="int">
-	select count(*) from task group by progress_status order by progress_status
+<select id="chartResult" parameterType="string" resultMap="taskMap">
+	select count(*) as count,progress_status from task where study_code=#{value} group by progress_status order by progress_status
 </select>
 
 <select id="selectAllTask" parameterType="int" resultMap="taskMap">

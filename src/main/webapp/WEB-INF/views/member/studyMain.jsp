@@ -453,8 +453,10 @@ desired effect
    $(function () {
       
          $("#rightSide").click(function () {
+        	 alert("${studyCode}");
          $.ajax({
             url: "${pageContext.request.contextPath}/member/study/task/chartResult",
+            data: "${_csrf.parameterName}=${_csrf.token}&studyCode=${studyCode}",
             type:"post",
             dataType:"json",
             success: function (result) {
