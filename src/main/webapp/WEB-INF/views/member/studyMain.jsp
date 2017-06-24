@@ -292,7 +292,7 @@ desired effect
         | Your Page Content Here |
         -------------------------->
          
-         <iframe src="${pageContext.request.contextPath}/member/study/task/main" id="iframe" width="100%" height="1500px" frameborder="0" scrolling="no"></iframe>
+         <iframe src="${pageContext.request.contextPath}/member/study/task/main?studyCode=${studyCode}" id="iframe" width="100%" height="1500px" frameborder="0" scrolling="no"></iframe>
          
     </section>
     <!-- /.content -->
@@ -453,7 +453,6 @@ desired effect
    $(function () {
       
          $("#rightSide").click(function () {
-        	 alert("${studyCode}");
          $.ajax({
             url: "${pageContext.request.contextPath}/member/study/task/chartResult",
             data: "${_csrf.parameterName}=${_csrf.token}&studyCode=${studyCode}",
@@ -643,7 +642,7 @@ desired effect
      
       
        $("#task").click(function() {
-         $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task');
+         $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task?studyCode=${studyCode}');
          $("#sideTask").attr('class','active');
          $("#sideMain").attr('class','');
          $("#sideSchedule").attr('class','');
@@ -652,7 +651,7 @@ desired effect
          $("#sideMemberAdmin").attr('class','');
       })
       $("#main").click(function() {
-         $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main');
+         $("#iframe").attr('src','${pageContext.request.contextPath}/member/study/task/main?studyCode=${studyCode}');
          $("#sideTask").attr('class','');
          $("#sideMain").attr('class','active');
          $("#sideSchedule").attr('class','');
@@ -696,6 +695,42 @@ desired effect
       $("#sideChatting").attr('class','');
       $("#sideMemberAdmin").attr('class','active');
      })
+	$("#sideSchedule").click(function () {
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/schedule?studyCode=${studyCode}');
+		$("#sideSchedule").attr('class','active');
+		$("#sideTask").attr('class','');
+		$("#sideMain").attr('class','');
+		$("#sideBoard").attr('class','');
+		$("#sideChatting").attr('class','');
+		$("#sideMemberAdmin").attr('class','');
+	  })
+	  $("#chatting").click(function() {
+			$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/chatting?studyCode=${studyCode}');
+			$("#sideTask").attr('class','');
+			$("#sideMain").attr('class','');
+			$("#sideSchedule").attr('class','');
+			$("#sideBoard").attr('class','');
+			$("#sideChatting").attr('class','active');
+			$("#sideMemberAdmin").attr('class','');
+		})
+	  $("#board").click(function () {
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/board/selectAll?studyCode=${studyCode}');
+		$("#sideBoard").attr('class','active');
+		$("#sideSchedule").attr('class','');
+		$("#sideTask").attr('class','');
+		$("#sideMain").attr('class','');
+		$("#sideChatting").attr('class','');
+		$("#sideMemberAdmin").attr('class','');
+	  })
+	  $("#memberAdmin").click(function () {
+		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/memberAdmin?studyCode=${studyCode}');
+		$("#sideBoard").attr('class','');
+		$("#sideSchedule").attr('class','');
+		$("#sideTask").attr('class','');
+		$("#sideMain").attr('class','');
+		$("#sideChatting").attr('class','');
+		$("#sideMemberAdmin").attr('class','active');
+	  })
    })
 
 </script>

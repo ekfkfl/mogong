@@ -39,8 +39,6 @@ public class TaskController {
 
 	@RequestMapping("")
 	public String task(HttpSession session, String studyCode, Model model) {
-		studyCode = "6";
-
 		List<TaskDTO> taskList = taskService.selectAllTask(studyCode);
 		List<TaskDTO> todoList = new ArrayList<>();
 		List<TaskDTO> doingList = new ArrayList<>();
@@ -62,7 +60,8 @@ public class TaskController {
 		model.addAttribute("doingList", doingList);
 		model.addAttribute("doneList", doneList);
 		model.addAttribute("groupJang", taskService.selectTaskGroupJang(new StudyDTO(Integer.parseInt(studyCode),userDTO.getId())));
-
+		model.addAttribute("studyCode",studyCode);
+		
 		return "task/taskMain";
 	}
 
@@ -208,7 +207,6 @@ public class TaskController {
 	@RequestMapping("/chartResult")
 	@ResponseBody
 	public Map<String, Object> chartResult(String studyCode) {
-		System.out.println(studyCode+"***********");
 		Map<String, Object> map = new HashMap<>();
 		List<TaskDTO> list = taskService.chartResult(studyCode);
 		List<TaskDTO> taskList = taskService.selectMainTask(studyCode); //스터디 코드
