@@ -19,7 +19,7 @@
 <script type="text/javascript">
 	$(function(){
 		$(document).on("click","#detailBtn", function () {
-			top.location.href="${pageContext.request.contextPath}/search/detail?studyCode="+$(this).val();
+			top.location.href="${pageContext.request.contextPath}/study/main?studyCode="+$(this).val();
 		})
 	})
 </script>

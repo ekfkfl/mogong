@@ -87,22 +87,22 @@ public class MainController {
 		if (userDTO != null) {
 			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
 		}
-		
-		ModelAndView mv=new ModelAndView();
-		
-		StudyDTO studyDTO=new StudyDTO();
+
+		ModelAndView mv = new ModelAndView();
+
+		StudyDTO studyDTO = new StudyDTO();
 		studyDTO.setName("");
-		int page=1;
-		
-		PageDTO pageDTO=service.selectSearchStudy(studyDTO, page);
-		Map<String, CommCodeDTO> categoryMap=CodeUtil.getChildCodeDTO("0157");
-		Map<String, CommCodeDTO> cityCodeMap=CodeUtil.getChildCodeDTO("0061");
+		int page = 1;
+
+		PageDTO pageDTO = service.selectSearchStudy(studyDTO, page);
+		Map<String, CommCodeDTO> categoryMap = CodeUtil.getChildCodeDTO("0157");
+		Map<String, CommCodeDTO> cityCodeMap = CodeUtil.getChildCodeDTO("0061");
 
 		mv.addObject("pageDTO", pageDTO);
 		mv.addObject("categoryMap", categoryMap);
 		mv.addObject("cityCodeMap", cityCodeMap);
 		mv.setViewName("main/search/searchStudy");
-		
+
 		return mv;
 	}
 
@@ -208,7 +208,7 @@ public class MainController {
 		studyDTO.setId(dto.getId());
 
 		String[] str = datePicker.split("~");
-		
+
 		if (dto != null) {
 			model.addAttribute("messageCount", service.messageCount(dto.getId()));
 		}
@@ -239,17 +239,17 @@ public class MainController {
 
 		StudyDTO dto = service.selectByStudyCode(studyCode, false);
 		ModelAndView mv = new ModelAndView();
-		
+
 		if (userDTO != null) {
 			mv.addObject("messageCount", service.messageCount(userDTO.getId()));
 		}
 		mv.setViewName("main/study/update");
 		mv.addObject("studyCode", studyCode);
 		mv.addObject("studyDTO", dto);
-		
+
 		return mv;
 	}
-	
+
 	// 스터디 수정폼에서 수정하기 클릭했을때
 	@RequestMapping("/studyUpdate")
 	public String studyUpdate(HttpServletRequest request, StudyDTO studyDTO, String datePicker) {
@@ -274,29 +274,30 @@ public class MainController {
 		}
 
 		service.studyUpdate(studyDTO);
-		
-		return "redirect: "+request.getContextPath()+"/search/detail?studyCode="+studyDTO.getStudyCode();
+
+		return "redirect: " + request.getContextPath() + "/search/detail?studyCode=" + studyDTO.getStudyCode();
 	}
-	
+
 	// 스터디 가입 신청
 	@RequestMapping("/joinStudy")
 	@ResponseBody
 	public List<String> joinStudy(HttpSession session, HttpServletResponse response, String studyCode) {
 		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
 		response.setContentType("text/html; charset=UTF-8");
-		
-		List<String> list=new ArrayList<>();
-		
+
+		List<String> list = new ArrayList<>();
+
 		list.add(service.studyJoin(new MemberDTO(Integer.parseInt(studyCode), userDTO.getId())));
 		return list;
 	}
 
 	@RequestMapping("/study/main")
-	public String studyMain(HttpServletRequest request, HttpSession session, Model model) {
+	public String studyMain(HttpServletRequest request, HttpSession session, Model model, String studyCode) {
 		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
-
+		
 		if (userDTO != null) {
 			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
+			model.addAttribute("studyCode", studyCode);
 		}
 
 		return "member/studyMain";
@@ -332,7 +333,7 @@ public class MainController {
 
 	@RequestMapping("/search")
 	@ResponseBody
-	public PageDTO keywordSearch(StudyDTO studyDTO, int page){
+	public PageDTO keywordSearch(StudyDTO studyDTO, int page) {
 		return service.selectSearchStudy(studyDTO, page);
 	}
 }

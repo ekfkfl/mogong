@@ -97,7 +97,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </style>
 </head>
 <body>
-	<input type="hidden" name="studyCode" id="studyCode" value="6" />
+	<input type="hidden" name="studyCode" id="studyCode" value="${studyCode}" />
 	<input type="hidden" id="csrf" name="${_csrf.parameterName}"
 		value="${_csrf.token}">
 	<section class="content-header">
