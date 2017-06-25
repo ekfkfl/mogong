@@ -2733,9 +2733,9 @@ table.text-center th {
   height: 250px;
   overflow: auto;
 }
-.direct-chat-msg,
+.direct-chat-msg
 .direct-chat-text {
-  display: block;
+  display: table;
 }
 .direct-chat-msg {
   margin-bottom: 10px;
@@ -2785,7 +2785,7 @@ table.text-center th {
   margin-top: -6px;
 }
 .right .direct-chat-text {
-  margin-right: 50px;
+  margin-right: 10px;
   margin-left: 0;
 }
 .right .direct-chat-text:after,

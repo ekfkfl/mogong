@@ -84,7 +84,7 @@
 			            	</tr>
 			            	<tr>
 			            		<th>장소</th>
-			            		<td>${studyDTO.area}</td>
+			            		<td>${studyDTO.addr2}</td>
 			            	</tr>
 			            	<tr>
 			            		<th>모집인원</th>
