@@ -762,13 +762,14 @@ $(function(){
 					</div>
 					<div class="optionGroupBody" style="clear:both;">
 						<input type="checkbox" name="day" value="전체" checked>전체
+						<input type="checkbox" name="day" value="일">일						
 						<input type="checkbox" name="day" value="월">월
 						<input type="checkbox" name="day" value="화">화
 						<input type="checkbox" name="day" value="수">수
 						<input type="checkbox" name="day" value="목">목
 						<input type="checkbox" name="day" value="금">금
 						<input type="checkbox" name="day" value="토">토
-						<input type="checkbox" name="day" value="일">일
+	
 					</div>
 				</div><!--요일 옵션 그룹 끝-->
 
