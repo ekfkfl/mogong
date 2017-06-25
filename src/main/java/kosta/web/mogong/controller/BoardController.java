@@ -39,9 +39,11 @@ public class BoardController {
 	BoardService boardService;
 
 	@RequestMapping("/writeForm")
-	public String writeForm(){
-		
-		return "board/writeForm";
+	public ModelAndView writeForm(String studyCode){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("board/writeForm");
+		mv.addObject("studyCode", studyCode);
+		return mv;
 	}
 	@RequestMapping("/board/insert")
 	public String insert(HttpServletRequest request, BoardDTO dto,String[] check) throws IOException{
@@ -70,12 +72,11 @@ public class BoardController {
 		
 		UserDTO userDTO=(UserDTO)request.getSession().getAttribute("userDTO");
 
-		dto.setMemberCode(boardService.selectMemberCode(new MemberDTO(6,userDTO.getId())));
-		dto.setStudyCode(6);
+		dto.setMemberCode(boardService.selectMemberCode(new MemberDTO(dto.getStudyCode(),userDTO.getId())));
 		
 		int result = boardService.boardInsert(dto);
 		
-		return "redirect:selectAll";
+		return "redirect:selectAll?studyCode="+dto.getStudyCode();
 	}
 	
 	@RequestMapping("/board/selectAll")
@@ -86,9 +87,7 @@ public class BoardController {
 			boardDTO.setFiled(str[0]);
 			field = str[0];
 		}
-		
-		
-		int totalCount = boardService.getCount(field);
+		int totalCount = boardService.getCount(field,boardDTO.getStudyCode()+"");
 		boardDTO.setTotalCount(totalCount);
 		List<BoardDTO> list = boardService.boardSelectAll(boardDTO);
 		
@@ -96,23 +95,25 @@ public class BoardController {
 		mv.setViewName("board/board");
 		mv.addObject("list", list);
 		mv.addObject("boardDTO", boardDTO);
+		mv.addObject("studyCode", boardDTO.getStudyCode());
 		return mv;
 	}
 	
 	@RequestMapping("/board/selectById")
 	public ModelAndView boardSelectById(HttpSession session, String boardCode,String content,String flag){
 		UserDTO userDTO=(UserDTO)session.getAttribute("userDTO");
+		BoardDTO dto = boardService.boardSelectById(boardCode);
 		
 		if("true".equals(flag)){
-			boardService.commentInsert(new BoardCommentDTO(Integer.parseInt(boardCode), boardService.selectMemberCode(new MemberDTO(6,userDTO.getId())), 6, content));
+			boardService.commentInsert(new BoardCommentDTO(Integer.parseInt(boardCode), boardService.selectMemberCode(new MemberDTO(dto.getStudyCode(),userDTO.getId())), dto.getStudyCode(), content));
 		}
 		
-		BoardDTO dto = boardService.boardSelectById(boardCode);
-		List<BoardCommentDTO> list = boardService.commentSelectAll(boardCode);
+		List<BoardCommentDTO> list = boardService.commentSelectAll(boardCode,dto.getStudyCode()+"");
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("board/readForm");
 		mv.addObject("boardDTO", dto);
 		mv.addObject("list", list);
+		mv.addObject("studyCode", dto.getStudyCode());
 		
 		return mv;
 	}

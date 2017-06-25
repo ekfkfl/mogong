@@ -33,7 +33,7 @@
 <script type="text/javascript">
 	$(function () {
 		$("#btn").click(function () {
-			location.href="${pageContext.request.contextPath}/member/study/board/selectAll";
+			location.href="${pageContext.request.contextPath}/member/study/board/selectAll?studyCode=${studyCode}";
 		})
 	})
 </script>

@@ -19,7 +19,12 @@
 		<security:frame-options disabled="true"/>
 	</security:headers>
 	
+<<<<<<< HEAD
 	<security:csrf disabled="true"/>
+=======
+	  <security:csrf disabled="true"/>
+	   <!-- <security:csrf disabled="true"/> -->
+>>>>>>> cc6071fbd58cb9435069ef5cf054387e2ab5116e
 	
 	<security:form-login 
 		login-page="/loginForm"

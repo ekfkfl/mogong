@@ -11,13 +11,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.stereotype.Component;
 
 
-/**
- * ��������ť��Ƽ���� �α��� ���н� ȣ��Ǵ� EventHandler��.
- * 
- * springBean ������������ <security:form-login�±׿�
- * authentication-failure-handler-ref �߰��ϸ�
- * �α��� ���н� onAuthenticationFailure �޼ҵ尡 ȣ��ȴ�.
- */
+
 @Component
 public class MemberAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
