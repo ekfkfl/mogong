@@ -59,9 +59,10 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body pad">
-            <form class="form-horizontal" method="post" name="boardForm" action="${pageContext.request.contextPath}//member/study/board/insert" enctype="multipart/form-data">
+            <form class="form-horizontal" method="post" name="boardForm" action="${pageContext.request.contextPath}/member/study/board/insert" enctype="multipart/form-data">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <input type="hidden" name="insertFlag" value="true">
+                <input type="hidden" name="studyCode" value="${studyCode}">
                 <div class="form-group">
                   <label class="col-sm-2 control-label">제목</label>
                   <div class="col-sm-10">

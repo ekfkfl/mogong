@@ -16,9 +16,9 @@ public interface BoardDAO {
 	
 	int commentInsert(BoardCommentDTO boardCommentDTO);
 	
-	List<BoardCommentDTO> commentSelectAll(String boardCode);
+	List<BoardCommentDTO> commentSelectAll(String boardCode,String studyCode);
 	
-	int getCount(String field);
+	int getCount(String field,String studyCode);
 	
 	int selectMemberCode(MemberDTO memberDTO);
 }
