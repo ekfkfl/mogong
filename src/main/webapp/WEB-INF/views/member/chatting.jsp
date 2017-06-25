@@ -84,7 +84,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                  "<span class='direct-chat-timestamp pull-left'>"+presentDate+"</span>"+
                 "</div>"+
                 "<img class='direct-chat-img' src='${pageContext.request.contextPath}${requestScope.sessionPhoto}' alt='message user image'>"+
-                "<div class='direct-chat-text'>"+
+                "<div class='direct-chat-text pull-right'>"+
                 $("#message").val()+
                 "</div>"+
          		"</div>"
