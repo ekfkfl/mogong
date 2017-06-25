@@ -62,12 +62,16 @@ public class MainDAOImpl implements MainDAO {
 	
 	@Override
 	public PageDTO selectSearchStudy(PageDTO pageDTO) {
+		System.out.println("studyDTO" + pageDTO.getResultMap().get("studyDTO"));
+		
 		Map<String,Object>map=pageDTO.getResultMap();
 		map.put("startIndex", pageDTO.getStartIndex()+1);
 		map.put("endIndex", pageDTO.getEndIndex()+1);
 
+		
 		pageDTO.setTotalCnt(sqlSession.selectOne("mainMapper.selectSearchStudyCnt", map));
 		List<StudyDTO> studyDTOList=sqlSession.selectList("mainMapper.selectSearchStudy", map);
+		
 		pageDTO.getResultMap().put("studyDTOList", studyDTOList);
 		
 		return pageDTO;

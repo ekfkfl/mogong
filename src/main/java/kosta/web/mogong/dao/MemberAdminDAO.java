@@ -9,7 +9,7 @@ public interface MemberAdminDAO {
 	/**
 	 * 전체 멤버 가져오기
 	 * */
-	List<UserDTO> selectAll(String id);
+	List<UserDTO> selectAll(String id,  int studyCode);
 	
 	
 	/**

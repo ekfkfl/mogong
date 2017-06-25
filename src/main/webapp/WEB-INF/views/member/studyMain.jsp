@@ -659,9 +659,6 @@ desired effect
          $("#sideChatting").attr('class','');
          $("#sideMemberAdmin").attr('class','');
       })
-  
-     
-     
 	$("#sideSchedule").click(function () {
 		$("#iframe").attr('src','${pageContext.request.contextPath}/member/study/schedule?studyCode=${studyCode}');
 		$("#sideSchedule").attr('class','active');

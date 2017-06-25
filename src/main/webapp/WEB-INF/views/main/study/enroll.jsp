@@ -1,152 +1,183 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 
- <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
-  <!-- daterange picker -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/daterangepicker.css">
-  <!-- Bootstrap time Picker -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-timepicker.min.css">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/select2.min.css">
+<!-- Bootstrap 3.3.7 -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+<!-- daterange picker -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/daterangepicker.css">
+<!-- Bootstrap time Picker -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/bootstrap-timepicker.min.css">
+<!-- Select2 -->
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/select2.min.css">
 
 <!-- jQuery 3.1.1 -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery-3.2.0.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/jquery-3.2.0.min.js"></script>
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <jsp:include page="/WEB-INF/views/main/header.jsp" />
 
-<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/enroll" name="insert">
-	
-	<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}" >
-   <div class="container">
-      <div class="row">
-         <div
-            class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <div class="box box-info">
-               <div class="box-header with-border">
-                  <h3 class="box-title">스터디 등록하기</h3>
-               </div>
-               <div class="box-body">
-                  <div class="form-group">
-                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="name" name="name"
-                           placeholder="스터디 제목을 입력하세요">
-                     </div>
-                  </div>
-                   <div class="form-group">
-               <label>시작일 / 마감일</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="datePicker" class="form-control pull-right" id=dateChooser readonly="readonly">
-                </div>
-                <!-- /.input group -->
-              </div>
-                  
+<form class="form-horizontal" method="post"
+	action="${pageContext.request.contextPath}/enroll" name="insert">
 
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-  <br>
-   <div class="container">
-      <div class="row">
-         <div
-            class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <div class="box box-info">
-               <div class="box-header with-border">
-                  <h3 class="box-title">스케줄 선택하기</h3>
-               </div>
-               <br>
-               <label>스터디 요일</label>
-               <div class="checkbox">
-                  <label> <input type="checkbox" name="day" value="일">일
-                  </label> <label> <input type="checkbox" name="day" value="월">월
-                  </label> <label> <input type="checkbox" name="day" value="화">화
-                  </label> <label> <input type="checkbox" name="day" value="수">수
-                  </label> <label> <input type="checkbox" name="day" value="목">목
-                  </label> <label> <input type="checkbox" name="day" value="금">금
-                  </label> <label> <input type="checkbox" name="day" value="토">토
-                  </label>
-               </div>
-               <br>
-                <div class="form-group">
-                  <div class="bootstrap-timepicker" style="float:left;width:50%">
-                  <label>스터디 시작 시간</label>
-                  <div class="input-group" style="width:80%">
-                    <input type="text" name="startTime" class="form-control timepicker" readonly="readonly">
-                    <div class="input-group-addon">
-                      <i class="fa fa-clock-o"></i>
-                    </div>
-                  </div>
-               	 </div>
-               	 <div class="bootstrap-timepicker" style="float:left;width:50%">
-                  <label>스터디 종료 시간</label>
-                  <div class="input-group" style="width:80%">
-                    <input type="text" name="endTime" class="form-control timepicker" readonly="readonly">
-                    <div class="input-group-addon">
-                      <i class="fa fa-clock-o"></i>
-                    </div>
-                  </div>
-                 <!-- /.input group -->
-               	 </div>
-               	 <!-- /.form group -->
-                </div>
-                <!-- /.form group -->
-              </div>
-
-            </div>
-         </div>
-      </div>
-      <br><br><br><br><br>
-   <div class="container">
-      <div class="row">
-         <div class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <div class="box box-info">
-               <div class="box-header with-border">
-                  <h3 class="box-title">스터디 구성 선택하기</h3>
-               </div>
-               <label>인원 수</label><br>
-               <input type="radio" name="people" value="3">3명&nbsp;&nbsp;&nbsp;
-               <input type="radio" name="people" value="4">4명&nbsp;&nbsp;&nbsp;
-               <input type="radio" name="people" value="5">5명&nbsp;&nbsp;&nbsp;
-               <input type="radio" name="people" value="6">6명&nbsp;&nbsp;&nbsp;
-               <input type="radio" name="people" value="7">7명&nbsp;&nbsp;&nbsp;
-               <input type="radio" name="people" value="8">8명&nbsp;&nbsp;&nbsp;
-               <br><br>
-               <label>지역 선택</label><br>
-               <select class="form-control" id="area" name="area" style="float:left;width:50%;">
-                  <option value="지역">지역</option>
-                  <option value="0070">서울/경기</option>
-                  <option value="0063">강원</option>
-                  <option value="0078">경남</option>
-                  <option value="0086">경북</option>
-                  <option value="0108">전북</option>
-                  <option value="0102">전남</option>
-                  <option value="0124">충북</option>
-                  <option value="0117">충남</option>
-                  <option value="0114">제주</option>
-               </select>
-               <select class="form-control" id="detailArea" name="detailArea" style="float:left;width:50%;">
-                  <option value="지역">지역을 먼저 선택해주세요</option>
-               </select><br><br>
-               <div id="wrap"
-									style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
-									<img
-										src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png"
-										id="btnFoldWrap"
-										style="cursor: pointer; position: absolute; right: 0px; top: -1px; z-index: 1"
-										onclick="foldDaumPostcode()" alt="접기 버튼">
+	<input type="hidden" id="csrf" name="${_csrf.parameterName}"
+		value="${_csrf.token}">
+	<div class="container">
+		<div class="row">
+			<div
+				class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3">
+				<div class="box box-info">
+					<div class="box-header with-border">
+						<h3 class="box-title">스터디 등록하기</h3>
+					</div>
+					<div class="box-body">
+						<div class="form-group">
+							<div class="col-sm-12">
+								<input type="text" class="form-control" id="name" name="name"
+									placeholder="스터디 제목을 입력하세요"> 
+								<br>
+								<label>시작일 / 마감일</label>
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i class="fa fa-clock-o"></i>
+									</div>
+									<input type="text" name="datePicker"
+										class="form-control pull-right" id=dateChooser
+										readonly="readonly">
 								</div>
-								<!-- <input type="text" id="sample3_address" class="d_form large"
+							</div>
+						</div>
+						<div class="form-group"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div
+				class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3">
+				<div class="box box-info">
+					<div class="box-header with-border">
+						<h3 class="box-title">스케줄 선택하기</h3>
+					</div>
+					<div class="box-body">
+					<br> <label>스터디 요일</label>
+					<div class="checkbox">
+						<label> <input type="checkbox" name="day" value="일">일
+						</label> <label> <input type="checkbox" name="day" value="월">월
+						</label> <label> <input type="checkbox" name="day" value="화">화
+						</label> <label> <input type="checkbox" name="day" value="수">수
+						</label> <label> <input type="checkbox" name="day" value="목">목
+						</label> <label> <input type="checkbox" name="day" value="금">금
+						</label> <label> <input type="checkbox" name="day" value="토">토
+						</label>
+					</div>
+					<br>
+					<div class="form-group">
+						<div class="bootstrap-timepicker" style="float: left; width: 50%">
+							<label>스터디 시작 시간</label>
+							<div class="input-group" style="width: 80%">
+								<input type="text" name="startTime"
+									class="form-control timepicker" readonly="readonly">
+								<div class="input-group-addon">
+									<i class="fa fa-clock-o"></i>
+								</div>
+							</div>
+						</div>
+						<div class="bootstrap-timepicker" style="float: left; width: 50%">
+							<label>스터디 종료 시간</label>
+							<div class="input-group" style="width: 80%">
+								<input type="text" name="endTime"
+									class="form-control timepicker" readonly="readonly">
+								<div class="input-group-addon">
+									<i class="fa fa-clock-o"></i>
+								</div>
+							</div>
+							<!-- /.input group -->
+						</div>
+						<!-- /.form group -->
+					</div>
+					<!-- /.form group -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div
+				class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3">
+				<div class="box box-info">
+					<div class="box-header with-border">
+						<h3 class="box-title">스터디 구성 선택하기</h3>
+					</div>
+					<div class="box-body">
+					<label>인원 수</label><br> <input type="radio" name="people"
+						value="3">3명&nbsp;&nbsp;&nbsp; <input type="radio"
+						name="people" value="4">4명&nbsp;&nbsp;&nbsp; <input
+						type="radio" name="people" value="5">5명&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="people" value="6">6명&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="people" value="7">7명&nbsp;&nbsp;&nbsp;
+					<input type="radio" name="people" value="8">8명&nbsp;&nbsp;&nbsp;
+					<br>
+					<br> <label>카테고리</label><br> <select class="form-control"
+						id="category2" name="category2" style="float: left; width: 50%;">
+						<option value="1차">1차 분류</option>
+						<option value="0158">취업</option>
+						<option value="0169">금융</option>
+						<option value="0167">어학</option>
+						<option value="0172">취미</option>
+						<option value="0173">고시</option>
+						<option value="0170">프로그래밍</option>
+						<option value="0171">자기계발</option>
+					</select> <select class="form-control" id="category" name="category"
+						style="float: left; width: 50%;">
+						<option value="2차">1차 분류를 먼저 선택해주세요</option>
+					</select><br>
+					<br> <label>지역 선택</label><br> <select
+						class="form-control" id="area" name="area"
+						style="float: left; width: 50%;">
+						<option value="지역">지역</option>
+						<option value="0070">서울/경기</option>
+						<option value="0063">강원</option>
+						<option value="0078">경남</option>
+						<option value="0086">경북</option>
+						<option value="0108">전북</option>
+						<option value="0102">전남</option>
+						<option value="0124">충북</option>
+						<option value="0117">충남</option>
+						<option value="0114">제주</option>
+					</select> <select class="form-control" id="detailArea" name="detailArea"
+						style="float: left; width: 50%;">
+						<option value="지역">지역을 먼저 선택해주세요</option>
+					</select><br>
+					<br>
+
+					<div id="wrap"
+						style="display: none; border: 1px solid; width: 500px; height: 300px; margin: 5px 0; position: relative">
+						<img
+							src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png"
+							id="btnFoldWrap"
+							style="cursor: pointer; position: absolute; right: 0px; top: -1px; z-index: 1"
+							onclick="foldDaumPostcode()" alt="접기 버튼">
+					</div>
+					<!-- <input type="text" id="sample3_address" class="d_form large"
 									placeholder="주소"> -->
 
-								<script>
+					<script>
 									// 우편번호 찾기 찾기 화면을 넣을 element
 									var element_wrap = document
 											.getElementById('wrap');
@@ -217,63 +248,75 @@
 										element_wrap.style.display = 'block';
 									}
 								</script>
-								<input type="hidden" name="addr" />
-								<input type="text" class="form-control" id="addr1" name="addr1" placeholder="주소를 입력하세요">
-								<input type="text" class="form-control" id="addr2" name="addr2" placeholder="상세 주소를 입력해주세요.">
-            </div>
-         </div>
-      </div>
-   </div>
-	<br><br>
-   <div class="container">
-      <div class="row">
-         <div
-            class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <div class="box box-warning col-xs-12">
-               <div class="box-header with-border">
-                  <h3 class="box-title">스터디 상세정보 입력</h3>
-               </div>
-               <div class="box-body">
-                  <!-- textarea -->
-                  <div class="form-group">
-                     <textarea class="form-control" id="description"
-                        name="description" rows="5" placeholder="스터디에 대한 상세정보를 알려주세요"></textarea>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
+					<input type="hidden" name="addr" /> <input type="text"
+						class="form-control" id="addr1" name="addr1"
+						placeholder="주소를 입력하세요"> <input type="text"
+						class="form-control" id="addr2" name="addr2"
+						placeholder="상세 주소를 입력해주세요.">
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<div class="container">
+		<div class="row">
+			<div
+				class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3">
+				<div class="box box-warning col-xs-12">
+					<div class="box-header with-border">
+						<h3 class="box-title">스터디 상세정보 입력</h3>
+					</div>
+					<div class="box-body">
+						<!-- textarea -->
+						<div class="form-group">
+							<textarea class="form-control" id="description"
+								name="description" rows="5" placeholder="스터디에 대한 상세정보를 알려주세요"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-   <div class="container">
-      <div class="row">
-         <div
-            class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3"
-            style="text-align: center">
-            <div class="box-body">
-               <input type="reset" value="재입력" class="btn">&nbsp;&nbsp;&nbsp;&nbsp;
-               <input type="submit" value="모집 등록" class="btn">
-            </div>
-         </div>
-      </div>
-   </div>
+	<div class="container">
+		<div class="row">
+			<div
+				class="col-xs-12 col-sm-9 col-md-6 col-sm-offset-2 col-md-offset-3"
+				style="text-align: center">
+				<div class="box-body">
+					<input type="reset" value="재입력" class="btn">&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="submit" value="모집 등록" class="btn">
+				</div>
+			</div>
+		</div>
+	</div>
 </form>
 
 <!-- jQuery 3.1.1 -->
- <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
- <!-- jQuery UI 1.11.4 -->
-<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
- <!-- Bootstrap 3.3.7 -->
- <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script
+	src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script
+	src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <!-- Select2 -->
-<script src="${pageContext.request.contextPath}/resources/js/select2.full.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/select2.full.min.js"></script>
 <!-- date-range-picker -->
-<script src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/moment.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/daterangepicker.js"></script>
 <!-- AdminLTE App -->
-<script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
 <!-- bootstrap time picker -->
-<script src="${pageContext.request.contextPath}/resources/js/bootstrap-timepicker.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/bootstrap-timepicker.min.js"></script>
 
 <script>
 
@@ -294,9 +337,35 @@ $(function () {
 				var str = "";
 				$.each(result, function (index,item) {
 					//alert(item.codeName);
-					str += "<option value='"+item.commCode+"'>"+item.codeName+"</option>"
+					str += "<option value='"+item.commCode+"'>"+item.codeName+"</option>";
 				})
 				$("#detailArea").append(str);
+			},
+			error : function (request,status,error) {
+				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});//ajax 끝 
+	})
+	
+	$("#category2").change(function () {
+		$.ajax({
+			url: "${pageContext.request.contextPath}/study/category",
+			data: "category="+$("#category2 option:selected").val()+"&${_csrf.parameterName}=${_csrf.token}",
+			type: "post",
+			dataType: "json",
+			success: function (result) {
+				$("#category").empty();
+				var str = "";
+				
+				$.each(result.categoryCodeList, function (index,item) {
+					str += "<option value='"+item+"'></option>";
+				})
+				
+				$("#category").append(str);
+				
+				$.each($("#category option"), function (index,item) {
+					$(this).text(result.categoryNameList[index]);
+				})
 			},
 			error : function (request,status,error) {
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

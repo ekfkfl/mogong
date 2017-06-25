@@ -50,6 +50,9 @@ select* from COMM_CODE;
 
 select * from study;
 
+select NAME, DESCRIPTION
+		from study
+		where STUDY_CODE = 68 and id= 'gwang12'
 
 CREATE TABLE STUDY(
   STUDY_CODE NUMBER PRIMARY KEY, -- 스터디 코드
@@ -88,6 +91,16 @@ select STUDY_CODE, ID, CATEGORY_CODE, CITY_CODE, NAME, WRITE_DATE,
 START_DATE, END_DATE, DAY, START_TIME, END_TIME, PEOPLE, AREA, DESCRIPTION, STUDY_STATUS
 from study 
 where STUDY_STATUS='0043' and id='jun12' --모집중 쿼리
+
+select
+study.STUDY_CODE, study.ID, CATEGORY_CODE, CITY_CODE, NAME, WRITE_DATE,
+START_DATE, END_DATE, DAY, START_TIME, END_TIME, PEOPLE, AREA, DESCRIPTION, STUDY_STATUS,
+JOIN_STATUS, member.id, CODE_NAME
+from STUDY, member, COMM_CODE
+where study.STUDY_CODE = member.STUDY_CODE 
+and member.JOIN_STATUS= comm_code.COMM_CODE
+and STUDY_STATUS='0043'
+and member.id='gwang12' -- 신청중
 
 select * from study where id='jun12'
 
@@ -140,16 +153,8 @@ insert into member values(MEMBER_SEQ.nextval, 13,'jun12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 14,'crw12','0004', null)
 
 select * from MEMBER where STUDY_CODE= 12 ;
+select * from study where study_code=12
 
-select
-study.STUDY_CODE, study.ID, CATEGORY_CODE, CITY_CODE, NAME, WRITE_DATE,
-START_DATE, END_DATE, DAY, START_TIME, END_TIME, PEOPLE, AREA, DESCRIPTION, STUDY_STATUS,
-JOIN_STATUS, member.id, CODE_NAME
-from STUDY, member, COMM_CODE
-where study.STUDY_CODE = member.STUDY_CODE 
-and member.JOIN_STATUS= comm_code.COMM_CODE
-and STUDY_STATUS='0043'
-and member.id='gwang12' -- 신청중
 
 select SEND_MESSAGE_CODE, ID, title, content, RECV_ID, write_date
 	from SEND_MESSAGE 

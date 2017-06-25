@@ -262,6 +262,17 @@ public class StudyDTO {
 	public void setUserIntro(String userIntro) {
 		this.userIntro = userIntro;
 	}
+
+	@Override
+	public String toString() {
+		return "StudyDTO [studyCode=" + studyCode + ", id=" + id + ", category=" + category + ", cityCode=" + cityCode
+				+ ", name=" + name + ", writeDate=" + writeDate + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", day=" + day + ", startTime=" + startTime + ", endTime=" + endTime + ", people=" + people
+				+ ", area=" + area + ", detailArea=" + detailArea + ", addr1=" + addr1 + ", addr2=" + addr2
+				+ ", description=" + description + ", read=" + read + ", userName=" + userName + ", userProfile="
+				+ userProfile + ", userEmail=" + userEmail + ", userIntro=" + userIntro + ", studyStatus=" + studyStatus
+				+ ", memberDTO=" + memberDTO + ", commDTO=" + commDTO + "]";
+	}
 	
 	
 	

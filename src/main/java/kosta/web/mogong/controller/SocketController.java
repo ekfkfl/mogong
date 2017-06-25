@@ -26,18 +26,22 @@ import kosta.web.mogong.dto.UserDTO;
 public class SocketController {
 	
 	@RequestMapping("/member/study/chatting")
-	public ModelAndView viewChattingPage(HttpSession session, HttpServletRequest request){
+	public ModelAndView viewChattingPage(HttpSession session, HttpServletRequest request, String studyCode){
 		
 		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
 		request.setAttribute("sessionId", userDTO.getId());
 		request.setAttribute("sessionPhoto", userDTO.getPath());
+		request.setAttribute("studyCode", studyCode);
+		
+		File file = new File("C:\\edu\\studyCode_"+studyCode+".txt");
 		
 		FileReader fr = null;
 		BufferedReader br= null;
 		List<String> list = new ArrayList<>();
+		ModelAndView mv = new ModelAndView();
 		
 		try {
-			fr = new FileReader("C:\\edu\\save2.txt");
+			fr = new FileReader(file);
 			br = new BufferedReader(fr);
 			
 			String line= null;
@@ -52,7 +56,8 @@ public class SocketController {
 			}
 			
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			mv.setViewName("/member/chatting");
+			return mv;
 		}finally {
 			try {
 				if(fr!=null)fr.close();
@@ -67,7 +72,7 @@ public class SocketController {
 			chatList.add(new ChatDTO(str[0], str[1], str[2], str[3]));
 		}
 		
-		ModelAndView mv = new ModelAndView();
+		
 		mv.addObject("chatList", chatList);
 		mv.setViewName("/member/chatting");
 		
@@ -76,9 +81,9 @@ public class SocketController {
 	
 	@RequestMapping("/member/study/fileSave")
 	@ResponseBody
-	public void fileSave(String sessionId, String message, String date, String photo){
-		
-		File file = new File("C:\\edu\\save2.txt");
+	public void fileSave(String sessionId, String message, String date, String photo, String studyCode){
+		System.out.println(studyCode);
+		File file = new File("C:\\edu\\studyCode_"+studyCode+".txt");
 		FileWriter fw = null;
 		try {
 			
@@ -91,7 +96,9 @@ public class SocketController {
 			e.printStackTrace();
 		}finally {
 			try {
-				fw.close();
+				if(fw!=null){
+					fw.close();
+				}
 			} catch (IOException e){}
 		}
 	
