@@ -152,11 +152,7 @@ desired effect
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MyPage</li>
-<<<<<<< HEAD
         <!-- Optionally, you can add icons to the links -->
-        <li><a href="#"><i class="fa fa-male"></i> <span>개인정보수정</span></a></li>
-=======
->>>>>>> 27337682318d39b05570e309d6c077ecdad31f17
         <li class="treeview">
           <a href="#"><i class="fa fa-book"></i> <span>스터디 관리</span>
             <span class="pull-right-container">
@@ -168,14 +164,9 @@ desired effect
             <li><a href="${pageContext.request.contextPath}/member/mypage/ongoingStudy" target="mainContent">진행중</a></li>
             <li><a href="${pageContext.request.contextPath}/member/mypage/recruitStudy" target="mainContent">모집중</a></li>
           </ul>
-<<<<<<< HEAD
-           <li class="treeview">
-          <a href="#"><i class="fa fa-envelope-o"></i> <span>쪽지함</span>
-=======
          </li>
          <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>쪽지함</span>
->>>>>>> 27337682318d39b05570e309d6c077ecdad31f17
+          <a href="#"><i class="fa fa-envelope-o"></i> <span>쪽지함</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -184,17 +175,13 @@ desired effect
           	<li><a href="${pageContext.request.contextPath}/member/mypage/composeMailForm" target="mainContent">쪽지쓰기</a></li>
             <li><a href="${pageContext.request.contextPath}/member/mypage/recvMail" target="mainContent">받은쪽지함</a></li>
             <li><a href="${pageContext.request.contextPath}/member/mypage/sendMail" target="mainContent">보낸쪽지함</a></li>
-          </ul>
-<<<<<<< HEAD
-          <li><a href="#"><i class="fa fa-cog"></i> <span>관리자모드</span></a></li>
-        </li>
-=======
+	          </ul>
+
           </li>
-          <li class="active"><a href="#"><i class="fa fa-link"></i> <span>개인정보수정</span></a></li>
+          <li class="active"><a href="#"><i class="fa fa-male"></i> <span>개인정보수정</span></a></li>
           <sec:authorize access="hasRole('ROLE_ADMIN')">
           <li><a href="${pageContext.request.contextPath}/admin"><i class="fa fa-link"></i> <span>관리자모드</span></a></li>
       	  </sec:authorize>
->>>>>>> 27337682318d39b05570e309d6c077ecdad31f17
       </ul>
       <!-- /.sidebar-menu -->
     </section>
