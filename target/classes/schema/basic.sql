@@ -213,4 +213,25 @@ CREATE TABLE BOARD_COMMENT(
   STUDY_CODE NUMBER
 )
 
+create table recruit_board(
+  board_code number primary key,
+  title varchar(1000),
+  content varchar(2000),
+  write_date date,
+  hit number,
+  filename varchar(500),
+  notice number
+
+);
+create table recruit_comment(
+  comment_code number primary key,
+  board_code number,
+  content varchar(1000),
+  write_date date,
+  constraints fk_comment foreign key(board_code) references recruit_board(board_code)
+);
+
+
+
+
 COMMIT

@@ -9,6 +9,7 @@ public class BoardCommentDTO {
 	private String writeDate;
 	private String path;
 	private String name;
+	private String id;
 	
 	public BoardCommentDTO() {}
 
@@ -30,6 +31,14 @@ public class BoardCommentDTO {
 		this.memberCode = memberCode;
 		this.studyCode = studyCode;
 		this.content = content;
+	}
+	
+
+	public BoardCommentDTO(int boardCode, String content, String id) {
+		super();
+		this.boardCode = boardCode;
+		this.content = content;
+		this.id = id;
 	}
 
 	public int getCommentCode() {
@@ -95,7 +104,13 @@ public class BoardCommentDTO {
 	public void setStudyCode(int studyCode) {
 		this.studyCode = studyCode;
 	}
-	
-	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 	
 }

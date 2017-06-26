@@ -184,7 +184,6 @@ $(function () {
 			dataType: "text",
 			success: function (result) {
 				
-					alert("성공")
 					printAll();
 			},
 			error: function (err) {
@@ -200,7 +199,6 @@ $(function () {
 				dataType: "text",
 				success: function (result) {
 					
-						alert("성공")
 						printAll();
 				},
 				error: function (err) {

@@ -17,6 +17,7 @@ public class BoardDTO extends PagingDTO{
 	private String path;
 	private int rownum;
 	private String filed;
+	private String id;
 	
 	private MultipartFile file;
 	
@@ -158,6 +159,14 @@ public class BoardDTO extends PagingDTO{
 
 	public void setFiled(String filed) {
 		this.filed = filed;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	

@@ -14,6 +14,7 @@
 	<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
 	<security:intercept-url pattern="/member/**" access="isAuthenticated()"/>
 	<security:intercept-url pattern="/study/**" access="isAuthenticated()"/>
+	<security:intercept-url pattern="/main/study/**" access="isAuthenticated()"/>
 	
 	 <security:headers>
 		<security:frame-options disabled="true"/>
