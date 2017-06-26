@@ -79,19 +79,9 @@
 						<li style="margin:18px 5px 0px 0px;"><div><sec:authentication property="principal.name" /> 님 환영합니다.</div>
 						</li>
 						<li class="dropdown messages-menu">
-							<!-- Menu toggle button --> <a href="/mypage"
-							class="dropdown-toggle" data-toggle="dropdown"> <i
+							<!-- Menu toggle button --> <a> <i
 								class="fa fa-envelope-o"></i> <span class="label label-success">${messageCount}</span>
 						</a>
-							<ul class="dropdown-menu">
-								<li class="header">읽지 않은 메시지 ${messageCount}개</li>
-								<li>
-									<!-- /.menu -->
-								</li>
-								<li class="footer"><a
-									href="${pageContext.request.contextPath}/main/mypage">My
-										page</a></li>
-							</ul>
 						</li>
 					</sec:authorize>
 						<!-- 헤더에서 메시지 드랍다운-->
