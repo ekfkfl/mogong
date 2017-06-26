@@ -64,4 +64,9 @@ public interface MainDAO {
 	int studyJoinCheckMember(int studyCode);
 	
 	int studyJoinCheckPeople(int studyCode);
+	
+	/**
+	 * 스터디 멤버등급 구별
+	 * */
+	MemberDTO memberCode(String id, int studyCode);
 }

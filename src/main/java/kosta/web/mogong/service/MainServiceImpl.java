@@ -165,4 +165,9 @@ public class MainServiceImpl implements MainService {
 		
 		return result;
 	}
+
+	@Override
+	public MemberDTO memberCode(String id, int studyCode) {
+		return mainDAO.memberCode(id, studyCode);
+	}
 }

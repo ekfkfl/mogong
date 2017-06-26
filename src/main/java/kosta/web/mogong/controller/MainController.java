@@ -340,6 +340,10 @@ public class MainController {
 	public String studyMain(HttpServletRequest request, HttpSession session, Model model, String studyCode) {
 		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
 		
+		MemberDTO memberDTO = service.memberCode(userDTO.getId(), Integer.parseInt(studyCode));
+		
+		System.out.println("제발 찍혀죠 : "+memberDTO.getGrade());
+		
 		if (userDTO != null) {
 			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
 			model.addAttribute("studyCode", studyCode);

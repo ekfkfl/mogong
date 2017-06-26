@@ -30,6 +30,14 @@
 		<result column="code_desc" property="codeDesc"/>
 		<result column="parent_code" property="parentCode"/>
 	</resultMap>
+	
+	<resultMap type="memberDTO" id="memberDTOMap">
+		<id column="MEMBER_CODE" property="memberCode"/>
+		<result column="STUDY_CODE" property="studyCode"/>
+		<result column="memberId" property="memberId"/>
+		<result column="JOIN_STATUS" property="joinStatus"/>
+		<result column="GRADE" property="grade"/>
+	</resultMap>
 
 	<!-- 스터디 등록 -->
 	<insert id="enrollStudy" parameterType="StudyDTO">
@@ -119,5 +127,9 @@
 	<insert id="studyJoin" parameterType="MemberDTO">
 		insert into member values(member_seq.nextval,#{studyCode},#{memberId},'0002','0147')
 	</insert>
+	
+	<select id="memberCode" parameterType="map" resultMap="memberDTOMap">
+		select grade from member where study_code=#{studyCode} and id=#{id} 
+	</select>
 
 </mapper>

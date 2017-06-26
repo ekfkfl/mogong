@@ -1,5 +1,6 @@
 package kosta.web.mogong.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,5 +95,14 @@ public class MainDAOImpl implements MainDAO {
 	@Override
 	public int studyJoinCheckPeople(int studyCode) {
 		return sqlSession.selectOne("mainMapper.studyJoinCheckPeople", studyCode);
+	}
+	@Override
+	public MemberDTO memberCode(String id, int studyCode) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("id", id);
+		map.put("studyCode", studyCode);
+		
+		return sqlSession.selectOne("mainMapper.memberCode", map);
 	}
 }

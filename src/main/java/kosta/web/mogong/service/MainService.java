@@ -26,4 +26,6 @@ public interface MainService {
 	int studyUpdate(StudyDTO studyDTO);
 	
 	String studyJoin(MemberDTO memberDTO);
+	
+	MemberDTO memberCode(String id, int studyCode);
 }

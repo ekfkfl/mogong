@@ -102,7 +102,7 @@ and member.JOIN_STATUS= comm_code.COMM_CODE
 and STUDY_STATUS='0043'
 and member.id='gwang12' -- 신청중
 
-select * from study where id='jun12'
+select * from member where study_code=6 and id= 'gwang12'
 
 delete from study where STUDY_CODE=13
 
