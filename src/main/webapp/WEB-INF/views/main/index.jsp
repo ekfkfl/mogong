@@ -178,35 +178,35 @@
 		<div class="row">
 
 			<div class="about-bg-heading">
-				<h1>successful stats about us</h1>
-				<p>what we have achieved so far</p>
+				<h1>모공 서비스</h1>
+				<p>함께 협력하는 공간</p>
 			</div>
 
 			<div class=" col-xs-12 col-md-3">
 				<div class="about-bg-wrapper">
-					<span class="count"><h1>10</h1></span>
-					<p>회원 수</p>
+					<span class="count"><h1>142</h1></span>
+					<p>명의 회원 수</p>
 				</div>
 			</div>
 
 			<div class="col-xs-12 col-md-3">
 				<div class="about-bg-wrapper">
-					<span class="count"><h1>50</h1></span>
-					<p>스터디 수</p>
+					<span class="count"><h1>489</h1></span>
+					<p>개의 스터디 수</p>
 				</div>
 			</div>
 
 			<div class="col-xs-12 col-md-3">
 				<div class="about-bg-wrapper">
 					<span class="count"><h1>1522</h1></span>
-					<p>협력 스터디 공간</p>
+					<p>개 협력 스터디 공간</p>
 				</div>
 			</div>
 
 			<div class="col-xs-12 col-md-3">
 				<div class="about-bg-wrapper">
 					<span class="count"><h1>3151</h1></span>
-					<p>완료된 스터디</p>
+					<p>개 완료된 스터디</p>
 				</div>
 			</div>
 
