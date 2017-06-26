@@ -178,7 +178,7 @@ desired effect
 	          </ul>
 
           </li>
-          <li class="active"><a href="#"><i class="fa fa-male"></i> <span>개인정보수정</span></a></li>
+          <li class="active"><a href="${pageContext.request.contextPath}/member/mypage/myInfo"  target="mainContent"><i class="fa fa-male"></i> <span>개인정보수정</span></a></li>
           <sec:authorize access="hasRole('ROLE_ADMIN')">
           <li><a href="${pageContext.request.contextPath}/admin"><i class="fa fa-link"></i> <span>관리자모드</span></a></li>
       	  </sec:authorize>

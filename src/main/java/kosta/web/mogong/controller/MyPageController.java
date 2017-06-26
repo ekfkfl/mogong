@@ -246,4 +246,13 @@ public class MyPageController {
 		return myPageServiceImpl.inviteRejection(userDTO.getId(), idAndStudyCode);
 	}
 	
+	@RequestMapping("/member/mypage/myInfo")
+	public ModelAndView myInfo(HttpSession session){
+		ModelAndView mv=new ModelAndView();
+		
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
+		
+		mv.setViewName("/mypage/myInfo");
+		return mv;
+	}
 }
