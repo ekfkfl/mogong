@@ -450,7 +450,7 @@ $(function() {
 				                 "<span class='direct-chat-name pull-left'>"+item.name+"</span>"+
 				                 "<span class='direct-chat-timestamp pull-right'>"+item.writeDate+"</span>"+
 				                "</div>"+
-				                "<img class='direct-chat-img' src='"+item.path+"' alt='message user image'>"+
+				                "<img class='direct-chat-img' src='"+contextPath+"/"+item.path+"' alt='message user image'>"+
 				                "<div class='direct-chat-text'>"+
 				                item.content+
 				                "</div>"+
