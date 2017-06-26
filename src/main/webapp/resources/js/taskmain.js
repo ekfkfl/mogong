@@ -409,7 +409,7 @@ $(function() {
 		                 "<span class='direct-chat-timestamp pull-left'>"+data.writeDate+"</span>"+
 		                "</div>"+
 		                "<img class='direct-chat-img' src='"+data.path+"' alt='message user image'>"+
-		                "<div class='direct-chat-text'>"+
+		                "<div class='direct-chat-text pull-right'>"+
 		                data.content+
 		                "</div>"+
 		         		"</div>"
@@ -438,7 +438,7 @@ $(function() {
 				                 "<span class='direct-chat-timestamp pull-left'>"+item.writeDate+"</span>"+
 				                "</div>"+
 				                "<img class='direct-chat-img' src='"+item.path+"' alt='message user image'>"+
-				                "<div class='direct-chat-text'>"+
+				                "<div class='direct-chat-text pull-right'>"+
 				                item.content+
 				                "</div>"+
 				         		"</div>"

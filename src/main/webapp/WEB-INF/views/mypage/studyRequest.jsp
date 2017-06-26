@@ -40,7 +40,7 @@
     <section class="content-header">
       <h1>
         스터디 신청중
-        <small>Optional description</small>
+        <small>현재 신청한 스터디의 목록과 정보를 확인할 수 있습니다.</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> 스터디관리</a></li>
@@ -79,8 +79,12 @@
 			            			<td>${studyDTO.day}</td>
 			            		</tr>
 			            		<tr>
+			            			<th>지역</th>
+			            			<td>${studyDTO.area} ${studyDTO.cityCode}</td>
+			            		</tr>
+			            		<tr>
 			            			<th>장소</th>
-			            			<td>${studyDTO.area}</td>
+			            			<td>${studyDTO.addr2}</td>
 			            		</tr>
 			            		<tr>
 			            			<th>모집인원</th>

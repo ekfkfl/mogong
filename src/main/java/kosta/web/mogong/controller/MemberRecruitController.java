@@ -81,9 +81,6 @@ public class MemberRecruitController {
 		}
 		List<BoardDTO> list = boardService.selectAll();
 		
-		for(BoardDTO dto : list){
-			System.out.println(dto.getContent());
-		}
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("main/recruit");

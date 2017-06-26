@@ -109,15 +109,21 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/member/mypage/composeMailForm")
-	public String composeMailForm(HttpServletRequest request, String sendId){
+	public String composeMailForm(HttpServletRequest request, String sendId, HttpSession session){
 		 
-		 request.setAttribute("sendId", sendId);
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
+		request.setAttribute("id", userDTO.getId());	
+		request.setAttribute("sendId", sendId);
 		
 		return "/mypage/composeMail";
 	}
 	
 	@RequestMapping("/member/mypage/composeMail")
-	public String composeMail(SendMessageDTO sendMessage){
+	public String composeMail(SendMessageDTO sendMessage, HttpSession session, HttpServletRequest request){
+		
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
+		
+		request.setAttribute("id", userDTO.getId());
 		
 		int result = myPageServiceImpl.sendMessageInsert(sendMessage);
 		System.out.println("결과 : "+result);
@@ -240,4 +246,13 @@ public class MyPageController {
 		return myPageServiceImpl.inviteRejection(userDTO.getId(), idAndStudyCode);
 	}
 	
+	@RequestMapping("/member/mypage/myInfo")
+	public ModelAndView myInfo(HttpSession session){
+		ModelAndView mv=new ModelAndView();
+		
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
+		
+		mv.setViewName("/mypage/myInfo");
+		return mv;
+	}
 }

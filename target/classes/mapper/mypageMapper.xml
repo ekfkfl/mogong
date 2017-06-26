@@ -4,8 +4,8 @@
 
 <sql id="studyColum">
 study.STUDY_CODE, study.ID, CATEGORY_CODE, CITY_CODE, NAME, WRITE_DATE,
-START_DATE, END_DATE, DAY, START_TIME, END_TIME, PEOPLE, AREA, DESCRIPTION, STUDY_STATUS,
-member.id as memberId, JOIN_STATUS
+to_char(start_date,'YYYY-MM-DD') as start_date, to_char(end_date,'YYYY-MM-DD') as end_date, DAY, START_TIME, END_TIME, PEOPLE, AREA, DESCRIPTION, STUDY_STATUS,
+member.id as memberId, JOIN_STATUS, addr, addr2
 </sql>
 
 <resultMap type="studyDTO" id="studyDTOJoinMap">
@@ -17,6 +17,7 @@ member.id as memberId, JOIN_STATUS
 	<result column="START_TIME" property="startTime"/><result column="END_TIME" property="endTime"/>
 	<result column="PEOPLE" property="people"/><result column="AREA" property="area"/>
 	<result column="DESCRIPTION" property="description"/><result column="STUDY_STATUS" property="studyStatus"/>
+	<result column="addr" property="addr1"/><result column="addr2" property="addr2"/>
 	<association property="memberDTO" javaType="memberDTO">
 		<id column="MEMBER_CODE" property="memberCode"/>
 		<result column="STUDY_CODE" property="studyCode"/>
@@ -39,6 +40,7 @@ member.id as memberId, JOIN_STATUS
 	<result column="START_TIME" property="startTime"/><result column="END_TIME" property="endTime"/>
 	<result column="PEOPLE" property="people"/><result column="AREA" property="area"/>
 	<result column="DESCRIPTION" property="description"/><result column="STUDY_STATUS" property="studyStatus"/>
+	<result column="addr" property="addr1"/><result column="addr2" property="addr2"/>
 </resultMap>
 
 
@@ -67,7 +69,6 @@ member.id as memberId, JOIN_STATUS
 	</association>
 </resultMap>
 
-
 <select id="studyRequestList" parameterType="string" resultMap="studyDTOJoinMap">
 select
 <include refid="studyColum"/>, CODE_NAME
@@ -93,7 +94,7 @@ and study.STUDY_STATUS='0044' and member.id=#{_parameter} or study.id=#{_paramet
 
 <select id="recruitStudyList" parameterType="string" resultMap="studyDTOMap">
 select STUDY_CODE, ID, CATEGORY_CODE, CITY_CODE, NAME, WRITE_DATE,
-START_DATE, END_DATE, DAY, START_TIME, END_TIME, PEOPLE, AREA, DESCRIPTION, STUDY_STATUS
+to_char(start_date,'YYYY-MM-DD') as start_date, to_char(end_date,'YYYY-MM-DD') as end_date, DAY, START_TIME, END_TIME, PEOPLE, AREA, DESCRIPTION, STUDY_STATUS, addr, addr2
 from study 
 where STUDY_STATUS='0043' and id=#{_parameter}
 </select>

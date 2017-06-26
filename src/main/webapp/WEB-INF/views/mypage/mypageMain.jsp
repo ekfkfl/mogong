@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
  <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -110,103 +111,16 @@ desired effect
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
             <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a>
               <i class="fa fa-envelope-o"></i>
               <span class="label label-success">${messageCount}</span>
             </a>
-            <ul class="dropdown-menu">
-              <li class="header">읽지 않은 메시지 ${messageCount}개</li>
-              <li>
-                <!-- inner menu: contains the messages -->
-                <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      <div class="pull-left">
-                        <!-- User Image -->
-                        <img src="${pageContext.request.contextPath}/resources/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <!-- Message title and timestamp -->
-                      <h4>
-                        Support Team
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      <!-- The message -->
-                      <p>Why not buy a new awesome theme?</p>
-                    </a>
-                  </li>
-                  <!-- end message -->
-                </ul>
-                <!-- /.menu -->
-              </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
-            </ul>
           </li>
           <!-- /.messages-menu -->
-
-          <!-- Notifications Menu -->
-          <li class="dropdown notifications-menu">
-            <!-- Menu toggle button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- Inner Menu: contains the notifications -->
-                <ul class="menu">
-                  <li><!-- start notification -->
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                    </a>
-                  </li>
-                  <!-- end notification -->
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>
-          <!-- Tasks Menu -->
-          <li class="dropdown tasks-menu">
-            <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-flag-o"></i>
-              <span class="label label-danger">9</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 9 tasks</li>
-              <li>
-                <!-- Inner menu: contains the tasks -->
-                <ul class="menu">
-                  <li><!-- Task item -->
-                    <a href="#">
-                      <!-- Task title and progress text -->
-                      <h3>
-                        Design some buttons
-                        <small class="pull-right">20%</small>
-                      </h3>
-                      <!-- The progress bar -->
-                      <div class="progress xs">
-                        <!-- Change the css width attribute to simulate progress -->
-                        <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar"
-                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">20% Complete</span>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                  <!-- end task item -->
-                </ul>
-              </li>
-              <li class="footer">
-                <a href="#">View all tasks</a>
-              </li>
-            </ul>
-          </li>
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <a>
               <!-- The user image in the navbar-->
               <img src="${pageContext.request.contextPath}${sessionScope.userDTO.path}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
@@ -237,11 +151,10 @@ desired effect
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">HEADER</li>
+        <li class="header">MyPage</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>개인정보수정</span></a></li>
         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>스터디 관리</span>
+          <a href="#"><i class="fa fa-book"></i> <span>스터디 관리</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -251,8 +164,9 @@ desired effect
             <li><a href="${pageContext.request.contextPath}/member/mypage/ongoingStudy" target="mainContent">진행중</a></li>
             <li><a href="${pageContext.request.contextPath}/member/mypage/recruitStudy" target="mainContent">모집중</a></li>
           </ul>
-           <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>쪽지함</span>
+         </li>
+         <li class="treeview">
+          <a href="#"><i class="fa fa-envelope-o"></i> <span>쪽지함</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -261,9 +175,13 @@ desired effect
           	<li><a href="${pageContext.request.contextPath}/member/mypage/composeMailForm" target="mainContent">쪽지쓰기</a></li>
             <li><a href="${pageContext.request.contextPath}/member/mypage/recvMail" target="mainContent">받은쪽지함</a></li>
             <li><a href="${pageContext.request.contextPath}/member/mypage/sendMail" target="mainContent">보낸쪽지함</a></li>
-          </ul>
-          <li><a href="#"><i class="fa fa-link"></i> <span>관리자모드</span></a></li>
-        </li>
+	          </ul>
+
+          </li>
+          <li class="active"><a href="${pageContext.request.contextPath}/member/mypage/myInfo"  target="mainContent"><i class="fa fa-male"></i> <span>개인정보수정</span></a></li>
+          <sec:authorize access="hasRole('ROLE_ADMIN')">
+          <li><a href="${pageContext.request.contextPath}/admin"><i class="fa fa-link"></i> <span>관리자모드</span></a></li>
+      	  </sec:authorize>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -273,7 +191,7 @@ desired effect
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     
-        <iframe name="mainContent" width="100%" height="700" frameborder="0" ></iframe>
+        <iframe name="mainContent" width="100%" height="700" frameborder="0" src="${pageContext.request.contextPath}/member/mypage/ongoingStudy"></iframe>
 
     <!-- /.content -->
   </div>

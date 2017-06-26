@@ -357,10 +357,12 @@ function search(page){
 	//시간대 파라미터 생성
 	var timeValue=$("#optGrpTime .optionGroupBody input").val().split(",");
 	var timeParam="";
-	if(timeValue[0]=="0" && timeValue[1]=="24") timeParam="&startTime=&endTime=";
+	if(timeValue[0]=="0" && timeValue[1]=="24"){
+		timeParam="&startTime=&endTime=";
+	}
 	else  timeParam="&startTime="+timeValue[0]+"&endTime="+timeValue[1];
 	console.log(timeParam);
-	
+
 	//기간 파라미터 생성
 	var dt = new Date();
 	var month = dt.getMonth()+1;
@@ -382,13 +384,13 @@ function search(page){
 	
 	console.log("periodParam : " + periodParam);
 	
-
 	
 	var params="name="+name+"&page="+page+categoryParam+areaParam+dayParam+timeParam+periodParam;
 	console.log(params);
 
 	//데이터 검색후 출력
 	getStudyList(params);
+	
 	
 	return false;
 }
@@ -401,7 +403,7 @@ function getStudyList(params){
 		dataType : "json",
 		data : params+"&${_csrf.parameterName}=${_csrf.token}",
 		success : function(result) {
-			printStudy(result.resultMap.studyDTOList);
+			printStudy(result.resultMap.studyDTOList, result.resultMap.diffDateList);
 			
 			$("#pagination ul").empty();
 			var liTag="";
@@ -421,7 +423,7 @@ function getStudyList(params){
 }
 
 //데이터 출력
-function printStudy(study){
+function printStudy(study, period){
 	$("#searchResult table tr:gt(0)").remove();
 
 	if(study.length<=0){
@@ -442,7 +444,7 @@ function printStudy(study){
 		table+="<td rowspan='2' class='col-xs-1 studyRead'>" + study[i].read + "</td></tr>";
 		
 		table+="<tr><td class='studyAreaTime'>" + getCodeName(study[i].area) + " | " + study[i].day + " | " + study[i].startTime + "~" + study[i].endTime + "</td>";
-		table+="<td class='studyPeriod'>"+"기간...."+"</td></tr>";
+		table+="<td class='studyPeriod'>"+period[i]+"</td></tr>";
 	
 	}
 
@@ -641,6 +643,12 @@ $(function(){
 		
 		search(page);
 	})
+	
+	//오전시간대
+	$("input[value='오전시간대']").click(function(){
+		$("#optGrpTime .optionGroupBody input").val("3,10");
+		console.log("오전시간대" + $("#optGrpTime .optionGroupBody input").val())
+	});
 
 });
 
@@ -762,13 +770,14 @@ $(function(){
 					</div>
 					<div class="optionGroupBody" style="clear:both;">
 						<input type="checkbox" name="day" value="전체" checked>전체
+						<input type="checkbox" name="day" value="일">일						
 						<input type="checkbox" name="day" value="월">월
 						<input type="checkbox" name="day" value="화">화
 						<input type="checkbox" name="day" value="수">수
 						<input type="checkbox" name="day" value="목">목
 						<input type="checkbox" name="day" value="금">금
 						<input type="checkbox" name="day" value="토">토
-						<input type="checkbox" name="day" value="일">일
+	
 					</div>
 				</div><!--요일 옵션 그룹 끝-->
 
@@ -830,7 +839,7 @@ $(function(){
 		<td class="col-xs-1 studyId">모집자</td>
 		<td class="col-xs-1 studyRead">조회수</td>
 	</tr>
- <c:forEach items="${pageDTO.getResultMap().get('studyDTOList')}" var="studyDTO">
+ <c:forEach items="${pageDTO.getResultMap().get('studyDTOList')}" var="studyDTO" varStatus="status">
 		<tr>
  	 	<td rowspan='2' class='col-xs-1 studyCategory'>${CodeUtil.getCodeName(studyDTO.category)}</td>
 		
@@ -839,7 +848,8 @@ $(function(){
 		<td rowspan='2' class='col-xs-1 studyId'>${studyDTO.id}</td>
 		<td rowspan='2' class='col-xs-1 studyRead'>${studyDTO.read}</td></tr>
 		<tr><td class='studyAreaTime'> ${CodeUtil.getCodeName(studyDTO.area)} | ${studyDTO.day} | ${studyDTO.startTime} ~ ${studyDTO.endTime} </td>
-		<td class='studyPeriod'>기간....</td> 
+		<td class='studyPeriod'>${pageDTO.getResultMap().get('diffDateList').get(status.index)}</td> 
+<%-- 		${pageDTO.getResultMap().get('diffDate').get(status.index).} --%>
 		</tr> 
 </c:forEach> 
 </table>

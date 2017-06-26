@@ -20,8 +20,8 @@
 		<security:frame-options disabled="true"/>
 	</security:headers>
 	
+
 	  <security:csrf disabled="true"/>
-	   <!-- <security:csrf disabled="true"/> -->
 	
 	<security:form-login 
 		login-page="/loginForm"

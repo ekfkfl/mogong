@@ -15,6 +15,7 @@ import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.RecvMessageDTO;
 import kosta.web.mogong.dto.SendMessageDTO;
 import kosta.web.mogong.dto.StudyDTO;
+import kosta.web.mogong.util.CodeUtil;
 
 @Service
 public class MyPageServiceImpl implements MyPageService {
@@ -29,6 +30,12 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		if(list.size()==0){
 			return null;
+		}
+		
+		for(StudyDTO dto : list){
+		 	dto.setCategory(CodeUtil.getCodeName(dto.getCategory()));  
+			dto.setCityCode(CodeUtil.getCodeName(dto.getCityCode()));  
+			dto.setArea(CodeUtil.getCodeName(dto.getArea()));
 		}
 		
 		Date date = new Date();
@@ -49,11 +56,11 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		int result = presentTime.compareTo(startTime);
 		if(result>0){
-			return list;
-		}else{
 			if(myPageDAOImpl.studyRequsetDateUpdate(studyCode)>0){
 				return myPageDAOImpl.studyRequestList(id);
 			}
+		}else{
+			return list;
 		}
 		return null;
 	}

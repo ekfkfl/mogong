@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.service.MemberAdminService;
+import kosta.web.mogong.util.CodeUtil;
 
 @Controller
 public class MemberAdminController {
@@ -24,7 +25,6 @@ public class MemberAdminController {
 	
 	@RequestMapping("/member/study/memberAdmin")
 	public String memberAdmin(HttpServletRequest request, String studyCode){
-		System.out.println("입장할때 : "+studyCode);
 		request.setAttribute("studyCode", studyCode);
 		
 		return "/member/memberAdmin";
@@ -35,9 +35,11 @@ public class MemberAdminController {
 	public List<UserDTO> memberAdmin2(HttpSession session, String studyCode){
 		
 		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
-		System.out.println(userDTO.getId());
-		System.out.println(studyCode);
 		List<UserDTO> userList = memberAdminServiceImpl.selectAll(userDTO.getId(), Integer.parseInt(studyCode));
+		
+		for(UserDTO dto : userList){
+			dto.setGender(CodeUtil.getCodeName(dto.getGender()));
+		}
 		
 		return userList;
 	}
@@ -45,19 +47,13 @@ public class MemberAdminController {
 	@RequestMapping("/member/study/updateGrade")
 	@ResponseBody
 	public void updateGrade(String grade, String id, String studyCode){
-		
-		System.out.println(grade+"\\"+id+"\\"+studyCode);
-		
 		memberAdminServiceImpl.updateGrade(grade, id, studyCode);
 	}
 	
 	@RequestMapping("/member/study/memberDelete")
 	@ResponseBody
 	public void memberUpdate(String id, String studyCode){
-		
-		System.out.println(id+"||"+studyCode);
 		memberAdminServiceImpl.memberDelete(id, studyCode);
-		
 	}
 	
 	@RequestMapping("/member/study/searchID")
