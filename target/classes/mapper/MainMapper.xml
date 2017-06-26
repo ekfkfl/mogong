@@ -133,16 +133,12 @@
 		insert into member values(member_seq.nextval,#{studyCode},#{memberId},'0002','0147')
 	</insert>
 	
-<<<<<<< HEAD
 	<select id="memberCode" parameterType="map" resultMap="memberDTOMap">
 		select grade from member where study_code=#{studyCode} and id=#{id} 
 	</select>
 
-=======
 	<insert id="studyJoinKing" parameterType="MemberDTO">
-		insert into member values(member_seq.nextval,#{studyCode},#{memberId},'0001','0146')
-	
+		insert into member values(member_seq.nextval,#{studyCode},#{memberId},'0001','0146')	
 	</insert>
-	
->>>>>>> c1ec68962c61d805ef3c5519565a3e7c4c092615
+
 </mapper>

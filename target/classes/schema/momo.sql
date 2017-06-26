@@ -104,6 +104,10 @@ and member.id='gwang12' -- 신청중
 
 select * from member where study_code=6 and id= 'gwang12'
 
+select grade from member where study_code=86 and id='gwang12' 
+
+select * from member
+
 delete from study where STUDY_CODE=13
 
 CREATE SEQUENCE STUDY_SEQ
