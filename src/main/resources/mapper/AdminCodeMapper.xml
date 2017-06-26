@@ -54,4 +54,18 @@ delete from comm_code
 where comm_code=#{_parameter}
 </delete>
 
+<select id="selectCode" parameterType="map" resultMap="commCodeDTOMap">
+select * from
+(select rownum as rnum, a.* from
+(select comm_code, code_name, code_desc, parent_code, reg_date, update_date, code_used, code_order 
+from COMM_CODE
+
+) a) b
+where <![CDATA[ rnum>=#{startIndex} and rnum<=#{endIndex} ]]>  
+</select>
+
+<select id="selectCodeCnt" resultType="int">
+select count(*) from comm_code
+</select>
+
 </mapper>
