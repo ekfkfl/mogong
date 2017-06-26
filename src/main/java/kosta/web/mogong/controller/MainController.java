@@ -115,7 +115,7 @@ public class MainController {
 	// 아이디, 패스워드를 받아서 로그인처리할때 사용됨.
 
 	@RequestMapping("/login/signup")
-	public String signUp(HttpServletRequest request, UserDTO userDTO) throws Exception {
+	public String signUp(HttpServletRequest request, UserDTO userDTO, Model model) throws Exception {
 		String path = request.getSession().getServletContext().getRealPath("/data/user/");
 
 		File dir = new File(path);
@@ -143,6 +143,8 @@ public class MainController {
 		}
 
 		authService.insertUser(userDTO);
+		
+		model.addAttribute("studyList", service.selectRecentStudy());
 
 		return "main/index";// 로그인 처리를 하고 메인으로 간다.
 	}
