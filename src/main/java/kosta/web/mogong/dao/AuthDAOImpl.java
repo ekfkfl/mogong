@@ -17,12 +17,15 @@ public class AuthDAOImpl implements AuthDAO {
 	
 	@Override
 	public int insertUser(UserDTO userDTO) {
-		return sqlSession.insert("insertUser", userDTO);
+
+		return sqlSession.insert("authMapper.insertUser", userDTO);
 	}
 
 	@Override
 	public UserDTO selectUser(String id) {
-		return sqlSession.selectOne("authMapper.selectUser", id);
+		UserDTO userDTO=sqlSession.selectOne("authMapper.selectUser", id);
+		System.out.println("selectUser DAO : " + userDTO);
+		return userDTO;
 	}
 
 	@Override
@@ -33,12 +36,12 @@ public class AuthDAOImpl implements AuthDAO {
 
 	@Override
 	public int updateUser(UserDTO userDTO) {
+		System.out.println("authDAO:update" + userDTO);
 		return sqlSession.update("authMapper.updateUser", userDTO);
 	}
 
 	@Override
 	public List<UserDTO> selectAllUser() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
