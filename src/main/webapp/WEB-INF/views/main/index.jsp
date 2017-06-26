@@ -21,7 +21,6 @@
 					<span>모공</span>
 				</h2>
 				<p>모여서 공부하자는 취지로 만들어진 웹사이트입니다.</p>
-				<button class="btn">더 보기</button>
 			</div></li>
 		<li><img
 			src="${pageContext.request.contextPath}/resources/images/slider/slider2.jpg">
@@ -34,7 +33,6 @@
 					<span>Recruiting Study</span>
 				</h2>
 				<p>원하는 스터디 구성원을 모집할 수 있습니다.</p>
-				<button class="btn">더 보기</button>
 			</div></li>
 		<li><img
 			src="${pageContext.request.contextPath}/resources/images/slider/slider3.jpg">
@@ -47,7 +45,6 @@
 					<span>Searching Study</span>
 				</h2>
 				<p>원하는 스터디를 찾을 수 있습니다.</p>
-				<button class="btn">더 보기</button>
 			</div></li>
 	</ul>
 

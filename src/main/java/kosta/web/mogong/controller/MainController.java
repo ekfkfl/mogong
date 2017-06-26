@@ -335,9 +335,7 @@ public class MainController {
 	@RequestMapping("/study/getCategory")
 	@ResponseBody
 	public String getCategory(String category) {
-		System.out.println(category);
 		String parentCategory=CodeUtil.getParentCode(category);
-		System.out.println(parentCategory);
 		return parentCategory;
 	}
 
