@@ -346,7 +346,9 @@ public class MainController {
 		
 		MemberDTO memberDTO = service.memberCode(userDTO.getId(), Integer.parseInt(studyCode));
 		
-		System.out.println("제발 찍혀죠 : "+memberDTO.getGrade());
+		if(memberDTO!=null){
+			model.addAttribute("memberGrade", memberDTO.getGrade());
+		}
 		
 		if (userDTO != null) {
 			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
