@@ -408,7 +408,7 @@ $(function() {
 		                 "<span class='direct-chat-name pull-right'>"+data.name+"</span>"+
 		                 "<span class='direct-chat-timestamp pull-left'>"+data.writeDate+"</span>"+
 		                "</div>"+
-		                "<img class='direct-chat-img' src='"+data.path+"' alt='message user image'>"+
+		                "<img class='direct-chat-img' src='"+contextPath+"/"+data.path+"' alt='message user image'>"+
 		                "<div class='direct-chat-text pull-right'>"+
 		                data.content+
 		                "</div>"+
@@ -437,7 +437,7 @@ $(function() {
 				                 "<span class='direct-chat-name pull-right'>"+item.name+"</span>"+
 				                 "<span class='direct-chat-timestamp pull-left'>"+item.writeDate+"</span>"+
 				                "</div>"+
-				                "<img class='direct-chat-img' src='"+item.path+"' alt='message user image'>"+
+				                "<img class='direct-chat-img' src='"+contextPath+"/"+item.path+"' alt='message user image'>"+
 				                "<div class='direct-chat-text pull-right'>"+
 				                item.content+
 				                "</div>"+
