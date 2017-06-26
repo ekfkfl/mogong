@@ -81,17 +81,35 @@ public class MainServiceImpl implements MainService {
 		if(param==null) param="";
 		StringTokenizer strToken=new StringTokenizer(param, ",");
 		
-		int strTokenSize=0;
+		int tokenSize=0;
 		String tempStr=null;
 		String resultParam="";
-		while(strToken.hasMoreElements()){
-			tempStr=strToken.nextToken();
-			resultParam+="'"+tempStr+"',";
-			strTokenSize=tempStr.length();
+		String[] tokens=new String[strToken.countTokens()];
+		
+		for(int i=0; i<tokens.length; i++){
+			tokens[i]=strToken.nextToken();
+		}
+		
+		if(tokens!=null && tokens.length!=0) tokenSize=tokens[0].length();
+	
+		if(tokenSize==1){
+			for(int i=0; i<tokens.length; i++){
+				resultParam+="'%'||'"+tokens[i]+"'||";
+			}
+			resultParam+="'%'";
+		}else if(tokenSize==4){
+			for(int i=0; i<tokens.length; i++){
+				resultParam+="'"+tokens[i]+"',";
+			}
+			resultParam=resultParam.substring(0, resultParam.length()-1);
+		}else{
+			resultParam=null;
 		}
 
-		if(resultParam.length()>strTokenSize)resultParam=resultParam.substring(0, resultParam.length()-1);
-		else resultParam=null;
+
+/*		if(resultParam.length()>4)resultParam=resultParam.substring(0, resultParam.length()-1);
+		else if(resultParam.length()>1)resultParam=resultParam.substring(0, resultParam.length()-2);
+		else resultParam=null;*/
 		return resultParam;
 	}
 	
@@ -108,7 +126,6 @@ public class MainServiceImpl implements MainService {
 		resultMap.put("studyDTO", studyDTO);
 		return mainDAO.selectSearchStudy(pageDTO);
 	}
-
 	@Override
 	public String selectStudyMember(MemberDTO memberDTO) {
 		return mainDAO.selectStudyMember(memberDTO);
