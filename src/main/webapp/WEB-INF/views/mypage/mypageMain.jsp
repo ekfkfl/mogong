@@ -152,8 +152,6 @@ desired effect
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MyPage</li>
-        <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>개인정보수정</span></a></li>
         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>스터디 관리</span>
             <span class="pull-right-container">
@@ -178,6 +176,7 @@ desired effect
             <li><a href="${pageContext.request.contextPath}/member/mypage/sendMail" target="mainContent">보낸쪽지함</a></li>
           </ul>
           </li>
+          <li class="active"><a href="#"><i class="fa fa-link"></i> <span>개인정보수정</span></a></li>
           <sec:authorize access="hasRole('ROLE_ADMIN')">
           <li><a href="${pageContext.request.contextPath}/admin"><i class="fa fa-link"></i> <span>관리자모드</span></a></li>
       	  </sec:authorize>
