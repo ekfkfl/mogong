@@ -33,8 +33,7 @@ public class AuthDAOImpl implements AuthDAO {
 
 	@Override
 	public int updateUser(UserDTO userDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update("authMapper.updateUser", userDTO);
 	}
 
 	@Override
@@ -58,5 +57,7 @@ public class AuthDAOImpl implements AuthDAO {
 	public List<MemberDTO> selectMemberById(String id) {
 		return sqlSession.selectList("authMapper.selectMemberById", id);
 	}
+	
+	
 
 }

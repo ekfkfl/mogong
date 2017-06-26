@@ -50,8 +50,7 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public int updateUser(UserDTO userDTO) {
-		// TODO Auto-generated method stub
-		return 0;
+		return authDAO.updateUser(userDTO);
 	}
 
 	@Override

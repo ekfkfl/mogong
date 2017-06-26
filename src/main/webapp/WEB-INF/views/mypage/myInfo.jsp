@@ -177,7 +177,7 @@
 		<div class="row">
 		<div class="col-xs-12" style="text-align:center">
             <div class="box-body">
-			<a href="">수정하기</a>
+			<a href="${pageContext.request.contextPath}/member/mypage/myInfoForm">수정하기</a>
             </div>
 </div></div></div>
 
