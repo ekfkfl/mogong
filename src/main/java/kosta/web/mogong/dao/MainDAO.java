@@ -59,6 +59,13 @@ public interface MainDAO {
 	int studyJoin(MemberDTO memberDTO);
 	
 	/**
+	 * 그룹장 맴버로 추가
+	 */
+	int studyJoinKing(MemberDTO memberDTO);
+	
+	int selectStudyCode(String name);
+	
+	/**
 	* 스터디 정원 검사
 	*/
 	int studyJoinCheckMember(int studyCode);

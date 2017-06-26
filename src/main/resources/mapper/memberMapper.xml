@@ -38,7 +38,7 @@
 	</insert>
 	
 	<update id="allow" parameterType="map">
-		update member set join_status='0004', grade='0146' where member_code=#{memberCode} and study_code=#{studyCode}
+		update member set join_status='0004' where member_code=#{memberCode} and study_code=#{studyCode}
 	</update>
 	
 </mapper>
