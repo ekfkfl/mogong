@@ -86,10 +86,9 @@
  		<if test="studyDTO.endDate!=null">and end_date &lt;= #{studyDTO.endDate}</if>
 	</sql>
 	<select id="selectSearchStudy" parameterType="map" resultMap="studyMap">
-	select * from (select * from(select rownum as rnum, a.* from (select  <include refid="searchStudySql"></include> from study
+	select * from(select rownum as rnum, a.* from (select  <include refid="searchStudySql"></include> from study
 		<include refid="searchStudyConditionSql"></include>
-		order by write_date desc) a) b ) 
-		<!-- where <![CDATA[ rnum>=1 and rnum<=5 ]]> -->
+		order by write_date desc) a) b  
  	where <![CDATA[ rnum>=#{startIndex} and rnum<=#{endIndex}  ]]>  
 	</select>
 	

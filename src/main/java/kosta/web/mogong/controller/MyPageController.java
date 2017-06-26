@@ -1,5 +1,6 @@
 package kosta.web.mogong.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,8 +8,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kosta.web.mogong.dto.MemberDTO;
@@ -16,6 +19,7 @@ import kosta.web.mogong.dto.RecvMessageDTO;
 import kosta.web.mogong.dto.SendMessageDTO;
 import kosta.web.mogong.dto.StudyDTO;
 import kosta.web.mogong.dto.UserDTO;
+import kosta.web.mogong.service.AuthService;
 import kosta.web.mogong.service.MyPageService;
 import kosta.web.mogong.util.CodeUtil;
 
@@ -24,6 +28,9 @@ public class MyPageController {
 	
 	@Autowired
 	private MyPageService myPageServiceImpl;
+	
+	@Autowired
+	private AuthService authService;
 
 	@RequestMapping("/member/mypage/studyRequest")
 	public ModelAndView studyRequest(HttpSession session){
@@ -253,6 +260,61 @@ public class MyPageController {
 		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
 		
 		mv.setViewName("/mypage/myInfo");
+		return mv;
+	}
+	
+	@RequestMapping("/member/mypage/myInfoForm")
+	public ModelAndView myInfoForm(HttpSession session){
+		ModelAndView mv=new ModelAndView();
+		
+		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
+		String addr=userDTO.getAddr();
+		int addrIndex=addr.indexOf("/");
+		String addr1=addr.substring(0, addrIndex);
+		String addr2=addr.substring(addrIndex+1, addr.length());
+		
+		mv.addObject("addr1", addr1);
+		mv.addObject("addr2", addr2);
+		
+		mv.setViewName("/mypage/myInfoForm");
+		return mv;
+	}
+	
+	@RequestMapping("/member/mypage/myInfoReplace")
+	public ModelAndView myInfoReplace(HttpSession session, UserDTO userDTO, HttpServletRequest request) throws Exception{
+		ModelAndView mv=new ModelAndView();
+		
+		/*
+		String path = request.getSession().getServletContext().getRealPath("/data/user/");
+
+		File dir = new File(path);
+
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+
+		MultipartFile file = userDTO.getFile();
+
+		// 파일이름 구성
+		String fileName = file.getOriginalFilename();
+		int lastIdx = fileName.lastIndexOf(".");
+		String fileExtName = fileName.substring(lastIdx + 1);
+		fileName = userDTO.getId() + "." + fileExtName;
+
+		if (file.getSize() > 0) {
+			// 파일저장
+			try {
+				file.transferTo(new File(path + fileName));
+				userDTO.setPath("/data/user/" + fileName);
+			} catch (Exception e) {
+				throw new Exception("파일 저장에 실패했습니다.");
+			}
+		}
+		*/
+		authService.updateUser(userDTO);
+		
+		
+		mv.setViewName("/mypage/myInfoForm");
 		return mv;
 	}
 }
