@@ -40,10 +40,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		            <!-- /.box-header -->
 		            <div class="box-body">
 		              <div class="form-group">
-		                <input class="form-control" placeholder="To:" name="recvId" value="${sendId}">
+		                <input class="form-control" placeholder="To:" name="recvId" value="${requestScope.sendId}">
 		              </div>
 		              <div class="form-group">
-		                <input class="form-control" placeholder="from:" name="id" value="${sessionScope.id}">
+		                <input class="form-control" placeholder="from:" name="id" value="${requestScope.id}">
 		              </div>
 		              <div class="form-group">
 		                <input class="form-control" placeholder="Subject:" name="title">
