@@ -372,4 +372,10 @@ public class MainController {
 	public PageDTO keywordSearch(StudyDTO studyDTO, int page) {
 		return service.selectSearchStudy(studyDTO, page);
 	}
+	
+	@RequestMapping("/statistics")
+	@ResponseBody
+	public List<String> printStatistics() {
+		return null;
+	}
 }

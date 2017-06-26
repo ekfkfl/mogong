@@ -304,24 +304,21 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="footer-heading">
-					<p>To explore strange new worlds to seek out new life and new
-						civilizations to boldly go where no man has gone before. It's time
-						to play the music.</p>
-					<p>Lorem Ipsum is simply dummy text of the printing and
-						typesetting industry.</p>
+					<p>원하는 종류의 스터디를 등록하고, 모집할 수 있습니다.</p>
+					<p>스터디에 가입하고, 스터디를 지원하는 다양한 기능을 체험해보세요.</p>
 				</div>
 			</div>
 
 			<div class="col-md-4">
 				<div class="footer-heading">
 					<h3>
-						<span>latest</span> news
+						<span>최근</span> 이슈
 					</h3>
 					<ul>
-						<li><a href="#">Trends don't matter, but techniques do</a></li>
-						<li><a href="#">Trends don't matter, but techniques do</a></li>
-						<li><a href="#">Trends don't matter, but techniques do</a></li>
-						<li><a href="#">Trends don't matter, but techniques do</a></li>
+						<li><a href="#">스터디에서 채팅이 가능합니다</a></li>
+						<li><a href="#">다양한 Task를 등록하고 관리할 수 있습니다</a></li>
+						<li><a href="#">Task에 대한 정보를 그래프로 확인해보세요</a></li>
+						<li><a href="#">취미 관련 스터디 분야가 추가되었습니다</a></li>
 					</ul>
 				</div>
 			</div>
@@ -329,7 +326,7 @@
 			<div class="col-md-4">
 				<div class="footer-heading">
 					<h3>
-						<span>follow</span> us on instagram
+						<span>스터디</span> 관리
 					</h3>
 					<div class="insta">
 						<ul>
