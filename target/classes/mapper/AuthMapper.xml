@@ -32,4 +32,18 @@ insert into user_tb values(#{id}, #{password}, #{name}, #{path}, #{birth}, #{add
 <select id="selectMemberById" parameterType="string" resultMap="memberDTOMap">
 select member_code, study_code from member where id=#{_parameter}
 </select>
+
+<update id="updateUser" parameterType="userDTO">
+update user_tb
+<set>
+<if test="userType!=null">userType=#{userType},</if>
+<if test="password!=null">password=#{password},</if>
+<if test="path!=null">path=#{path},</if>
+<if test="addr!=null">addr=#{addr},</if>
+<if test="phone!=null">phone=#{phone},</if>
+<if test="email!=null">email=#{email},</if>
+<if test="intro!=null">intro=#{intro}</if>
+</set>
+where id=#{id}
+</update>
 </mapper>
