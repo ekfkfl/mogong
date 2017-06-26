@@ -178,4 +178,8 @@ order by SEND_MESSAGE_CODE desc
 	update RECV_MESSAGE set join_status='0003' where STUDY_CODE=#{studyCode} and id=#{id}
 </update>
 
+<select id="idCheck" parameterType="string" resultType="userDTO">
+	select id from user_tb where id=#{_parameter}
+</select>
+
 </mapper>
