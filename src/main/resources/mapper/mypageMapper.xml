@@ -100,11 +100,11 @@ where STUDY_STATUS='0043' and id=#{_parameter}
 </select>
 
 <insert id="sendMessageInsert" parameterType="sendMessageDTO">
-	insert into send_message values(SEND_MESSAGE_SEQ.nextval,#{id}, #{title}, #{content}, #{recvId}, sysdate, null, null)
+	insert into send_message values(SEND_MESSAGE_SEQ.nextval,#{id}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{recvId}, sysdate, null, null)
 </insert>
 
 <insert id="recvMessageInsert" parameterType="sendMessageDTO">
-	insert into recv_message values(RECV_MESSAGE_SEQ.nextval,#{recvId}, #{title}, #{content}, #{id}, sysdate,'0051', null, '0001')
+	insert into recv_message values(RECV_MESSAGE_SEQ.nextval,#{recvId}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{id}, sysdate,'0051', null, '0001')
 </insert>
 
 <select id="recvMail" parameterType="string" resultMap="recvMessageDTO">
