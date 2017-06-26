@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
  <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -164,7 +165,8 @@ desired effect
             <li><a href="${pageContext.request.contextPath}/member/mypage/ongoingStudy" target="mainContent">진행중</a></li>
             <li><a href="${pageContext.request.contextPath}/member/mypage/recruitStudy" target="mainContent">모집중</a></li>
           </ul>
-           <li class="treeview">
+         </li>
+         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>쪽지함</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
@@ -175,8 +177,10 @@ desired effect
             <li><a href="${pageContext.request.contextPath}/member/mypage/recvMail" target="mainContent">받은쪽지함</a></li>
             <li><a href="${pageContext.request.contextPath}/member/mypage/sendMail" target="mainContent">보낸쪽지함</a></li>
           </ul>
-          <li><a href="#"><i class="fa fa-link"></i> <span>관리자모드</span></a></li>
-        </li>
+          </li>
+          <sec:authorize access="hasRole('ROLE_ADMIN')">
+          <li><a href="${pageContext.request.contextPath}/admin"><i class="fa fa-link"></i> <span>관리자모드</span></a></li>
+      	  </sec:authorize>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
