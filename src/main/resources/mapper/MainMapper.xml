@@ -73,14 +73,17 @@
 	</select>
 	
 	
-		<!-- 스터디 검색 -->
-	<sql id="searchStudySql">study_code, id, category_code, city_code, name, to_char(write_date, 'YYYY-MM-DD') write_date, to_char(start_date, 'YYYY-MM-DD') start_date, to_char(end_date, 'YYYY-MM-DD') end_date, day, start_time, end_time, people, area, description, read, study_status</sql>
+<sql id="searchStudySql">study_code, id, category_code, city_code, name, to_char(write_date, 'YYYY-MM-DD') write_date, to_char(start_date, 'YYYY-MM-DD') start_date, to_char(end_date, 'YYYY-MM-DD') end_date, day, start_time, end_time, people, area, description, read, study_status</sql>
 	<sql id="searchStudyConditionSql">
 		where name like '%'||#{studyDTO.name}||'%'
 		and study_status='0043'
 		<if test="studyDTO.category!=null">and category_code in (${studyDTO.category})</if>
 		<if test="studyDTO.cityCode!=null">and area in (${studyDTO.cityCode})</if>
 		<if test="studyDTO.day!=null">and day like ${studyDTO.day}</if>
+ 		<if test="studyDTO.startTime!=null">and substr(start_time, 1, 2) >= lpad(#{studyDTO.startTime}, 2, '0')</if>
+ 		<if test="studyDTO.endTime!=null">and substr(end_time, 1, 2) &lt;= lpad(#{studyDTO.endTime}, 2, '0')</if>
+ 		<if test="studyDTO.startDate!=null">and start_date >= #{studyDTO.startDate}</if>
+ 		<if test="studyDTO.endDate!=null">and end_date &lt;= #{studyDTO.endDate}</if>
 	</sql>
 	<select id="selectSearchStudy" parameterType="map" resultMap="studyMap">
 	select * from (select * from(select rownum as rnum, a.* from (select  <include refid="searchStudySql"></include> from study

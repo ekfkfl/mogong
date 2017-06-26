@@ -62,7 +62,6 @@ public class MainDAOImpl implements MainDAO {
 	
 	@Override
 	public PageDTO selectSearchStudy(PageDTO pageDTO) {
-		System.out.println("studyDTO" + pageDTO.getResultMap().get("studyDTO"));
 		
 		Map<String,Object>map=pageDTO.getResultMap();
 		map.put("startIndex", pageDTO.getStartIndex()+1);

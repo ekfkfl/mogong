@@ -122,6 +122,21 @@ public class MainServiceImpl implements MainService {
 		studyDTO.setCategory(makeParam(studyDTO.getCategory()));
 		studyDTO.setCityCode(makeParam(studyDTO.getCityCode()));
 		studyDTO.setDay(makeParam(studyDTO.getDay()));
+
+		
+		if(studyDTO.getStartTime()==null || studyDTO.getStartTime().equals("")){
+			studyDTO.setStartTime(null);
+		}
+		if(studyDTO.getEndTime()==null || studyDTO.getEndTime().equals("")){
+			studyDTO.setEndTime(null);
+		}
+
+		if(studyDTO.getStartDate()==null || studyDTO.getStartDate().equals("")){
+			studyDTO.setStartDate(null);
+		}
+		if(studyDTO.getEndDate()==null || studyDTO.getEndDate().equals("")){
+			studyDTO.setEndDate(null);
+		}		
 		
 		resultMap.put("studyDTO", studyDTO);
 		return mainDAO.selectSearchStudy(pageDTO);

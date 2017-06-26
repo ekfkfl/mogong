@@ -80,7 +80,7 @@ public class MainController {
 	}
 
 	@RequestMapping("/search/study")
-	public ModelAndView search(HttpServletRequest request, Model model) {
+	public ModelAndView search(HttpServletRequest request, Model model) throws ParseException {
 		HttpSession session = request.getSession();
 		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
 
@@ -98,6 +98,36 @@ public class MainController {
 		Map<String, CommCodeDTO> categoryMap = CodeUtil.getChildCodeDTO("0157");
 		Map<String, CommCodeDTO> cityCodeMap = CodeUtil.getChildCodeDTO("0061");
 
+	
+		
+		List<StudyDTO> studyDTOList=(List<StudyDTO>)pageDTO.getResultMap().get("studyDTOList");
+		
+
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		List<String> diffDateList=new ArrayList<>();
+		Date startDate=null, endDate=null;
+		long diffDate = 0;
+		long diffDays = 0;
+		long diffMonth=0;
+		for(StudyDTO study : studyDTOList){
+			startDate=transFormat.parse(study.getStartDate());
+			endDate=transFormat.parse(study.getEndDate());
+		    diffDate = endDate.getTime() - startDate.getTime();
+		    diffDays = diffDate / (24 * 60 * 60 * 1000);
+			
+		    diffMonth=diffDays/30;
+		    
+		    if(diffMonth>0){
+		    	diffDateList.add(diffMonth+"달");
+		    }else if(diffDate>0){
+		    	diffDateList.add(diffDays + "일");
+		    }else{
+		    	diffDateList.add("1일");
+		    }
+		}
+		pageDTO.getResultMap().put("diffDateList", diffDateList);
+			
 		mv.addObject("pageDTO", pageDTO);
 		mv.addObject("categoryMap", categoryMap);
 		mv.addObject("cityCodeMap", cityCodeMap);
@@ -369,8 +399,36 @@ public class MainController {
 
 	@RequestMapping("/search")
 	@ResponseBody
-	public PageDTO keywordSearch(StudyDTO studyDTO, int page) {
-		return service.selectSearchStudy(studyDTO, page);
+	public PageDTO keywordSearch(StudyDTO studyDTO, int page, HttpServletRequest request) throws Exception {
+		PageDTO pageDTO=service.selectSearchStudy(studyDTO, page);
+
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		List<StudyDTO> studyDTOList=(List<StudyDTO>)pageDTO.getResultMap().get("studyDTOList");
+		List<String> diffDateList=new ArrayList<>();
+		Date startDate=null, endDate=null;
+		long diffDate = 0;
+		long diffDays = 0;
+		long diffMonth=0;
+		for(StudyDTO study : studyDTOList){
+			startDate=transFormat.parse(study.getStartDate());
+			endDate=transFormat.parse(study.getEndDate());
+		    diffDate = endDate.getTime() - startDate.getTime();
+		    diffDays = diffDate / (24 * 60 * 60 * 1000);
+			
+		    diffMonth=diffDays/30;
+		    
+		    if(diffMonth>0){
+		    	diffDateList.add(diffMonth+"달");
+		    }else if(diffDate>0){
+		    	diffDateList.add(diffDays + "일");
+		    }else{
+		    	diffDateList.add("1일");
+		    }
+		}
+		pageDTO.getResultMap().put("diffDateList", diffDateList);
+			
+		
+		return pageDTO;
 	}
 	
 	@RequestMapping("/statistics")
