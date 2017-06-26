@@ -44,14 +44,14 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardCommentDTO> commentSelectAll(String boardCode) {
-		return boardDAO.commentSelectAll(boardCode);
+	public List<BoardCommentDTO> commentSelectAll(String boardCode,String studyCode) {
+		return boardDAO.commentSelectAll(boardCode,studyCode);
 	}
 
 	@Override
-	public int getCount(String field) {
+	public int getCount(String field,String studyCode) {
 
-		return boardDAO.getCount(field);
+		return boardDAO.getCount(field,studyCode);
 	}
 
 	@Override

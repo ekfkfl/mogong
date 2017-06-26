@@ -31,7 +31,7 @@
 	<script type="text/javascript">
 		$(function () {
 			$("#write").click( function () {
-				location.href="${pageContext.request.contextPath}/member/study/writeForm";
+				location.href="${pageContext.request.contextPath}/member/study/writeForm?studyCode=${studyCode}";
 			});
 		})	
 		function fn_movePage(val) {
@@ -74,6 +74,7 @@
 	<section class="content container-fluid">
 		 <form name="form">
 		 	<input type="hidden" name="pageNo"/>
+		 	<input type="hidden" name="studyCode" value="${studyCode}">
 	
 		 <div class="box box-primary">
             <div class="box-header with-border">

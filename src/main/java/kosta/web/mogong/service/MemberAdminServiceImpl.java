@@ -15,8 +15,8 @@ public class MemberAdminServiceImpl implements MemberAdminService {
 	private MemberAdminDAO memberAdminDAOImpl;
 	
 	@Override
-	public List<UserDTO> selectAll(String id) {
-		return memberAdminDAOImpl.selectAll(id);
+	public List<UserDTO> selectAll(String id, int studyCode) {
+		return memberAdminDAOImpl.selectAll(id, studyCode);
 	}
 
 	@Override

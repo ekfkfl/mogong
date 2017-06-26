@@ -73,22 +73,28 @@
 	</select>
 	
 	
-	<!-- 스터디 검색 -->
+		<!-- 스터디 검색 -->
 	<sql id="searchStudySql">study_code, id, category_code, city_code, name, to_char(write_date, 'YYYY-MM-DD') write_date, to_char(start_date, 'YYYY-MM-DD') start_date, to_char(end_date, 'YYYY-MM-DD') end_date, day, start_time, end_time, people, area, description, read, study_status</sql>
-	<select id="selectSearchStudy" parameterType="map" resultMap="studyMap">
-	select * from (select * from(select rownum as rnum, a.* from (select  <include refid="searchStudySql"></include> from study
+	<sql id="searchStudyConditionSql">
 		where name like '%'||#{studyDTO.name}||'%'
 		and study_status='0043'
+		<if test="studyDTO.category!=null">and category_code in (${studyDTO.category})</if>
+		<if test="studyDTO.cityCode!=null">and area in (${studyDTO.cityCode})</if>
+		<if test="studyDTO.day!=null">and day like ${studyDTO.day}</if>
+	</sql>
+	<select id="selectSearchStudy" parameterType="map" resultMap="studyMap">
+	select * from (select * from(select rownum as rnum, a.* from (select  <include refid="searchStudySql"></include> from study
+		<include refid="searchStudyConditionSql"></include>
 		order by write_date desc) a) b ) 
 		<!-- where <![CDATA[ rnum>=1 and rnum<=5 ]]> -->
  	where <![CDATA[ rnum>=#{startIndex} and rnum<=#{endIndex}  ]]>  
 	</select>
 	
+	
 	<!-- 스터디 검색 게시물 수 -->
 	<select id="selectSearchStudyCnt" parameterType="map" resultType="int">
 		select count(*) from study
-		where name like '%'||#{studyDTO.name}||'%'
-		and study_status='0043'
+		<include refid="searchStudyConditionSql"></include>
 	</select>
 	
 	<!-- 스터디 수정하기 -->

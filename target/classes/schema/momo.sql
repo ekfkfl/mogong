@@ -50,6 +50,9 @@ select* from COMM_CODE;
 
 select * from study;
 
+select NAME, DESCRIPTION
+		from study
+		where STUDY_CODE = 68 and id= 'gwang12'
 
 CREATE TABLE STUDY(
   STUDY_CODE NUMBER PRIMARY KEY, -- 스터디 코드
@@ -150,7 +153,7 @@ insert into member values(MEMBER_SEQ.nextval, 13,'jun12','0004', null)
 insert into member values(MEMBER_SEQ.nextval, 14,'crw12','0004', null)
 
 select * from MEMBER where STUDY_CODE= 12 ;
-
+select * from study where study_code=12
 
 
 select SEND_MESSAGE_CODE, ID, title, content, RECV_ID, write_date

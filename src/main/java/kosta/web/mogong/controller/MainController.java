@@ -149,7 +149,7 @@ public class MainController {
 
 	// 로그인 처리
 	@RequestMapping("/loginPro")
-	public String loginPro(HttpServletRequest request, Model model) {
+	public String loginPro(HttpServletRequest request, Model model) throws Exception {
 		HttpSession session = request.getSession();
 		Authentication auth = (Authentication) request.getUserPrincipal();
 		Object userObj = auth.getPrincipal();
@@ -160,7 +160,13 @@ public class MainController {
 		}
 		session.setAttribute("userDTO", userDTO);
 
+		
+		
+		if(userDTO==null){
+			throw new Exception("아이디를 찾을 수 없습니다.");
+		}
 		List<MemberDTO> memberDTOList = authService.selectMemberById(userDTO.getId());
+		
 
 		model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
 

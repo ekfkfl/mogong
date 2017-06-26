@@ -88,7 +88,7 @@
 			              	</tr>
 			              	<tr>
 			              		<th>장소</th>
-			              		<td>${studyDTO.area}</td>
+			              		<td>${studyDTO.addr2}</td>
 			              	</tr>
 			              	<tr>
 			              		<th>스케줄</th>

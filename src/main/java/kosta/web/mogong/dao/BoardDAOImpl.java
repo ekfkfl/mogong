@@ -41,14 +41,19 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 
 	@Override
-	public List<BoardCommentDTO> commentSelectAll(String boardCode) {
-		return sqlSession.selectList("boardMapper.commentSelect", boardCode);
+	public List<BoardCommentDTO> commentSelectAll(String boardCode,String studyCode) {
+		Map<String, String> map = new HashMap<>();
+		map.put("boardCode", boardCode);
+		map.put("studyCode", studyCode);
+		return sqlSession.selectList("boardMapper.commentSelect", map);
 	}
 
 	@Override
-	public int getCount(String field) {
-
-		return sqlSession.selectOne("boardMapper.boardGetCount", field);
+	public int getCount(String field,String studyCode) {
+		Map<String, String> map = new HashMap<>();
+		map.put("field", field);
+		map.put("studyCode", studyCode);
+		return sqlSession.selectOne("boardMapper.boardGetCount", map);
 	}
 
 	@Override

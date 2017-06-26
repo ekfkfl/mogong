@@ -30,9 +30,9 @@
 	</insert>
 	
 	<select id="boardSelectAll" resultMap="boardResultMap" parameterType="boardDTO">
-		select a.* from (select rownum as rwnum, s.* from (select board.board_code,board.title,user_tb.name,board.write_date,board.hit,board.filename,board.notice
+		select a.* from (select rownum as rwnum, s.* from (select member.study_code,board.board_code,board.title,user_tb.name,board.write_date,board.hit,board.filename,board.notice
 		from member,board,user_tb
-		where member.member_code=board.member_code and user_tb.id=member.id
+		where member.member_code=board.member_code and user_tb.id=member.id and member.study_code=#{studyCode}
 		<if test="filed != null and filed != ''">
 			and title like '%' || #{filed} || '%'
 		</if>
@@ -41,15 +41,15 @@
 		
 	</select>
 	
-	<select id="boardGetCount" parameterType="string" resultType="int">
-		select count(*) from board
+	<select id="boardGetCount" parameterType="map" resultType="int">
+		select count(*) from board where study_code=#{studyCode}
 		<if test="_parameter != null and _parameter != ''">
-			where title like '%' || #{_parameter} || '%'
+			and title like '%' || #{field,jdbcType=VARCHAR} || '%'
 		</if>
 	</select>
 	
 	<select id="boardSelectById" resultMap="boardResultMap" parameterType="string">
-		select board.board_code,board.title,user_tb.name,board.content,board.write_date,board.filename,user_tb.path
+		select board.study_code,board.board_code,board.title,user_tb.name,board.content,board.write_date,board.filename,user_tb.path
 		from member,board,user_tb
 		where member.member_code=board.member_code and user_tb.id=member.id and board.board_code=#{_parameter}
 	
@@ -59,10 +59,10 @@
 		insert into board_comment values(comment_seq.nextval,#{boardCode},#{memberCode},#{content},sysdate,#{studyCode})
 	</insert>
 	
-	<select id="commentSelect" resultMap="commentResultMap" parameterType="string">
+	<select id="commentSelect" resultMap="commentResultMap" parameterType="map">
 		select board_comment.content,board_comment.write_date,user_tb.path,user_tb.name
 		from member,board_comment,user_tb
-		where member.member_code=board_comment.member_code and user_tb.id=member.id and board_comment.board_code=#{value}
+		where member.member_code=board_comment.member_code and user_tb.id=member.id and board_comment.board_code=#{boardCode} and board_comment.study_code=#{studyCode}
 	</select>
 	
 	<select id="selectMemberCode" parameterType="MemberDTO" resultType="int">

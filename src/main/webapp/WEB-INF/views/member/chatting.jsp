@@ -84,7 +84,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                  "<span class='direct-chat-timestamp pull-left'>"+presentDate+"</span>"+
                 "</div>"+
                 "<img class='direct-chat-img' src='${pageContext.request.contextPath}${requestScope.sessionPhoto}' alt='message user image'>"+
-                "<div class='direct-chat-text'>"+
+                "<div class='direct-chat-text pull-right'>"+
                 $("#message").val()+
                 "</div>"+
          		"</div>"
@@ -179,13 +179,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 		<c:forEach items="${chatList}" var="chatList">
                 			<c:choose>
                 				<c:when test="${chatList.sessionId eq requestScope.sessionId }">
-                					<div class='direct-chat-msg right'>
+                					<div class='direct-chat-msg right '>
 						                <div class='direct-chat-info clearfix'>
 							                <span class='direct-chat-name pull-right'>${chatList.sessionId}</span>
 							                <span class='direct-chat-timestamp pull-left'>${chatList.date}</span>
 						                </div>
 						                <img class='direct-chat-img' src='${pageContext.request.contextPath}${chatList.path}' alt='message user image'>
-						                <div class='direct-chat-text'>${chatList.content}</div>
+						                <div class='direct-chat-text pull-right'>${chatList.content}</div>
 					         		</div>
                 				</c:when>
                 				<c:otherwise>

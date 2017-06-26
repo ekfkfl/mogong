@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="kosta.web.mogong.util.CodeUtil" %>
     
      <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
@@ -84,6 +85,10 @@
             		  	<p>${studyDTO.people}</p>	
 					</div>
 					<div class="form-group">
+            		  <label>분류</label><br>
+            		  	<p>${CodeUtil.getCodeName(studyDTO.category)}</p>	
+					</div>
+					<div class="form-group">
             		  <label>지역</label><br>
             		  	<p>${studyDTO.area}</p>
 					</div><br>
@@ -96,7 +101,7 @@
 						</c:when>
 						<c:otherwise></c:otherwise>
 					</c:choose>
-					<div id="map" style="background-color:yellow;width:300px;height:350px;position:absolute;top:45px;left:250px"></div>
+					<div id="map" style="width:300px;height:400px;position:absolute;top:45px;left:250px"></div>
                		<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=f93121500121a54094b1f2b7bddeb160&libraries=services"></script>
 					<script>
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
