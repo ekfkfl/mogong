@@ -82,6 +82,7 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	@Transactional
 	public int joinMember(UserDTO userDTO) {
+		int result=0;
 		//비밀번호 암호화
 		String encodePass=passwordEncoder.encode(userDTO.getPassword());
 		userDTO.setPassword(encodePass);
@@ -93,10 +94,10 @@ public class AuthServiceImpl implements AuthService {
 		//관리자인경우 권한등록
 			
 		if(userDTO.getUserType().equals("1")){
-			authDAO.insertAuthority(new AuthorityDTO(userDTO.getId(), Constants.ROLE_ADMIN));
+			result=authDAO.insertAuthority(new AuthorityDTO(userDTO.getId(), Constants.ROLE_ADMIN));
 		}
 
-		return 1;
+		return result;
 	}
 
 	@Override
