@@ -124,7 +124,26 @@
 							        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 							      </div>
 							    </div>
-							
+								<div class="modal fade" id="modal-default">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<!-- small box -->
+         			<div class="small-box bg-yellow">
+        			    <div class="inner">
+        			     <p>
+         			     <h4 align="middle">수락 완료</h4>
+         			     <p>
+          			  </div>
+        			    <a href="" class="small-box-footer" id="joinResult"></a>
+        			</div>
+        			<div align="middle">
+        			<button type="button" class="btn btn-block btn-warning btn-lg" data-dismiss="modal">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 							  </div>
 							</div>
 			            </div>
@@ -184,7 +203,6 @@ $(function () {
 			dataType: "text",
 			success: function (result) {
 				
-					alert("성공")
 					printAll();
 			},
 			error: function (err) {
@@ -200,7 +218,6 @@ $(function () {
 				dataType: "text",
 				success: function (result) {
 					
-						alert("성공")
 						printAll();
 				},
 				error: function (err) {

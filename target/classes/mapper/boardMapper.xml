@@ -37,9 +37,8 @@
 			and title like '%' || #{filed} || '%'
 		</if>
 		 order by notice desc,board_code desc)s )a where rwnum between #{startRowNo} and #{endRowNo}
-		
-		
 	</select>
+	
 	
 	<select id="boardGetCount" parameterType="map" resultType="int">
 		select count(*) from board where study_code=#{studyCode}

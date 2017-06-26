@@ -293,7 +293,8 @@
 		</div>
 	</div>
 </form>
-
+<br>
+<jsp:include page="/WEB-INF/views/main/footer.jsp" />
 <!-- jQuery 3.1.1 -->
 <script
 	src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>

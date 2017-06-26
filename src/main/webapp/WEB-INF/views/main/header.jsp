@@ -247,7 +247,7 @@
 							<li><a href="${pageContext.request.contextPath}/">home</a></li>
 							<li><a href="${pageContext.request.contextPath}/study/enrollForm">스터디 모집</a></li>
 							<li><a href="${pageContext.request.contextPath}/search/study">스터디 검색</a></li>
-							<li><a href="${pageContext.request.contextPath}/study/main">공지사항</a></li>
+							<li><a href="${pageContext.request.contextPath}/main/study/board/selectAll">맴버 모집</a></li>
 							<li class="hidden-sm hidden-xs"><a href="#" id="ss"><i
 									class="fa fa-search" aria-hidden="true"></i></a></li>
 						</ul>

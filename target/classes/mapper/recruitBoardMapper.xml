@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recruitBoardMapper">
+
+<resultMap type="boardDTO" id="boardResultMap">
+		<id column="board_code" property="boardCode"/>
+		<result column="study_code" property="studyCode"/>
+		<result column="member_code" property="memberCode"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="write_date" property="writeDate"/>
+		<result column="hit" property="hit"/>
+		<result column="filename" property="fileName"/>
+		<result column="name" property="name"/>
+		<result column="notice" property="notice"/>
+		<result column="path" property="path"/>
+		<result column="rwnum" property="rownum"/>
+	</resultMap>
+	
+	<resultMap type="boardCommentDTO" id="commentResultMap">
+		<id column="comment_code" property="commentCode"/>
+		<result column="board_code" property="boardCode"/>
+		<result column="member_code" property="memberCode"/>
+		<result column="content" property="content"/>
+		<result column="write_date" property="writeDate"/>
+	</resultMap>
+	
+	<insert id="boardInsert" parameterType="boardDTO">
+		insert into recruit_board values(recruit_seq.nextval,#{title},#{content},sysdate,0,#{fileName},#{notice},#{id})
+	</insert>
+	
+	<select id="boardSelectAll" resultMap="boardResultMap">
+		select recruit_board.board_code,recruit_board.title,recruit_board.content,recruit_board.write_date,recruit_board.hit,recruit_board.filename,recruit_board.notice,user_tb.name,user_tb.path
+		from recruit_board,user_tb
+		where recruit_board.id=user_tb.id order by notice desc,board_code desc
+	</select>
+	
+	<select id="SelectById" resultMap="boardResultMap" parameterType="string">
+		select recruit_board.board_code,recruit_board.title,recruit_board.content,recruit_board.write_date,recruit_board.filename,recruit_board.id,user_tb.name,user_tb.path
+		from recruit_board,user_tb
+		where recruit_board.id=user_tb.id and recruit_board.board_code=#{_parameter}
+	
+	</select>
+	
+	<insert id="commentInsert" parameterType="boardCommentDTO">
+		insert into recruit_comment values(recruitComm_seq.nextval,#{boardCode},#{content},sysdate,#{id})
+	</insert>
+	
+	<select id="commentSelectAll" parameterType="string" resultMap="commentResultMap">
+		select recruit_comment.comment_code,recruit_comment.board_code,recruit_comment.content,recruit_comment.write_date,recruit_comment.id,user_tb.path
+from recruit_comment,user_tb 
+where recruit_comment.id=user_tb.id and board_code=#{_parameter}
+	
+	</select>
+
+
+
+</mapper>
