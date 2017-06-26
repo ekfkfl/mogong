@@ -43,15 +43,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		                <input class="form-control" placeholder="To:" name="recvId" value="${requestScope.sendId}">
 		              </div>
 		              <div class="form-group">
-		                <input class="form-control" placeholder="from:" name="id" value="${requestScope.id}">
+		                <input class="form-control" placeholder="from:" name="id" value="${requestScope.id}" readonly>
 		              </div>
 		              <div class="form-group">
-		                <input class="form-control" placeholder="Subject:" name="title">
+		                <input class="form-control" placeholder="Subject:" name="title" required>
 		              </div>
 		              <div class="form-group">
-		                    <textarea id="compose-textarea" class="form-control" style="height: 300px" name="content">
-		                     
-		                    </textarea>
+		                    <textarea id="compose-textarea" class="form-control" style="height: 300px" name="content" required></textarea>
 		              </div>
 		            </div>
 		            <!-- /.box-body -->

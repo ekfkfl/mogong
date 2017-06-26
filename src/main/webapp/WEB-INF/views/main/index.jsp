@@ -77,7 +77,7 @@
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>${studyList[0].name}</p>
+							<p><br>${studyList[0].name}</p>
 						</div>
 					</div>
 				</div>
@@ -89,7 +89,7 @@
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>${studyList[1].name}</p>
+							<p><br>${studyList[1].name}</p>
 						</div>
 					</div>
 				</div>
@@ -101,7 +101,7 @@
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>${studyList[2].name}</p>
+							<p><br>${studyList[2].name}</p>
 						</div>
 					</div>
 				</div>
@@ -113,7 +113,7 @@
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>${studyList[3].name}</p>
+							<p><br>${studyList[3].name}</p>
 						</div>
 					</div>
 				</div>
@@ -125,7 +125,7 @@
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>${studyList[4].name}</p>
+							<p><br>${studyList[4].name}</p>
 						</div>
 					</div>
 				</div>
@@ -137,7 +137,7 @@
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>${studyList[5].name}</p>
+							<p><br>${studyList[5].name}</p>
 						</div>
 					</div>
 				</div>
@@ -149,7 +149,7 @@
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>${studyList[6].name}</p>
+							<p><br>${studyList[6].name}</p>
 						</div>
 					</div>
 				</div>
@@ -161,7 +161,7 @@
 							alt="">
 						<div class="caption">
 							<i class="fa fa-search" aria-hidden="true"></i>
-							<p>${studyList[7].name}</p>
+							<p><br>${studyList[7].name}</p>
 						</div>
 					</div>
 				</div>

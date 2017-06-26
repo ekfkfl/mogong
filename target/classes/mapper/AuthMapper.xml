@@ -36,7 +36,7 @@ select member_code, study_code from member where id=#{_parameter}
 <update id="updateUser" parameterType="userDTO">
 update user_tb
 <set>
-<if test="userType!=null">userType=#{userType},</if>
+<if test="userType!=null">user_Type=#{userType},</if>
 <if test="password!=null">password=#{password},</if>
 <if test="path!=null">path=#{path},</if>
 <if test="addr!=null">addr=#{addr},</if>

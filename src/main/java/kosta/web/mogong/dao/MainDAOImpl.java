@@ -97,6 +97,7 @@ public class MainDAOImpl implements MainDAO {
 		return sqlSession.selectOne("mainMapper.studyJoinCheckPeople", studyCode);
 	}
 	@Override
+<<<<<<< HEAD
 	public MemberDTO memberCode(String id, int studyCode) {
 		Map<String, Object> map = new HashMap<>();
 		
@@ -104,5 +105,13 @@ public class MainDAOImpl implements MainDAO {
 		map.put("studyCode", studyCode);
 		
 		return sqlSession.selectOne("mainMapper.memberCode", map);
+=======
+	public int studyJoinKing(MemberDTO memberDTO) {
+		return sqlSession.insert("mainMapper.studyJoinKing", memberDTO);
+	}
+	@Override
+	public int selectStudyCode(String name) {
+		return sqlSession.selectOne("mainMapper.selectStudyCode", name);
+>>>>>>> c1ec68962c61d805ef3c5519565a3e7c4c092615
 	}
 }

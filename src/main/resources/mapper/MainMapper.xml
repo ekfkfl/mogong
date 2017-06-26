@@ -49,6 +49,11 @@
 		'0043',#{addr1},#{addr2})
 	</insert>
 	
+	<!-- 스터디 코드 알아오기 -->
+	<select id="selectStudyCode" parameterType="string" resultType="int">
+		select study_code from study where name=#{_parameter}
+	</select>
+	
 	<!-- 스터디 멤버인지 아닌지 -->
 	<select id="selectStudyMember" parameterType="MemberDTO" resultType="string">
 		select id from member where id=#{memberId,jdbcType=VARCHAR} and study_code=#{studyCode} 
@@ -128,8 +133,16 @@
 		insert into member values(member_seq.nextval,#{studyCode},#{memberId},'0002','0147')
 	</insert>
 	
+<<<<<<< HEAD
 	<select id="memberCode" parameterType="map" resultMap="memberDTOMap">
 		select grade from member where study_code=#{studyCode} and id=#{id} 
 	</select>
 
+=======
+	<insert id="studyJoinKing" parameterType="MemberDTO">
+		insert into member values(member_seq.nextval,#{studyCode},#{memberId},'0001','0146')
+	
+	</insert>
+	
+>>>>>>> c1ec68962c61d805ef3c5519565a3e7c4c092615
 </mapper>

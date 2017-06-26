@@ -38,8 +38,7 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public UserDTO selectUser(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		return authDAO.selectUser(id);
 	}
 
 	@Override
@@ -50,6 +49,14 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public int updateUser(UserDTO userDTO) {
+		//비밀번호 설정
+		String encodePass=passwordEncoder.encode(userDTO.getPassword());
+		userDTO.setPassword(encodePass);
+
+		//권한설정
+		userDTO.setUserType(Constants.ROLE_MEMBER);
+				
+		//데이터 저장
 		return authDAO.updateUser(userDTO);
 	}
 
@@ -75,6 +82,7 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	@Transactional
 	public int joinMember(UserDTO userDTO) {
+		int result=0;
 		//비밀번호 암호화
 		String encodePass=passwordEncoder.encode(userDTO.getPassword());
 		userDTO.setPassword(encodePass);
@@ -86,10 +94,10 @@ public class AuthServiceImpl implements AuthService {
 		//관리자인경우 권한등록
 			
 		if(userDTO.getUserType().equals("1")){
-			authDAO.insertAuthority(new AuthorityDTO(userDTO.getId(), Constants.ROLE_ADMIN));
+			result=authDAO.insertAuthority(new AuthorityDTO(userDTO.getId(), Constants.ROLE_ADMIN));
 		}
 
-		return 1;
+		return result;
 	}
 
 	@Override

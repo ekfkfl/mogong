@@ -237,6 +237,11 @@ $(function() {
 
 	$("#taskUpdate").click(function() {
 		
+		if($("#title").val().trim() == "") {
+			alert('제목은 필수로 입력해야합니다')
+			return;
+		}
+		
 		var taskDTO = new Object();
 		var taskMemberList = new Array();
 		

@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="kosta.web.mogong.util.CodeUtil" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
@@ -33,42 +33,113 @@ $(function(){
 			reader.readAsDataURL(input.files[0]); 
 		}
 	})
-	
 
-
-	
-	//ÀüÈ­¹øÈ£ ¸¶½ºÅ©
+	//ì „í™”ë²ˆí˜¸ ë§ˆìŠ¤í¬
 	$("#phone").inputmask();
-	/*$("#phone").keyup(function(){
-		var phoneNumber=$(this).val();
-		//var phoneNumber=val();
-		
- 		if(phoneNumber.charAt(1)=="2"){
-			console.log($("#phone").data("inputmask"));
-			$(this).data("inputmask", '"mask": "99-999-9999"');
-			$(this).inputmask();
-			$(this).val(phoneNumber);
-		} 
-	});
-	*/
+
 	
-	//¾ÆÀÌµğ Ã¼Å© 
+	//ì•„ì´ë”” ì²´í¬ 
 	$("div #id").keypress(function(event){
 		if(checkCharCode(event.keyCode)){
 			return true;
 		}else{
-			alert("Æ¯¼ö¹®ÀÚ´Â ÀÔ·ÂÀÌ ºÒ°¡´ÉÇÕ´Ï´Ù.")
+			alert("íŠ¹ìˆ˜ë¬¸ìëŠ” ì…ë ¥ì´ ë¶ˆê°€ëŠ¥í•©ë‹ˆë‹¤.")
 			return false;	
 		}
 	});
 
 	
-	//ÁÖ¼Ò ÅØ½ºÆ® ¹Ú½º Å¬¸¯½º ÁÖ¼Ò ÀÔ·Â ·¹ÀÌ¾î ¶ç¿ì±â
+	//ì£¼ì†Œ í…ìŠ¤íŠ¸ ë°•ìŠ¤ í´ë¦­ìŠ¤ ì£¼ì†Œ ì…ë ¥ ë ˆì´ì–´ ë„ìš°ê¸°
 	$("#addr1").click(function(){
 		sample3_execDaumPostcode();
 	});
 	
 }); //end jQuery ready
+
+
+function checkValid() {
+	var f = window.document.userInfoForm;
+	
+	//ì£¼ì†Œ ë§Œë“¤ê¸° (ë¯¸ì…ë ¥ , "", ì§€ì—­ì£¼ì†Œ+ìƒì„¸ì£¼ì†Œ)
+	$(f.addr).val(checkAddr());
+
+	
+	var formData=[
+			{"src":f.password, "name":"ë¹„ë°€ë²ˆí˜¸"},
+			{"src":f.email, "name":"ì´ë©”ì¼"},
+			{"src":f.phone, "name":"í•¸ë“œí°"},
+			{"src":f.addr, "name":"ì£¼ì†Œ"},
+			{"src":f.intro, "name":"ìê¸°ì†Œê°œ"}
+	];
+	
+	
+	for(var i=0; i<formData.length; i++){
+		if(formData[i].src.value==""){
+			alert(formData[i].name+" ì…ë ¥ì´ í•„ìš”í•©ë‹ˆë‹¤.");
+				formData[i].src.focus();
+			return false;
+		}
+	}
+
+    return true;
+}
+
+//ë¹„ë°€ë²ˆí˜¸ê°€ ê°™ì€ì§€ ì²´í¬
+function equalPassword(){
+	
+}
+
+//ì¤‘ë³µ ì•„ì´ë”” ì²´í¬
+function usableId(){
+	
+}
+
+
+//ì•„ì´ë””ë¡œ ì²´í¬
+function checkId(id){
+	$.ajax({
+		url : "${pageContext.request.contextPath}/auth/usableId",
+		type : "post",
+		dataType : "text",
+		data : "${_csrf.parameterName}=${_csrf.token}",
+		success : function(result) {
+			if(result=="1"){
+				console.log("ì‚¬ìš©ê°€ëŠ¥");
+			}else{
+				console.log("ì‚¬ìš© ë¶ˆê°€ëŠ¥");
+			}
+		},
+		error : function(err) {
+			alert(err);
+		}
+	});
+}
+//ì•„ì´ë””ë¡œ ì‚¬ìš©ê°€ëŠ¥í•œì§€ ì²´í¬
+function checkCharCode(ch){
+	console.log(ch);
+	if((ch>=65 && ch<=90) || (ch>=97 && ch<=122) || (ch>=48 && ch<=57)){
+		return true;
+	}else{
+		return false;
+	}
+}
+//ì£¼ì†Œë¡œ í¬ì»¤ìŠ¤ ì´ë™
+function checkAddr(){
+	var addr1=$("#addr1").val();
+	var addr2=$("#addr2").val();
+	
+	if(addr1==""){
+		return "ë¯¸ì…ë ¥";
+	}else{
+		if(addr2==""){
+			return "";
+		}else{
+			return addr1+"/"+addr2;
+		}
+	}
+	
+}
+
 </script>
 <style type="text/css">
 	th{
@@ -85,39 +156,39 @@ $(function(){
 <body>
     <section class="content-header">
       <h1>
-        °³ÀÎÁ¤º¸¼öÁ¤
+        ê°œì¸ì •ë³´ìˆ˜ì •
         <small>Optional description</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> °³ÀÎÁ¤º¸¼öÁ¤</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> ê°œì¸ì •ë³´ìˆ˜ì •</a></li>
       </ol>
       <br><br>
 </section>
-<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/login/signup?${_csrf.parameterName}=${_csrf.token}" name="userInfoForm" id="userInfoForm" onSubmit='return checkValid()'  enctype="multipart/form-data">
+<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/member/mypage/myInfoReplace?${_csrf.parameterName}=${_csrf.token}" name="userInfoForm" id="userInfoForm" onSubmit='return checkValid()'  enctype="multipart/form-data">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
-<!-- »ç¿ëÀÚ °èÁ¤ Á¤º¸  - user-->
+<!-- ì‚¬ìš©ì ê³„ì • ì •ë³´  - user-->
 <div class="container">
 		<div class="row">
 		<div class="col-xs-12">
 <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">°èÁ¤Á¤º¸</h3>
+              <h3 class="box-title">ê³„ì •ì •ë³´</h3>
             </div>
           
               <div class="box-body">
                 <div class="form-group">
                   <div class="col-sm-12">
-					¾ÆÀÌµğ : ${userDTO.id}                
+					ì•„ì´ë”” : ${userDTO.id}                
                   </div>
                 </div>
                <div class="form-group">
 					<div class="col-sm-12">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”">
                 	</div>
                 </div>
                 <div class="form-group">
 					<div class="col-sm-12">
-                    <input type="password" class="form-control" id="rePassword" name="rePassword" placeholder="ºñ¹Ğ¹øÈ£¸¦ ÀçÀÔ·ÂÇÏ¼¼¿ä">
+                    <input type="password" class="form-control" id="rePassword" name="rePassword" placeholder="ë¹„ë°€ë²ˆí˜¸ë¥¼ ì¬ì…ë ¥í•˜ì„¸ìš”">
                 	</div>
                 </div>
               </div>
@@ -129,29 +200,29 @@ $(function(){
 
 
 
-<!-- »ç¿ëÀÚ ±âº» Á¤º¸ - userBasicInfo-->
+<!-- ì‚¬ìš©ì ê¸°ë³¸ ì •ë³´ - userBasicInfo-->
 <div class="container">
 		<div class="row">
 		<div class="col-xs-12">
 <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">°³ÀÎÁ¤º¸</h3>
+              <h3 class="box-title">ê°œì¸ì •ë³´</h3>
             </div>
               <div class="box-body">
                 <div class="form-group">
                   <div class="col-sm-12">
-                    ÀÌ¸§ : ${userDTO.name}
+                    ì´ë¦„ : ${userDTO.name}
                   </div>
                 </div>
                 <div class="form-group">
 					<div class="col-sm-12">
-					¼ºº° : ${CodeUtil.getCodeName(userDTO.gender)}
+					ì„±ë³„ : ${CodeUtil.getCodeName(userDTO.gender)}
                 	</div>
                 </div>
    
                 <div class="form-group">
                 <div class="col-sm-12">
-					»ı³â¿ùÀÏ : ${userDTO.birth}
+					ìƒë…„ì›”ì¼ : ${userDTO.birth}
                 </div>               
                 </div>
               </div>
@@ -160,23 +231,23 @@ $(function(){
 </div>	</div>
 </div>
 
-<!-- »ç¿ëÀÚ °³ÀÎ ½Å»óÁ¤º¸ - userPersonalInfo-->
+<!-- ì‚¬ìš©ì ê°œì¸ ì‹ ìƒì •ë³´ - userPersonalInfo-->
 <div class="container">
 		<div class="row">
 		<div class="col-xs-12">
 <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">¿¬¶ôÃ³</h3>
+              <h3 class="box-title">ì—°ë½ì²˜</h3>
             </div>
               <div class="box-body">
                 <div class="form-group">
                   <div class="col-sm-12">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="ÀÌ¸ŞÀÏ ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ¼¼¿ä" value="${userDTO.email}">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="ì´ë©”ì¼ ì£¼ì†Œë¥¼ ì…ë ¥í•˜ì„¸ìš”" value="${userDTO.email}">
                   </div>
                 </div>
                 <div class="form-group">
 					<div class="col-sm-12">
-                    <input type="text" class="form-control" id="phone" name="phone" placeholder="¿¬¶ôÃ³ ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä.  - ¾øÀÌ ÀÔ·ÂÇÏ¼¼¿ä" data-inputmask='"mask": "999-9999-9999"' data-mask value="${userDTO.phone}">
+                    <input type="text" class="form-control" id="phone" name="phone" placeholder="ì—°ë½ì²˜ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”.  - ì—†ì´ ì…ë ¥í•˜ì„¸ìš”" data-inputmask='"mask": "999-9999-9999"' data-mask value="${userDTO.phone}">
                 	</div>
                 </div>
                 <div class="form-group">
@@ -188,23 +259,23 @@ $(function(){
 										src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png"
 										id="btnFoldWrap"
 										style="cursor: pointer; position: absolute; right: 0px; top: -1px; z-index: 1"
-										onclick="foldDaumPostcode()" alt="Á¢±â ¹öÆ°">
+										onclick="foldDaumPostcode()" alt="ì ‘ê¸° ë²„íŠ¼">
 								</div>
 <!-- 								<input type="text" id="sample3_address" class="d_form large"
-									placeholder="ÁÖ¼Ò"> -->
+									placeholder="ì£¼ì†Œ"> -->
 
 								<script>
-									// ¿ìÆí¹øÈ£ Ã£±â Ã£±â È­¸éÀ» ³ÖÀ» element
+									// ìš°í¸ë²ˆí˜¸ ì°¾ê¸° ì°¾ê¸° í™”ë©´ì„ ë„£ì„ element
 									var element_wrap = document
 											.getElementById('wrap');
 
 									function foldDaumPostcode() {
-										// iframeÀ» ³ÖÀº element¸¦ ¾Èº¸ÀÌ°Ô ÇÑ´Ù.
+										// iframeì„ ë„£ì€ elementë¥¼ ì•ˆë³´ì´ê²Œ í•œë‹¤.
 										element_wrap.style.display = 'none';
 									}
 
 									function sample3_execDaumPostcode() {
-										// ÇöÀç scroll À§Ä¡¸¦ ÀúÀåÇØ³õ´Â´Ù.
+										// í˜„ì¬ scroll ìœ„ì¹˜ë¥¼ ì €ì¥í•´ë†“ëŠ”ë‹¤.
 										var currentScroll = Math
 												.max(
 														document.body.scrollTop,
@@ -212,46 +283,46 @@ $(function(){
 										new daum.Postcode(
 												{
 													oncomplete : function(data) {
-														// °Ë»ö°á°ú Ç×¸ñÀ» Å¬¸¯ÇßÀ»¶§ ½ÇÇàÇÒ ÄÚµå¸¦ ÀÛ¼ºÇÏ´Â ºÎºĞ.
+														// ê²€ìƒ‰ê²°ê³¼ í•­ëª©ì„ í´ë¦­í–ˆì„ë•Œ ì‹¤í–‰í•  ì½”ë“œë¥¼ ì‘ì„±í•˜ëŠ” ë¶€ë¶„.
 
-														// °¢ ÁÖ¼ÒÀÇ ³ëÃâ ±ÔÄ¢¿¡ µû¶ó ÁÖ¼Ò¸¦ Á¶ÇÕÇÑ´Ù.
-														// ³»·Á¿À´Â º¯¼ö°¡ °ªÀÌ ¾ø´Â °æ¿ì¿£ °ø¹é('')°ªÀ» °¡Áö¹Ç·Î, ÀÌ¸¦ Âü°íÇÏ¿© ºĞ±â ÇÑ´Ù.
-														var fullAddr = data.address; // ÃÖÁ¾ ÁÖ¼Ò º¯¼ö
-														var extraAddr = ''; // Á¶ÇÕÇü ÁÖ¼Ò º¯¼ö
+														// ê° ì£¼ì†Œì˜ ë…¸ì¶œ ê·œì¹™ì— ë”°ë¼ ì£¼ì†Œë¥¼ ì¡°í•©í•œë‹¤.
+														// ë‚´ë ¤ì˜¤ëŠ” ë³€ìˆ˜ê°€ ê°’ì´ ì—†ëŠ” ê²½ìš°ì—” ê³µë°±('')ê°’ì„ ê°€ì§€ë¯€ë¡œ, ì´ë¥¼ ì°¸ê³ í•˜ì—¬ ë¶„ê¸° í•œë‹¤.
+														var fullAddr = data.address; // ìµœì¢… ì£¼ì†Œ ë³€ìˆ˜
+														var extraAddr = ''; // ì¡°í•©í˜• ì£¼ì†Œ ë³€ìˆ˜
 
-														// ±âº» ÁÖ¼Ò°¡ µµ·Î¸í Å¸ÀÔÀÏ¶§ Á¶ÇÕÇÑ´Ù.
+														// ê¸°ë³¸ ì£¼ì†Œê°€ ë„ë¡œëª… íƒ€ì…ì¼ë•Œ ì¡°í•©í•œë‹¤.
 														if (data.addressType === 'R') {
-															//¹ıÁ¤µ¿¸íÀÌ ÀÖÀ» °æ¿ì Ãß°¡ÇÑ´Ù.
+															//ë²•ì •ë™ëª…ì´ ìˆì„ ê²½ìš° ì¶”ê°€í•œë‹¤.
 															if (data.bname !== '') {
 																extraAddr += data.bname;
 															}
-															// °Ç¹°¸íÀÌ ÀÖÀ» °æ¿ì Ãß°¡ÇÑ´Ù.
+															// ê±´ë¬¼ëª…ì´ ìˆì„ ê²½ìš° ì¶”ê°€í•œë‹¤.
 															if (data.buildingName !== '') {
 																extraAddr += (extraAddr !== '' ? ', '
 																		+ data.buildingName
 																		: data.buildingName);
 															}
-															// Á¶ÇÕÇüÁÖ¼ÒÀÇ À¯¹«¿¡ µû¶ó ¾çÂÊ¿¡ °ıÈ£¸¦ Ãß°¡ÇÏ¿© ÃÖÁ¾ ÁÖ¼Ò¸¦ ¸¸µç´Ù.
+															// ì¡°í•©í˜•ì£¼ì†Œì˜ ìœ ë¬´ì— ë”°ë¼ ì–‘ìª½ì— ê´„í˜¸ë¥¼ ì¶”ê°€í•˜ì—¬ ìµœì¢… ì£¼ì†Œë¥¼ ë§Œë“ ë‹¤.
 															fullAddr += (extraAddr !== '' ? ' ('
 																	+ extraAddr
 																	+ ')'
 																	: '');
 														}
 
-														// ¿ìÆí¹øÈ£¿Í ÁÖ¼Ò Á¤º¸¸¦ ÇØ´ç ÇÊµå¿¡ ³Ö´Â´Ù.
+														// ìš°í¸ë²ˆí˜¸ì™€ ì£¼ì†Œ ì •ë³´ë¥¼ í•´ë‹¹ í•„ë“œì— ë„£ëŠ”ë‹¤.
 														
 													/* 	document
-																.getElementById('sample3_postcode').value = data.zonecode; //5ÀÚ¸® »õ¿ìÆí¹øÈ£ »ç¿ë */
-														document.getElementById('addr1').value = "(¿ìÆí¹øÈ£:" + data.zonecode + ") " + fullAddr;
+																.getElementById('sample3_postcode').value = data.zonecode; //5ìë¦¬ ìƒˆìš°í¸ë²ˆí˜¸ ì‚¬ìš© */
+														document.getElementById('addr1').value = "(ìš°í¸ë²ˆí˜¸:" + data.zonecode + ") " + fullAddr;
 
-														// iframeÀ» ³ÖÀº element¸¦ ¾Èº¸ÀÌ°Ô ÇÑ´Ù.
-														// (autoClose:false ±â´ÉÀ» ÀÌ¿ëÇÑ´Ù¸é, ¾Æ·¡ ÄÚµå¸¦ Á¦°ÅÇØ¾ß È­¸é¿¡¼­ »ç¶óÁöÁö ¾Ê´Â´Ù.)
+														// iframeì„ ë„£ì€ elementë¥¼ ì•ˆë³´ì´ê²Œ í•œë‹¤.
+														// (autoClose:false ê¸°ëŠ¥ì„ ì´ìš©í•œë‹¤ë©´, ì•„ë˜ ì½”ë“œë¥¼ ì œê±°í•´ì•¼ í™”ë©´ì—ì„œ ì‚¬ë¼ì§€ì§€ ì•ŠëŠ”ë‹¤.)
 														element_wrap.style.display = 'none';
 
-														// ¿ìÆí¹øÈ£ Ã£±â È­¸éÀÌ º¸ÀÌ±â ÀÌÀüÀ¸·Î scroll À§Ä¡¸¦ µÇµ¹¸°´Ù.
+														// ìš°í¸ë²ˆí˜¸ ì°¾ê¸° í™”ë©´ì´ ë³´ì´ê¸° ì´ì „ìœ¼ë¡œ scroll ìœ„ì¹˜ë¥¼ ë˜ëŒë¦°ë‹¤.
 														document.body.scrollTop = currentScroll;
 													},
-													// ¿ìÆí¹øÈ£ Ã£±â È­¸é Å©±â°¡ Á¶Á¤µÇ¾úÀ»¶§ ½ÇÇàÇÒ ÄÚµå¸¦ ÀÛ¼ºÇÏ´Â ºÎºĞ. iframeÀ» ³ÖÀº elementÀÇ ³ôÀÌ°ªÀ» Á¶Á¤ÇÑ´Ù.
+													// ìš°í¸ë²ˆí˜¸ ì°¾ê¸° í™”ë©´ í¬ê¸°ê°€ ì¡°ì •ë˜ì—ˆì„ë•Œ ì‹¤í–‰í•  ì½”ë“œë¥¼ ì‘ì„±í•˜ëŠ” ë¶€ë¶„. iframeì„ ë„£ì€ elementì˜ ë†’ì´ê°’ì„ ì¡°ì •í•œë‹¤.
 													onresize : function(size) {
 														element_wrap.style.height = size.height
 																+ 'px';
@@ -260,17 +331,17 @@ $(function(){
 													height : '100%'
 												}).embed(element_wrap);
 
-										// iframeÀ» ³ÖÀº element¸¦ º¸ÀÌ°Ô ÇÑ´Ù.
+										// iframeì„ ë„£ì€ elementë¥¼ ë³´ì´ê²Œ í•œë‹¤.
 										element_wrap.style.display = 'block';
 									}
 								</script>
 								<input type="hidden" name="addr" />
-								<input type="text" class="form-control" id="addr1" name="addr1" placeholder="ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ¼¼¿ä" value="${addr1}">
+								<input type="text" class="form-control" id="addr1" name="addr1" placeholder="ì£¼ì†Œë¥¼ ì…ë ¥í•˜ì„¸ìš”" value="${addr1}">
                 	</div>
                 </div>
                 <div class="form-group">
 					<div class="col-sm-12">
-                    <input type="text" class="form-control" id="addr2" name="addr2" placeholder="»ó¼¼ ÁÖ¼Ò¸¦ ÀÔ·ÂÇÏ¼¼¿ä" value="${addr2}">
+                    <input type="text" class="form-control" id="addr2" name="addr2" placeholder="ìƒì„¸ ì£¼ì†Œë¥¼ ì…ë ¥í•˜ì„¸ìš”" value="${addr2}">
                 	</div>
                 </div>
               </div>
@@ -279,13 +350,13 @@ $(function(){
 </div>	</div>
 </div>	
 
-<!-- ÀÚ±â¼Ò°³ -  userIntro-->
+<!-- ìê¸°ì†Œê°œ -  userIntro-->
 <div class="container">
 		<div class="row">
 		<div class="col-xs-12">
 <div class="box box-warning col-xs-12">
             <div class="box-header with-border">
-              <h3 class="box-title">ÀÚ±â¼Ò°³</h3>
+              <h3 class="box-title">ìê¸°ì†Œê°œ</h3>
             </div>
             <div class="box-body">
                 <!-- textarea -->
@@ -294,7 +365,7 @@ $(function(){
 
 					<img src="${pageContext.request.contextPath}${userDTO.path}" class="col-xs-3" class="form-control" id="profileImage"/>
 					
-					<textarea class="help-inline col-xs-9" id="intro" name="intro" rows="5" placeholder="½ºÅÍµğ ½ÅÃ»½Ã ½ºÅÍµğ ¸ğÁıÀå¿¡°Ô º¸¿©Áı´Ï´Ù." >${userDTO.intro}</textarea>
+					<textarea class="help-inline col-xs-9" id="intro" name="intro" rows="5" placeholder="ìŠ¤í„°ë”” ì‹ ì²­ì‹œ ìŠ¤í„°ë”” ëª¨ì§‘ì¥ì—ê²Œ ë³´ì—¬ì§‘ë‹ˆë‹¤." >${userDTO.intro}</textarea>
                     <input type="file" id="profileSelector" name="file">
 
                 </div>
@@ -304,9 +375,9 @@ $(function(){
 
 <div class="container">
 		<div class="row">
-		<div class="col-xs-12" style="text-align:center">
+		<div class="col-xs-12" style="text-align:center;">
             <div class="box-body">
-			<a href="${pageContext.request.contextPath}/member/mypage/myInfoReplace">¼öÁ¤¿Ï·á</a>
+						<input type="submit" value="ìˆ˜ì •í•˜ê¸°" class="btn">
             </div>
 </div></div></div>
 
@@ -324,17 +395,16 @@ $(function(){
 <script>
   $(function () {
     //Initialize Select2 Elements
-    $(".select2").select2();
+  // $(".select2").select2();
 
     //Datemask dd/mm/yyyy
-   $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "YYYY/MM/DD"});
+   //$("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "YYYY/MM/DD"});
     //Datemask2 mm/dd/yyyy
-   $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "YYYY/MM/DD"});
+  // $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "YYYY/MM/DD"});
     //Money Euro
-    $("[data-mask]").inputmask();
-
-    //Date range picker
-   	//$('#reservation').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'YYYY/MM/DD h:mm A'});
+   //$("[data-mask]").inputmask();
+    
+  });
 </script>
 </body>
 </html>

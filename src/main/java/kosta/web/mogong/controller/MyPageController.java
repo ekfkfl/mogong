@@ -256,9 +256,6 @@ public class MyPageController {
 	@RequestMapping("/member/mypage/myInfo")
 	public ModelAndView myInfo(HttpSession session){
 		ModelAndView mv=new ModelAndView();
-		
-		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
-		
 		mv.setViewName("/mypage/myInfo");
 		return mv;
 	}
@@ -275,7 +272,6 @@ public class MyPageController {
 		
 		mv.addObject("addr1", addr1);
 		mv.addObject("addr2", addr2);
-		
 		mv.setViewName("/mypage/myInfoForm");
 		return mv;
 	}
@@ -283,8 +279,9 @@ public class MyPageController {
 	@RequestMapping("/member/mypage/myInfoReplace")
 	public ModelAndView myInfoReplace(HttpSession session, UserDTO userDTO, HttpServletRequest request) throws Exception{
 		ModelAndView mv=new ModelAndView();
+		String id=((UserDTO)session.getAttribute("userDTO")).getId();
 		
-		/*
+		
 		String path = request.getSession().getServletContext().getRealPath("/data/user/");
 
 		File dir = new File(path);
@@ -310,11 +307,14 @@ public class MyPageController {
 				throw new Exception("파일 저장에 실패했습니다.");
 			}
 		}
-		*/
+		
+		
+		userDTO.setId(id);
 		authService.updateUser(userDTO);
-		
-		
-		mv.setViewName("/mypage/myInfoForm");
+		userDTO=authService.selectUser(id);
+		session.setAttribute("userDTO", userDTO);
+
+		mv.setViewName("/mypage/myInfo");
 		return mv;
 	}
 }

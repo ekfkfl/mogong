@@ -58,9 +58,7 @@ public class BoardDAOImpl implements BoardDAO{
 
 	@Override
 	public int selectMemberCode(MemberDTO memberDTO) {
-		System.out.println(memberDTO.getMemberId()+"******"+memberDTO.getStudyCode());
 		int re = sqlSession.selectOne("boardMapper.selectMemberCode", memberDTO);
-		System.out.println(re);
 		return re;
 	}
 }

@@ -15,10 +15,12 @@
 	<security:intercept-url pattern="/member/**" access="isAuthenticated()"/>
 	<security:intercept-url pattern="/study/**" access="isAuthenticated()"/>
 	<security:intercept-url pattern="/main/study/**" access="isAuthenticated()"/>
+	<security:intercept-url pattern="/main/mypage/**" access="isAuthenticated()"/>
 	
 	 <security:headers>
 		<security:frame-options disabled="true"/>
 	</security:headers>
+	
 	
 
 	  <security:csrf disabled="true"/>
@@ -37,8 +39,10 @@
 		invalidate-session="true"
 		delete-cookies="JSESSIONID"
 		logout-url="/member/logout"
-		logout-success-url="/"
+		success-handler-ref="logoutSuccessHandler"
 	/>
+	
+
 </security:http>
 
 <security:authentication-manager>

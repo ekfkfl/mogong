@@ -247,7 +247,7 @@ public class MainController {
 			studyDTO.setId(dto.getId());
 
 		String[] str = datePicker.split("~");
-
+		
 		if (dto != null) {
 			model.addAttribute("messageCount", service.messageCount(dto.getId()));
 		}
@@ -267,8 +267,12 @@ public class MainController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
+		System.out.println(studyDTO.getName());
+		System.out.println(dto.getId());
 		service.insertStudy(studyDTO);
+		int code = service.selectStudyCode(studyDTO.getName());
+		System.out.println(code);
+		service.studyJoinKing(new MemberDTO(code, dto.getId()));
 
 		return "redirect: " + request.getContextPath();
 	}
