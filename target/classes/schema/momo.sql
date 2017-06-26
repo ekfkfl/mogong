@@ -85,12 +85,12 @@ select study.STUDY_CODE, study.ID, CATEGORY_CODE, CITY_CODE, NAME, WRITE_DATE,
 START_DATE, END_DATE, DAY, START_TIME, END_TIME, PEOPLE, AREA, DESCRIPTION, STUDY_STATUS,
 JOIN_STATUS, member.id from study, member 
 where study.STUDY_CODE = member.STUDY_CODE
-and study.STUDY_STATUS='0044' and member.id='crw12' or study.id='crw12' --진행중 쿼리
+and study.STUDY_STATUS='0044' and (study.id='gwang12' or member.id='gwang12') --진행중 쿼리
 
 select STUDY_CODE, ID, CATEGORY_CODE, CITY_CODE, NAME, WRITE_DATE,
 START_DATE, END_DATE, DAY, START_TIME, END_TIME, PEOPLE, AREA, DESCRIPTION, STUDY_STATUS
 from study 
-where STUDY_STATUS='0043' and id='jun12' --모집중 쿼리
+where STUDY_STATUS='0043' and id='ekfkfkl' --모집중 쿼리
 
 select
 study.STUDY_CODE, study.ID, CATEGORY_CODE, CITY_CODE, NAME, WRITE_DATE,
