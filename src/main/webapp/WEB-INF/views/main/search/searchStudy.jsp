@@ -24,7 +24,8 @@
 <!-- bootstrap slider -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/plugins/bootstrap-slider/slider.css">
 
-
+ 
+ 
 <style>
 #searchContent{
 	width:75%;
