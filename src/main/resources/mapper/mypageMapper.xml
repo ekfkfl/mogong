@@ -89,7 +89,7 @@ select
 <include refid="studyColum"/>
 from study, member 
 where study.STUDY_CODE = member.STUDY_CODE
-and study.STUDY_STATUS='0044' and member.id=#{_parameter} or study.id=#{_parameter}
+and study.STUDY_STATUS='0044' and (study.id=#{_parameter} or member.id=#{_parameter})
 </select>
 
 <select id="recruitStudyList" parameterType="string" resultMap="studyDTOMap">
