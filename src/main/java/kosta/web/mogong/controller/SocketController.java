@@ -82,7 +82,6 @@ public class SocketController {
 	@RequestMapping("/member/study/fileSave")
 	@ResponseBody
 	public void fileSave(String sessionId, String message, String date, String photo, String studyCode){
-		System.out.println(studyCode);
 		File file = new File("C:\\edu\\studyCode_"+studyCode+".txt");
 		FileWriter fw = null;
 		try {

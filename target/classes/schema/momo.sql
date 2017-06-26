@@ -50,6 +50,8 @@ select* from COMM_CODE;
 
 select * from study;
 
+select id from user_tb where id='1234'
+
 select NAME, DESCRIPTION
 		from study
 		where STUDY_CODE = 68 and id= 'gwang12'

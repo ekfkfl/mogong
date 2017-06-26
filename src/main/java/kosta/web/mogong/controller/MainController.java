@@ -73,6 +73,18 @@ public class MainController {
 
 		return "/mypage/mypageMain";
 	}
+	
+	@RequestMapping("/main/mypageMail")
+	public String myPageMail(HttpSession session, Model model){
+		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
+
+		if (userDTO != null) {
+			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
+			model.addAttribute("isMessage", "isMessage");
+		}
+		
+		return "/mypage/mypageMain";
+	}
 
 	@RequestMapping("/loginForm")
 	public String loginForm() {
@@ -346,7 +358,9 @@ public class MainController {
 		
 		MemberDTO memberDTO = service.memberCode(userDTO.getId(), Integer.parseInt(studyCode));
 		
-		System.out.println("제발 찍혀죠 : "+memberDTO.getGrade());
+		if(memberDTO!=null){
+			model.addAttribute("memberGrade", memberDTO.getGrade());
+		}
 		
 		if (userDTO != null) {
 			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));

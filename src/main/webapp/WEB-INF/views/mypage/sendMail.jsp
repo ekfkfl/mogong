@@ -41,7 +41,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		
 		$("#div_content").on("click","#delete",function(){
 			var val = checkedValuesGet()
-			alert(val)
 			 $.ajax({
 				  url: "${pageContext.request.contextPath}/member/mypage/sendDelete" , //서버 요청 이름(주소)
 				  type: "post" ,//method방식(get, post)

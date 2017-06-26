@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -140,7 +141,7 @@ desired effect
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
             <!-- Menu toggle button -->
-            <a>
+            <a href="${pageContext.request.contextPath}/main/mypageMail">
               <i class="fa fa-envelope-o"></i>
               <span class="label label-success">${messageCount}</span>
             </a>
@@ -189,7 +190,11 @@ desired effect
         <li id="sideTask"><a id="task" href="#"><i class="fa fa-calendar"></i> <span>Task 관리</span></a></li>
         <li id="sideChatting"><a href="#" id="chatting"><i class="fa fa-wechat"></i> <span>채팅</span></a></li>
         <li id="sideBoard"><a href="#" id="board"><i class="fa fa-list"></i> <span>게시판</span></a></li>
-        <li id="sideMemberAdmin"><a href="#" id="memberAdmin"><i class="fa fa-cog"></i> <span>맴버 관리</span></a></li>
+        <c:choose>
+        	<c:when test="${requestScope.memberGrade eq '0146'}">
+        		<li id="sideMemberAdmin"><a href="#" id="memberAdmin"><i class="fa fa-cog"></i> <span>맴버 관리</span></a></li>
+        	</c:when>
+        </c:choose>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

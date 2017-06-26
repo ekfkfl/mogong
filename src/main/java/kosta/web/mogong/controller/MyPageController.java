@@ -1,6 +1,7 @@
 package kosta.web.mogong.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -126,6 +127,7 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/member/mypage/composeMail")
+	@ResponseBody
 	public String composeMail(SendMessageDTO sendMessage, HttpSession session, HttpServletRequest request){
 		
 		UserDTO userDTO = (UserDTO)session.getAttribute("userDTO");
@@ -133,13 +135,15 @@ public class MyPageController {
 		request.setAttribute("id", userDTO.getId());
 		
 		int result = myPageServiceImpl.sendMessageInsert(sendMessage);
-		System.out.println("결과 : "+result);
 		if(result==1){
 			int result2 = myPageServiceImpl.recvMessageInsert(sendMessage);
-			System.out.println("받은메세지 : "+ result2);
+			return "없다";
+		}else if(result==0){
+			request.setAttribute("fail", "idMiss");
+			return null;
 		}
 		
-		return "/mypage/composeMail";
+		return null;
 	}
 	
 	@RequestMapping("/member/mypage/readMail")
@@ -150,7 +154,6 @@ public class MyPageController {
 		
 		if(recvDTO.getConfirm().equals("0051")){
 			int result = myPageServiceImpl.readMessageUpdate(recvMessageCode);
-			System.out.println("읽은메세지 : "+result);
 		}
 		mv.addObject("recvDTO", recvDTO);
 		mv.setViewName("/mypage/readMail");
@@ -178,7 +181,6 @@ public class MyPageController {
 		for(int i=0;i<messageCode.length; i++){
 			result = myPageServiceImpl.deleteMessage(Integer.parseInt(messageCode[i]));
 		}
-		System.out.println("삭제 결과 : "+ result);
 	}
 	
 	@RequestMapping("/member/mypage/sendDelete")
@@ -188,7 +190,6 @@ public class MyPageController {
 		for(int i=0;i<messageCode.length; i++){
 			result = myPageServiceImpl.deleteSendMessage(Integer.parseInt(messageCode[i]));
 		}
-		System.out.println("삭제 결과 : "+ result);
 	}
 	
 	@RequestMapping("/member/mypage/searchSendMail")

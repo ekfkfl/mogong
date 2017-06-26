@@ -79,7 +79,7 @@
 						<li style="margin:18px 5px 0px 0px;"><div><sec:authentication property="principal.name" /> 님 환영합니다.</div>
 						</li>
 						<li class="dropdown messages-menu">
-							<!-- Menu toggle button --> <a> <i
+							<!-- Menu toggle button --> <a href="${pageContext.request.contextPath}/main/mypageMail"> <i
 								class="fa fa-envelope-o"></i> <span class="label label-success">${messageCount}</span>
 						</a>
 						</li>

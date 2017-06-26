@@ -110,7 +110,7 @@ desired effect
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
             <!-- Menu toggle button -->
-            <a>
+            <a href="${pageContext.request.contextPath}/main/mypageMail">
               <i class="fa fa-envelope-o"></i>
               <span class="label label-success">${messageCount}</span>
             </a>
