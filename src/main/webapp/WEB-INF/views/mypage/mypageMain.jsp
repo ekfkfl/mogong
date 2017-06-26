@@ -152,9 +152,9 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MyPage</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>개인정보수정</span></a></li>
+        <li><a href="#"><i class="fa fa-male"></i> <span>개인정보수정</span></a></li>
         <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>스터디 관리</span>
+          <a href="#"><i class="fa fa-book"></i> <span>스터디 관리</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -165,7 +165,7 @@ desired effect
             <li><a href="${pageContext.request.contextPath}/member/mypage/recruitStudy" target="mainContent">모집중</a></li>
           </ul>
            <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>쪽지함</span>
+          <a href="#"><i class="fa fa-envelope-o"></i> <span>쪽지함</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
@@ -175,7 +175,7 @@ desired effect
             <li><a href="${pageContext.request.contextPath}/member/mypage/recvMail" target="mainContent">받은쪽지함</a></li>
             <li><a href="${pageContext.request.contextPath}/member/mypage/sendMail" target="mainContent">보낸쪽지함</a></li>
           </ul>
-          <li><a href="#"><i class="fa fa-link"></i> <span>관리자모드</span></a></li>
+          <li><a href="#"><i class="fa fa-cog"></i> <span>관리자모드</span></a></li>
         </li>
       </ul>
       <!-- /.sidebar-menu -->
@@ -186,7 +186,7 @@ desired effect
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     
-        <iframe name="mainContent" width="100%" height="700" frameborder="0" ></iframe>
+        <iframe name="mainContent" width="100%" height="700" frameborder="0" src="${pageContext.request.contextPath}/member/mypage/ongoingStudy"></iframe>
 
     <!-- /.content -->
   </div>

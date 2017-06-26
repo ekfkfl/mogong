@@ -184,12 +184,12 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Study Menu</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active" id="sideMain"><a id="main" href="#"><i class="fa fa-link"></i> <span>스터디 메인</span></a></li>
-        <li id="sideSchedule"><a id="schedule" href="#"><i class="fa fa-link"></i> <span>스터디 일정</span></a></li>
-        <li id="sideTask"><a id="task" href="#"><i class="fa fa-link"></i> <span>Task 관리</span></a></li>
-        <li id="sideChatting"><a href="#" id="chatting"><i class="fa fa-link"></i> <span>채팅</span></a></li>
-        <li id="sideBoard"><a href="#" id="board"><i class="fa fa-link"></i> <span>게시판</span></a></li>
-        <li id="sideMemberAdmin"><a href="#" id="memberAdmin"><i class="fa fa-link"></i> <span>맴버 관리</span></a></li>
+        <li class="active" id="sideMain"><a id="main" href="#"><i class="fa fa-pencil-square-o"></i> <span>스터디 메인</span></a></li>
+        <li id="sideSchedule"><a id="schedule" href="#"><i class="fa fa-calendar"></i> <span>스터디 일정</span></a></li>
+        <li id="sideTask"><a id="task" href="#"><i class="fa fa-calendar"></i> <span>Task 관리</span></a></li>
+        <li id="sideChatting"><a href="#" id="chatting"><i class="fa fa-wechat"></i> <span>채팅</span></a></li>
+        <li id="sideBoard"><a href="#" id="board"><i class="fa fa-list"></i> <span>게시판</span></a></li>
+        <li id="sideMemberAdmin"><a href="#" id="memberAdmin"><i class="fa fa-cog"></i> <span>맴버 관리</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
