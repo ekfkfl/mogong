@@ -15,6 +15,7 @@ import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.RecvMessageDTO;
 import kosta.web.mogong.dto.SendMessageDTO;
 import kosta.web.mogong.dto.StudyDTO;
+import kosta.web.mogong.dto.UserDTO;
 
 @Repository
 public class MyPageDAOImpl implements MyPageDAO {
@@ -44,6 +45,12 @@ public class MyPageDAOImpl implements MyPageDAO {
 
 	@Override
 	public int sendMessageInsert(SendMessageDTO sendMessage) {
+		
+		UserDTO userDTO = sqlSession.selectOne("mypageMapper.idCheck", sendMessage.getRecvId());
+		
+		if(userDTO==null){
+			return 0;
+		}
 		return sqlSession.insert("mypageMapper.sendMessageInsert", sendMessage);
 	}
 

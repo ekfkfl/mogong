@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kosta.web.mogong.dto.CommCodeDTO;
+import kosta.web.mogong.dto.PageDTO;
 import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.service.AdminCodeService;
 import kosta.web.mogong.service.MainService;
@@ -45,9 +46,13 @@ public class AdminCodeController {
 	
 	@RequestMapping("/admin/commCodeList")
 	@ResponseBody
-	public List<CommCodeDTO> commCodeList(){
-		
-		System.out.println(adminCodeService.selectCodeAll());
+	public PageDTO commCodeList(CommCodeDTO commCodeDTO, int page){
+		return adminCodeService.selectCode(commCodeDTO, page);
+	}
+	
+	@RequestMapping("/admin/commCodeListAll")
+	@ResponseBody
+	public List<CommCodeDTO> commCodeListAll(){
 		return adminCodeService.selectCodeAll();
 	}
 	

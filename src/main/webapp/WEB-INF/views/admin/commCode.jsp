@@ -133,10 +133,11 @@ $(function() {
 	});
 })
 
-//전체 공통코드 불러오기
+//전체 공통코드 불러오기 (다이얼로그)
 function printCodeAll(parentCode){
+
 	$.ajax({
-		url : "${pageContext.request.contextPath}/admin/commCodeList",
+		url : "${pageContext.request.contextPath}/admin/commCodeListAll",
 		type : "post",
 		dataType : "json",
 		data : "${_csrf.parameterName}=${_csrf.token}",
@@ -164,18 +165,19 @@ function printCodeAll(parentCode){
 }
 
 //공통코드 출력
-function printCommCodeList() {
-	printCodeAll();
+function printCommCodeList(page) {
+	if(page=="" || page==undefined) page=1;
+	printCodeAll(parentCode, page);
 	$.ajax({
 		url : "${pageContext.request.contextPath}/admin/commCodeList",
 		type : "post",
 		dataType : "json",
-		data : "${_csrf.parameterName}=${_csrf.token}",
+		data : "${_csrf.parameterName}=${_csrf.token}"+"&page="+page,
 		success : function(result) {
 			var row = "";
-			$.each(result, function(index, item) {
+			$.each(result.resultMap.commCodeList, function(index, item) {
 				var cols = "<tr>";
-				cols += "<td>" + (index+1) + "</td>";
+				cols += "<td>" + (result.startIndex+index) + "</td>";
 				cols += "<td>" + item.commCode + "</td>";
 				cols += "<td>" + item.codeName + "</td>";
 				cols += "<td>" + item.codeDesc + "</td>";
@@ -199,6 +201,18 @@ function printCommCodeList() {
 				
 			});
 			
+			var liTag="<tr><td colspan='10'  style='text-align:center;' id='pagination'><ul class='pagination'>";
+
+				if(result.prevBlockPageNum>0) liTag+="<li><a href='#'>Prev</a></li>";
+				for(i=0; i<result.pageNumList.length; i++){
+					liTag+="<li"; 
+					if(result.pageNumList[i]==result.nowPage) liTag+=" class='active'";
+					liTag+="><a href='#'>"+result.pageNumList[i]+"</a></li>";
+				} 
+				if(result.nextBlockPageNum>0) liTag+= "<li><a href='#'>Next</a></li>";
+
+			liTag+="</ul></td></tr>";
+			row+=liTag;
 			$("#commCodeTable tr:gt(0)").remove();
 			$("#commCodeTable").append(row);
 		},
@@ -207,6 +221,22 @@ function printCommCodeList() {
 		}
 	});
 }
+
+
+//페이지 이동
+	$("#commCodeTable").on("click", "#pagination a", function(){
+		var page=$(this).text();
+		
+		if(page=="Prev"){
+			page=$("#pagination ul li:eq(1)").text()-1;
+		}
+		if(page=="Next"){
+			page=parseInt($("#pagination ul li").last().prev().text())+1;
+		}
+		
+		printCommCodeList(page);
+	})
+
 
 //공통코드 삭제 시작
 $("#commCodeTable").on("click", "#deleteCodeBtn", function(){

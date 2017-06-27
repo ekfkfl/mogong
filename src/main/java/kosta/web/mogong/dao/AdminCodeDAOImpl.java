@@ -1,12 +1,14 @@
 package kosta.web.mogong.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kosta.web.mogong.dto.CommCodeDTO;
+import kosta.web.mogong.dto.PageDTO;
 
 @Repository
 public class AdminCodeDAOImpl implements AdminCodeDAO {
@@ -50,6 +52,18 @@ public class AdminCodeDAOImpl implements AdminCodeDAO {
 	@Override
 	public int deleteCode(String commCode) {
 		return sqlSession.delete("adminCodeMapper.deleteCode", commCode);
+	}
+
+	@Override
+	public PageDTO selectCode(PageDTO pageDTO) {
+		Map<String,Object>map=pageDTO.getResultMap();
+		map.put("startIndex", pageDTO.getStartIndex()+1);
+		map.put("endIndex", pageDTO.getEndIndex()+1);
+		
+		pageDTO.setTotalCnt(sqlSession.selectOne("adminCodeMapper.selectCodeCnt"));
+		List<CommCodeDTO> commCodeList=sqlSession.selectList("adminCodeMapper.selectCode", pageDTO);
+		pageDTO.getResultMap().put("commCodeList", commCodeList);
+		return pageDTO;
 	}
 
 }

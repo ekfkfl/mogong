@@ -73,6 +73,18 @@ public class MainController {
 
 		return "/mypage/mypageMain";
 	}
+	
+	@RequestMapping("/main/mypageMail")
+	public String myPageMail(HttpSession session, Model model){
+		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
+
+		if (userDTO != null) {
+			model.addAttribute("messageCount", service.messageCount(userDTO.getId()));
+			model.addAttribute("isMessage", "isMessage");
+		}
+		
+		return "/mypage/mypageMain";
+	}
 
 	@RequestMapping("/loginForm")
 	public String loginForm() {
