@@ -33,12 +33,10 @@
 	
 	<select id="memberSelectAll" parameterType="map" resultMap="userDTOMap">
 		select <include refid="memberAdminColum"/>, CODE_NAME
-		from User_TB, member, study, comm_code
-		where study.STUDY_CODE = member.STUDY_CODE
+		from member, user_tb, comm_code 
+		where member.id = user_tb.id 
 		and member.grade= comm_code.COMM_CODE
-		and study.id = user_tb.id 
-		and study.id = #{id}
-		and member.JOIN_STATUS='0004' and grade='0147' and study.STUDY_CODE = #{studyCode}
+		and member.STUDY_CODE = #{studyCode} and member.JOIN_STATUS='0004' and grade='0147'
 	</select>
 	
 	<update id="updateGrade" parameterType="map">

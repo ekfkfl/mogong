@@ -248,7 +248,22 @@ from SEND_MESSAGE
 where id='crw12' 
 order by SEND_MESSAGE_CODE desc
 
+select member.id, user_tb.name, birth, gender, phone, grade, CODE_NAME
+from User_TB, member, study, comm_code
+where study.STUDY_CODE = member.STUDY_CODE
+and member.grade= comm_code.COMM_CODE
+and study.id = user_tb.id 
+and study.id = 'ekfkfkl'
+and member.JOIN_STATUS='0004' and grade='0147' and study.STUDY_CODE = 91
 
+select member.id, user_tb.name, birth, gender, phone, grade, CODE_NAME
+from member, user_tb, comm_code where member.id = user_tb.id 
+and member.grade= comm_code.COMM_CODE
+and member.STUDY_CODE = 91 and member.JOIN_STATUS='0004' and grade='0147' --멤버 초대 List
+
+select NAME, DESCRIPTION
+		from study where id ='gwang12'
+		where STUDY_CODE = #{studyCode} and id=#{id}
 
 insert into send_message values(SEND_MESSAGE_SEQ.nextval, 'crw12', '야야야', '헤헤', 'gwang12', sysdate, null, null)
  
