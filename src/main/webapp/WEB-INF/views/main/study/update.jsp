@@ -47,9 +47,7 @@
 									<div class="input-group-addon">
 										<i class="fa fa-clock-o"></i>
 									</div>
-									<input type="text" name="datePicker"
-										class="form-control pull-right" id=dateChooser
-										readonly="readonly">
+									<input type="text" name="datePicker" class="form-control pull-right" id="dateChooser" readonly="readonly">
 								</div>
 							</div>
 						</div>
@@ -469,8 +467,8 @@ $('#dateChooser').daterangepicker({
         ],
         "firstDay": 1
     },
-    "startDate": "${studyDTO.startDate}",
-    "endDate": "${studyDTO.endDate}"
+    "startDate": moment("${studyDTO.startDate}", moment.ISO_8601),
+    "endDate": moment("${studyDTO.endDate}", moment.ISO_8601)
 }, function(start, end, label) {
 });
 
@@ -478,7 +476,6 @@ $('#dateChooser').daterangepicker({
 $(".timepicker").timepicker({
   showInputs: false
 });
-
 </script>
 
 
