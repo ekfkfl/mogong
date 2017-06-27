@@ -113,7 +113,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                  "<span class='direct-chat-name pull-left'>"+dataContent[0]+"</span>"+
                  "<span class='direct-chat-timestamp pull-right'>"+dataContent[2]+"</span>"+
                 "</div>"+
-                "<img class='direct-chat-img' src='${pageContext.request.contextPath}"+dataContent[3]+"' alt='message user image'>"+
+                "<img class='direct-chat-img' src='"+dataContent[3]+"' alt='message user image'>"+
                 "<div class='direct-chat-text'>"+
                  dataContent[1]+
                 "</div>"+
