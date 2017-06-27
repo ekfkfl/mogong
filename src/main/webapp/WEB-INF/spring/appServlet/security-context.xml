@@ -39,7 +39,7 @@
 		invalidate-session="true"
 		delete-cookies="JSESSIONID"
 		logout-url="/member/logout"
-		success-handler-ref="logoutSuccessHandler"
+		logout-success-url="/"
 	/>
 	
 
