@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kosta.web.mogong.dao.AdminCodeDAO;
 import kosta.web.mogong.dto.CommCodeDTO;
+import kosta.web.mogong.dto.PageDTO;
 
 @Service
 public class AdminCodeServiceImpl implements AdminCodeService {
@@ -78,14 +79,20 @@ public class AdminCodeServiceImpl implements AdminCodeService {
 			commCodeDTO.setCodeUsed("Y");
 		}
 		
-		
-
 		return adminCodeDAO.updateCode(commCodeDTO);
 	}
 
 	@Override
 	public int deleteCode(String commCode) {
 		return adminCodeDAO.deleteCode(commCode);
+	}
+
+	@Override
+	public PageDTO selectCode(CommCodeDTO commCodeDTO, int page) {
+		PageDTO pageDTO=new PageDTO(10, 5, page);
+		pageDTO.getResultMap().put("commCodeDTO", commCodeDTO);
+		
+		return adminCodeDAO.selectCode(pageDTO);
 	}
 
 }

@@ -3,6 +3,7 @@ package kosta.web.mogong.dao;
 import java.util.List;
 
 import kosta.web.mogong.dto.CommCodeDTO;
+import kosta.web.mogong.dto.PageDTO;
 
 public interface AdminCodeDAO {
 	/**
@@ -10,6 +11,12 @@ public interface AdminCodeDAO {
 	 * @return
 	 */
 	List<CommCodeDTO> selectCodeAll();
+	
+	/**
+	 * 코드 출력 페이징
+	 */
+	PageDTO selectCode(PageDTO pageDTO);
+	
 	
 	/**
 	 * 코드의 이름으로 검색

@@ -24,7 +24,8 @@
 <!-- bootstrap slider -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/plugins/bootstrap-slider/slider.css">
 
-
+ 
+ 
 <style>
 #searchContent{
 	width:75%;
@@ -322,7 +323,7 @@ function search(page){
 			categoryParam+="&category="+categoryNode[i].value;
 		}
 	}
-	console.log(categoryParam);
+
 	
 	
 	//지역 파라미터 생성
@@ -337,7 +338,7 @@ function search(page){
 			areaParam+="&cityCode="+areaNode[i].value;
 		}
 	}
-	console.log(areaParam);
+
 	
 	//요일 파라미터 생성
 	var dayNode=$("#optGrpDay .optionGroupBody").children();
@@ -351,7 +352,7 @@ function search(page){
 			dayParam+="&day="+dayNode[i].value;
 		}
 	}
-	console.log(dayParam);
+
 	
 	
 	//시간대 파라미터 생성
@@ -361,7 +362,7 @@ function search(page){
 		timeParam="&startTime=&endTime=";
 	}
 	else  timeParam="&startTime="+timeValue[0]+"&endTime="+timeValue[1];
-	console.log(timeParam);
+
 
 	//기간 파라미터 생성
 	var dt = new Date();
@@ -382,11 +383,11 @@ function search(page){
 		periodParam="&startDate="+startDate+"&endDate="+endDate;
 	}
 	
-	console.log("periodParam : " + periodParam);
+
 	
 	
 	var params="name="+name+"&page="+page+categoryParam+areaParam+dayParam+timeParam+periodParam;
-	console.log(params);
+
 
 	//데이터 검색후 출력
 	getStudyList(params);
@@ -495,11 +496,15 @@ $(function(){
 	
 	//카테고리 체크박스
 	$("#optGrpCategory .optionGroupBody").on("change", "input:checkbox", function(){
-		if($(this).val()!="전체"){
+		if($(this).val()!="전체"){//선택된 체크박스가 전체가 아닌경우
+			
+			//전체 체크박스 해제
 			$("#optGrpCategory .optionGroupBody input:eq(0)").attr("checked", false);
 			
-			//var optionValue=$("#categoryOption ul span").text();
-			var optionValue=$("#optGrpCategory :selected").text();
+			//카테고리 select박스에 선택된 option값을 가져옴
+			var selectedValue=$("#optGrpCategory :selected").text();
+			var optionValue=selectedValue;
+			//현재 선택된 상태를 나타내는 옵션상태를 비운다.
 			$("#categoryOption ul").empty();
 			
 			optionValue+="("
@@ -512,14 +517,28 @@ $(function(){
 					optionValue+=", "
 				}
 			}
-			 optionValue=optionValue.substr(0, optionValue.length-2);
-			 optionValue+=")";
+			
+			console.log(optionValue.length);
+			
+			//아무런 값도 체크되어 있지 않다면 전체선택 후 선택상태 표시
+			if(optionValue.length==selectedValue.length+1){
+				optionValue="전체";
+				inputNode[0].checked=true;
+			}else{//하나라도 체크되어 있다면 선택된 목록 선택상태 표시
+				optionValue=optionValue.substr(0, optionValue.length-2);
+				optionValue+=")";
+			}
+			
 			 
 			var tag="<li><span class='optionValue'>"+ optionValue + "</span></li>";
 			$("#categoryOption ul").append(tag);
 			
-		}else{
+		}else{//전체 체크박스가 선택된 경우
+			//전체 체크박스를 제외한 모든 체크박스 해제
 			$("#optGrpCategory .optionGroupBody input:gt(0)").attr("checked", false);
+		
+			var inputNode=$("#optGrpCategory .optionGroupBody").children();
+			inputNode[0].checked=true;
 			var optionValue=$("#optGrpCategory :selected").text();
 			$("#categoryOption ul").empty();
 			var tag="<li><span class='optionValue'>"+ optionValue + "</span></li>";
@@ -566,8 +585,8 @@ $(function(){
 		if($(this).val()!="전체"){
 			$("#optGrpArea .optionGroupBody input:eq(0)").attr("checked", false);
 			
-			//var optionValue=$("#categoryOption ul span").text();
-			var optionValue=$("#optGrpArea :selected").text();
+			var selectedValue=$("#optGrpArea :selected").text();
+			var optionValue=selectedValue;
 			$("#areaOption ul").empty();
 			
 			optionValue+="("
@@ -580,16 +599,30 @@ $(function(){
 					optionValue+=", "
 				}
 			}
-			 optionValue=optionValue.substr(0, optionValue.length-2);
-			 optionValue+=")";
-			 
+			
+			console.log(optionValue.length);
+			//아무런 값도 체크되어 있지 않다면 전체선택 후 선택상태 표시
+	 		if(optionValue.length==selectedValue.length+1){
+				optionValue="전체";
+				inputNode[0].checked=true;
+			}else{//하나라도 체크되어 있다면 선택된 목록 선택상태 표시
+				optionValue=optionValue.substr(0, optionValue.length-2);
+				optionValue+=")";
+			}
+			
+			
 			var tag="<li><span class='optionValue'>"+ optionValue + "</span></li>";
 			$("#areaOption ul").append(tag);
 			
 		}else{
 			$("#optGrpArea .optionGroupBody input:gt(0)").attr("checked", false);
+			
+			var inputNode=$("#optGrpArea .optionGroupBody").children();
+			inputNode[0].checked=true;
+			
 			var optionValue=$("#optGrpArea :selected").text();
 			$("#areaOption ul").empty();
+			
 			var tag="<li><span class='optionValue'>"+ optionValue + "</span></li>";
 			$("#areaOption ul").append(tag);
 		}
@@ -615,14 +648,23 @@ $(function(){
 					optionValue+=", "
 				}
 			}
-			 optionValue=optionValue.substr(0, optionValue.length-2);
-			 optionValue+=")";
+			
+			if(optionValue.length==1){
+				optionValue="전체";
+				inputNode[0].checked=true;
+			}else{
+				 optionValue=optionValue.substr(0, optionValue.length-2);
+				 optionValue+=")";
+			}
+
 			 
 			var tag="<li><span class='optionValue'>"+ optionValue + "</span></li>";
 			$("#weekOption ul").append(tag);
 			
 		}else{
 			$("#optGrpDay .optionGroupBody input:gt(0)").attr("checked", false);
+			var inputNode=$("#optGrpDay .optionGroupBody").children();
+			inputNode[0].checked=true;
 			var optionValue="";
 			$("#weekOption ul").empty();
 			var tag="<li><span class='optionValue'>"+ this.value + "</span></li>";
@@ -750,7 +792,7 @@ $(function(){
 						<div class="optionGroupDepth">
 							<select name="cityCode">
 								<option value="전체">전체
-								<c:forEach items="${cityCodeMap}" var="map"><option value="${map.value.commCode}">${map.value.codeName}</c:forEach>
+								<c:forEach items="${cityCodeMap}" var="map"><option value="${map.value.commCode}">${map.value.codeName}</option></c:forEach>
 							</select>
 						</div>
 					</div>

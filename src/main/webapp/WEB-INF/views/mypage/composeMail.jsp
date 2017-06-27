@@ -29,7 +29,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
-<form action="${pageContext.request.contextPath}/member/mypage/composeMail" method="post">
+<form id="sendForm" method="post">
  <section class="content">
       <div class="row">
 		 	<div class="col-md-12">
@@ -55,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		            <!-- /.box-body -->
 		            <div class="box-footer">
 		              <div class="pull-right">
-		                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send</button>
+		                <button id="send" type="button" class="btn btn-primary"><i class="fa fa-envelope-o"></i> Send</button>
 		              </div>
 		            </div>
 		            <!-- /.box-footer -->
@@ -75,7 +75,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
  <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="${pageContext.request.contextPath}/resources/dist/js/adminlte.min.js"></script>
-
+<script type="text/javascript">
+	$(function(){
+		
+		$("#send").click(function() {
+			$.ajax({
+				type:"post",
+				url:"${pageContext.request.contextPath}/member/mypage/composeMail",
+				data:$("#sendForm").serialize(),
+				dataType:"text",
+				success: function(data) {
+					if(data != "") {
+						location.href="${pageContext.request.contextPath}/member/mypage/sendMail";
+					} else {
+						alert("아이디를 입력해주세요");
+					}
+				}
+			})
+		})
+	})
+</script>
 
 </body>
 </html>
