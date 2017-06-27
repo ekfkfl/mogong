@@ -444,7 +444,7 @@ function printStudy(study, period){
 		table+="<td rowspan='2' class='col-xs-1 studyId'>"+study[i].id+"</td>";
 		table+="<td rowspan='2' class='col-xs-1 studyRead'>" + study[i].read + "</td></tr>";
 		
-		table+="<tr><td class='studyAreaTime'>" + getCodeName(study[i].area) + " | " + study[i].day + " | " + study[i].startTime + "~" + study[i].endTime + "</td>";
+		table+="<tr><td class='studyAreaTime'>" + getCodeName(study[i].area) + " | " + study[i].day + " | " + study[i].startTime + " ~ " + study[i].endTime + "</td>";
 		table+="<td class='studyPeriod'>"+period[i]+"</td></tr>";
 	
 	}
