@@ -163,7 +163,7 @@ function checkAddr(){
 		if(addr2==""){
 			return "";
 		}else{
-			return addr1+addr2;
+			return addr1+"/"+addr2;
 		}
 	}
 	
