@@ -95,7 +95,7 @@ public class MyPageServiceImpl implements MyPageService {
 			}
 		}
 		int result = presentTime.compareTo(startTime);
-		if(result>0){
+		if(result>0 || result==0){
 			if(myPageDAOImpl.studyRequsetDateUpdate(studyCode)>0){
 				return myPageDAOImpl.recruitStudyList(id);
 			}

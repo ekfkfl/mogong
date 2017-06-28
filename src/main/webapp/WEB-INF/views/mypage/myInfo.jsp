@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@page import="kosta.web.mogong.util.CodeUtil" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
@@ -54,29 +54,29 @@
 <body>
     <section class="content-header">
       <h1>
-        °³ÀÎÁ¤º¸¼öÁ¤
+        ê°œì¸ì •ë³´ìˆ˜ì •
         <small>Optional description</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> °³ÀÎÁ¤º¸¼öÁ¤</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> ê°œì¸ì •ë³´ìˆ˜ì •</a></li>
       </ol>
       <br><br>
 </section>
 <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/login/signup?${_csrf.parameterName}=${_csrf.token}" name="userInfoForm" id="userInfoForm" onSubmit='return checkValid()'  enctype="multipart/form-data">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" >
-<!-- »ç¿ëÀÚ °èÁ¤ Á¤º¸  - user-->
+<!-- ì‚¬ìš©ì ê³„ì • ì •ë³´  - user-->
 <div class="container">
 		<div class="row">
 		<div class="col-xs-12">
 <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">°èÁ¤Á¤º¸</h3>
+              <h3 class="box-title">ê³„ì •ì •ë³´</h3>
             </div>
           
               <div class="box-body">
                 <div class="form-group">
                   <div class="col-sm-12">
-					¾ÆÀÌµğ : ${userDTO.id}                
+					ì•„ì´ë”” : ${sessionScope.userDTO.id}                
                   </div>
                  
                   
@@ -91,29 +91,29 @@
 
 
 
-<!-- »ç¿ëÀÚ ±âº» Á¤º¸ - userBasicInfo-->
+<!-- ì‚¬ìš©ì ê¸°ë³¸ ì •ë³´ - userBasicInfo-->
 <div class="container">
 		<div class="row">
 		<div class="col-xs-12">
 <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">°³ÀÎÁ¤º¸</h3>
+              <h3 class="box-title">ê°œì¸ì •ë³´</h3>
             </div>
               <div class="box-body">
                 <div class="form-group">
                   <div class="col-sm-12">
-                    ÀÌ¸§ : ${userDTO.name}
+                    ì´ë¦„ : ${sessionScope.userDTO.name}
                   </div>
                 </div>
                 <div class="form-group">
 					<div class="col-sm-12">
-					¼ºº° : ${CodeUtil.getCodeName(userDTO.gender)}
+					ì„±ë³„ : ${CodeUtil.getCodeName(sessionScope.userDTO.gender)}
                 	</div>
                 </div>
    
                 <div class="form-group">
                 <div class="col-sm-12">
-					»ı³â¿ùÀÏ : ${userDTO.birth}
+					ìƒë…„ì›”ì¼ : ${sessionScope.userDTO.birth}
                 </div>               
                 </div>
               </div>
@@ -122,28 +122,28 @@
 </div>	</div>
 </div>
 
-<!-- »ç¿ëÀÚ °³ÀÎ ½Å»óÁ¤º¸ - userPersonalInfo-->
+<!-- ì‚¬ìš©ì ê°œì¸ ì‹ ìƒì •ë³´ - userPersonalInfo-->
 <div class="container">
 		<div class="row">
 		<div class="col-xs-12">
 <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">¿¬¶ôÃ³</h3>
+              <h3 class="box-title">ì—°ë½ì²˜</h3>
             </div>
               <div class="box-body">
                 <div class="form-group">
                 	<div class="col-sm-12">
-					ÀÌ¸ŞÀÏ : ${userDTO.email}
+					ì´ë©”ì¼ : ${sessionScope.userDTO.email}
 					</div>
                 </div>
                 <div class="form-group">
 					<div class="col-sm-12">
-                    	ÀüÈ­¹øÈ£ : ${userDTO.phone}
+                    	ì „í™”ë²ˆí˜¸ : ${sessionScope.userDTO.phone}
                 	</div>
                 </div>
                 <div class="form-group">
 					<div class="col-sm-12">
-					Áö¿ª ¹× ÁÖ¼Ò : ${userDTO.addr}
+					ì§€ì—­ ë° ì£¼ì†Œ : ${sessionScope.userDTO.addr}
 					</div>
                 </div>
               </div>
@@ -153,20 +153,20 @@
 </div>	
 
 
-<!-- ÀÚ±â¼Ò°³ -  userIntro-->
+<!-- ìê¸°ì†Œê°œ -  userIntro-->
 <div class="container">
 		<div class="row">
 		<div class="col-xs-12">
 <div class="box box-warning col-xs-12">
             <div class="box-header with-border">
-              <h3 class="box-title">ÀÚ±â¼Ò°³</h3>
+              <h3 class="box-title">ìê¸°ì†Œê°œ</h3>
             </div>
             <div class="box-body">
                 <!-- textarea -->
                 
                 <div class="form-group">
 
-					<img src="${pageContext.request.contextPath}${userDTO.path}" class="col-xs-3" class="form-control" id="profileImage"/>
+					<img src="${pageContext.request.contextPath}${sessionScope.userDTO.path}" class="col-xs-3" class="form-control" id="profileImage"/>
 					<div>${userDTO.intro}</div>
                 </div>
             </div>
@@ -177,7 +177,7 @@
 		<div class="row">
 		<div class="col-xs-12" style="text-align:center">
             <div class="box-body">
-			<a href="${pageContext.request.contextPath}/member/mypage/myInfoForm">¼öÁ¤ÇÏ±â</a>
+			<a href="${pageContext.request.contextPath}/member/mypage/myInfoForm">ìˆ˜ì •í•˜ê¸°</a>
             </div>
 </div></div></div>
 
