@@ -273,7 +273,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 						<div class="form-group tab-content">
 							<div class="tab-pane active" id="tab1">
 								<label>제목</label> <input type="text" id="title" name="title"
-									class="form-control">
+									class="form-control" required>
 								<hr>
 								<label>설명</label> <input type="text" id="content" name="content"
 									class="form-control">
