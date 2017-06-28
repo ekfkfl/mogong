@@ -166,7 +166,6 @@ public class MainServiceImpl implements MainService {
 		return result;
 	}
 
-	@Override
 	public int studyJoinKing(MemberDTO memberDTO) {
 
 		return mainDAO.studyJoinKing(memberDTO);
@@ -175,5 +174,10 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public int selectStudyCode(String name) {
 		return mainDAO.selectStudyCode(name);
+	}
+
+	@Override
+	public MemberDTO memberCode(String id, int studyCode) {
+		return mainDAO.memberCode(id, studyCode);
 	}
 }
