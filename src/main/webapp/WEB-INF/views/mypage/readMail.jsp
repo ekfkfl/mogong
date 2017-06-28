@@ -58,9 +58,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		                <b>제 목</b><input class="form-control" value="${recvDTO.title}" readonly="readonly">
 		              </div>
 		              <div class="form-group">
-		                    <textarea id="compose-textarea" class="form-control" style="height: 300px" name="content" readonly="readonly">
-		                     	${recvDTO.content}
-		                    </textarea>
+		                    <textarea id="compose-textarea" class="form-control" style="height: 300px" name="content" readonly="readonly">${recvDTO.content}</textarea>
 		              </div>
 		            </div>
 		            <!-- /.box-body -->
