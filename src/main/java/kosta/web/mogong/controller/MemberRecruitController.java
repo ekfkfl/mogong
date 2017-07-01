@@ -18,6 +18,7 @@ import kosta.web.mogong.dto.BoardDTO;
 import kosta.web.mogong.dto.MemberDTO;
 import kosta.web.mogong.dto.UserDTO;
 import kosta.web.mogong.service.BoardService;
+import kosta.web.mogong.service.MainService;
 import kosta.web.mogong.service.RecruitBoardService;
 
 @Controller
@@ -25,6 +26,9 @@ public class MemberRecruitController {
 	
 	@Autowired
 	RecruitBoardService boardService;
+	
+	@Autowired
+	MainService service;
 	
 	@RequestMapping("main/study/RecruitBoard")
 	public String recruit(){
@@ -72,7 +76,7 @@ public class MemberRecruitController {
 	}
 	
 	@RequestMapping("main/study/board/selectAll")
-	public ModelAndView selectAll(BoardDTO boardDTO){
+	public ModelAndView selectAll(BoardDTO boardDTO, HttpSession session){
 		String field = boardDTO.getFiled(); 
 		if(field != null){
 			String[] str = field.split(",");
@@ -85,6 +89,14 @@ public class MemberRecruitController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("main/recruit");
 		mv.addObject("list", list);
+		
+		UserDTO userDTO = (UserDTO) session.getAttribute("userDTO");
+
+		if (userDTO != null) {
+			mv.addObject("messageCount", service.messageCount(userDTO.getId()));
+		}
+		
+		
 		return mv;
 	}
 	

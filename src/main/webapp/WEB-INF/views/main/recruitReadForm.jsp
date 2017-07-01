@@ -95,6 +95,7 @@
             </c:forEach>
             </div>
             </c:if>
+            <br><br>
             <!-- /.box-footer -->
             <div class="box-footer">
               <form action="${pageContext.request.contextPath}/main/study/board/selectById" method="post">
